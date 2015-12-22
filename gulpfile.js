@@ -7,10 +7,10 @@ var htmlMinifier = require('gulp-html-minifier');
 var uglify = require('gulp-uglify');
 
 gulp.task('browserify', function () {
-  return browserify('./source/js/landing-page.jsx')
+  return browserify('./source/js/app.jsx')
         .transform(reactify)
         .bundle()
-        .pipe(source('landing-page.js'))
+        .pipe(source('app.js'))
         .pipe(buffer())
         .pipe(uglify())
         .pipe(gulp.dest('./build/js/'));
