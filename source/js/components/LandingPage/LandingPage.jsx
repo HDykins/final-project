@@ -1,5 +1,5 @@
 var React = require('react');
-var NavBar = require('./NavBar.jsx');
+var NavBar = require('../NavBar.jsx');
 var StartButton = require('./StartButton.jsx');
 
 var LandingPage = React.createClass({
