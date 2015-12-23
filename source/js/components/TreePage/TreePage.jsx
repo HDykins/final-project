@@ -17,6 +17,7 @@ var TreePage = React.createClass({
     	<div className="container-fluid">
         	<NavBar />
         	<div className="container">
+        		<img src="../source/images/current-step-image-1.png" />
         		<Header1 />
         		<LargeTreeIcon />
 				<TreeIcons />

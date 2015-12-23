@@ -1,5 +1,5 @@
 0 info it worked if it ends with ok
-1 verbose cli [ 'node', '/usr/local/bin/npm', 'install', 'bootstrap-slider' ]
+1 verbose cli [ 'node', '/usr/local/bin/npm', 'install', 'jquery-ui' ]
 2 info using npm@1.4.28
 3 info using node@v0.10.40
 4 error Error: Invalid name: "Xmas tree website"
@@ -17,7 +17,7 @@
 5 error including the npm and node versions, at:
 5 error     <http://github.com/npm/npm/issues>
 6 error System Darwin 14.5.0
-7 error command "node" "/usr/local/bin/npm" "install" "bootstrap-slider"
+7 error command "node" "/usr/local/bin/npm" "install" "jquery-ui"
 8 error cwd /Users/HarryDykins/gits/final-project
 9 error node -v v0.10.40
 10 error npm -v 1.4.28
