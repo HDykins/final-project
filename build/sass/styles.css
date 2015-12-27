@@ -17,7 +17,8 @@
   margin-bottom: 2vh;
   padding-top: 2vh;
   padding-bottom: 2vh;
-  overflow: hidden; }
+  overflow: hidden;
+  background-color: white; }
 
 * {
   text-align: center; }
@@ -37,3 +38,16 @@ h1, h2, h3, h4 {
 
 .price {
   color: green; }
+
+.right {
+  float: right; }
+
+.registration-input {
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+  height: 10vh;
+  width: 20vw; }
+
+.transparent {
+  border-radius: 2vw;
+  background-color: rgba(110, 110, 110, 0.5); }
