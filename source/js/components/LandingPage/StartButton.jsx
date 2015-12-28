@@ -4,7 +4,7 @@ var StartButton = React.createClass({
   render: function () {
     return (
       <div>
-        <button>The start button</button>
+        <button type="button" className="btn start-button "><strong>Order now!</strong></button>
       </div>
     );
   }

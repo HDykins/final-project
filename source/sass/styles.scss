@@ -1,18 +1,17 @@
-/*@mixin vertical-align {
-  position: relative;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
-}*/
+$off-black: rgb(70,70,70);
 
 .row {
 	margin-top: 4vh;
 	margin-bottom: 4vh;
 }
-.rounded-box {
-	border: solid black 2px;
+
+.border {
+	border: solid $off-black 2px;
 	border-radius: 2vw;
+}
+
+.rounded-box {
+	@extend .border;
 	min-height: 10vh;
 	margin-top: 2vh;
 	margin-bottom: 2vh;
@@ -23,11 +22,29 @@
 }
 * {
 	text-align: center;
+	color: $off-black;
 }
 
-h1, h2, h3, h4 {
-	margin-top: 4vh;
-	margin-bottom: 4vh;
+.start-button {
+	width: 40vw;
+	height: 20vh;
+	font-size: 3vw;
+	border-radius: 5vw;
+	text-shadow:
+	-2px -2px 0 white,  
+    2px -2px 0 white,
+    -2px 2px 0 white,
+     2px 2px 0 white;
+}
+
+h1, h2 {
+	margin-left: 2vw;
+	margin-right: 2vw;
+}
+
+h3, h4, p, .btn {
+	margin-left: 1vw;
+	margin-right: 1vw;
 }
 
 .dropdown-menu {
@@ -56,8 +73,40 @@ h1, h2, h3, h4 {
 	width: 20vw;
 }
 
-
 .transparent {
 	border-radius: 2vw;
 	background-color: rgba(110,110,110,0.5);
+}
+
+.landing-page {
+  background: url(http://g01.a.alicdn.com/kf/HTB18qvRKpXXXXbVXpXXq6xXFXXXl/7X5FT-Vinyl-photography-font-b-background-b-font-font-b-Christmas-b-font-font-b-background.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.grey-background {
+	background-color: rgb(220,220,220);
+}
+
+.btn {
+	@extend .border;
+}
+
+.navbar-btn {
+	border-radius: 8px;
+	width: 25vw;
+	height: 50px;
+	color: white;
+		text-shadow:
+	-1px -1px 0 $off-black,  
+    1px -1px 0 $off-black,
+    -1px 1px 0 $off-black,
+     1px 1px 0 $off-black;
+     font-size: 20px;
+}
+
+.left{
+	float: left;
 }

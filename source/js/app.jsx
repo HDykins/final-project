@@ -9,4 +9,4 @@ var ThanksPage = require('./components/ThanksPage/ThanksPage.jsx');
 var SignInPage = require('./components/SignInPage/SignInPage.jsx');
 var OrdersPage = require('./components/OrdersPage/OrdersPage.jsx');
 
-ReactDOM.render(<OrdersPage />, document.querySelector('[data-react-application]'));
+ReactDOM.render(<LandingPage />, document.querySelector('[data-react-application]'));
