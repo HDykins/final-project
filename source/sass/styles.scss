@@ -162,3 +162,23 @@ h3, h4, p, .btn {
 .arrow-button {
 	width: 3vw;
 }
+
+.button-decorations-list{
+	width: 90%;
+	height: 10vh;
+	margin-bottom: 1vh;
+}
+
+.photo-far, .photo-tree {
+	@extend .border;
+	width: 45%;
+	height: 55vh;
+	margin-left: 2.5%;
+	margin-right: 2.5%;
+}
+
+.photo-close {
+	@extend .border;
+	width: 90%;
+	margin-top: 2.5%;
+}

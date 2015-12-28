@@ -6,7 +6,7 @@ var DecorationsList = React.createClass({
     <div className="col-xs-6"> 
       <div className="rounded-box">
           <div className="dropdown">
-            <button className="btn btn-default dropdown-toggle" type="button" id="dropdown-lights" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            <button className="btn button-decorations-list btn-default dropdown-toggle" type="button" id="dropdown-lights" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
               Lights
               <span className="caret"></span>
             </button>
@@ -16,7 +16,7 @@ var DecorationsList = React.createClass({
             </ul>
           </div>
           <div className="dropdown">
-            <button className="btn btn-default dropdown-toggle" type="button" id="dropdown-baubbles" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            <button className="btn button-decorations-list btn-default dropdown-toggle" type="button" id="dropdown-baubbles" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
               Baubbles
               <span className="caret"></span>
             </button>
@@ -28,7 +28,7 @@ var DecorationsList = React.createClass({
             </ul>
           </div>
           <div className="dropdown">
-            <button className="btn btn-default dropdown-toggle" type="button" id="dropdown-tinsel" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            <button className="btn button-decorations-list btn-default dropdown-toggle" type="button" id="dropdown-tinsel" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
               Tinsel
               <span className="caret"></span>
             </button>
@@ -39,7 +39,7 @@ var DecorationsList = React.createClass({
             </ul>
           </div>  
           <div className="dropdown">
-            <button className="btn btn-default dropdown-toggle" type="button" id="dropdown-stars-icicles" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            <button className="btn button-decorations-list btn-default dropdown-toggle" type="button" id="dropdown-stars-icicles" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
               Stars and Icicles
               <span className="caret"></span>
             </button>
@@ -50,7 +50,7 @@ var DecorationsList = React.createClass({
             </ul>
           </div>
           <div className="dropdown">
-            <button className="btn btn-default dropdown-toggle" type="button" id="dropdown-shiny" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            <button className="btn button-decorations-list btn-default dropdown-toggle" type="button" id="dropdown-shiny" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
               Shiny things
               <span className="caret"></span>
             </button>
@@ -59,7 +59,7 @@ var DecorationsList = React.createClass({
             </ul>
           </div> 
           <div className="dropdown">
-            <button className="btn btn-default dropdown-toggle" type="button" id="dropdown-ornaments" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            <button className="btn button-decorations-list btn-default dropdown-toggle" type="button" id="dropdown-ornaments" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
               Festive Ornaments
               <span className="caret"></span>
             </button>
@@ -70,7 +70,7 @@ var DecorationsList = React.createClass({
             </ul>
           </div>
           <div className="dropdown">
-            <button className="btn btn-default dropdown-toggle" type="button" id="dropdown-small-ornaments" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            <button className="btn button-decorations-list btn-default dropdown-toggle" type="button" id="dropdown-small-ornaments" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
               Small Ornaments
               <span className="caret"></span>
             </button>
@@ -79,7 +79,7 @@ var DecorationsList = React.createClass({
             </ul>
           </div>
           <div className="dropdown">
-            <button className="btn btn-default dropdown-toggle" type="button" id="dropdown-other-ornaments" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            <button className="btn button-decorations-list btn-default dropdown-toggle" type="button" id="dropdown-other-ornaments" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
               Other Ornaments
               <span className="caret"></span>
             </button>
@@ -88,7 +88,7 @@ var DecorationsList = React.createClass({
             </ul>
           </div> 
           <div className="dropdown">
-            <button className="btn btn-default dropdown-toggle" type="button" id="dropdown-angels" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            <button className="btn button-decorations-list btn-default dropdown-toggle" type="button" id="dropdown-angels" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
               Angels
               <span className="caret"></span>
             </button>

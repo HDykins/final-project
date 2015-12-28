@@ -5,9 +5,9 @@ var PreviewImage = React.createClass({
     return (
    	<div className="col-xs-6">
 		<div className="rounded-box">
-			<img src="http://www.guitarkevin.com/images/TinyPlayButton.bmp" />
-			<img src="http://www.guitarkevin.com/images/TinyPlayButton.bmp" />
-			<img src="http://www.guitarkevin.com/images/TinyPlayButton.bmp" />
+			<img className="photo-far" src="../source/images/tree-photos/silver-baubles-far.jpg" />
+			<img className="photo-tree" src="../source/images/tree-photos/silver-baubles-tree.jpg" />
+			<img className="photo-close" src="../source/images/tree-photos/silver-baubles-close.jpg" />
 		</div>
 	</div>
     );

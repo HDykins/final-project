@@ -5,7 +5,7 @@ var BackButton = React.createClass({
     return (
     <div className="col-xs-3">	
 		<div className="rounded-box">
-			Decorate Tree
+			<span><strong>Decorate Tree</strong></span><br />
 			<img className="arrow-button" src="../source/images/back.png" />
 		</div>
 	</div>

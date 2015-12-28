@@ -12,7 +12,7 @@ var DecorationsPage = React.createClass({
 
   render: function () {
     return (
-    	<div className="container-fluid">
+    	<div className="container-fluid grey-background">
         	<NavBar />
         	<div className="container">
         		<img src="../source/images/current-step-image-2.png" />
