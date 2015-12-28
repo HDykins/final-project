@@ -9,19 +9,19 @@ var OrderSummary = React.createClass({
 				<div className="col-xs-6">
 					<h3>Rundown of costs</h3>
 					<h4>Tree:<span className="price"> +£12</span></h4>
-					<ul>
+					<ul className="list-unstyled">
 						<li>Height: 4ft</li>
 						<li>Width: ~3ft</li>
 					</ul>				
 					<h4>Services:<span className="price"> +£21</span></h4>
-					<ul>
+					<ul className="list-unstyled">
 						<li>Delivery: <span className="price"> +£6</span></li>
 						<li>Fitted and decorated: <span className="price"> +£15</span></li>
 					</ul>
 				</div>
 				<div className="col-xs-6">
 					<h4>Decorations:<span className="price"> +£24</span></h4>
-					<ul>
+					<ul className="list-unstyled">
 						<li>Baubbles Gold - 6 pack: <span className="price"> +£5</span></li>
 						<li>Stars Gold - 8 pack: <span className="price"> +£4</span></li>
 						<li>Glitter Balls - 6 pack: <span className="price"> +£3</span></li>

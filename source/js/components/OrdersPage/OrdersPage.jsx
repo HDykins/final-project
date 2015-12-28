@@ -16,10 +16,8 @@ var OrdersPage = React.createClass({
               <Header1 />
 	        	</div>	
 	        	<div className="row">
-              <div className="rounded-box">
                 <OrderSummary />
                 <OrderOptionsButtons />
-              </div>
 	        	</div>
             <div className="transparent">
               <OrderCancellationConfirmation />
