@@ -5,8 +5,8 @@ var ContinueButton = React.createClass({
     return (
     <div className="col-xs-3 right">	
 		<div className="rounded-box">
-			Continue to decorations
-			<img src="http://www.guitarkevin.com/images/TinyPlayButton.bmp" />
+			<span><strong>Continue to decorations</strong></span><br />
+			<img className="arrow-button" src="../source/images/forward.png" />
 		</div>
 	</div>	
     );

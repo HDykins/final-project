@@ -1,8 +1,8 @@
 .row {
-  margin-top: 4vh;
-  margin-bottom: 4vh; }
+  margin-top: 2vh;
+  margin-bottom: 2vh; }
 
-.border, .rounded-box, .btn {
+.border, .rounded-box, .btn, .tree-icon-image, .tree-icon-image-large {
   border: solid #464646 2px;
   border-radius: 2vw; }
 
@@ -17,7 +17,11 @@
 
 * {
   text-align: center;
-  color: #464646; }
+  color: #464646;
+  vertical-align: middle; }
+
+ul {
+  list-style-position: inside; }
 
 .start-button {
   width: 40vw;
@@ -27,6 +31,8 @@
   text-shadow: -2px -2px 0 white,   2px -2px 0 white, -2px 2px 0 white, 2px 2px 0 white; }
 
 h1, h2 {
+  margin-top: 2vw;
+  margin-bottom: 2vw;
   margin-left: 2vw;
   margin-right: 2vw; }
 
@@ -42,6 +48,10 @@ h3, h4, p, .btn {
   width: 50%;
   margin-left: 25%;
   margin-right: 25%; }
+
+.white-text, .navbar-btn, .tree-name, .tree-price {
+  color: white;
+  text-shadow: -1px -1px 0 #464646, 1px -1px 0 #464646, -1px 1px 0 #464646, 1px 1px 0 #464646; }
 
 .price {
   color: green; }
@@ -74,8 +84,36 @@ h3, h4, p, .btn {
   width: 25vw;
   height: 50px;
   color: white;
-  text-shadow: -1px -1px 0 #464646, 1px -1px 0 #464646, -1px 1px 0 #464646, 1px 1px 0 #464646;
   font-size: 20px; }
 
 .left {
   float: left; }
+
+.center {
+  float: center; }
+
+.tree-icon-image {
+  height: 24vw;
+  width: 90%; }
+
+.tree-icon-image-large {
+  width: 40vw;
+  height: 50vw; }
+
+.highlight {
+  background-color: blue; }
+
+.tree-name {
+  font-size: 20px;
+  position: absolute;
+  top: 50%;
+  left: 20%; }
+
+.tree-price {
+  font-size: 20px;
+  position: absolute;
+  top: 10%;
+  right: 15%; }
+
+.arrow-button {
+  width: 3vw; }

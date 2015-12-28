@@ -1,8 +1,8 @@
 $off-black: rgb(70,70,70);
 
 .row {
-	margin-top: 4vh;
-	margin-bottom: 4vh;
+	margin-top: 2vh;
+	margin-bottom: 2vh;
 }
 
 .border {
@@ -23,6 +23,11 @@ $off-black: rgb(70,70,70);
 * {
 	text-align: center;
 	color: $off-black;
+	vertical-align: middle;
+}
+
+ul {
+    list-style-position: inside;
 }
 
 .start-button {
@@ -38,6 +43,8 @@ $off-black: rgb(70,70,70);
 }
 
 h1, h2 {
+	margin-top: 2vw;
+	margin-bottom: 2vw;
 	margin-left: 2vw;
 	margin-right: 2vw;
 }
@@ -56,6 +63,15 @@ h3, h4, p, .btn {
 	width: 50%;
 	margin-left: 25%;
 	margin-right: 25%;
+}
+
+.white-text {
+	color: white;
+	text-shadow:
+	-1px -1px 0 $off-black,  
+    1px -1px 0 $off-black,
+    -1px 1px 0 $off-black,
+     1px 1px 0 $off-black;
 }
 
 .price {
@@ -99,14 +115,50 @@ h3, h4, p, .btn {
 	width: 25vw;
 	height: 50px;
 	color: white;
-		text-shadow:
-	-1px -1px 0 $off-black,  
-    1px -1px 0 $off-black,
-    -1px 1px 0 $off-black,
-     1px 1px 0 $off-black;
+	@extend .white-text;
      font-size: 20px;
 }
 
-.left{
+.left {
 	float: left;
+}
+
+.center {
+	float: center;
+}
+
+.tree-icon-image {
+	height: 24vw;
+	width: 90%;
+	@extend .border;
+}
+
+.tree-icon-image-large {
+	width: 40vw;
+	height: 50vw;
+	@extend .border;
+}
+
+.highlight {
+	background-color: blue;
+}
+
+.tree-name {
+	@extend .white-text;
+	font-size: 20px;
+	position: absolute;
+	top: 50%;
+	left: 20%;
+}
+
+.tree-price {
+	@extend .white-text;
+	font-size: 20px;
+	position: absolute;
+	top: 10%;
+	right: 15%;
+}
+
+.arrow-button {
+	width: 3vw;
 }

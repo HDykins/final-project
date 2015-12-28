@@ -4,12 +4,12 @@ var TreeIcon = React.createClass({
   render: function () {
     return (
 	<div className="col-xs-3">
-		<div id="tree-icon" className="no-highlight">
-			<img src="http://www.christmaswow.com/wp-content/uploads/2011/06/Miniature-Christmas-Trees.jpg" className="tree-icon-image" />
-			<div id="tree-price">
+		<div id="tree-icon" className="rounded-box">
+			<img src="../source/images/tree-photos/norwegian-spruce.jpg" className="tree-icon-image" />
+			<div id="tree-price" className="tree-price">
 				£20-40
 			</div>
-			<div id="tree-name">
+			<div id="tree-name" className="tree-name">
 				Norwegian Spruce
 			</div>
 		</div>
