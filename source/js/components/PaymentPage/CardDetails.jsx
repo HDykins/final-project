@@ -7,15 +7,15 @@ var CardDetails = React.createClass({
 	    <div className="col-xs-6 col-xs-offset-3">	
 			<div className="rounded-box">
 				<div className="rounded-box input-div">
-					<input type="text" />
+					<input type="text" placeholder="Name (as shown on card)" />
 				</div>
 				<div className="rounded-box input-div">
 					<div className="dropdown">
-			            <button className="btn btn-default dropdown-toggle" type="button" id="dropdown-lights" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+			            <button className="btn btn-default dropdown-toggle" type="button" id="dropdown-card-type" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 			              Card Type
 			              <span className="caret"></span>
 			            </button>
-			            <ul className="dropdown-menu" aria-labelledby="dropdown-lights">
+			            <ul className="dropdown-menu" aria-labelledby="dropdown-card-type">
 			              <li><a href="#">Visa</a></li>
 			              <li><a href="#">Visa Debit</a></li>
 			              <li><a href="#">American Express</a></li>
@@ -25,21 +25,21 @@ var CardDetails = React.createClass({
 			        </div>
 				</div>
 				<div className="rounded-box input-div">
-					<input type="text" />
+					<input type="text" placeholder="Card Number" />
 				</div>
 				<div className="rounded-box input-div">
-					<input type="text" />
+					<input type="text" placeholder="Security Number (3-digit number)" />
 				</div>
 				<div className="rounded-box input-div">
 					<label>Expiry date</label>
-					<input type="text" />/
-					<input type="text" />/
-					<input type="text" />
+					<input type="text" placeholder="Day" />
+					<input type="text" placeholder="Month"/>
+					<input type="text" placeholder="Year"/>
 				</div>
-				<div className="col-xs-6">
-					You must accept the <span>terms and conditions</span>
+				<div className="col-xs-3 col-xs-offset-3">
+					You must accept the <a>terms and conditions</a>
 				</div>
-				<div className="col-xs-6">
+				<div className="col-xs-3">
 					I Accept <input type="checkbox" />
 				</div>
 			</div>

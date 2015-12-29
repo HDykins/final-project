@@ -12,7 +12,7 @@ var PaymentPage = React.createClass({
 
 render: function () {
     return (
-    	<div className="container-fluid">
+    	<div className="container-fluid grey-background">
         	<NavBar />
         	<div className="container">
         		<img src="../source/images/current-step-image-4.png" />
@@ -28,9 +28,7 @@ render: function () {
 	        		<BackButton />
 	        		<ContinueButton />
 	        	</div>
-	        	<div className="transparent">
-	        		<TermsConditions />
-	        	</div>
+	        	<TermsConditions />
       		</div>
       	</div>
     );

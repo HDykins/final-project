@@ -7,7 +7,7 @@ var OrderSummary = React.createClass({
 	    <div className="col-xs-6">	
 			<div className="rounded-box">
 				<div className="col-xs-6">
-					<h3>Rundown of costs</h3>
+					<h3>Breakdown of costs</h3>
 					<h4>Tree:<span className="price"> +£12</span></h4>
 					<ul>
 						<li>Height: 4ft</li>
