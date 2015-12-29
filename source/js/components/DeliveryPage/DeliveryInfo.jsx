@@ -6,7 +6,7 @@ var DeliveryInfo = React.createClass({
 	<div>
 		<div className="col-xs-6">
 			<div className="rounded-box">
-				<h3>Additional delivery information</h3>
+				<span><h3>Additional delivery information</h3></span>
 			</div>
 			<div className="rounded-box">
 				<p>Beware of Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum</p>
@@ -14,8 +14,8 @@ var DeliveryInfo = React.createClass({
 		</div>
 		<div className="col-xs-6">
 			<div className="rounded-box">
-				<h3>Additional delivery information <span className="price">£15</span></h3>
-				<input type="checkbox" />
+				<h3>Fitted and decorated by our staff? <span className="price">+£15</span></h3>
+				<input type="checkbox" size="width:20px" />
 			</div>
 		</div>
 	</div>

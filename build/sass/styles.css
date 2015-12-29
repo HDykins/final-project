@@ -37,6 +37,8 @@ h1, h2 {
   margin-right: 2vw; }
 
 h3, h4, p, .btn {
+  margin-top: 1vw;
+  margin-bottom: 1vw;
   margin-left: 1vw;
   margin-right: 1vw; }
 
@@ -132,3 +134,18 @@ h3, h4, p, .btn {
 .photo-close {
   width: 90%;
   margin-top: 2.5%; }
+
+input[type=checkbox] {
+  zoom: 2.5; }
+
+input[type=text] {
+  width: 20vw;
+  height: 10vh; }
+
+.postcode-input {
+  width: 25vw;
+  height: 12vh; }
+
+.important-button {
+  width: 20vw;
+  height: 15vh; }

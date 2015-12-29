@@ -5,12 +5,32 @@ var DeliveryAddress = React.createClass({
     return (
 	<div className="rounded-box">
 		<h3>Delivery Address</h3>
-		<ul>
-			<li><em>Address Line 1</em><input value="40 Abbey Road"></input></li>
-			<li><em>Address Line 2</em><input value="Bush Hill Park"></input></li>
-			<li><em>Town/City</em><input value="Enfield, London"></input></li>
-			<li><em>County</em><input value="Middlesex"></input></li>
-			<li><em>PostCode</em><input value="EN12QN"></input></li>
+		<ul className="list-unstyled">
+			<div className="col-xs-6 col-xs-offset-3">
+				<div className="rounded-box">
+					<li><em>Address Line 1&nbsp;&nbsp;&nbsp;&nbsp;</em><input type="text" value="40 Abbey Road"></input></li>
+				</div>
+			</div>
+			<div className="col-xs-6 col-xs-offset-3">
+				<div className="rounded-box">
+					<li><em>Address Line 2&nbsp;&nbsp;&nbsp;&nbsp;</em><input type="text" value="Bush Hill Park"></input></li>
+				</div>
+			</div>
+			<div className="col-xs-6 col-xs-offset-3">
+				<div className="rounded-box">
+					<li><em>Town/City&nbsp;&nbsp;&nbsp;&nbsp;</em><input type="text" value="Enfield, London"></input></li>
+				</div>
+			</div>
+			<div className="col-xs-6 col-xs-offset-3">
+				<div className="rounded-box">
+					<li><em>County&nbsp;&nbsp;&nbsp;&nbsp;</em><input type="text" value="Middlesex"></input></li>
+				</div>
+			</div>
+			 <div className="col-xs-6 col-xs-offset-3">
+				<div className="rounded-box">
+					<li><em>PostCode&nbsp;&nbsp;&nbsp;&nbsp;</em><input type="text" value="EN12QN"></input></li>
+				</div>
+			</div>
 		</ul>	
 	</div>
     );

@@ -4,8 +4,8 @@ var CollectOrDeliver = React.createClass({
   render: function () {
     return (
     <div>
-		<button>Collect</button>
-		<button>Deliver</button>
+		<button className="btn btn-success important-button">Collect</button>
+		<button className="btn btn-success important-button">Deliver</button>
 	</div>
     );
   }
