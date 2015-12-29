@@ -17,7 +17,7 @@ var SignInForm = React.createClass({
 					</div>
 					<br />
 					<div className="rounded-box">
-						<span>Incorrect password or email</span>
+						<span className="red">Incorrect password or email</span>
 					</div>
 				</div>
 				<div className="col-xs-6">

@@ -3,7 +3,7 @@ var React = require('react');
 var RegisterForm = React.createClass({
   render: function () {
     return (
-	<div className="transparent col-xs-8 register-form">
+	<div className="transparent col-xs-8 register-form hide">
 		<div className="rounded-box">
 			<h2>Register</h2>
 		</div>

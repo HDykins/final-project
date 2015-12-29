@@ -1,4 +1,7 @@
 $off-black: rgb(70,70,70);
+$lime-green: rgb(120,225,100);
+$lime-green-darker: rgb(90,180,70);
+$grey-background: rgb(220,220,220);
 
 .row {
 	margin-top: 2vh;
@@ -105,7 +108,11 @@ h3, h4, p, .btn {
 }
 
 .grey-background {
-	background-color: rgb(220,220,220);
+	background: $grey-background;
+    background: -webkit-linear-gradient(left, $grey-background, white, $grey-background); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient($lime-green, $lime-green-darker); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient($lime-green, $lime-green-darker); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(left, $grey-background, white, $grey-background); /* Standard syntax */
 }
 
 .btn {
@@ -118,7 +125,7 @@ h3, h4, p, .btn {
 	height: 50px;
 	color: white;
 	@extend .white-text;
-     font-size: 20px;
+    font-size: 20px;
 }
 
 .left {
@@ -187,6 +194,7 @@ h3, h4, p, .btn {
 
 input[type=checkbox] {
     zoom: 2.5;
+    margin: 6px;
 }
 
 input[type=text] {
@@ -202,6 +210,13 @@ input[type=text] {
 .important-button {
 	width: 20vw;
 	height: 15vh;
+	background: $lime-green; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient($lime-green, $lime-green-darker); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient($lime-green, $lime-green-darker); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient($lime-green, $lime-green-darker); /* For Firefox 3.6 to 15 */
+    background: linear-gradient($lime-green, $lime-green-darker); /* Standard syntax */
+    @extend .white-text;
+    overflow: hidden;
 }
 
 .x-button {
@@ -218,10 +233,14 @@ input[type=text] {
 
 .register-form {
 	position: absolute;
-	top: 20%;
+	top: 10%;
 	left: 16.66%;
 }
 
 .social-icon {
 	width: 10vw;
+}
+
+.red {
+	color: red;
 }
