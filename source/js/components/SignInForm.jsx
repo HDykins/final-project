@@ -13,17 +13,18 @@ var SignInForm = React.createClass({
 			<div className="rounded-box">
 				<div className="col-xs-6">
 					<div className="rounded-box">
-						<input placeholder="Email" />
+						<input type="text" placeholder="Email" />
 					</div>
+					<br />
 					<div className="rounded-box">
-						<input placeholder="Password" />
+						<span>Incorrect password or email</span>
 					</div>
 				</div>
 				<div className="col-xs-6">
 					<div className="rounded-box">
-						<span>Incorrect password or email</span>
-					</div>
-					<button>Sign-in</button>
+						<input type="text" placeholder="Password" />
+					</div>				
+					<button className="important-button btn btn-success">Sign-in</button>
 				</div>
 				<div className="col-xs-6 col-xs-offset-3">
 					<div className="rounded-box">
@@ -37,7 +38,7 @@ var SignInForm = React.createClass({
 		</div>
 		<div className="col-xs-12">
 			<h3>Don''t have an account?</h3>
-			<button>Register</button>
+			<button className="important-button btn btn-success">Register</button>
 			<br /><br />
 		</div>	
 	</div>

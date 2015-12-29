@@ -3,11 +3,11 @@ var React = require('react');
 var RegisterForm = React.createClass({
   render: function () {
     return (
-	<div className="transparent col-xs-8 col-xs-offset-2">
+	<div className="transparent col-xs-8 register-form">
 		<div className="rounded-box">
 			<h2>Register</h2>
 		</div>
-		<button>X</button>
+		<button className="btn btn-default x-button">X</button>
 		<div className="rounded-box">
 			<input className="registration-input" placeholder="Email" />
 		</div>
@@ -29,7 +29,7 @@ var RegisterForm = React.createClass({
 			</div>
 		</div>
 		<div className="col-xs-12">
-			<button>Register</button>
+			<button className="btn important-button btn-success">Register</button>
 			<br /><br />
 		</div>	
 	</div>

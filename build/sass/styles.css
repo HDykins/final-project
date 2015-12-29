@@ -159,3 +159,11 @@ input[type=text] {
   position: fixed;
   top: 25%;
   left: 17%; }
+
+.register-form {
+  position: absolute;
+  top: 20%;
+  left: 16.66%; }
+
+.social-icon {
+  width: 10vw; }
