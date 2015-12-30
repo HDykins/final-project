@@ -37,7 +37,7 @@ var LandingPage = React.createClass({
 	        		<div className="col-xs-3 col-xs-offset-6">
 	        			<div className="rounded-box">
 		        			<h4>Address:</h4> 
-	        				<ul list-unstyled>
+	        				<ul className="list-unstyled">
 	        					<li>40 Abbey Road, Bush Hill Park</li>
 	        					<li>Enfield, Middlesex</li>
 	        					<li>London, EN1 2QN</li>

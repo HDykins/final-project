@@ -1,3 +1,27 @@
+@media (max-width: 800px) {
+  .col-xs-8 {
+    width: 83.33%; }
+  .col-xs-4 {
+    width: 100%; }
+  .col-xs-3 {
+    width: 33.33%; }
+  .col-xs-offset-2 {
+    margin-left: 8.33%; }
+  .col-xs-offset-6 {
+    margin-left: 33.33%; } }
+
+@media (max-width: 600px) {
+  .col-xs-8 {
+    width: 100%; }
+  .col-xs-4 {
+    width: 100%; }
+  .col-xs-3 {
+    width: 50%; }
+  .col-xs-offset-2 {
+    margin-left: 0; }
+  .col-xs-offset-6 {
+    margin-left: 0; } }
+
 .row {
   margin-top: 2vh;
   margin-bottom: 2vh; }
@@ -24,7 +48,7 @@ ul {
 
 .start-button {
   width: 40vw;
-  height: 20vh;
+  height: 10vw;
   font-size: 3vw;
   border-radius: 5vw;
   text-shadow: -2px -2px 0 white,   2px -2px 0 white, -2px 2px 0 white, 2px 2px 0 white; }
@@ -86,6 +110,18 @@ h3, h4, p, .btn {
   background: -moz-linear-gradient(#78e164, #5ab446);
   /* For Firefox 3.6 to 15 */
   background: linear-gradient(left, gainsboro, white, gainsboro);
+  /* Standard syntax */ }
+
+.btn {
+  padding: 2vh;
+  background: gainsboro;
+  background: -webkit-linear-gradient(gainsboro, grey);
+  /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(#78e164, #5ab446);
+  /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(#78e164, #5ab446);
+  /* For Firefox 3.6 to 15 */
+  background: linear-gradient(gainsboro, grey);
   /* Standard syntax */ }
 
 .navbar-btn {

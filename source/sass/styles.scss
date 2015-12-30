@@ -3,6 +3,42 @@ $lime-green: rgb(120,225,100);
 $lime-green-darker: rgb(90,180,70);
 $grey-background: rgb(220,220,220);
 
+@media (max-width: 800px) {
+  .col-xs-8 {
+  width: 83.33%;
+  }
+  .col-xs-4 {
+  width: 100%;
+  }  
+  .col-xs-3 {
+  width: 33.33%;
+  }
+  .col-xs-offset-2 {
+  margin-left: 8.33%;
+  }
+  .col-xs-offset-6 {
+  margin-left: 33.33%;
+  }  
+}
+
+@media (max-width: 600px) {
+  .col-xs-8 {
+  width: 100%;
+  }
+  .col-xs-4 {
+  width: 100%;
+  } 
+  .col-xs-3 {
+  width: 50%;
+  }
+  .col-xs-offset-2 {
+  margin-left: 0;
+  }
+  .col-xs-offset-6 {
+  margin-left: 0;
+  }
+}
+
 .row {
 	margin-top: 2vh;
 	margin-bottom: 2vh;
@@ -34,7 +70,7 @@ ul {
 
 .start-button {
 	width: 40vw;
-	height: 20vh;
+	height: 10vw;
 	font-size: 3vw;
 	border-radius: 5vw;
 	text-shadow:
@@ -116,6 +152,12 @@ h3, h4, p, .btn {
 
 .btn {
 	@extend .border;
+	padding: 2vh;
+	background: $grey-background;
+    background: -webkit-linear-gradient($grey-background, grey); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient($lime-green, $lime-green-darker); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient($lime-green, $lime-green-darker); /* For Firefox 3.6 to 15 */
+    background: linear-gradient($grey-background, grey); /* Standard syntax */
 }
 
 .navbar-btn {
