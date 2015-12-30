@@ -17,14 +17,14 @@ var DecorationsList = React.createClass({
           </div>
           <div className="dropdown">
             <button className="btn button-decorations-list btn-default dropdown-toggle" type="button" id="dropdown-baubbles" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-              Baubbles
+              Baubles
               <span className="caret"></span>
             </button>
-            <ul className="dropdown-menu noclose" aria-labelledby="dropdown-baubbles">
-              <li><a href="#"><label htmlFor="ID">Baubbles Gold - 6 pack</label><input type="checkbox" id="ID"/></a></li>
-              <li><a href="#">Baubbles Silver - 6 pack</a></li>
-              <li><a href="#">Baubbles Coloured + Glitter Patterned - 6 pack</a></li>
-              <li><a href="#">Baubbles Cat - 6 pack</a></li>
+            <ul className="dropdown-menu noclose" aria-labelledby="dropdown-baubles">
+              <li><a href="#"><label htmlFor="ID">Baubles Gold - 6 pack</label><input type="checkbox" id="ID"/></a></li>
+              <li><a href="#">Baubles Silver - 6 pack</a></li>
+              <li><a href="#">Baubles Coloured + Glitter Patterned - 6 pack</a></li>
+              <li><a href="#">Baubles Cat - 6 pack</a></li>
             </ul>
           </div>
           <div className="dropdown">

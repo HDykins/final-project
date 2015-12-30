@@ -22,7 +22,7 @@ var OrderOptionsButtons = React.createClass({
 		</div>
 		<div className="col-xs-3">
 			<button type="button" className="btn">
-				Order again with these details
+				Order again
 			</button>
 		</div>
 	</div>	
