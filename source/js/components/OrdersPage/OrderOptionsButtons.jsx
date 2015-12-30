@@ -3,17 +3,17 @@ var React = require('react');
 var OrderOptionsButtons = React.createClass({
   render: function () {
     return (
-    <div>	
+    <div className="row">	
 		<div className="col-xs-3">
 			<div className="rounded-box">
-				<span>Date Ordered</span>
-				<span>11/12/2015</span>
+				<span>Date Ordered:&nbsp;</span>
+				<span className="red">11/12/2015</span>
 			</div>
 		</div>
 		<div className="col-xs-3">
-			<div className="rounded-box">
-				<span>Cancel Order</span>
-			</div>
+			<button type="button" className="btn danger-button">
+				Cancel Order
+			</button>
 		</div>
 		<div className="col-xs-3">
 			<div className="rounded-box">
@@ -21,9 +21,9 @@ var OrderOptionsButtons = React.createClass({
 			</div>
 		</div>
 		<div className="col-xs-3">
-			<div className="rounded-box">
-				<span>Order again with these details </span>
-			</div>
+			<button type="button" className="btn">
+				Order again with these details
+			</button>
 		</div>
 	</div>	
     );

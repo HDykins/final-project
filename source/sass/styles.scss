@@ -18,8 +18,7 @@ $grey-background: rgb(220,220,220);
 	min-height: 10vh;
 	margin-top: 2vh;
 	margin-bottom: 2vh;
-	padding-top: 2vh;
-	padding-bottom: 2vh;
+	padding: 2vh;
 	overflow: hidden;
 	background-color: white;
 }
@@ -237,10 +236,28 @@ input[type=text] {
 	left: 16.66%;
 }
 
+.order-cancellation-prompt {
+	position: absolute;
+	top: 50%;
+	left: 25%;
+}
+
 .social-icon {
 	width: 10vw;
 }
 
 .red {
 	color: red;
+}
+
+.danger-button {
+	width: 15vw;
+	height: 15vh;
+	background: red; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(red, black); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient($lime-green, $lime-green-darker); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient($lime-green, $lime-green-darker); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(red, rgb(140,60,60)); /* Standard syntax */
+    @extend .white-text;
+    overflow: hidden;
 }

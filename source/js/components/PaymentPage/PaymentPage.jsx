@@ -1,7 +1,7 @@
 var React = require('react');
 var NavBar = require('../NavBar.jsx');
 var Header1 = require('../Header1.jsx');
-var OrderSummary = require('./OrderSummary.jsx');
+var OrderSummary = require('../OrderSummary.jsx');
 var CardDetails = require('./CardDetails.jsx');
 var BackButton = require('../BackButton.jsx');
 var PriceTotal = require('../PriceTotal.jsx');
@@ -18,7 +18,9 @@ render: function () {
         		<img src="../source/images/current-step-image-4.png" />
         		<Header1 />
         		<div className="row">
-        			<OrderSummary />
+                    <div className="rounded-box">
+            			<OrderSummary />
+                    </div>
         		</div>
         		<Header1 />
         		<div className="row">

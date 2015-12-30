@@ -3,7 +3,7 @@ var React = require('react');
 var OrderSummary = React.createClass({
   render: function () {
     return (
-	<div className="rounded-box">
+	<div>
 		<div className="col-xs-6">	
 			<div className="rounded-box">
 				<div className="col-xs-6">

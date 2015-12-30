@@ -10,8 +10,7 @@
   min-height: 10vh;
   margin-top: 2vh;
   margin-bottom: 2vh;
-  padding-top: 2vh;
-  padding-bottom: 2vh;
+  padding: 2vh;
   overflow: hidden;
   background-color: white; }
 
@@ -51,7 +50,7 @@ h3, h4, p, .btn {
   margin-left: 20%;
   margin-right: 20%; }
 
-.white-text, .navbar-btn, .tree-name, .tree-price, .important-button {
+.white-text, .navbar-btn, .tree-name, .tree-price, .important-button, .danger-button {
   color: white;
   text-shadow: -1px -1px 0 #464646, 1px -1px 0 #464646, -1px 1px 0 #464646, 1px 1px 0 #464646; }
 
@@ -185,8 +184,28 @@ input[type=text] {
   top: 10%;
   left: 16.66%; }
 
+.order-cancellation-prompt {
+  position: absolute;
+  top: 50%;
+  left: 25%; }
+
 .social-icon {
   width: 10vw; }
 
 .red {
   color: red; }
+
+.danger-button {
+  width: 15vw;
+  height: 15vh;
+  background: red;
+  /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(red, black);
+  /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(#78e164, #5ab446);
+  /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(#78e164, #5ab446);
+  /* For Firefox 3.6 to 15 */
+  background: linear-gradient(red, #8c3c3c);
+  /* Standard syntax */
+  overflow: hidden; }
