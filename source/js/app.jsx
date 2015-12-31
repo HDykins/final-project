@@ -1,17 +1,5 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var LandingPage = require('./components/LandingPage/LandingPage.jsx');
-var TreePage = require('./components/TreePage/TreePage.jsx');
-var DecorationsPage = require('./components/DecorationsPage/DecorationsPage.jsx');
-var DeliveryPage = require('./components/DeliveryPage/DeliveryPage.jsx');
-var PaymentPage = require('./components/PaymentPage/PaymentPage.jsx');
-var ThanksPage = require('./components/ThanksPage/ThanksPage.jsx');
-var SignInPage = require('./components/SignInPage/SignInPage.jsx');
-var OrdersPage = require('./components/OrdersPage/OrdersPage.jsx');
-var InitialStore = require('./stores/InitialStore.js');
+var Application = require('./components/Application.jsx');
 
-// {if (InitialStore.getInitialState() === "LANDING_PAGE") {
-// 	ReactDOM.render(<LandingPage />, document.querySelector('[data-react-application]'));
-// }}
-
-ReactDOM.render(<TreePage />, document.querySelector('[data-react-application]'));
+ReactDOM.render(<Application />, document.querySelector('[data-react-application]'));
