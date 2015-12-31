@@ -8,5 +8,10 @@ var PaymentPage = require('./components/PaymentPage/PaymentPage.jsx');
 var ThanksPage = require('./components/ThanksPage/ThanksPage.jsx');
 var SignInPage = require('./components/SignInPage/SignInPage.jsx');
 var OrdersPage = require('./components/OrdersPage/OrdersPage.jsx');
+var InitialStore = require('./stores/InitialStore.js');
 
-ReactDOM.render(<OrdersPage />, document.querySelector('[data-react-application]'));
+// {if (InitialStore.getInitialState() === "LANDING_PAGE") {
+// 	ReactDOM.render(<LandingPage />, document.querySelector('[data-react-application]'));
+// }}
+
+ReactDOM.render(<TreePage />, document.querySelector('[data-react-application]'));

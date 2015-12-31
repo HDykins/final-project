@@ -2,7 +2,6 @@ var Dispatcher = require('../dispatcher/Dispatcher');
 var EventEmitter = require('events').EventEmitter;
 var objectAssign = require('object-assign');
 
-var shoppingList = {};
 
 function addListItem(listItem) {
 	shoppingList[listItem.id] = listItem;
@@ -18,10 +17,11 @@ function removeAllListItems() {
 	shoppingList = {};
 }
 
-var ListItemStore = objectAssign({}, EventEmitter.prototype, {
-	getAllListItems: function () {
-		return shoppingList;
-	},
+var InitialStore = objectAssign({}, EventEmitter.prototype, {
+
+	getInitialState: function () {
+    	return "LANDING_PAGE";
+    },
 	addChangeListener: function (changeEventHandler) {
 		console.log('addChangeListener');
 		this.on('change', changeEventHandler);
@@ -36,4 +36,4 @@ Dispatcher.register(function handleAction(action) {
 	addListItem(action.item);
 });
 
-module.exports = ListItemStore;
+module.exports = InitialStore;
