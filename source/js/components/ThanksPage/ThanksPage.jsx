@@ -10,7 +10,7 @@ var ThanksPage = React.createClass({
 
   render: function () {
     return (
-    	<div className="container-fluid">
+    	<div className="container-fluid grey-background">
         	<NavBar />
         	<div className="container">
         		<div className="row">

@@ -4,96 +4,96 @@ var DecorationsList = React.createClass({
   render: function () {
     return (
     <div className="col-xs-6"> 
-      <div className="rounded-box">
+      <div className="rounded-box visible">
           <div className="dropdown">
             <button className="btn button-decorations-list btn-default dropdown-toggle" type="button" id="dropdown-lights" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-              Lights
+              <span className="decorations-list-category-text">Lights</span>
               <span className="caret"></span>
             </button>
             <ul className="dropdown-menu" aria-labelledby="dropdown-lights">
-              <li><a href="#">Fairy Lights - 5m</a></li>
-              <li><a href="#">+ Extension socket?</a></li>
+              <li><a href="#"><label htmlFor="ID">Fairy Lights - 5m</label><input type="checkbox" id="ID"/></a></li>
+              <li><a href="#"><label htmlFor="ID">+ Extension socket?</label><input type="checkbox" id="ID"/></a></li>
             </ul>
           </div>
           <div className="dropdown">
             <button className="btn button-decorations-list btn-default dropdown-toggle" type="button" id="dropdown-baubbles" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-              Baubles
+              <span className="decorations-list-category-text">Baubles</span>
               <span className="caret"></span>
             </button>
             <ul className="dropdown-menu noclose" aria-labelledby="dropdown-baubles">
               <li><a href="#"><label htmlFor="ID">Baubles Gold - 6 pack</label><input type="checkbox" id="ID"/></a></li>
-              <li><a href="#">Baubles Silver - 6 pack</a></li>
-              <li><a href="#">Baubles Coloured + Glitter Patterned - 6 pack</a></li>
-              <li><a href="#">Baubles Cat - 6 pack</a></li>
+              <li><a href="#"><label htmlFor="ID">Baubles Silver - 6 pack</label><input type="checkbox" id="ID"/></a></li>
+              <li><a href="#"><label htmlFor="ID">Baubles Coloured + Patterned - 6 pack</label><input type="checkbox" id="ID"/></a></li>
+              <li><a href="#"><label htmlFor="ID">Baubles Cat - 6 pack</label><input type="checkbox" id="ID"/></a></li>
             </ul>
           </div>
           <div className="dropdown">
             <button className="btn button-decorations-list btn-default dropdown-toggle" type="button" id="dropdown-tinsel" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-              Tinsel
+              <span className="decorations-list-category-text">Tinsel</span>
               <span className="caret"></span>
             </button>
             <ul className="dropdown-menu" aria-labelledby="dropdown-tinsel">
-              <li><a href="#">Silver - 2m</a></li>
-              <li><a href="#">Gold/silver hybrid - 2m</a></li>
-              <li><a href="#">Purple - 2m</a></li>
+              <li><a href="#"><label htmlFor="ID">Silver - 2m</label><input type="checkbox" id="ID"/></a></li>
+              <li><a href="#"><label htmlFor="ID">Gold/silver hybrid - 2m</label><input type="checkbox" id="ID"/></a></li>
+              <li><a href="#"><label htmlFor="ID">Purple - 2m</label><input type="checkbox" id="ID"/></a></li>
             </ul>
           </div>  
           <div className="dropdown">
             <button className="btn button-decorations-list btn-default dropdown-toggle" type="button" id="dropdown-stars-icicles" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-              Stars and Icicles
+              <span className="decorations-list-category-text">Stars and Icicles</span>
               <span className="caret"></span>
             </button>
             <ul className="dropdown-menu" aria-labelledby="dropdown-stars-icicles">
-              <li><a href="#">Stars - 8 pack</a></li>
-              <li><a href="#">Icicles Gold - 6 Pack</a></li>
-              <li><a href="#">Icicles Patterned - 6 Pack</a></li>
+              <li><a href="#"><label htmlFor="ID">Stars - 8 pack</label><input type="checkbox" id="ID"/></a></li>
+              <li><a href="#"><label htmlFor="ID">Icicles Gold - 6 Pack</label><input type="checkbox" id="ID"/></a></li>
+              <li><a href="#"><label htmlFor="ID">Icicles Patterned - 6 Pack</label><input type="checkbox" id="ID"/></a></li>
             </ul>
           </div>
           <div className="dropdown">
             <button className="btn button-decorations-list btn-default dropdown-toggle" type="button" id="dropdown-shiny" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-              Shiny things
+              <span className="decorations-list-category-text">Shiny things</span>
               <span className="caret"></span>
             </button>
             <ul className="dropdown-menu" aria-labelledby="dropdown-shiny">
-              <li><a href="#">Glitter Balls - 6 pack</a></li>
+              <li><a href="#"><label htmlFor="ID">Glitter Balls - 6 pack</label><input type="checkbox" id="ID"/></a></li>
             </ul>
           </div> 
           <div className="dropdown">
             <button className="btn button-decorations-list btn-default dropdown-toggle" type="button" id="dropdown-ornaments" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-              Festive Ornaments
+              <span className="decorations-list-category-text">Festive Ornaments</span>
               <span className="caret"></span>
             </button>
             <ul className="dropdown-menu" aria-labelledby="dropdown-ornaments">
-              <li><a href="#">Pine cones Gold - 8 pack</a></li>
-              <li><a href="#">Robin family</a></li>
-              <li><a href="#">Ribbons</a></li>
+              <li><a href="#"><label htmlFor="ID">Pine cones Gold - 8 pack</label><input type="checkbox" id="ID"/></a></li>
+              <li><a href="#"><label htmlFor="ID">Robin family</label><input type="checkbox" id="ID"/></a></li>
+              <li><a href="#"><label htmlFor="ID">Ribbons</label><input type="checkbox" id="ID"/></a></li>
             </ul>
           </div>
           <div className="dropdown">
             <button className="btn button-decorations-list btn-default dropdown-toggle" type="button" id="dropdown-small-ornaments" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-              Small Ornaments
+              <span className="decorations-list-category-text">Small Ornaments</span>
               <span className="caret"></span>
             </button>
             <ul className="dropdown-menu" aria-labelledby="dropdown-small-ornaments">
-              <li><a href="#">COMING SOON</a></li>
+              <li><a href="#"><label htmlFor="ID">COMING SOON</label><input type="checkbox" id="ID"/></a></li>
             </ul>
           </div>
           <div className="dropdown">
             <button className="btn button-decorations-list btn-default dropdown-toggle" type="button" id="dropdown-other-ornaments" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-              Other Ornaments
+              <span className="decorations-list-category-text">Other Ornaments</span>
               <span className="caret"></span>
             </button>
             <ul className="dropdown-menu" aria-labelledby="dropdown-other-ornaments">
-              <li><a href="#">COMING SOON</a></li>
+              <li><a href="#"><label htmlFor="ID">COMING SOON</label><input type="checkbox" id="ID"/></a></li>
             </ul>
           </div> 
           <div className="dropdown">
             <button className="btn button-decorations-list btn-default dropdown-toggle" type="button" id="dropdown-angels" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-              Angels
+              <span className="decorations-list-category-text">Angels</span>
               <span className="caret"></span>
             </button>
             <ul className="dropdown-menu" aria-labelledby="dropdown-angels">
-              <li><a href="#">White angel</a></li>
+              <li><a href="#"><label htmlFor="ID">White angel</label><input type="checkbox" id="ID"/></a></li>
             </ul>
           </div>          
       </div>

@@ -6,7 +6,9 @@ var PriceTotal = React.createClass({
     <div className="col-xs-6 center-block">
 		<div className="rounded-box">
 			<strong>Total Price</strong>
-			<div className="price">£24</div>
+			<div>
+				<span className="price big-price">£24</span>
+			</div>
 		</div>
 	</div>
     );

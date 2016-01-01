@@ -5,12 +5,12 @@ var TreeIcon = React.createClass({
     return (
 	<div className="col-xs-3">
 		<div id="tree-icon" className="rounded-box">
-			<img src="../source/images/tree-photos/norwegian-spruce.jpg" className="tree-icon-image" />
-			<div id="tree-price" className="tree-price">
-				£20-40
+			<div>
+				<span id="tree-name" className="tree-name">Norwegian Spruce</span>
 			</div>
-			<div id="tree-name" className="tree-name">
-				Norwegian Spruce
+			<img src="../source/images/tree-photos/norwegian-spruce.jpg" className="tree-icon-image" />
+			<div>
+				<span className="price tree-price" id="tree-price">£20-40</span>
 			</div>
 		</div>
 	</div>

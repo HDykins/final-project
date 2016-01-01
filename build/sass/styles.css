@@ -14,7 +14,46 @@
   .col-xs-offset-6 {
     margin-left: 33.33%; }
   div .order-cancellation-prompt {
-    left: 0; } }
+    left: 0; }
+  h1 {
+    font-size: 4vw; }
+  h2 {
+    font-size: 3.4vw; }
+  h3 {
+    font-size: 3vw; }
+  h4 {
+    font-size: 2.3vw; }
+  span, p, li {
+    font-size: 1.8vw; }
+  .btn.start-button {
+    text-shadow: -1px -1px 0 white,   1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white; }
+  .btn.navbar-btn {
+    font-size: 2.5vw; }
+  img.tree-icon-image {
+    height: 30vw; }
+  #tree-price, #tree-name, div strong, .price.big-price, span.decorations-cost-box, em.decorations-cost-box, strong.decorations-cost-box, .decorations-cost-box.tree-name, .decorations-cost-box.total-price, .btn.important-button, .btn.danger-button {
+    font-size: 20px; }
+  img.arrow-button {
+    width: 20px; }
+  span.decorations-list-category-text {
+    font-size: 15px; }
+  a input[type=checkbox] {
+    zoom: 2;
+    margin: 6px; }
+  .rounded-box.visible.dropdown-date {
+    min-height: 165px;
+    height: 23vw; }
+  .rounded-box.visible.dropdown-time {
+    min-height: 72px;
+    height: 9.5vw; }
+  div input[type=text] {
+    width: 80%;
+    height: 50px;
+    font-size: 20px; }
+  .col-xs-3.col-xs-offset-3.terms-conditions-message {
+    margin-left: 16.66%; }
+  .btn.important-button {
+    font-size: 20px; } }
 
 @media (max-width: 600px) {
   .col-xs-8 {
@@ -32,7 +71,45 @@
   .col-xs-offset-6 {
     margin-left: 0; }
   div .order-cancellation-prompt {
-    left: 0%; } }
+    left: 0%; }
+  h1 {
+    font-size: 25px; }
+  h2 {
+    font-size: 20px; }
+  h3 {
+    font-size: 16px; }
+  h4 {
+    font-size: 14px; }
+  span, p, li {
+    font-size: 12px; }
+  .btn.start-button {
+    font-size: 20px;
+    text-shadow: -1px -1px 0 white,   1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white; }
+  .btn.navbar-btn {
+    font-size: 15px; }
+  img.tree-icon-image {
+    height: 44vw; }
+  span.decorations-list-category-text {
+    font-size: 12px; }
+  a input[type=checkbox] {
+    zoom: 1.6;
+    margin: 6px; }
+  .rounded-box.visible.dropdown-date {
+    min-height: 155px;
+    height: 28vw; }
+  .rounded-box.visible.dropdown-time {
+    min-height: 65px;
+    height: 12vw; }
+  div input[type=text] {
+    width: 80%;
+    height: 50px;
+    font-size: 13px; }
+  .col-xs-3.col-xs-offset-3.terms-conditions-message {
+    margin-left: 16.66%;
+    width: 33.33%; }
+  #sign-in-form div input[type=text] {
+    width: 80%;
+    font-size: 15px; } }
 
 .row {
   margin-top: 2vh;
@@ -58,18 +135,25 @@
 ul {
   list-style-position: inside; }
 
+em, strong, .tree-name, .total-price {
+  text-shadow: -1px -1px 0 white, 1px -1px 0 #464646, -1px 1px 0 white, 1px 1px 0 white; }
+
+strong {
+  font-size: 2vw; }
+
 .start-button {
   width: 40vw;
   height: 10vw;
+  min-height: 60px;
   font-size: 3vw;
   border-radius: 5vw;
   text-shadow: -2px -2px 0 white,   2px -2px 0 white, -2px 2px 0 white, 2px 2px 0 white; }
 
 h1, h2 {
-  margin-top: 2vw;
-  margin-bottom: 2vw;
-  margin-left: 2vw;
-  margin-right: 2vw; }
+  margin-top: 1.5vw;
+  margin-bottom: 1.5vw;
+  margin-left: 1.5vw;
+  margin-right: 1.5vw; }
 
 h3, h4, p, .btn {
   margin-top: 1vw;
@@ -82,11 +166,12 @@ h3, h4, p, .btn {
 
 .input-div {
   overflow: initial;
-  width: 60%;
-  margin-left: 20%;
-  margin-right: 20%; }
+  width: 80%;
+  margin-left: 10%;
+  margin-right: 10%;
+  font-size: 1.4vw; }
 
-.white-text, .navbar-btn, .tree-name, .tree-price, .important-button, .danger-button {
+.white-text, .navbar-btn, .important-button, .danger-button {
   color: white;
   text-shadow: -1px -1px 0 #464646, 1px -1px 0 #464646, -1px 1px 0 #464646, 1px 1px 0 #464646; }
 
@@ -95,6 +180,13 @@ h3, h4, p, .btn {
 
 .right {
   float: right; }
+
+.visible {
+  overflow: initial; }
+
+.dropdown-date, .dropdown-time {
+  height: 6.2vw;
+  min-height: 75px; }
 
 .registration-input {
   margin-top: 2vh;
@@ -115,13 +207,13 @@ h3, h4, p, .btn {
 
 .grey-background {
   background: gainsboro;
-  background: -webkit-linear-gradient(left, gainsboro, white, gainsboro);
+  background: -webkit-linear-gradient(left, grey, gainsboro, grey);
   /* For Safari 5.1 to 6.0 */
   background: -o-linear-gradient(#78e164, #5ab446);
   /* For Opera 11.1 to 12.0 */
   background: -moz-linear-gradient(#78e164, #5ab446);
   /* For Firefox 3.6 to 15 */
-  background: linear-gradient(left, gainsboro, white, gainsboro);
+  background: linear-gradient(left, grey, gainsboro, grey);
   /* Standard syntax */ }
 
 .btn {
@@ -150,7 +242,7 @@ h3, h4, p, .btn {
 
 .tree-icon-image {
   height: 24vw;
-  width: 90%; }
+  width: 100%; }
 
 .tree-icon-image-large {
   width: 40vw;
@@ -160,16 +252,19 @@ h3, h4, p, .btn {
   background-color: blue; }
 
 .tree-name {
-  font-size: 20px;
-  position: absolute;
-  top: 50%;
-  left: 20%; }
+  font-size: 2vw; }
 
 .tree-price {
-  font-size: 20px;
-  position: absolute;
-  top: 10%;
-  right: 15%; }
+  font-size: 2vw; }
+
+.big-price {
+  font-size: 2vw; }
+
+.delivery-date {
+  font-size: 3vw; }
+
+.decorations-cost-box {
+  font-size: 2vw; }
 
 .arrow-button {
   width: 3vw; }
@@ -179,6 +274,9 @@ h3, h4, p, .btn {
   min-height: 36px;
   height: 4.2vw;
   margin-bottom: 1vh; }
+
+.decorations-list-category-text {
+  font-size: 1.8vw; }
 
 .photo-far, .photo-tree {
   width: 45%;
@@ -195,16 +293,28 @@ input[type=checkbox] {
   margin: 6px; }
 
 input[type=text] {
-  width: 20vw;
-  height: 8vh; }
+  width: 22vw;
+  height: 5vw; }
 
 .postcode-input {
-  width: 25vw;
-  height: 12vh; }
+  width: 26vw;
+  height: 8vw;
+  min-width: 220px; }
+
+.no-padding.col-xs-4 {
+  padding: 0; }
+
+.small-button {
+  width: 95%;
+  margin-left: 0;
+  margin-right: 0; }
 
 .important-button {
   width: 20vw;
-  height: 15vh;
+  min-width: 150px;
+  height: 8vw;
+  min-height: 60px;
+  font-size: 2vw;
   background: #78e164;
   /* For browsers that do not support gradients */
   background: -webkit-linear-gradient(#78e164, #5ab446);
@@ -227,6 +337,16 @@ input[type=text] {
   top: 25%;
   left: 16.66%; }
 
+.terms-conditions-message {
+  width: 33%;
+  margin-left: 16.66%; }
+
+.accept-message {
+  width: 33%; }
+
+.total-price {
+  font-size: 3vw; }
+
 .register-form {
   position: absolute;
   top: 10%;
@@ -246,7 +366,8 @@ input[type=text] {
 .danger-button {
   width: 90%;
   height: 6vw;
-  min-height: 35px;
+  min-height: 60px;
+  font-size: 2vw;
   background: red;
   /* For browsers that do not support gradients */
   background: -webkit-linear-gradient(red, black);
@@ -258,3 +379,7 @@ input[type=text] {
   background: linear-gradient(red, #8c3c3c);
   /* Standard syntax */
   overflow: hidden; }
+
+#sign-in-form input[type=text] {
+  width: 80%;
+  font-size: 2.5vw; }

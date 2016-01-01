@@ -36,7 +36,7 @@ var Application = React.createClass({
     var page = this.state
     // {if (this.getInitialState() === page) {
       return (
-        <LandingPage />
+        <OrdersPage />
         );
     // }}
   }

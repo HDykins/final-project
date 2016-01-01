@@ -3,7 +3,7 @@ var React = require('react');
 var SignInForm = React.createClass({
   render: function () {
     return (
-	<div className="rounded-box">
+	<div className="rounded-box" id="sign-in-form">
 		<div>
 			<h3>Would you like the ability to review your order at a later time?</h3>
 			<span>(You will need to sign in)</span>

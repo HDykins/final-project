@@ -10,10 +10,10 @@ var DeliveryDate = React.createClass({
 			</div>
 		</div>
 		<div className="col-xs-4">
-   			<div className="rounded-box">
-   				<div className="col-xs-4">
+   			<div className="rounded-box visible dropdown-date">
+   				<div className="no-padding col-xs-4">
 					<div className="dropdown">
-			            <button className="btn btn-default dropdown-toggle" type="button" id="dropdown-lights" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+			            <button className="btn small-button dropdown-toggle" type="button" id="dropdown-lights" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 			              Day
 			              <span className="caret"></span>
 			            </button>
@@ -22,9 +22,9 @@ var DeliveryDate = React.createClass({
 			            </ul>
 			         </div>
 		        </div>
-		        <div className="col-xs-4">
+		        <div className="no-padding col-xs-4">
 					<div className="dropdown">
-			            <button className="btn btn-default dropdown-toggle" type="button" id="dropdown-lights" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+			            <button className="btn small-button dropdown-toggle" type="button" id="dropdown-lights" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 			              Month
 			              <span className="caret"></span>
 			            </button>
@@ -33,9 +33,9 @@ var DeliveryDate = React.createClass({
 			            </ul>
 			        </div>
 		        </div>
-		        <div className="col-xs-4">
+		        <div className="no-padding col-xs-4">
 					<div className="dropdown">
-			            <button className="btn btn-default dropdown-toggle" type="button" id="dropdown-lights" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+			            <button className="btn small-button dropdown-toggle" type="button" id="dropdown-lights" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 			              Year
 			              <span className="caret"></span>
 			            </button>
@@ -47,9 +47,9 @@ var DeliveryDate = React.createClass({
 			</div>
 		</div>
 		<div className="col-xs-4">
-   			<div className="rounded-box">
+   			<div className="rounded-box visible dropdown-time">
 				<div className="dropdown">
-		            <button className="btn btn-default dropdown-toggle" type="button" id="dropdown-lights" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+		            <button className="btn small-button dropdown-toggle" type="button" id="dropdown-lights" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 		              Time
 		              <span className="caret"></span>
 		            </button>

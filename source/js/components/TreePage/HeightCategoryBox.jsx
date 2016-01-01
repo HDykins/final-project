@@ -10,7 +10,7 @@ var HeightCategoryBox = React.createClass({
 					Small
 				</h4>
 				<div>
-					Under 4ft
+					<span>Under 4ft</span>
 				</div>
 				<div>
 					Min Price Specified <span className="price">(£20)</span>
@@ -23,7 +23,7 @@ var HeightCategoryBox = React.createClass({
 					Medium
 				</h4>
 				<div>
-					3 - 9ft
+					<span>3 - 9ft</span>
 				</div>
 				<div>
 					Variable price <span className="price">(£24)</span>
@@ -36,7 +36,7 @@ var HeightCategoryBox = React.createClass({
 					Large
 				</h4>
 				<div>
-					Over 9ft
+					<span>Over 9ft</span>
 				</div>
 				<div>
 					Max Price Specified <span className="price">(£40)</span>
