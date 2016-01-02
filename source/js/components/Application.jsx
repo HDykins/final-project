@@ -1,4 +1,5 @@
 var React = require('react');
+var StateStore = require('../stores/StateStore.js');
 var LandingPage = require('./LandingPage/LandingPage.jsx');
 var TreePage = require('./TreePage/TreePage.jsx');
 var DecorationsPage = require('./DecorationsPage/DecorationsPage.jsx');
@@ -11,7 +12,9 @@ var OrdersPage = require('./OrdersPage/OrdersPage.jsx');
 var Application = React.createClass({
   
   getInitialState: function () {
-    return {state: "LANDING_PAGE"};
+    return {
+      page: StateStore.getCurrentPage()
+    };
   },
 
   // updateState: function () {
@@ -33,12 +36,16 @@ var Application = React.createClass({
   // },
 
   render: function () {
-    var page = this.state
-    // {if (this.getInitialState() === page) {
+    {if (this.state.page === 'LANDING_PAGE') {
       return (
-        <OrdersPage />
+        <LandingPage />
         );
-    // }}
+    }}
+    {if (this.state.page === 'TREE_PAGE') {
+      return (
+        <TreePage />
+        );
+    }}
   }
 });
 
