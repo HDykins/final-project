@@ -15,10 +15,9 @@ var PAGES = {
 
 var currentPage = PAGES.LANDING_PAGE;
 
-function addListItem(listItem) {
-  shoppingList[listItem.id] = listItem;
-
-  ListItemStore.emit('change');
+function changeToTreePage() {
+  currentPage = PAGES.TREE_PAGE;
+  StateStore.emit('change');
 }
 
 function removeListItem(listItemId) {
@@ -50,8 +49,8 @@ var StateStore = objectAssign({}, EventEmitter.prototype, {
 });
 
 function handleAction(action) {
-  if (action.type === 'add_list_item') {
-    addListItem(action.item);
+  if (action.type === 'change-to-tree-page') {
+    changeToTreePage();
   } else if (action.type === 'remove_list_item') {
     removeListItem(action.itemId);
   } else if (action.type === 'remove_all_list_items') {

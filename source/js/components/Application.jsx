@@ -17,9 +17,12 @@ var Application = React.createClass({
     };
   },
 
-  // updateState: function () {
-  //   this.setState(this.getList());
-  // },
+  updateState: function () {
+    this.setState(
+    {
+      page: StateStore.getCurrentPage()
+    });
+  },
 
   // getList: function () {
   //   return {
@@ -27,13 +30,13 @@ var Application = React.createClass({
   //   };
   // },
 
-  // componentDidMount: function () {
-  //   ListItemStore.addChangeListener(this.updateState);
-  // },
+  componentDidMount: function () {
+    StateStore.addChangeListener(this.updateState);
+  },
 
-  // componentWillUnmount: function () {
-  //   ListItemStore.removeChangeListener(this.updateState);
-  // },
+  componentWillUnmount: function () {
+    StateStore.removeChangeListener(this.updateState);
+  },
 
   render: function () {
     {if (this.state.page === 'LANDING_PAGE') {
