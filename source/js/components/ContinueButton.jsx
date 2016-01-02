@@ -1,18 +1,26 @@
 var React = require('react');
 var TreePageActionCreators = require('../actions/TreePageActionCreators.js');
+var DecorationsPageActionCreators = require('../actions/DecorationsPageActionCreators.js');
+var DeliveryPageActionCreators = require('../actions/DeliveryPageActionCreators.js');
+var PaymentPageActionCreators = require('../actions/PaymentPageActionCreators.js');
 var StateStore = require('../stores/StateStore.js');
 
 var ContinueButton = React.createClass({
 
   handleContinueButtonClickEvent: function () {
   	event.preventDefault();
-    console.log(StateStore.getCurrentPage());
   	if (StateStore.getCurrentPage() === 'TREE_PAGE') {
   		TreePageActionCreators.changeToDecorationsPage();
   	} 
-    // else if (StateStore.getCurrentPage() === 'DECORATIONS_PAGE') {
-    //   TreePageActionCreators.changeToDecorationsPage();
-    // } 
+    else if (StateStore.getCurrentPage() === 'DECORATIONS_PAGE') {
+      DecorationsPageActionCreators.changeToDeliveryPage();
+    }
+    else if (StateStore.getCurrentPage() === 'DELIVERY_PAGE') {
+      DeliveryPageActionCreators.changeToPaymentPage();
+    }
+    else if (StateStore.getCurrentPage() === 'PAYMENT_PAGE') {
+      PaymentPageActionCreators.changeToThanksPage();
+    }       
   },
 
   render: function () {
