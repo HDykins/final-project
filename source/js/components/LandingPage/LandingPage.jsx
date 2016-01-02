@@ -29,7 +29,7 @@ var LandingPage = React.createClass({
 	        	<div className="row">
 	        		<div className="col-xs-3">
 	        			<div className="rounded-box">
-	        				<h4>Contact details</h4>
+	        				<h4 id="bottom">Contact details</h4>
 								<span>Email: hjdykins@hotmail.com</span><br />
 								<span>Phone: 07542284533</span>
 	        			</div>

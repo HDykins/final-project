@@ -1,14 +1,14 @@
 var Dispatcher = require('../dispatcher/Dispatcher');
 
 
-function changeToTreePage() {
+function changeToDecorationsPage() {
 	var action = {
-		type: 'change-to-tree-page',
+		type: 'change-to-decorations-page',
 	};
 
 	Dispatcher.dispatch(action);
 }
 
 module.exports = {
-	changeToTreePage: changeToTreePage
+	changeToDecorationsPage: changeToDecorationsPage
 };

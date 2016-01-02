@@ -39,16 +39,46 @@ var Application = React.createClass({
   },
 
   render: function () {
-    {if (this.state.page === 'LANDING_PAGE') {
+    if (this.state.page === 'LANDING_PAGE') {
       return (
         <LandingPage />
-        );
-    }}
-    {if (this.state.page === 'TREE_PAGE') {
+      );
+    }
+    if (this.state.page === 'TREE_PAGE') {
       return (
         <TreePage />
-        );
-    }}
+      );
+    }
+    if (this.state.page === 'DECORATIONS_PAGE') {
+      return (
+        <DecorationsPage />
+      );
+    }
+    if (this.state.page === 'DELIVERY_PAGE') {
+      return (
+        <DeliveryPage />
+      );
+    }
+    if (this.state.page === 'PAYMENT_PAGE') {
+      return (
+        <PaymentPage />
+      );
+    }
+    if (this.state.page === 'THANKS_PAGE') {
+      return (
+        <ThanksPage />
+      );
+    }
+    if (this.state.page === 'SIGN_IN_PAGE') {
+      return (
+        <SignInPage />
+      );
+    }            
+    if (this.state.page === 'ORDERS_PAGE') {
+      return (
+        <OrdersPage />
+      );
+    }
   }
 });
 

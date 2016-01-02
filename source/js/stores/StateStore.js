@@ -9,14 +9,51 @@ var PAGES = {
   DELIVERY_PAGE: 'DELIVERY_PAGE',
   PAYMENT_PAGE: 'PAYMENT_PAGE',
   THANKS_PAGE: 'PAYMENT_PAGE',
-  ORDER_PAGE: 'ORDER_PAGE',
-  SIGN_IN_PAGE: 'SIGN_IN_PAGE'
+  SIGN_IN_PAGE: 'SIGN_IN_PAGE',
+  ORDERS_PAGE: 'ORDERS_PAGE'
 };
 
 var currentPage = PAGES.LANDING_PAGE;
 
+var isSignedIn = false;
+
+function changeToLandingPage() {
+  currentPage = PAGES.LANDING_PAGE;
+  StateStore.emit('change');
+}
+
 function changeToTreePage() {
   currentPage = PAGES.TREE_PAGE;
+  StateStore.emit('change');
+}
+
+function changeToDecorationsPage() {
+  currentPage = PAGES.DECORATIONS_PAGE;
+  StateStore.emit('change');
+}
+
+function changeToDeliveryPage() {
+  currentPage = PAGES.DELIVERY_PAGE;
+  StateStore.emit('change');
+}
+
+function changeToPaymentPage() {
+  currentPage = PAGES.PAYMENT_PAGE;
+  StateStore.emit('change');
+}
+
+function changeToThanksPage() {
+  currentPage = PAGES.THANKS_PAGE;
+  StateStore.emit('change');
+}
+
+function changeToSignInPage() {
+  currentPage = PAGES.SIGN_IN_PAGE;
+  StateStore.emit('change');
+}
+
+function changeToOrdersPage() {
+  currentPage = PAGES.ORDERS_PAGE;
   StateStore.emit('change');
 }
 
@@ -38,6 +75,14 @@ var StateStore = objectAssign({}, EventEmitter.prototype, {
     return currentPage;
   },
 
+  getSignedInStatus: function () {
+    return isSignedIn;
+  },
+
+  signIn: function () {
+  isSignedIn = true;
+  },
+
   addChangeListener: function (changeEventHandler) {
     this.on('change', changeEventHandler);
   },
@@ -49,12 +94,24 @@ var StateStore = objectAssign({}, EventEmitter.prototype, {
 });
 
 function handleAction(action) {
-  if (action.type === 'change-to-tree-page') {
+  if (action.type === 'change-to-landing-page') {
+    changeToLandingPage();
+  } else if (action.type === 'change-to-tree-page') {
     changeToTreePage();
-  } else if (action.type === 'remove_list_item') {
-    removeListItem(action.itemId);
+  } else if (action.type === 'change-to-decorations-page') {
+    changeToDecorationsPage();
+  } else if (action.type === 'change-to-delivery-page') {
+    changeToDeliveryPage();
+  } else if (action.type === 'change-to-payment-page') {
+    changeToPaymentPage();
+  } else if (action.type === 'change-to-thanks-page') {
+    changeToThanksPage();   
+  } else if (action.type === 'change-to-sign-in-page') {
+    changeToSignInPage();                   
+  } else if (action.type === 'change-to-orders-page') {
+    changeToOrdersPage();   
   } else if (action.type === 'remove_all_list_items') {
-    removeAllListItems();
+    removeListItem(action.itemId);
   }
 }
 
