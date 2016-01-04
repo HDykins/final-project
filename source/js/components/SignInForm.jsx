@@ -1,13 +1,16 @@
 var React = require('react');
+var StateStore = require('../stores/StateStore.js');
 
 var SignInForm = React.createClass({
   render: function () {
+  var currentPage = StateStore.getCurrentPage();
+
     return (
 	<div className="rounded-box" id="sign-in-form">
-		<div>
+		{currentPage === "THANKS_PAGE" ? <div>
 			<h3>Would you like the ability to review your order at a later time?</h3>
 			<span>(You will need to sign in)</span>
-		</div>
+		</div> : null}
 		<h4>Sign-in form</h4>
 		<div className="col-xs-8 col-xs-offset-2">
 			<div className="rounded-box">
@@ -26,18 +29,11 @@ var SignInForm = React.createClass({
 					</div>				
 					<button className="important-button btn btn-success">Sign-in</button>
 				</div>
-				<div className="col-xs-6 col-xs-offset-3">
-					<div className="rounded-box">
-						<span>Remember my design details </span>
-						<input type="checkbox" />
-						<br />
-						<span>(You must first sign-in)</span>
-					</div>
-				</div>
+
 			</div>
 		</div>
 		<div className="col-xs-12">
-			<h3>Don''t have an account?</h3>
+			<h3>Don't have an account?</h3>
 			<button className="important-button btn btn-success">Register</button>
 			<br /><br />
 		</div>	
