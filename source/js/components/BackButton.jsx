@@ -24,7 +24,7 @@ var BackButton = React.createClass({
     return (
     <div onClick={this.handleBackButtonClickEvent} className="col-xs-3">	
 		<div className="rounded-box">
-			<span><strong>Decorate Tree</strong></span><br />
+			<span><strong>{this.props.label}</strong></span><br />
 			<img className="arrow-button" src="../source/images/back.png" />
 		</div>
 	</div>

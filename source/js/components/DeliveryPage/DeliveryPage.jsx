@@ -41,9 +41,9 @@ var DeliveryPage = React.createClass({
               <DeliveryInfo />
             </div>
 	        	<div className="row">
-	        		<BackButton />
+	        		<BackButton label="Back to decorations page" />
 	        		<PriceTotal />
-	        		<ContinueButton />
+	        		<ContinueButton label="Continue to payment" />
 	        	</div>
       		</div>
       	</div>

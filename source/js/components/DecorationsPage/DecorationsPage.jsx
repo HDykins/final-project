@@ -25,9 +25,9 @@ var DecorationsPage = React.createClass({
 	        		<DecorationsCostBox />
 	        	</div>
 	        	<div className="row">
-	        		<BackButton />
+	        		<BackButton label="Back to tree page" />
 	        		<PriceTotal />
-	        		<ContinueButton />
+	        		<ContinueButton label="Continue to delivery page" />
 	        	</div>
       		</div>
       	</div>

@@ -27,7 +27,7 @@ var ContinueButton = React.createClass({
     return (
     <div onClick={this.handleContinueButtonClickEvent} className="col-xs-3 right">	
 		<div className="rounded-box">
-			<span><strong>Continue to decorations</strong></span><br />
+			<span><strong>{this.props.label}</strong></span><br />
 			<img className="arrow-button" src="../source/images/forward.png" />
 		</div>
 	</div>	

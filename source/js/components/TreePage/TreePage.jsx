@@ -39,7 +39,7 @@ var TreePage = React.createClass({
 	        	<div className="row">
 	        		<div className="col-xs-3"></div>
 	        		<PriceTotal />
-	        		<ContinueButton />
+	        		<ContinueButton label="Continue to decorations page" />
 	        	</div>
       		</div>
       	</div>
