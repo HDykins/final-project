@@ -1,13 +1,21 @@
 var React = require('react');
+var SignInFormActionCreators = require('../actions/SignInFormActionCreators.js');
 
 var RegisterForm = React.createClass({
+
+  handleXButtonClickEvent: function () {
+  	event.preventDefault();
+
+    SignInFormActionCreators.setHideRegisterForm();
+  },
+
   render: function () {
     return (
-	<div className="transparent col-xs-8 register-form hide">
+	<div className="transparent col-xs-8 register-form">
 		<div className="rounded-box">
 			<h2>Register</h2>
 		</div>
-		<button className="btn btn-default x-button">X</button>
+		<button onClick={this.handleXButtonClickEvent} className="btn btn-default x-button">X</button>
 		<div className="rounded-box">
 			<input className="registration-input" placeholder="Email" />
 		</div>

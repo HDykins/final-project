@@ -9,6 +9,12 @@ var OrderOptionsButtons = React.createClass({
     OrdersPageActionCreators.changeToPaymentPage();
   },
 
+  handleCancelOrderButtonClickEvent: function () {
+  	event.preventDefault();
+
+    OrdersPageActionCreators.setShowCancellationForm();
+  },
+
   render: function () {	
     return (
     <div className="row">	
@@ -19,7 +25,7 @@ var OrderOptionsButtons = React.createClass({
 			</div>
 		</div>
 		<div className="col-xs-3">
-			<button type="button" className="btn danger-button">
+			<button onClick={this.handleCancelOrderButtonClickEvent} type="button" className="btn danger-button">
 				Cancel Order
 			</button>
 		</div>

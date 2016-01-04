@@ -15,7 +15,7 @@ var PAGES = {
 
 var currentPage = PAGES.LANDING_PAGE;
 
-var isSignedIn = true;
+var isSignedIn = false;
 
 function changeToLandingPage() {
   currentPage = PAGES.LANDING_PAGE;

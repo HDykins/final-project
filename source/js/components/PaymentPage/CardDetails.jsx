@@ -1,6 +1,15 @@
 var React = require('react');
+var PaymentPageActionCreators = require('../../actions/PaymentPageActionCreators.js');
+
 
 var CardDetails = React.createClass({
+
+  handleTermsConditionsLinkClickEvent: function () {
+  	event.preventDefault();
+
+    PaymentPageActionCreators.setShowTermsConditionsForm();
+  },
+
   render: function () {
     return (
     <div>	
@@ -37,7 +46,7 @@ var CardDetails = React.createClass({
 					<input type="text" placeholder="Year"/>
 				</div>
 				<div className="col-xs-3 col-xs-offset-3 terms-conditions-message">
-					You must accept the <a>terms and conditions</a>
+					You must accept the <a onClick={this.handleTermsConditionsLinkClickEvent}>terms and conditions</a>
 				</div>
 				<div className="col-xs-3 accept-message">
 					I Accept <input type="checkbox" />

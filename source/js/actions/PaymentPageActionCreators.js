@@ -15,8 +15,24 @@ function changeToThanksPage() {
 	Dispatcher.dispatch(action);
 }
 
+function setShowTermsConditionsForm() {
+	var action = {
+		type: 'set-show-terms-conditions-form',
+	};
+	Dispatcher.dispatch(action);
+}
+
+function setHideTermsConditionsForm() {
+	var action = {
+		type: 'set-hide-terms-conditions-form',
+	};
+	Dispatcher.dispatch(action);
+}
+
 
 module.exports = {
 	changeToDeliveryPage: changeToDeliveryPage,
-	changeToThanksPage: changeToThanksPage
+	changeToThanksPage: changeToThanksPage,
+	setShowTermsConditionsForm: setShowTermsConditionsForm,
+	setHideTermsConditionsForm: setHideTermsConditionsForm
 };

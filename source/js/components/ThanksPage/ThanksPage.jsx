@@ -1,5 +1,6 @@
 var React = require('react');
 var NavBar = require('../NavBar.jsx');
+var PopUpStore = require('../../stores/PopUpStore.js');
 var ThanksMessage = require('./ThanksMessage.jsx');
 var SignInForm = require('../SignInForm.jsx');
 var Header1 = require('../Header1.jsx');
@@ -7,6 +8,27 @@ var SocialMedia = require('./SocialMedia.jsx');
 var RegisterForm = require('../RegisterForm.jsx');
 
 var ThanksPage = React.createClass({
+
+  getInitialState: function () {
+      return {
+        isRegisterFormVisible: PopUpStore.getRegisterFormIsVisible()
+      };
+  },
+
+  updateState: function () {
+      this.setState(
+      {
+        isRegisterFormVisible: PopUpStore.getRegisterFormIsVisible()
+      });
+  },
+
+  componentDidMount: function () {
+      PopUpStore.addChangeListener(this.updateState);
+  },
+
+  componentWillUnmount: function () {
+      PopUpStore.removeChangeListener(this.updateState);
+  },    
 
   render: function () {
     return (
@@ -24,7 +46,7 @@ var ThanksPage = React.createClass({
               <SocialMedia />
             </div>
             <div className="row">
-              <RegisterForm />
+              {this.state.isRegisterFormVisible ? <RegisterForm /> : null}
             </div>
       		</div>
       	</div>

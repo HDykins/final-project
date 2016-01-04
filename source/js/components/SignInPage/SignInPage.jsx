@@ -1,10 +1,32 @@
 var React = require('react');
 var NavBar = require('../NavBar.jsx');
+var PopUpStore = require('../../stores/PopUpStore.js');
 var SignInForm = require('../SignInForm.jsx');
 var RegisterForm = require('../RegisterForm.jsx');
 var SignInPageActionCreators = require('../../actions/SignInPageActionCreators.js');
 
 var SignInPage = React.createClass({
+
+  getInitialState: function () {
+      return {
+        isRegisterFormVisible: PopUpStore.getRegisterFormIsVisible()
+      };
+  },
+
+  updateState: function () {
+      this.setState(
+      {
+        isRegisterFormVisible: PopUpStore.getRegisterFormIsVisible()
+      });
+  },
+
+  componentDidMount: function () {
+      PopUpStore.addChangeListener(this.updateState);
+  },
+
+  componentWillUnmount: function () {
+      PopUpStore.removeChangeListener(this.updateState);
+  },    
 
   handleBuildTreeAsGuestButtonClickEvent: function () {
     event.preventDefault();
@@ -29,7 +51,7 @@ var SignInPage = React.createClass({
               <h3>Alternatively you can proceed to build your own tree as a guest!</h3>
               <button onClick={this.handleBuildTreeAsGuestButtonClickEvent} className="btn important-button btn-success">Build tree</button>
             </div>
-            <RegisterForm />
+            {this.state.isRegisterFormVisible ? <RegisterForm /> : null}
       		</div>
       	</div>
     );

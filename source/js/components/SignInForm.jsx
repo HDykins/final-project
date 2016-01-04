@@ -1,7 +1,16 @@
 var React = require('react');
 var StateStore = require('../stores/StateStore.js');
+var SignInFormActionCreators = require('../actions/SignInFormActionCreators.js');
+
 
 var SignInForm = React.createClass({
+
+  handleRegisterButtonClickEvent: function () {
+  	event.preventDefault();
+
+    SignInFormActionCreators.setShowRegisterForm();
+  },
+
   render: function () {
   var currentPage = StateStore.getCurrentPage();
 
@@ -34,7 +43,7 @@ var SignInForm = React.createClass({
 		</div>
 		<div className="col-xs-12">
 			<h3>Don't have an account?</h3>
-			<button className="important-button btn btn-success">Register</button>
+			<button onClick={this.handleRegisterButtonClickEvent} className="important-button btn btn-success">Register</button>
 			<br /><br />
 		</div>	
 	</div>
