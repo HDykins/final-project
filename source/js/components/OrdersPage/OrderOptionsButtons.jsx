@@ -1,7 +1,15 @@
 var React = require('react');
+var OrdersPageActionCreators = require('../../actions/OrdersPageActionCreators.js');
 
 var OrderOptionsButtons = React.createClass({
-  render: function () {
+
+  handleOrderAgainButtonClickEvent: function () {
+  	event.preventDefault();
+
+    OrdersPageActionCreators.changeToPaymentPage();
+  },
+
+  render: function () {	
     return (
     <div className="row">	
 		<div className="col-xs-3">
@@ -21,7 +29,7 @@ var OrderOptionsButtons = React.createClass({
 			</div>
 		</div>
 		<div className="col-xs-3">
-			<button type="button" className="btn">
+			<button onClick={this.handleOrderAgainButtonClickEvent} type="button" className="btn">
 				Order again
 			</button>
 		</div>
