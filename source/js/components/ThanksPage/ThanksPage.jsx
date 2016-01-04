@@ -20,7 +20,7 @@ var ThanksPage = React.createClass({
               <SignInForm />
 	        	</div>
             <div className="row">
-              <Header1 />
+              <Header1 label="Do you want to share your order details" />
               <SocialMedia />
             </div>
             <div className="row">

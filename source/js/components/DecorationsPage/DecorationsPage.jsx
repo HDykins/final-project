@@ -16,7 +16,7 @@ var DecorationsPage = React.createClass({
         	<NavBar />
         	<div className="container">
         		<img src="../source/images/current-step-image-2.png" />
-        		<Header1 />
+        		<Header1 label="Choose tree decorations"/>
         		<div className="row">
 	        		<DecorationsList />
 	        		<PreviewImage />

@@ -16,13 +16,13 @@ render: function () {
         	<NavBar />
         	<div className="container">
         		<img src="../source/images/current-step-image-4.png" />
-        		<Header1 />
+        		<Header1 label="Order Summary"/>
         		<div className="row">
                     <div className="rounded-box">
             			<OrderSummary />
                     </div>
         		</div>
-        		<Header1 />
+        		<Header1 label="Card Details" />
         		<div className="row">
 	        		<CardDetails />
 	        	</div>	

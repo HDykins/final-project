@@ -18,7 +18,7 @@ var TreePage = React.createClass({
         	<div className="container">
         		<img src="../source/images/current-step-image-1.png" />
         		<div className="row">
-	        		<Header1 />
+	        		<Header1 label="Choose tree type" />
 	        	</div>
         		<div className="row">
 	        		<LargeTreeIcon />
@@ -27,7 +27,7 @@ var TreePage = React.createClass({
 	        	<div className="row">
 					<TreeInfo />       		
 	        	</div>
-	        	<Header1 />
+	        	<Header1 label="Choose tree height"/>
 	        	<div className="row">
 	        		<div className="col-xs-6">
 	        			<SliderBox />

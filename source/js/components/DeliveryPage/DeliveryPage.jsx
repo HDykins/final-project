@@ -20,7 +20,7 @@ var DeliveryPage = React.createClass({
         	<NavBar />
         	<div className="container">
         		<img src="../source/images/current-step-image-3.png" />
-        		<Header1 />
+        		<Header1 label="Collect or Deliver?" />
         		<div className="row">
         			<CollectOrDeliver />
         		</div>

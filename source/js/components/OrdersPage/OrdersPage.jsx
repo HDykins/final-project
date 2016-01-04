@@ -13,7 +13,7 @@ var OrdersPage = React.createClass({
         	<NavBar />
         	<div className="container">
         		<div className="row">
-              <Header1 />
+              <Header1 label="Order History"/>
 	        	</div>	
             <div className="rounded-box">
   	        	<div className="row">
