@@ -15,7 +15,30 @@ var PAGES = {
 
 var currentPage = PAGES.LANDING_PAGE;
 
+var delivery = false;
+var collection = false;
+
 var isSignedIn = false;
+
+function toggleDeliveryChoice() {
+  if (delivery === true) {
+    delivery = false;
+  }
+  else {
+    delivery = true;
+  }
+  StateStore.emit('change');
+}
+
+function toggleCollectionChoice() {
+  if (collection === true) {
+    collection = false;
+  }
+  else {
+    collection = true;
+  }
+  StateStore.emit('change');
+}
 
 function changeToLandingPage() {
   currentPage = PAGES.LANDING_PAGE;
@@ -79,6 +102,14 @@ var StateStore = objectAssign({}, EventEmitter.prototype, {
     return isSignedIn;
   },
 
+  getDeliveryChoice: function () {
+    return delivery;
+  },
+
+  getCollectionChoice: function () {
+    return collection;
+  },
+
   signIn: function () {
   isSignedIn = true;
   },
@@ -110,6 +141,10 @@ function handleAction(action) {
     changeToSignInPage();                   
   } else if (action.type === 'change-to-orders-page') {
     changeToOrdersPage();   
+  } else if (action.type === 'toggle-collection-choice') {
+    toggleCollectionChoice();   
+  } else if (action.type === 'toggle-delivery-choice') {
+    toggleDeliveryChoice();   
   } else if (action.type === 'remove_all_list_items') {
     removeListItem(action.itemId);
   }

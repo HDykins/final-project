@@ -6,7 +6,7 @@ var DeliveryDate = React.createClass({
    	<div>
    		<div className="col-xs-4">
    			<div className="rounded-box">
-				<h4>Choose delivery date and preferred time</h4>
+				<h4>{this.props.label}</h4>
 			</div>
 		</div>
 		<div className="col-xs-4">

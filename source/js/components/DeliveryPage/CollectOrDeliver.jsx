@@ -1,11 +1,31 @@
 var React = require('react');
+var StateStore = require('../../stores/StateStore.js');
+var DeliveryPageActionCreators = require('../../actions/DeliveryPageActionCreators.js');
 
 var CollectOrDeliver = React.createClass({
+
+  handleDeliverButtonClickEvent: function () {
+  event.preventDefault();
+  if (StateStore.getCollectionChoice()) {
+  	DeliveryPageActionCreators.toggleCollectionChoice()
+  }
+  DeliveryPageActionCreators.toggleDeliveryChoice();
+  },
+
+  handleCollectButtonClickEvent: function () {
+  event.preventDefault();
+  if (StateStore.getDeliveryChoice()) {
+  	DeliveryPageActionCreators.toggleDeliveryChoice()
+  }
+  DeliveryPageActionCreators.toggleCollectionChoice();
+  },
+
   render: function () {
+  	console.log(this.props.deliveryChoice);
     return (
     <div>
-		<button className="btn important-button">Collect</button>
-		<button className="btn important-button">Deliver</button>
+		<button onClick={this.handleCollectButtonClickEvent} className="btn important-button">Collect</button>
+		<button onClick={this.handleDeliverButtonClickEvent} className="btn important-button">Deliver</button>
 	</div>
     );
   }
