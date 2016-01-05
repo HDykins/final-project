@@ -240,6 +240,10 @@ h3, h4, p, .btn {
 .center {
   float: center; }
 
+.absolute-left {
+  position: absolute;
+  left: 0; }
+
 .tree-icon-image {
   height: 24vw;
   width: 100%; }
