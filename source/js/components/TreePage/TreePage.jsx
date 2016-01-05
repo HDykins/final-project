@@ -1,5 +1,6 @@
 var React = require('react');
 var NavBar = require('../NavBar.jsx');
+var TreeInformationStore = require('../../stores/TreeInformationStore.js');
 var Header1 = require('../Header1.jsx');
 var LargeTreeIcon = require('./LargeTreeIcon.jsx');
 var TreeIcons = require('./TreeIcons.jsx');
@@ -11,6 +12,27 @@ var ContinueButton = require('../ContinueButton.jsx');
 
 var TreePage = React.createClass({
 
+  getInitialState: function () {
+        return {
+          treeView: TreeInformationStore.getCurrentTreeView()
+        };
+    },
+
+    updateState: function () {
+        this.setState(
+        {
+          treeView: TreeInformationStore.getCurrentTreeView()
+        });
+    },
+
+    componentDidMount: function () {
+        TreeInformationStore.addChangeListener(this.updateState);
+    },
+
+    componentWillUnmount: function () {
+        TreeInformationStore.removeChangeListener(this.updateState);
+    },    	
+
   render: function () {
     return (
     	<div className="container-fluid grey-background">
@@ -21,9 +43,9 @@ var TreePage = React.createClass({
 	        		<Header1 label="Choose tree type" />
 	        	</div>
         		<div className="row">
-	        		<LargeTreeIcon />
+	        		<LargeTreeIcon treeView={this.state.treeView} />
 	        	</div>	
-				<TreeIcons />
+				<TreeIcons treeView={this.state.treeView} />
 	        	<div className="row">
 					<TreeInfo />       		
 	        	</div>

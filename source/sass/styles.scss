@@ -2,6 +2,8 @@ $off-black: rgb(70,70,70);
 $lime-green: rgb(120,225,100);
 $lime-green-darker: rgb(90,180,70);
 $grey-background: rgb(220,220,220);
+$light-blue : rgba(161,219,255,0.8);
+$almost-white-blue : rgba(230,240,255,0.8);
 
 @media (max-width: 800px) {
   .col-xs-8 {
@@ -56,8 +58,11 @@ $grey-background: rgb(220,220,220);
   img.tree-icon-image {
   height: 30vw;	
   }
-  #tree-price, #tree-name, div strong, .price.big-price, span.decorations-cost-box, em.decorations-cost-box, .btn.important-button, .btn.danger-button {
+  #tree-price, div strong, .price.big-price, span.decorations-cost-box, em.decorations-cost-box, .btn.important-button, .btn.danger-button {
   font-size: 20px;
+  }
+  #tree-name {
+  font-size: 19px;
   }
   img.arrow-button {
   width: 20px;
@@ -353,12 +358,18 @@ h3, h4, p, .btn {
 }
 
 .highlight {
-	background-color: blue;
+	background-color: rgba(161,219,255,0.8);
+
+    background: $lime-green; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient($light-blue, $almost-white-blue); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient($lime-green, $lime-green-darker); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient($lime-green, $lime-green-darker); /* For Firefox 3.6 to 15 */
+    background: linear-gradient($light-blue, $almost-white-blue); /* Standard syntax */
 }
 
 .tree-name {
 	@extend em;
-	font-size: 2vw;
+	font-size: 1.7vw;
 }
 
 .tree-price {

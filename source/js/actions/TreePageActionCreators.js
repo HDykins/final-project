@@ -9,6 +9,43 @@ function changeToDecorationsPage() {
 	Dispatcher.dispatch(action);
 }
 
+function changeToNorwegianView() {
+	var action = {
+		type: 'change-to-norwegian-view',
+	};
+
+	Dispatcher.dispatch(action);
+}
+
+function changeToNordmannView() {
+	var action = {
+		type: 'change-to-nordmann-view',
+	};
+
+	Dispatcher.dispatch(action);
+}
+
+function changeToFraserView() {
+	var action = {
+		type: 'change-to-fraser-view',
+	};
+
+	Dispatcher.dispatch(action);
+}
+
+function changeToArtificialView() {
+	var action = {
+		type: 'change-to-artificial-view',
+	};
+
+	Dispatcher.dispatch(action);
+}
+
 module.exports = {
-	changeToDecorationsPage: changeToDecorationsPage
+	changeToDecorationsPage: changeToDecorationsPage,
+	changeToNorwegianView: changeToNorwegianView,
+	changeToNordmannView: changeToNordmannView,
+	changeToFraserView: changeToFraserView,
+	changeToArtificialView: changeToArtificialView
+
 };

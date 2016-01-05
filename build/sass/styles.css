@@ -31,8 +31,10 @@
     font-size: 2.5vw; }
   img.tree-icon-image {
     height: 30vw; }
-  #tree-price, #tree-name, div strong, .price.big-price, span.decorations-cost-box, em.decorations-cost-box, strong.decorations-cost-box, .decorations-cost-box.tree-name, .decorations-cost-box.total-price, .btn.important-button, .btn.danger-button {
+  #tree-price, div strong, .price.big-price, span.decorations-cost-box, em.decorations-cost-box, strong.decorations-cost-box, .decorations-cost-box.tree-name, .decorations-cost-box.total-price, .btn.important-button, .btn.danger-button {
     font-size: 20px; }
+  #tree-name {
+    font-size: 19px; }
   img.arrow-button {
     width: 20px; }
   span.decorations-list-category-text {
@@ -253,10 +255,20 @@ h3, h4, p, .btn {
   height: 50vw; }
 
 .highlight {
-  background-color: blue; }
+  background-color: rgba(161, 219, 255, 0.8);
+  background: #78e164;
+  /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(rgba(161, 219, 255, 0.8), rgba(230, 240, 255, 0.8));
+  /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(#78e164, #5ab446);
+  /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(#78e164, #5ab446);
+  /* For Firefox 3.6 to 15 */
+  background: linear-gradient(rgba(161, 219, 255, 0.8), rgba(230, 240, 255, 0.8));
+  /* Standard syntax */ }
 
 .tree-name {
-  font-size: 2vw; }
+  font-size: 1.7vw; }
 
 .tree-price {
   font-size: 2vw; }
