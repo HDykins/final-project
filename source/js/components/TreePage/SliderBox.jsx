@@ -1,5 +1,9 @@
 var React = require('react');
 
+var Slider = require('react-rangeslider');
+
+
+
 var SliderBox = React.createClass({
   render: function () {
     return (

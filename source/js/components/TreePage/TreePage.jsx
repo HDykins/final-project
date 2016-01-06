@@ -45,7 +45,7 @@ var TreePage = React.createClass({
         		<div className="row">
 	        		<LargeTreeIcon treeView={this.state.treeView} />
 	        	</div>	
-				<TreeIcons treeView={this.state.treeView} />
+				<TreeIcons />
 	        	<div className="row">
 					<TreeInfo />       		
 	        	</div>
