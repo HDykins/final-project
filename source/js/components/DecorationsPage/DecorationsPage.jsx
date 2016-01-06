@@ -1,5 +1,6 @@
 var React = require('react');
 var NavBar = require('../NavBar.jsx');
+var CurrentDecorationsUserDetailsStore = require('../../stores/CurrentDecorationsUserDetailsStore.js');
 var Header1 = require('../Header1.jsx');
 var PreviewImage = require('./PreviewImage.jsx');
 var DecorationsList = require('./DecorationsList.jsx');
@@ -9,6 +10,26 @@ var PriceTotal = require('../PriceTotal.jsx');
 var ContinueButton = require('../ContinueButton.jsx');
 
 var DecorationsPage = React.createClass({
+
+  getInitialState: function () {
+    return {
+      decorations: CurrentDecorationsUserDetailsStore.getDecorationStatus()
+    };
+  },
+
+  updateState: function () {
+    this.setState({
+      decorations: CurrentDecorationsUserDetailsStore.getDecorationStatus()
+    });
+  },
+
+  componentDidMount: function () {
+      CurrentDecorationsUserDetailsStore.addChangeListener(this.updateState);
+  },
+
+  componentWillUnmount: function () {
+      CurrentDecorationsUserDetailsStore.removeChangeListener(this.updateState);
+  },  
 
   render: function () {
     return (

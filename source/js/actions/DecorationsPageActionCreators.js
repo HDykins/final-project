@@ -15,8 +15,17 @@ function changeToDeliveryPage() {
 	Dispatcher.dispatch(action);
 }
 
+function toggleDecorationSelection(decorationName) {
+	var action = {
+		type: 'toggle-decoration-selection',
+		decorationName: decorationName
+	};
+	Dispatcher.dispatch(action);	
+}
+
 
 module.exports = {
 	changeToTreePage: changeToTreePage,
-	changeToDeliveryPage: changeToDeliveryPage
+	changeToDeliveryPage: changeToDeliveryPage,
+	toggleDecorationSelection: toggleDecorationSelection
 };

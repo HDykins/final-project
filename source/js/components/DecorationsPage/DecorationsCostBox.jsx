@@ -1,13 +1,30 @@
 var React = require('react');
+var CurrentDecorationsUserDetailsStore = require('../../stores/CurrentDecorationsUserDetailsStore.js');
 
 var DecorationsCostBox = React.createClass({
+
+  addDecorationToList: function () {
+  	var decorationsToAdd = CurrentDecorationsUserDetailsStore.getListOfSelectedDecorations().map(
+		function renderDecorationListInCostBox(name) {
+			return (
+				<li key={name}><span className="decorations-cost-box">{CurrentDecorationsUserDetailsStore.getDecorationDescriptions()[name]}: </span><span className="price decorations-cost-box">£{CurrentDecorationsUserDetailsStore.getDecorationPrice()[name]}</span></li>
+			);
+		}
+	);
+	return decorationsToAdd;
+  },
+
+  updateTotalPrice: function () {
+  	return CurrentDecorationsUserDetailsStore.getCurrentTotalDecorationsPrice();
+  },
+
   render: function () {
-    return (
+	return (
 	<div className="rounded-box" id="decorations-cost-box">
 		<ul className="list-unstyled">
-			<li><span className="decorations-cost-box">Example - </span><span className="price decorations-cost-box">£24</span></li>
+			{this.addDecorationToList()}
 		</ul>
-		<em className="decorations-cost-box">Total Price: </em><span className="price decorations-cost-box">£36</span>
+		<em className="decorations-cost-box">Total price of decorations: </em><span className="price decorations-cost-box">£{this.updateTotalPrice()}</span>
 	</div>
     );
   }
