@@ -23,9 +23,27 @@ function toggleDecorationSelection(decorationName) {
 	Dispatcher.dispatch(action);	
 }
 
+function setHoveredDecoration(decorationName) {
+	var action = {
+		type: 'set-hovered-decoration',
+		decorationName: decorationName
+	};
+	Dispatcher.dispatch(action);	
+}
+
+function setHoveredDecorationToNull(decorationName) {
+	var action = {
+		type: 'set-hovered-decoration-to-null',
+		decorationName: decorationName
+	};
+	Dispatcher.dispatch(action);	
+}
+
 
 module.exports = {
 	changeToTreePage: changeToTreePage,
 	changeToDeliveryPage: changeToDeliveryPage,
-	toggleDecorationSelection: toggleDecorationSelection
+	toggleDecorationSelection: toggleDecorationSelection,
+	setHoveredDecoration: setHoveredDecoration,
+	setHoveredDecorationToNull: setHoveredDecorationToNull
 };

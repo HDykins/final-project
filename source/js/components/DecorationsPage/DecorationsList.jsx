@@ -1,7 +1,16 @@
 var React = require('react');
 var DecorationsListCheckBoxes = require('./DecorationsListCheckBoxes.jsx');
+var DecorationsListItem = require('./DecorationsListItem.jsx');
 
 var DecorationsList = React.createClass({
+
+  handleMouseOver: function (decorationName) {
+    this.props.handleHoverOnDecoration(decorationName);
+  },
+
+  handleMouseOut: function (decorationName) {
+    this.props.handleUnHoverOnDecoration(decorationName);
+  },
 
   render: function () {
     return (
@@ -13,8 +22,8 @@ var DecorationsList = React.createClass({
               <span className="caret"></span>
             </button>
             <ul className="dropdown-menu" aria-labelledby="dropdown-lights">
-              <li><a href="#"><label htmlFor="ID">Fairy Lights - 5m</label><DecorationsListCheckBoxes decorationName="FairyLights" /></a></li>
-              <li><a href="#"><label htmlFor="ID">+ Extension socket?</label><DecorationsListCheckBoxes decorationName="Extension" /></a></li>
+              <DecorationsListItem decorationName="FairyLights" label="Fairy Lights - 5m" handleMouseOver={this.handleMouseOver} handleMouseOut={this.handleMouseOut} />
+              <DecorationsListItem decorationName="Extension" label="+ Extension Socket?" />
             </ul>
           </div>
           <div className="dropdown">
@@ -23,10 +32,10 @@ var DecorationsList = React.createClass({
               <span className="caret"></span>
             </button>
             <ul className="dropdown-menu noclose" aria-labelledby="dropdown-baubles">
-              <li><a href="#"><label htmlFor="ID">Baubles Gold - 6 pack</label><DecorationsListCheckBoxes decorationName="BaublesGold" /></a></li>
-              <li><a href="#"><label htmlFor="ID">Baubles Silver - 6 pack</label><DecorationsListCheckBoxes decorationName="BaublesSilver" /></a></li>
-              <li><a href="#"><label htmlFor="ID">Baubles Coloured + Patterned - 6 pack</label><DecorationsListCheckBoxes decorationName="BaublesColoured" /></a></li>
-              <li><a href="#"><label htmlFor="ID">Baubles Cat - 6 pack</label><DecorationsListCheckBoxes decorationName="BaublesCat" /></a></li>
+              <DecorationsListItem decorationName="BaublesGold" label="Baubles Gold - 6 pack" handleMouseOver={this.handleMouseOver} handleMouseOut={this.handleMouseOut} />
+              <DecorationsListItem decorationName="BaublesSilver" label="Baubles Silver - 6 pack" handleMouseOver={this.handleMouseOver} handleMouseOut={this.handleMouseOut} />
+              <DecorationsListItem decorationName="BaublesColoured" label="Baubles Coloured + Patterned - 6 pack" handleMouseOver={this.handleMouseOver} handleMouseOut={this.handleMouseOut} />
+              <DecorationsListItem decorationName="BaublesCat" label="Baubles Cat - 6 pack" handleMouseOver={this.handleMouseOver} handleMouseOut={this.handleMouseOut} />
             </ul>
           </div>
           <div className="dropdown">
@@ -35,9 +44,9 @@ var DecorationsList = React.createClass({
               <span className="caret"></span>
             </button>
             <ul className="dropdown-menu" aria-labelledby="dropdown-tinsel">
-              <li><a href="#"><label htmlFor="ID">Silver - 2m</label><DecorationsListCheckBoxes decorationName="TinselSilver" /></a></li>
-              <li><a href="#"><label htmlFor="ID">Gold/silver hybrid - 2m</label><DecorationsListCheckBoxes decorationName="TinselHybrid" /></a></li>
-              <li><a href="#"><label htmlFor="ID">Purple - 2m</label><DecorationsListCheckBoxes decorationName="TinselPurple" /></a></li>
+              <DecorationsListItem decorationName="TinselSilver" label="Silver - 2m" handleMouseOver={this.handleMouseOver} handleMouseOut={this.handleMouseOut} />
+              <DecorationsListItem decorationName="TinselHybrid" label="Gold/silver hybrid - 2m" handleMouseOver={this.handleMouseOver} handleMouseOut={this.handleMouseOut} />
+              <DecorationsListItem decorationName="TinselPurple" label="Purple - 2m" handleMouseOver={this.handleMouseOver} handleMouseOut={this.handleMouseOut} />
             </ul>
           </div>  
           <div className="dropdown">
@@ -46,9 +55,9 @@ var DecorationsList = React.createClass({
               <span className="caret"></span>
             </button>
             <ul className="dropdown-menu" aria-labelledby="dropdown-stars-icicles">
-              <li><a href="#"><label htmlFor="ID">Stars - 8 pack</label><DecorationsListCheckBoxes decorationName="Stars" /></a></li>
-              <li><a href="#"><label htmlFor="ID">Icicles Gold - 6 Pack</label><DecorationsListCheckBoxes decorationName="IciclesGold" /></a></li>
-              <li><a href="#"><label htmlFor="ID">Icicles Patterned - 6 Pack</label><DecorationsListCheckBoxes decorationName="IciclesPatterned" /></a></li>
+              <DecorationsListItem decorationName="Stars" label="Stars - 8 pack" handleMouseOver={this.handleMouseOver} handleMouseOut={this.handleMouseOut} />
+              <DecorationsListItem decorationName="IciclesGold" label="Icicles Gold - 6 Pack" handleMouseOver={this.handleMouseOver} handleMouseOut={this.handleMouseOut} />
+              <DecorationsListItem decorationName="IciclesPatterned" label="Icicles Patterned - 6 Pack" handleMouseOver={this.handleMouseOver} handleMouseOut={this.handleMouseOut} />            
             </ul>
           </div>
           <div className="dropdown">
@@ -57,7 +66,7 @@ var DecorationsList = React.createClass({
               <span className="caret"></span>
             </button>
             <ul className="dropdown-menu" aria-labelledby="dropdown-shiny">
-              <li><a href="#"><label htmlFor="ID">Glitter Balls - 6 pack</label><DecorationsListCheckBoxes decorationName="GlitterBalls" /></a></li>
+              <DecorationsListItem decorationName="GlitterBalls" label="Glitter Balls - 6 pack" handleMouseOver={this.handleMouseOver} handleMouseOut={this.handleMouseOut} />
             </ul>
           </div> 
           <div className="dropdown">
@@ -66,9 +75,9 @@ var DecorationsList = React.createClass({
               <span className="caret"></span>
             </button>
             <ul className="dropdown-menu" aria-labelledby="dropdown-ornaments">
-              <li><a href="#"><label htmlFor="ID">Pine cones Gold - 8 pack</label><DecorationsListCheckBoxes decorationName="PineConesGold" /></a></li>
-              <li><a href="#"><label htmlFor="ID">Robin family</label><DecorationsListCheckBoxes decorationName="Robins" /></a></li>
-              <li><a href="#"><label htmlFor="ID">Ribbons 8-pack</label><DecorationsListCheckBoxes decorationName="Ribbons" /></a></li>
+              <DecorationsListItem decorationName="PineConesGold" label="Pine cones Gold - 8 pack" handleMouseOver={this.handleMouseOver} handleMouseOut={this.handleMouseOut} />
+              <DecorationsListItem decorationName="Robins" label="Robin family" handleMouseOver={this.handleMouseOver} handleMouseOut={this.handleMouseOut} />
+              <DecorationsListItem decorationName="Ribbons" label="Ribbons 8-pack" handleMouseOver={this.handleMouseOver} handleMouseOut={this.handleMouseOut} />            
             </ul>
           </div>
           <div className="dropdown">
@@ -77,7 +86,7 @@ var DecorationsList = React.createClass({
               <span className="caret"></span>
             </button>
             <ul className="dropdown-menu" aria-labelledby="dropdown-small-ornaments">
-              <li><a href="#"><label htmlFor="ID">COMING SOON</label><input type="checkbox" id="ID" disabled /></a></li>
+              <li><label htmlFor="ID">COMING SOON</label><input type="checkbox" id="ID" disabled /></li>
             </ul>
           </div>
           <div className="dropdown">
@@ -86,7 +95,7 @@ var DecorationsList = React.createClass({
               <span className="caret"></span>
             </button>
             <ul className="dropdown-menu" aria-labelledby="dropdown-other-ornaments">
-              <li><a href="#"><label htmlFor="ID">COMING SOON</label><input type="checkbox" id="ID" disabled /></a></li>
+              <li><label htmlFor="ID">COMING SOON</label><input type="checkbox" id="ID" disabled /></li>
             </ul>
           </div> 
           <div className="dropdown">
@@ -95,7 +104,7 @@ var DecorationsList = React.createClass({
               <span className="caret"></span>
             </button>
             <ul className="dropdown-menu" aria-labelledby="dropdown-angels">
-              <li><a href="#"><label htmlFor="ID">White angel</label><DecorationsListCheckBoxes decorationName="Angel" /></a></li>
+              <DecorationsListItem decorationName="Angel" label="White angel" handleMouseOver={this.handleMouseOver} handleMouseOut={this.handleMouseOut} />
             </ul>
           </div>          
       </div>

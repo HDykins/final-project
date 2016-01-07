@@ -15,8 +15,8 @@ gulp.task('browserify', function () {
         .transform(reactify)
         .bundle()
         .pipe(source('app.js'))
-        .pipe(buffer())
-        .pipe(uglify())
+        // .pipe(buffer())
+        // .pipe(uglify())
         .pipe(gulp.dest('./build/js/'));
 });
 

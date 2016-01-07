@@ -7,7 +7,7 @@ var DecorationsCostBox = React.createClass({
   	var decorationsToAdd = CurrentDecorationsUserDetailsStore.getListOfSelectedDecorations().map(
 		function renderDecorationListInCostBox(name) {
 			return (
-				<li key={name}><span className="decorations-cost-box">{CurrentDecorationsUserDetailsStore.getDecorationDescriptions()[name]}: </span><span className="price decorations-cost-box">£{CurrentDecorationsUserDetailsStore.getDecorationPrice()[name]}</span></li>
+				<li key={name}><span className="decorations-cost-box">{CurrentDecorationsUserDetailsStore.getDecorationDescriptions()[name]}: </span><span className="price decorations-cost-box">{'£' + CurrentDecorationsUserDetailsStore.getDecorationPrice()[name]}</span></li>
 			);
 		}
 	);
@@ -24,7 +24,7 @@ var DecorationsCostBox = React.createClass({
 		<ul className="list-unstyled">
 			{this.addDecorationToList()}
 		</ul>
-		<em className="decorations-cost-box">Total price of decorations: </em><span className="price decorations-cost-box">£{this.updateTotalPrice()}</span>
+		<em className="decorations-cost-box">Total price of decorations: </em><span className="price decorations-cost-box">{'£' + this.updateTotalPrice()}</span>
 	</div>
     );
   }

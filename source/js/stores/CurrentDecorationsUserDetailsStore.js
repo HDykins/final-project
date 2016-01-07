@@ -22,6 +22,8 @@ var isDecorationSelected = {
 	Angel: false
 };
 
+var decorationHovered = null;
+
 var decorationDescription = {
 	FairyLights: "Fairy Lights - 5m",
 	Extension: "Extension socket",
@@ -94,10 +96,24 @@ function setCurrentTotalDecorationsPrice() {
 	currentTotalDecorationsPrice = sum;
 }
 
+function setHoveredDecoration(decorationName) {
+	decorationHovered = decorationName;
+	CurrentDecorationsUserDetailsStore.emit('change');
+}
+
+function setHoveredDecorationToNull(decorationName) {
+	decorationHovered = null;
+	CurrentDecorationsUserDetailsStore.emit('change');
+}
+
 var CurrentDecorationsUserDetailsStore = objectAssign({}, EventEmitter.prototype, {
   
   getDecorationStatus: function () {
     return isDecorationSelected;
+  },
+
+  getHoveredDecoration: function () {
+    return decorationHovered;
   },
 
   getDecorationDescriptions: function () {
@@ -130,6 +146,12 @@ function handleAction(action) {
   if (action.type === 'toggle-decoration-selection') {
     toggleDecorationSelection(action.decorationName);
   }
+  if (action.type === 'set-hovered-decoration') {
+    setHoveredDecoration(action.decorationName);
+  }
+  if (action.type === 'set-hovered-decoration-to-null') {
+    setHoveredDecorationToNull(action.decorationName);
+  }  
 }
 
 CurrentDecorationsUserDetailsStore.dispatchToken = Dispatcher.register(handleAction);
