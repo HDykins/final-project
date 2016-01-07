@@ -39,11 +39,19 @@ function setHoveredDecorationToNull(decorationName) {
 	Dispatcher.dispatch(action);	
 }
 
+function sumAllPrices() {
+	var action = {
+		type: 'sum-all-prices',
+	};
+	Dispatcher.dispatch(action);
+}
+
 
 module.exports = {
 	changeToTreePage: changeToTreePage,
 	changeToDeliveryPage: changeToDeliveryPage,
 	toggleDecorationSelection: toggleDecorationSelection,
 	setHoveredDecoration: setHoveredDecoration,
-	setHoveredDecorationToNull: setHoveredDecorationToNull
+	setHoveredDecorationToNull: setHoveredDecorationToNull,
+	sumAllPrices: sumAllPrices
 };

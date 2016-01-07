@@ -39701,13 +39701,21 @@ function setHoveredDecorationToNull(decorationName) {
 	Dispatcher.dispatch(action);	
 }
 
+function sumAllPrices() {
+	var action = {
+		type: 'sum-all-prices',
+	};
+	Dispatcher.dispatch(action);
+}
+
 
 module.exports = {
 	changeToTreePage: changeToTreePage,
 	changeToDeliveryPage: changeToDeliveryPage,
 	toggleDecorationSelection: toggleDecorationSelection,
 	setHoveredDecoration: setHoveredDecoration,
-	setHoveredDecorationToNull: setHoveredDecorationToNull
+	setHoveredDecorationToNull: setHoveredDecorationToNull,
+	sumAllPrices: sumAllPrices
 };
 
 },{"../dispatcher/Dispatcher":375}],323:[function(require,module,exports){
@@ -40301,6 +40309,7 @@ var DecorationsListCheckBoxes = React.createClass({displayName: "DecorationsList
 
 	handleCheckBoxChange: function () {
 		DecorationsPageActionCreators.toggleDecorationSelection(this.props.decorationName);
+		DecorationsPageActionCreators.sumAllPrices();
 	},
 
 	render: function () {
@@ -40345,6 +40354,7 @@ module.exports = DecorationsListItem;
 },{"../../stores/CurrentDecorationsUserDetailsStore.js":376,"./DecorationsListCheckBoxes.jsx":336,"react":321}],338:[function(require,module,exports){
 var React = require('react');
 var NavBar = require('../NavBar.jsx');
+var TotalPriceStore = require('../../stores/TotalPriceStore.js');
 var CurrentDecorationsUserDetailsStore = require('../../stores/CurrentDecorationsUserDetailsStore.js');
 var Header1 = require('../Header1.jsx');
 var PreviewImage = require('./PreviewImage.jsx');
@@ -40431,14 +40441,16 @@ var DecorationsPage = React.createClass({displayName: "DecorationsPage",
   getInitialState: function () {
     return {
       decorationsSelected: CurrentDecorationsUserDetailsStore.getDecorationStatus(),
-      decorationsHovered: CurrentDecorationsUserDetailsStore.getHoveredDecoration()
+      decorationsHovered: CurrentDecorationsUserDetailsStore.getHoveredDecoration(),
+      totalPrice: TotalPriceStore.getCurrentOverallPrice()
     };
   },
 
   updateState: function () {
     this.setState({
       decorationsSelected: CurrentDecorationsUserDetailsStore.getDecorationStatus(),
-      decorationsHovered: CurrentDecorationsUserDetailsStore.getHoveredDecoration()
+      decorationsHovered: CurrentDecorationsUserDetailsStore.getHoveredDecoration(),
+      totalPrice: TotalPriceStore.getCurrentOverallPrice()
     });
   },
 
@@ -40493,7 +40505,7 @@ var DecorationsPage = React.createClass({displayName: "DecorationsPage",
 
 module.exports = DecorationsPage;
 
-},{"../../actions/DecorationsPageActionCreators.js":322,"../../stores/CurrentDecorationsUserDetailsStore.js":376,"../BackButton.jsx":332,"../ContinueButton.jsx":333,"../Header1.jsx":348,"../NavBar.jsx":351,"../PriceTotal.jsx":359,"./DecorationsCostBox.jsx":334,"./DecorationsList.jsx":335,"./PreviewImage.jsx":339,"react":321}],339:[function(require,module,exports){
+},{"../../actions/DecorationsPageActionCreators.js":322,"../../stores/CurrentDecorationsUserDetailsStore.js":376,"../../stores/TotalPriceStore.js":380,"../BackButton.jsx":332,"../ContinueButton.jsx":333,"../Header1.jsx":348,"../NavBar.jsx":351,"../PriceTotal.jsx":359,"./DecorationsCostBox.jsx":334,"./DecorationsList.jsx":335,"./PreviewImage.jsx":339,"react":321}],339:[function(require,module,exports){
 var React = require('react');
 
 var PreviewImage = React.createClass({displayName: "PreviewImage",
@@ -41719,7 +41731,7 @@ var FactList = React.createClass({displayName: "FactList",
 module.exports = FactList;
 
 
-},{"../../stores/TreeInformationStore.js":380,"react":321}],367:[function(require,module,exports){
+},{"../../stores/TreeInformationStore.js":381,"react":321}],367:[function(require,module,exports){
 var React = require('react');
 
 var HeightCategoryBox = React.createClass({displayName: "HeightCategoryBox",
@@ -41866,7 +41878,7 @@ var TreeDescription = React.createClass({displayName: "TreeDescription",
 
 module.exports = TreeDescription;
 
-},{"../../stores/TreeInformationStore.js":380,"react":321}],371:[function(require,module,exports){
+},{"../../stores/TreeInformationStore.js":381,"react":321}],371:[function(require,module,exports){
 var React = require('react');
 
 var TreeIcon = React.createClass({displayName: "TreeIcon",
@@ -41932,7 +41944,7 @@ module.exports = TreeIcons;
 
 
 
-},{"../../actions/TreePageActionCreators.js":330,"../../stores/TreeInformationStore.js":380,"./TreeIcon.jsx":371,"react":321}],373:[function(require,module,exports){
+},{"../../actions/TreePageActionCreators.js":330,"../../stores/TreeInformationStore.js":381,"./TreeIcon.jsx":371,"react":321}],373:[function(require,module,exports){
 var React = require('react');
 var FactList = require('./FactList.jsx');
 var TreeDescription = require('./TreeDescription.jsx');
@@ -42029,7 +42041,7 @@ var TreePage = React.createClass({displayName: "TreePage",
 
 module.exports = TreePage;
 
-},{"../../stores/TreeInformationStore.js":380,"../ContinueButton.jsx":333,"../Header1.jsx":348,"../NavBar.jsx":351,"../PriceTotal.jsx":359,"./HeightCategoryBox.jsx":367,"./LargeTreeIcon.jsx":368,"./SliderBox.jsx":369,"./TreeIcons.jsx":372,"./TreeInfo.jsx":373,"react":321}],375:[function(require,module,exports){
+},{"../../stores/TreeInformationStore.js":381,"../ContinueButton.jsx":333,"../Header1.jsx":348,"../NavBar.jsx":351,"../PriceTotal.jsx":359,"./HeightCategoryBox.jsx":367,"./LargeTreeIcon.jsx":368,"./SliderBox.jsx":369,"./TreeIcons.jsx":372,"./TreeInfo.jsx":373,"react":321}],375:[function(require,module,exports){
 var Dispatcher = require('flux').Dispatcher;
 
 module.exports = new Dispatcher();
@@ -42479,6 +42491,40 @@ StateStore.dispatchToken = Dispatcher.register(handleAction);
 module.exports = StateStore;
 
 },{"../dispatcher/Dispatcher":375,"events":2,"object-assign":7}],380:[function(require,module,exports){
+var Dispatcher = require('../dispatcher/Dispatcher');
+var EventEmitter = require('events').EventEmitter;
+var objectAssign = require('object-assign');
+var CurrentDecorationsUserDetailsStore = require('./CurrentDecorationsUserDetailsStore.js');
+
+currentTotalPrice = 0;
+
+function sumAllPrices() {
+  
+  currentTotalPrice = 0 + CurrentDecorationsUserDetailsStore.getCurrentTotalDecorationsPrice() + 0;
+  console.log(currentTotalPrice);
+
+  TotalPriceStore.emit('change');
+}
+
+var TotalPriceStore = objectAssign({}, EventEmitter.prototype, {
+  
+  getCurrentOverallPrice: function () {
+    return currentTotalPrice;
+  }
+
+});
+
+function handleAction(action) {
+  if (action.type === 'sum-all-prices') {
+    sumAllPrices();  
+  }
+}
+
+TotalPriceStore.dispatchToken = Dispatcher.register(handleAction);
+
+module.exports = TotalPriceStore;
+
+},{"../dispatcher/Dispatcher":375,"./CurrentDecorationsUserDetailsStore.js":376,"events":2,"object-assign":7}],381:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher');
 var EventEmitter = require('events').EventEmitter;
 var objectAssign = require('object-assign');

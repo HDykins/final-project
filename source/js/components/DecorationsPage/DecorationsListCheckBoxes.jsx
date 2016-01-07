@@ -5,6 +5,7 @@ var DecorationsListCheckBoxes = React.createClass({
 
 	handleCheckBoxChange: function () {
 		DecorationsPageActionCreators.toggleDecorationSelection(this.props.decorationName);
+		DecorationsPageActionCreators.sumAllPrices();
 	},
 
 	render: function () {

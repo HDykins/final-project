@@ -1,5 +1,6 @@
 var React = require('react');
 var NavBar = require('../NavBar.jsx');
+var TotalPriceStore = require('../../stores/TotalPriceStore.js');
 var CurrentDecorationsUserDetailsStore = require('../../stores/CurrentDecorationsUserDetailsStore.js');
 var Header1 = require('../Header1.jsx');
 var PreviewImage = require('./PreviewImage.jsx');
@@ -86,14 +87,16 @@ var DecorationsPage = React.createClass({
   getInitialState: function () {
     return {
       decorationsSelected: CurrentDecorationsUserDetailsStore.getDecorationStatus(),
-      decorationsHovered: CurrentDecorationsUserDetailsStore.getHoveredDecoration()
+      decorationsHovered: CurrentDecorationsUserDetailsStore.getHoveredDecoration(),
+      totalPrice: TotalPriceStore.getCurrentOverallPrice()
     };
   },
 
   updateState: function () {
     this.setState({
       decorationsSelected: CurrentDecorationsUserDetailsStore.getDecorationStatus(),
-      decorationsHovered: CurrentDecorationsUserDetailsStore.getHoveredDecoration()
+      decorationsHovered: CurrentDecorationsUserDetailsStore.getHoveredDecoration(),
+      totalPrice: TotalPriceStore.getCurrentOverallPrice()
     });
   },
 
