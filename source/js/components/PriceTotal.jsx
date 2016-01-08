@@ -1,4 +1,5 @@
 var React = require('react');
+var TotalPriceStore = require('../stores/TotalPriceStore.js');
 
 var PriceTotal = React.createClass({
   render: function () {
@@ -7,7 +8,7 @@ var PriceTotal = React.createClass({
 		<div className="rounded-box">
 			<strong>Total Price</strong>
 			<div>
-				<span className="price big-price">£24</span>
+				<span className="price big-price">{'£' + TotalPriceStore.getCurrentOverallPrice()}</span>
 			</div>
 		</div>
 	</div>

@@ -41397,6 +41397,7 @@ module.exports = TermsConditions;
 
 },{"../../actions/PaymentPageActionCreators.js":327,"react":321}],359:[function(require,module,exports){
 var React = require('react');
+var TotalPriceStore = require('../stores/TotalPriceStore.js');
 
 var PriceTotal = React.createClass({displayName: "PriceTotal",
   render: function () {
@@ -41405,7 +41406,7 @@ var PriceTotal = React.createClass({displayName: "PriceTotal",
 		React.createElement("div", {className: "rounded-box"}, 
 			React.createElement("strong", null, "Total Price"), 
 			React.createElement("div", null, 
-				React.createElement("span", {className: "price big-price"}, "£24")
+				React.createElement("span", {className: "price big-price"}, '£' + TotalPriceStore.getCurrentOverallPrice())
 			)
 		)
 	)
@@ -41415,7 +41416,7 @@ var PriceTotal = React.createClass({displayName: "PriceTotal",
 
 module.exports = PriceTotal;
 
-},{"react":321}],360:[function(require,module,exports){
+},{"../stores/TotalPriceStore.js":380,"react":321}],360:[function(require,module,exports){
 var React = require('react');
 var SignInFormActionCreators = require('../actions/SignInFormActionCreators.js');
 
