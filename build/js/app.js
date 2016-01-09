@@ -39701,9 +39701,23 @@ function setHoveredDecorationToNull(decorationName) {
 	Dispatcher.dispatch(action);	
 }
 
+function setCurrentTotalDecorationsPriceToZero() {
+		var action = {
+		type: 'set-current-total-decorations-price-to-zero',
+	};
+	Dispatcher.dispatch(action);
+}
+
 function sumAllPrices() {
 	var action = {
 		type: 'sum-all-prices',
+	};
+	Dispatcher.dispatch(action);
+}
+
+function clearSelectedDecorationsList() {
+		var action = {
+		type: 'clear-selected-decorations-list',
 	};
 	Dispatcher.dispatch(action);
 }
@@ -39715,7 +39729,9 @@ module.exports = {
 	toggleDecorationSelection: toggleDecorationSelection,
 	setHoveredDecoration: setHoveredDecoration,
 	setHoveredDecorationToNull: setHoveredDecorationToNull,
-	sumAllPrices: sumAllPrices
+	setCurrentTotalDecorationsPriceToZero: setCurrentTotalDecorationsPriceToZero,
+	sumAllPrices: sumAllPrices,
+	clearSelectedDecorationsList: clearSelectedDecorationsList
 };
 
 },{"../dispatcher/Dispatcher":375}],323:[function(require,module,exports){
@@ -39973,13 +39989,56 @@ function changeToArtificialView() {
 	Dispatcher.dispatch(action);
 }
 
+function changeHeightToSmall() {
+	var action = {
+		type: 'change-height-to-small',
+	};
+
+	Dispatcher.dispatch(action);
+}
+
+function changeHeightToMedium() {
+	var action = {
+		type: 'change-height-to-medium',
+	};
+
+	Dispatcher.dispatch(action);
+}
+
+function changeHeightToLarge() {
+	var action = {
+		type: 'change-height-to-large',
+	};
+
+	Dispatcher.dispatch(action);
+}
+
+function setCurrentPrice() {
+	var action = {
+		type: 'set-current-price',
+	};
+
+	Dispatcher.dispatch(action);
+}
+
+function sumAllPrices() {
+	var action = {
+		type: 'sum-all-prices',
+	};
+	Dispatcher.dispatch(action);
+}
+
 module.exports = {
 	changeToDecorationsPage: changeToDecorationsPage,
 	changeToNorwegianView: changeToNorwegianView,
 	changeToNordmannView: changeToNordmannView,
 	changeToFraserView: changeToFraserView,
-	changeToArtificialView: changeToArtificialView
-
+	changeToArtificialView: changeToArtificialView,
+	changeHeightToSmall: changeHeightToSmall,
+	changeHeightToMedium: changeHeightToMedium,
+	changeHeightToLarge: changeHeightToLarge,
+	setCurrentPrice: setCurrentPrice,
+	sumAllPrices: sumAllPrices
 };
 
 },{"../dispatcher/Dispatcher":375}],331:[function(require,module,exports){
@@ -40904,7 +40963,9 @@ var Header1 = React.createClass({displayName: "Header1",
 
   handleNoDecorationsButtonClickEvent: function () {
   	event.preventDefault();
-
+    DecorationsPageActionCreators.setCurrentTotalDecorationsPriceToZero();
+    DecorationsPageActionCreators.clearSelectedDecorationsList();
+    DecorationsPageActionCreators.sumAllPrices();
     DecorationsPageActionCreators.changeToDeliveryPage();
   },
 
@@ -41734,13 +41795,27 @@ module.exports = FactList;
 
 },{"../../stores/TreeInformationStore.js":381,"react":321}],367:[function(require,module,exports){
 var React = require('react');
+var TreeInformationStore = require('../../stores/TreeInformationStore.js');
 
 var HeightCategoryBox = React.createClass({displayName: "HeightCategoryBox",
+
+  changePriceInHeightCategoryBox: function () {
+  	if (TreeInformationStore.getCurrentTreeView() === "NORWEGIAN_SPRUCE") {
+  		return {SMALL: '(£20)', MEDIUM: '(£24)', LARGE: '(£40)'};
+  	} else if (TreeInformationStore.getCurrentTreeView() === "NORDMANN_FIR") {
+  		return {SMALL: '(£28)', MEDIUM: '(£32)', LARGE: '(£48)'};
+  	} else if (TreeInformationStore.getCurrentTreeView() === "FRASER_FIR") {
+  		return {SMALL: '(£35)', MEDIUM: '(£42)', LARGE: '(£55)'};
+  	} else if (TreeInformationStore.getCurrentTreeView() === "ARTIFICIAL") {
+  		return {SMALL: '(£12)', MEDIUM: '(£38)', LARGE: '(£70)'};
+  	}	
+  },
+
   render: function () {
     return (
 	React.createElement("div", {className: "rounded-box"}, 
 		React.createElement("div", {className: "col-xs-4"}, 
-			React.createElement("div", {className: "rounded-box no-highlight"}, 
+			React.createElement("div", {className: TreeInformationStore.getCurrentHeight() === "SMALL" ? "rounded-box highlight" : "rounded-box no-highlight"}, 
 				React.createElement("h4", null, 
 					"Small"
 				), 
@@ -41748,12 +41823,12 @@ var HeightCategoryBox = React.createClass({displayName: "HeightCategoryBox",
 					React.createElement("span", null, "Under 4ft")
 				), 
 				React.createElement("div", null, 
-					"Min Price Specified ", React.createElement("span", {className: "price"}, "(£20)")
+					"Min Price Specified ", React.createElement("span", {className: "price"}, this.changePriceInHeightCategoryBox().SMALL)
 				)
 			)
 		), 
 		React.createElement("div", {className: "col-xs-4"}, 
-			React.createElement("div", {className: "rounded-box no-highlight"}, 
+			React.createElement("div", {className: TreeInformationStore.getCurrentHeight() === "MEDIUM" ? "rounded-box highlight" : "rounded-box no-highlight"}, 
 				React.createElement("h4", null, 
 					"Medium"
 				), 
@@ -41761,12 +41836,12 @@ var HeightCategoryBox = React.createClass({displayName: "HeightCategoryBox",
 					React.createElement("span", null, "3 - 9ft")
 				), 
 				React.createElement("div", null, 
-					"Variable price ", React.createElement("span", {className: "price"}, "(£24)")
+					"Variable price ", React.createElement("span", {className: "price"}, this.changePriceInHeightCategoryBox().MEDIUM)
 				)
 			)
 		), 
 		React.createElement("div", {className: "col-xs-4"}, 
-			React.createElement("div", {className: "rounded-box no-highlight"}, 
+			React.createElement("div", {className: TreeInformationStore.getCurrentHeight() === "LARGE" ? "rounded-box highlight" : "rounded-box no-highlight"}, 
 				React.createElement("h4", null, 
 					"Large"
 				), 
@@ -41774,7 +41849,7 @@ var HeightCategoryBox = React.createClass({displayName: "HeightCategoryBox",
 					React.createElement("span", null, "Over 9ft")
 				), 
 				React.createElement("div", null, 
-					"Max Price Specified ", React.createElement("span", {className: "price"}, "(£40)")
+					"Max Price Specified ", React.createElement("span", {className: "price"}, this.changePriceInHeightCategoryBox().LARGE)
 				)
 			)
 		)
@@ -41785,7 +41860,7 @@ var HeightCategoryBox = React.createClass({displayName: "HeightCategoryBox",
 
 module.exports = HeightCategoryBox;
 
-},{"react":321}],368:[function(require,module,exports){
+},{"../../stores/TreeInformationStore.js":381,"react":321}],368:[function(require,module,exports){
 var React = require('react');
 
 var LargeTreeIcon = React.createClass({displayName: "LargeTreeIcon",
@@ -41824,16 +41899,44 @@ module.exports = LargeTreeIcon;
 
 },{"react":321}],369:[function(require,module,exports){
 var React = require('react');
-
 var Slider = require('react-rangeslider');
-
+var TreePageActionCreators = require('../../actions/TreePageActionCreators.js');
 
 
 var SliderBox = React.createClass({displayName: "SliderBox",
+
+  handleSmallSelectionClickEvent: function () {
+  	TreePageActionCreators.changeHeightToSmall();
+  	TreePageActionCreators.setCurrentPrice();
+  	TreePageActionCreators.sumAllPrices();
+  },
+
+  handleMediumSelectionClickEvent: function () {
+  	TreePageActionCreators.changeHeightToMedium();
+  	TreePageActionCreators.setCurrentPrice();
+  	TreePageActionCreators.sumAllPrices();
+  },
+
+  handleLargeSelectionClickEvent: function () {
+  	TreePageActionCreators.changeHeightToLarge();
+  	TreePageActionCreators.setCurrentPrice();
+  	TreePageActionCreators.sumAllPrices();
+  },
+
   render: function () {
     return (
 	React.createElement("div", {className: "rounded-box"}, 
-		React.createElement("input", {id: "ex9", type: "text"}), React.createElement("br", null), 
+		React.createElement("div", {className: "dropdown"}, 
+	        React.createElement("button", {className: "btn small-button dropdown-toggle", type: "button", id: "dropdown-height", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "true"}, 
+	          "Height", 
+	          React.createElement("span", {className: "caret"})
+	        ), 
+	        React.createElement("ul", {className: "dropdown-menu", "aria-labelledby": "dropdown-height"}, 
+	          React.createElement("li", {onClick: this.handleSmallSelectionClickEvent}, "Small"), 
+	          React.createElement("li", {onClick: this.handleMediumSelectionClickEvent}, "Medium"), 
+	          React.createElement("li", {onClick: this.handleLargeSelectionClickEvent}, "Large")
+	        )
+	    ), 
 		React.createElement("label", null, "Height: ", React.createElement("input", null)), React.createElement("br", null), 
 		React.createElement("label", null, "Est. Max Width: ", React.createElement("input", null))
 	)
@@ -41843,7 +41946,7 @@ var SliderBox = React.createClass({displayName: "SliderBox",
 
 module.exports = SliderBox;
 
-},{"react":321,"react-rangeslider":9}],370:[function(require,module,exports){
+},{"../../actions/TreePageActionCreators.js":330,"react":321,"react-rangeslider":9}],370:[function(require,module,exports){
 var React = require('react');
 var TreeInformationStore = require('../../stores/TreeInformationStore.js');
 
@@ -41914,19 +42017,27 @@ var TreePageActionCreators = require('../../actions/TreePageActionCreators.js');
 var TreeIcons = React.createClass({displayName: "TreeIcons",
 
   changeToNorwegianView: function () {
-  	TreePageActionCreators.changeToNorwegianView()
+  	TreePageActionCreators.changeToNorwegianView();
+    TreePageActionCreators.setCurrentPrice();
+    TreePageActionCreators.sumAllPrices();
   },
 
   changeToNordmannView: function () {
   	TreePageActionCreators.changeToNordmannView()
+    TreePageActionCreators.setCurrentPrice();
+    TreePageActionCreators.sumAllPrices();
   },
 
   changeToFraserView: function () {
   	TreePageActionCreators.changeToFraserView()
+    TreePageActionCreators.setCurrentPrice();
+    TreePageActionCreators.sumAllPrices();
   },
 
   changeToArtificialView: function () {
   	TreePageActionCreators.changeToArtificialView()
+    TreePageActionCreators.setCurrentPrice();
+    TreePageActionCreators.sumAllPrices();
   },
 
   render: function () {
@@ -41992,7 +42103,8 @@ var TreePage = React.createClass({displayName: "TreePage",
     updateState: function () {
         this.setState(
         {
-          treeView: TreeInformationStore.getCurrentTreeView()
+          treeView: TreeInformationStore.getCurrentTreeView(),
+          height: TreeInformationStore.getCurrentHeight()
         });
     },
 
@@ -42146,6 +42258,10 @@ function setCurrentTotalDecorationsPrice() {
 	currentTotalDecorationsPrice = sum;
 }
 
+function setCurrentTotalDecorationsPriceToZero() {
+	currentTotalDecorationsPrice = 0;
+}
+
 function setHoveredDecoration(decorationName) {
 	decorationHovered = decorationName;
 	CurrentDecorationsUserDetailsStore.emit('change');
@@ -42154,6 +42270,10 @@ function setHoveredDecoration(decorationName) {
 function setHoveredDecorationToNull(decorationName) {
 	decorationHovered = null;
 	CurrentDecorationsUserDetailsStore.emit('change');
+}
+
+function clearSelectedDecorationsList() {
+	listOfSelectedDecorations = [];
 }
 
 var CurrentDecorationsUserDetailsStore = objectAssign({}, EventEmitter.prototype, {
@@ -42201,6 +42321,12 @@ function handleAction(action) {
   }
   if (action.type === 'set-hovered-decoration-to-null') {
     setHoveredDecorationToNull(action.decorationName);
+  }
+  if (action.type === 'set-current-total-decorations-price-to-zero') {
+    setCurrentTotalDecorationsPriceToZero(action.decorationName);
+  }
+  if (action.type === 'clear-selected-decorations-list') {
+    clearSelectedDecorationsList();
   }  
 }
 
@@ -42495,14 +42621,18 @@ module.exports = StateStore;
 var Dispatcher = require('../dispatcher/Dispatcher');
 var EventEmitter = require('events').EventEmitter;
 var objectAssign = require('object-assign');
+var TreeInformationStore = require('./TreeInformationStore.js');
 var CurrentDecorationsUserDetailsStore = require('./CurrentDecorationsUserDetailsStore.js');
 
-currentTotalPrice = 0;
+
+currentTotalPrice = TreeInformationStore.getCurrentPrice();
 
 function sumAllPrices() {
   
-  currentTotalPrice = 0 + CurrentDecorationsUserDetailsStore.getCurrentTotalDecorationsPrice() + 0;
-  console.log(currentTotalPrice);
+  currentTotalPrice = TreeInformationStore.getCurrentPrice() + CurrentDecorationsUserDetailsStore.getCurrentTotalDecorationsPrice() + 0;
+  // console.log(CurrentDecorationsUserDetailsStore.getCurrentTotalDecorationsPrice());
+  // console.log(TreeInformationStore.getCurrentPrice());
+  // console.log(currentTotalPrice);
 
   TotalPriceStore.emit('change');
 }
@@ -42525,7 +42655,7 @@ TotalPriceStore.dispatchToken = Dispatcher.register(handleAction);
 
 module.exports = TotalPriceStore;
 
-},{"../dispatcher/Dispatcher":375,"./CurrentDecorationsUserDetailsStore.js":376,"events":2,"object-assign":7}],381:[function(require,module,exports){
+},{"../dispatcher/Dispatcher":375,"./CurrentDecorationsUserDetailsStore.js":376,"./TreeInformationStore.js":381,"events":2,"object-assign":7}],381:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher');
 var EventEmitter = require('events').EventEmitter;
 var objectAssign = require('object-assign');
@@ -42537,7 +42667,22 @@ var TREE_TYPES = {
 	ARTIFICIAL: "ARTIFICIAL"
 }
 
+var TREE_PRICES = {
+  NORWEGIAN_SPRUCE: {SMALL: 20, MEDIUM: 24, LARGE: 40},
+  NORDMANN_FIR: {SMALL: 28, MEDIUM: 32, LARGE: 48},
+  FRASER_FIR: {SMALL: 35, MEDIUM: 42, LARGE: 55},
+  ARTIFICIAL: {SMALL: 12, MEDIUM: 40, LARGE: 70}
+}
+
+var HEIGHTS = {
+  SMALL: "SMALL",
+  MEDIUM: "MEDIUM",
+  LARGE: "LARGE"
+}
+
 var currentTreeView = TREE_TYPES.NORWEGIAN_SPRUCE;
+var currentHeight = HEIGHTS.MEDIUM;
+var currentPrice = 24;
 
 function changeToNorwegianView() {
   currentTreeView = TREE_TYPES.NORWEGIAN_SPRUCE;
@@ -42559,10 +42704,39 @@ function changeToArtificialView() {
   TreeInformationStore.emit('change');
 }
 
+function changeHeightToSmall() {
+  currentHeight = HEIGHTS.SMALL;
+  TreeInformationStore.emit('change');
+}
+
+function changeHeightToMedium() {
+  currentHeight = HEIGHTS.MEDIUM;
+  TreeInformationStore.emit('change');
+}
+
+function changeHeightToLarge() {
+  currentHeight = HEIGHTS.LARGE;
+  TreeInformationStore.emit('change');
+}
+
+function setCurrentPrice() {
+    currentPrice = TREE_PRICES[currentTreeView][currentHeight];
+    console.log(currentPrice);
+    TreeInformationStore.emit('change');
+}
+
 var TreeInformationStore = objectAssign({}, EventEmitter.prototype, {
   
   getCurrentTreeView: function () {
     return currentTreeView;
+  },
+
+  getCurrentHeight: function () {
+    return currentHeight;
+  },
+
+  getCurrentPrice: function () {
+    return currentPrice;
   },
 
   addChangeListener: function (changeEventHandler) {
@@ -42585,6 +42759,14 @@ function handleAction(action) {
     changeToFraserView();
   } else if (action.type === 'change-to-artificial-view') {
     changeToArtificialView();
+  } else if (action.type === 'change-height-to-small') {
+    changeHeightToSmall();
+  } else if (action.type === 'change-height-to-medium') {
+    changeHeightToMedium();
+  } else if (action.type === 'change-height-to-large') {
+    changeHeightToLarge();
+  } else if (action.type === 'set-current-price') {
+    setCurrentPrice();
   }
 }
 

@@ -41,11 +41,54 @@ function changeToArtificialView() {
 	Dispatcher.dispatch(action);
 }
 
+function changeHeightToSmall() {
+	var action = {
+		type: 'change-height-to-small',
+	};
+
+	Dispatcher.dispatch(action);
+}
+
+function changeHeightToMedium() {
+	var action = {
+		type: 'change-height-to-medium',
+	};
+
+	Dispatcher.dispatch(action);
+}
+
+function changeHeightToLarge() {
+	var action = {
+		type: 'change-height-to-large',
+	};
+
+	Dispatcher.dispatch(action);
+}
+
+function setCurrentPrice() {
+	var action = {
+		type: 'set-current-price',
+	};
+
+	Dispatcher.dispatch(action);
+}
+
+function sumAllPrices() {
+	var action = {
+		type: 'sum-all-prices',
+	};
+	Dispatcher.dispatch(action);
+}
+
 module.exports = {
 	changeToDecorationsPage: changeToDecorationsPage,
 	changeToNorwegianView: changeToNorwegianView,
 	changeToNordmannView: changeToNordmannView,
 	changeToFraserView: changeToFraserView,
-	changeToArtificialView: changeToArtificialView
-
+	changeToArtificialView: changeToArtificialView,
+	changeHeightToSmall: changeHeightToSmall,
+	changeHeightToMedium: changeHeightToMedium,
+	changeHeightToLarge: changeHeightToLarge,
+	setCurrentPrice: setCurrentPrice,
+	sumAllPrices: sumAllPrices
 };

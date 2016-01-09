@@ -6,7 +6,9 @@ var Header1 = React.createClass({
 
   handleNoDecorationsButtonClickEvent: function () {
   	event.preventDefault();
-
+    DecorationsPageActionCreators.setCurrentTotalDecorationsPriceToZero();
+    DecorationsPageActionCreators.clearSelectedDecorationsList();
+    DecorationsPageActionCreators.sumAllPrices();
     DecorationsPageActionCreators.changeToDeliveryPage();
   },
 

@@ -39,9 +39,23 @@ function setHoveredDecorationToNull(decorationName) {
 	Dispatcher.dispatch(action);	
 }
 
+function setCurrentTotalDecorationsPriceToZero() {
+		var action = {
+		type: 'set-current-total-decorations-price-to-zero',
+	};
+	Dispatcher.dispatch(action);
+}
+
 function sumAllPrices() {
 	var action = {
 		type: 'sum-all-prices',
+	};
+	Dispatcher.dispatch(action);
+}
+
+function clearSelectedDecorationsList() {
+		var action = {
+		type: 'clear-selected-decorations-list',
 	};
 	Dispatcher.dispatch(action);
 }
@@ -53,5 +67,7 @@ module.exports = {
 	toggleDecorationSelection: toggleDecorationSelection,
 	setHoveredDecoration: setHoveredDecoration,
 	setHoveredDecorationToNull: setHoveredDecorationToNull,
-	sumAllPrices: sumAllPrices
+	setCurrentTotalDecorationsPriceToZero: setCurrentTotalDecorationsPriceToZero,
+	sumAllPrices: sumAllPrices,
+	clearSelectedDecorationsList: clearSelectedDecorationsList
 };

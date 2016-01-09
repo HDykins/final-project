@@ -21,7 +21,8 @@ var TreePage = React.createClass({
     updateState: function () {
         this.setState(
         {
-          treeView: TreeInformationStore.getCurrentTreeView()
+          treeView: TreeInformationStore.getCurrentTreeView(),
+          height: TreeInformationStore.getCurrentHeight()
         });
     },
 

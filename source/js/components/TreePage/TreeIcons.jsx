@@ -6,19 +6,27 @@ var TreePageActionCreators = require('../../actions/TreePageActionCreators.js');
 var TreeIcons = React.createClass({
 
   changeToNorwegianView: function () {
-  	TreePageActionCreators.changeToNorwegianView()
+  	TreePageActionCreators.changeToNorwegianView();
+    TreePageActionCreators.setCurrentPrice();
+    TreePageActionCreators.sumAllPrices();
   },
 
   changeToNordmannView: function () {
   	TreePageActionCreators.changeToNordmannView()
+    TreePageActionCreators.setCurrentPrice();
+    TreePageActionCreators.sumAllPrices();
   },
 
   changeToFraserView: function () {
   	TreePageActionCreators.changeToFraserView()
+    TreePageActionCreators.setCurrentPrice();
+    TreePageActionCreators.sumAllPrices();
   },
 
   changeToArtificialView: function () {
   	TreePageActionCreators.changeToArtificialView()
+    TreePageActionCreators.setCurrentPrice();
+    TreePageActionCreators.sumAllPrices();
   },
 
   render: function () {

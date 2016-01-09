@@ -96,6 +96,10 @@ function setCurrentTotalDecorationsPrice() {
 	currentTotalDecorationsPrice = sum;
 }
 
+function setCurrentTotalDecorationsPriceToZero() {
+	currentTotalDecorationsPrice = 0;
+}
+
 function setHoveredDecoration(decorationName) {
 	decorationHovered = decorationName;
 	CurrentDecorationsUserDetailsStore.emit('change');
@@ -104,6 +108,10 @@ function setHoveredDecoration(decorationName) {
 function setHoveredDecorationToNull(decorationName) {
 	decorationHovered = null;
 	CurrentDecorationsUserDetailsStore.emit('change');
+}
+
+function clearSelectedDecorationsList() {
+	listOfSelectedDecorations = [];
 }
 
 var CurrentDecorationsUserDetailsStore = objectAssign({}, EventEmitter.prototype, {
@@ -151,6 +159,12 @@ function handleAction(action) {
   }
   if (action.type === 'set-hovered-decoration-to-null') {
     setHoveredDecorationToNull(action.decorationName);
+  }
+  if (action.type === 'set-current-total-decorations-price-to-zero') {
+    setCurrentTotalDecorationsPriceToZero(action.decorationName);
+  }
+  if (action.type === 'clear-selected-decorations-list') {
+    clearSelectedDecorationsList();
   }  
 }
 
