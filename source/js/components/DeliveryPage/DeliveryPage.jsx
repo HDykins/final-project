@@ -34,10 +34,12 @@ var DeliveryPage = React.createClass({
 
   componentDidMount: function () {
       StateStore.addChangeListener(this.updateState);
+      CurrentDeliveryUserDetailsStore.addChangeListener(this.updateState);
   },
 
   componentWillUnmount: function () {
       StateStore.removeChangeListener(this.updateState);
+      CurrentDeliveryUserDetailsStore.addChangeListener(this.updateState);
   },    
 
   render: function () {

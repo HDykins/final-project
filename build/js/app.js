@@ -39773,12 +39773,93 @@ function setPostCode() {
 	Dispatcher.dispatch(action);
 }
 
+function setCurrentSelectedCollectionAddressToPrimary() {
+	var action = {
+		type: 'set-current-selected-collection-address-to-primary',
+	};
+	Dispatcher.dispatch(action);
+}
+
+function setCurrentSelectedCollectionAddressToSecondary() {
+	var action = {
+		type: 'set-current-selected-collection-address-to-secondary',
+	};
+	Dispatcher.dispatch(action);
+}
+
+function setCurrentSelectedCollectionAddressToTertiary() {
+	var action = {
+		type: 'set-current-selected-collection-address-to-tertiary',
+	};
+	Dispatcher.dispatch(action);
+}
+
+function setCurrentCollectionAddressCoordinatesToPrimary() {
+	var action = {
+		type: 'set-current-collection-address-coordinates-to-primary',
+	};
+	Dispatcher.dispatch(action);
+}
+
+function setCurrentCollectionAddressCoordinatesToSecondary() {
+	var action = {
+		type: 'set-current-collection-address-coordinates-to-secondary',
+	};
+	Dispatcher.dispatch(action);
+}
+
+function setCurrentCollectionAddressCoordinatesToTertiary() {
+	var action = {
+		type: 'set-current-collection-address-coordinates-to-tertiary',
+	};
+	Dispatcher.dispatch(action);
+}
+
+function setCurrentDaySelection(day) {
+	var action = {
+		type: 'set-current-day-selection',
+		day: day
+	};
+	Dispatcher.dispatch(action);
+}
+
+function setCurrentMonthSelection() {
+	var action = {
+		type: 'set-current-month-selection',
+	};
+	Dispatcher.dispatch(action);
+}
+
+function setCurrentYearSelection() {
+	var action = {
+		type: 'set-current-year-selection',
+	};
+	Dispatcher.dispatch(action);
+}
+
+function setCurrentTimeSelection() {
+	var action = {
+		type: 'set-current-time-selection',
+	};
+	Dispatcher.dispatch(action);
+}
+
 module.exports = {
 	changeToDecorationsPage: changeToDecorationsPage,
 	changeToPaymentPage: changeToPaymentPage,
 	toggleDeliveryChoice: toggleDeliveryChoice,
 	toggleCollectionChoice: toggleCollectionChoice,
-	setPostCode: setPostCode
+	setPostCode: setPostCode,
+	setCurrentSelectedCollectionAddressToPrimary: setCurrentSelectedCollectionAddressToPrimary,
+	setCurrentSelectedCollectionAddressToSecondary: setCurrentSelectedCollectionAddressToSecondary,
+	setCurrentSelectedCollectionAddressToTertiary: setCurrentSelectedCollectionAddressToTertiary,
+	setCurrentCollectionAddressCoordinatesToPrimary: setCurrentCollectionAddressCoordinatesToPrimary,
+	setCurrentCollectionAddressCoordinatesToSecondary: setCurrentCollectionAddressCoordinatesToSecondary,
+	setCurrentCollectionAddressCoordinatesToTertiary: setCurrentCollectionAddressCoordinatesToTertiary,
+	setCurrentDaySelection: setCurrentDaySelection,
+	setCurrentMonthSelection: setCurrentMonthSelection,
+	setCurrentYearSelection: setCurrentYearSelection,
+	setCurrentTimeSelection: setCurrentTimeSelection
 };
 
 },{"../dispatcher/Dispatcher":375}],324:[function(require,module,exports){
@@ -40622,15 +40703,33 @@ module.exports = CollectOrDeliver;
 
 },{"../../actions/DeliveryPageActionCreators.js":323,"../../stores/StateStore.js":379,"react":321}],341:[function(require,module,exports){
 var React = require('react');
+var CurrentDeliveryUserDetailsStore = require('../../stores/CurrentDeliveryUserDetailsStore.js');
+var DeliveryPageActionCreators = require('../../actions/DeliveryPageActionCreators.js');
 
 var CollectionLocationDetails = React.createClass({displayName: "CollectionLocationDetails",
+
+  handlePrimaryAddressClickEvent: function () {
+  	DeliveryPageActionCreators.setCurrentSelectedCollectionAddressToPrimary();
+  	DeliveryPageActionCreators.setCurrentCollectionAddressCoordinatesToPrimary();
+  },
+
+  handleSecondaryAddressClickEvent: function () {
+  	DeliveryPageActionCreators.setCurrentSelectedCollectionAddressToSecondary();
+  	DeliveryPageActionCreators.setCurrentCollectionAddressCoordinatesToSecondary();
+  },
+
+  handleTertiaryAddressClickEvent: function () {
+  	DeliveryPageActionCreators.setCurrentSelectedCollectionAddressToTertiary();
+  	DeliveryPageActionCreators.setCurrentCollectionAddressCoordinatesToTertiary();
+  },  
+
   render: function () {
     return (
    	React.createElement("div", {className: "col-xs-6"}, 
 		React.createElement("div", {className: "rounded-box"}, 
-			React.createElement("h2", null, "Collection Points")
+			React.createElement("h2", null, "Choose collection point")
 		), 
-		React.createElement("div", {className: "rounded-box"}, 
+		React.createElement("div", {onClick: this.handlePrimaryAddressClickEvent, className: CurrentDeliveryUserDetailsStore.getCurrentSelectedCollectionAddress() === "PRIMARY_COLLECTION_ADDRESS" ? "rounded-box highlight" : "rounded-box"}, 
 			React.createElement("div", {className: "col-xs-4"}, 
 				"40 Abbey Road", React.createElement("br", null), "Bush Hill Park", React.createElement("br", null), "Enfield"
 			), 
@@ -40641,7 +40740,7 @@ var CollectionLocationDetails = React.createClass({displayName: "CollectionLocat
 				"Middlesex", React.createElement("br", null), "London", React.createElement("br", null), "EN12QN"
 			)
 		), 
-		React.createElement("div", {className: "rounded-box"}, 
+		React.createElement("div", {onClick: this.handleSecondaryAddressClickEvent, className: CurrentDeliveryUserDetailsStore.getCurrentSelectedCollectionAddress() === "SECONDARY_COLLECTION_ADDRESS" ? "rounded-box highlight" : "rounded-box"}, 
 			React.createElement("div", {className: "col-xs-4"}, 
 				"41 Abbey Road", React.createElement("br", null), "Bush Hill Park", React.createElement("br", null), "Enfield"
 			), 
@@ -40652,7 +40751,7 @@ var CollectionLocationDetails = React.createClass({displayName: "CollectionLocat
 				"Middlesex", React.createElement("br", null), "London", React.createElement("br", null), "EN12QN"
 			)
 		), 
-		React.createElement("div", {className: "rounded-box"}, 
+		React.createElement("div", {onClick: this.handleTertiaryAddressClickEvent, className: CurrentDeliveryUserDetailsStore.getCurrentSelectedCollectionAddress() === "TERTIARY_COLLECTION_ADDRESS" ? "rounded-box highlight" : "rounded-box"}, 
 			React.createElement("div", {className: "col-xs-4"}, 
 				"42 Abbey Road", React.createElement("br", null), "Bush Hill Park", React.createElement("br", null), "Enfield"
 			), 
@@ -40670,7 +40769,7 @@ var CollectionLocationDetails = React.createClass({displayName: "CollectionLocat
 
 module.exports = CollectionLocationDetails;
 
-},{"react":321}],342:[function(require,module,exports){
+},{"../../actions/DeliveryPageActionCreators.js":323,"../../stores/CurrentDeliveryUserDetailsStore.js":377,"react":321}],342:[function(require,module,exports){
 var React = require('react');
 
 var CollectionMap = React.createClass({displayName: "CollectionMap",
@@ -40733,6 +40832,39 @@ module.exports = DeliveryAddress;
 var React = require('react');
 
 var DeliveryDate = React.createClass({displayName: "DeliveryDate",
+
+  addDayListItems: function () {
+	var dayListItem = [];
+	for (var iterator = 1; iterator<32; iterator = iterator + 1) {
+		dayListItem.push(React.createElement("li", {key: iterator, day: iterator, onClick: this.handleDaySelectionClickEvent}, React.createElement("a", {href: "#"}, iterator)));
+	}
+	return dayListItem;
+  },
+
+  addMonthListItems: function () {
+	var monthListItem = [];
+	for (var iterator = 1; iterator<13; iterator = iterator + 1) {
+		monthListItem.push(React.createElement("li", {key: iterator, month: iterator, onClick: this.handleMonthSelectionClickEvent}, React.createElement("a", {href: "#"}, iterator)));
+	}
+	return monthListItem;
+  },
+
+  handleDaySelectionClickEvent: function () {
+  	DeliveryPageActionCreators.setCurrentDaySelection();
+  },
+
+  handleMonthSelectionClickEvent: function () {
+  	DeliveryPageActionCreators.setCurrentMonthSelection();
+  },
+
+  handleYearSelectionClickEvent: function () {
+  	DeliveryPageActionCreators.setCurrentYearSelection();
+  },
+
+  handleTimeSelectionClickEvent: function () {
+  	DeliveryPageActionCreators.setCurrentTimeSelection();
+  },
+
   render: function () {
     return (
    	React.createElement("div", null, 
@@ -40750,7 +40882,7 @@ var DeliveryDate = React.createClass({displayName: "DeliveryDate",
 			              React.createElement("span", {className: "caret"})
 			            ), 
 			            React.createElement("ul", {className: "dropdown-menu", "aria-labelledby": "dropdown-lights"}, 
-			              React.createElement("li", null, React.createElement("a", {href: "#"}, "24th"))
+			              this.addDayListItems()
 			            )
 			         )
 		        ), 
@@ -40761,7 +40893,7 @@ var DeliveryDate = React.createClass({displayName: "DeliveryDate",
 			              React.createElement("span", {className: "caret"})
 			            ), 
 			            React.createElement("ul", {className: "dropdown-menu", "aria-labelledby": "dropdown-lights"}, 
-			              React.createElement("li", null, React.createElement("a", {href: "#"}, "12"))
+			              this.addMonthListItems()
 			            )
 			        )
 		        ), 
@@ -40772,7 +40904,7 @@ var DeliveryDate = React.createClass({displayName: "DeliveryDate",
 			              React.createElement("span", {className: "caret"})
 			            ), 
 			            React.createElement("ul", {className: "dropdown-menu", "aria-labelledby": "dropdown-lights"}, 
-			              React.createElement("li", null, React.createElement("a", {href: "#"}, "2015"))
+			              React.createElement("li", {onClick: this.handleYearSelectionClickEvent}, React.createElement("a", {href: "#"}, "2016"))
 			            )
 			        )	
 		        )	         
@@ -40786,8 +40918,8 @@ var DeliveryDate = React.createClass({displayName: "DeliveryDate",
 		              React.createElement("span", {className: "caret"})
 		            ), 
 		            React.createElement("ul", {className: "dropdown-menu", "aria-labelledby": "dropdown-lights"}, 
-		              React.createElement("li", null, React.createElement("a", {href: "#"}, "Morning (8-12:30)")), 
-		              React.createElement("li", null, React.createElement("a", {href: "#"}, "Afternoon (12:30-5)"))
+		              React.createElement("li", {onClick: this.handleTimeSelectionClickEvent}, React.createElement("a", {href: "#"}, "Morning (8-12:30)")), 
+		              React.createElement("li", {onClick: this.handleTimeSelectionClickEvent}, React.createElement("a", {href: "#"}, "Afternoon (12:30-5)"))
 		            )
 		         )	
 			)
@@ -40866,10 +40998,12 @@ var DeliveryPage = React.createClass({displayName: "DeliveryPage",
 
   componentDidMount: function () {
       StateStore.addChangeListener(this.updateState);
+      CurrentDeliveryUserDetailsStore.addChangeListener(this.updateState);
   },
 
   componentWillUnmount: function () {
       StateStore.removeChangeListener(this.updateState);
+      CurrentDeliveryUserDetailsStore.addChangeListener(this.updateState);
   },    
 
   render: function () {
@@ -42345,9 +42479,55 @@ var deliveryDetails = {
 
 var postCode = deliveryDetails.postCode;
 
+var collectionAddressCoordinates = {
+  PRIMARY_COLLECTION_ADDRESS: {latitude: -0.0714564561271418, longitude: 51.643334192204},
+  SECONDARY_COLLECTION_ADDRESS: {latitude: -0.0676001303937897, longitude: 51.6031465071854},
+  TERTIARY_COLLECTION_ADDRESS: {latitude: -0.0839700532759249,longitude: 51.4999559669139}
+};
+
+var collectionAddressStates = {
+  PRIMARY_COLLECTION_ADDRESS: "PRIMARY_COLLECTION_ADDRESS",
+  SECONDARY_COLLECTION_ADDRESS: "SECONDARY_COLLECTION_ADDRESS",
+  TERTIARY_COLLECTION_ADDRESS: "TERTIARY_COLLECTION_ADDRESS"
+};
+
+var currentCollectionAddressCoordinates = {latitute: -0.0714564561271418, longitude: 51.643334192204};
+
+currentSelectedCollectionAddress = "PRIMARY_COLLECTION_ADDRESS";
+
 function setPostCode() {
   deliveryDetails.postCode = 'EN12QN'
   postCode = deliveryDetails.postCode;
+  CurrentDeliveryUserDetailsStore.emit('change');
+}
+
+function setCurrentCollectionAddressCoordinatesToPrimary() {
+  currentCollectionAddressCoordinates = collectionAddressCoordinates.PRIMARY_COLLECTION_ADDRESS;
+  CurrentDeliveryUserDetailsStore.emit('change');
+}
+
+function setCurrentCollectionAddressCoordinatesToSecondary() {
+  currentCollectionAddressCoordinates = collectionAddressCoordinates.SECONDARY_COLLECTION_ADDRESS;
+  CurrentDeliveryUserDetailsStore.emit('change');
+}
+
+function setCurrentCollectionAddressCoordinatesToTertiary() {
+  currentCollectionAddressCoordinates = collectionAddressCoordinates.TERTIARY_COLLECTION_ADDRESS;
+  CurrentDeliveryUserDetailsStore.emit('change');
+}
+
+function setCurrentSelectedCollectionAddressToPrimary() {
+  currentSelectedCollectionAddress = collectionAddressStates.PRIMARY_COLLECTION_ADDRESS;
+  CurrentDeliveryUserDetailsStore.emit('change');
+}
+
+function setCurrentSelectedCollectionAddressToSecondary() {
+  currentSelectedCollectionAddress = collectionAddressStates.SECONDARY_COLLECTION_ADDRESS;
+  CurrentDeliveryUserDetailsStore.emit('change');
+}
+
+function setCurrentSelectedCollectionAddressToTertiary() {
+  currentSelectedCollectionAddress = collectionAddressStates.TERTIARY_COLLECTION_ADDRESS;
   CurrentDeliveryUserDetailsStore.emit('change');
 }
 
@@ -42355,6 +42535,14 @@ var CurrentDeliveryUserDetailsStore = objectAssign({}, EventEmitter.prototype, {
 
   getCurrentPostCode: function () {
     return postCode;
+  },
+
+  getCurrentCollectionAddressCoordinates: function () {
+    return currentCollectionAddressCoordinates;
+  },
+
+  getCurrentSelectedCollectionAddress: function () {
+    return currentSelectedCollectionAddress;
   },
 
   addChangeListener: function (changeEventHandler) {
@@ -42370,6 +42558,18 @@ var CurrentDeliveryUserDetailsStore = objectAssign({}, EventEmitter.prototype, {
 function handleAction(action) {
   if (action.type === 'set-post-code') {
     setPostCode();
+  } else if (action.type === 'set-current-collection-address-coordinates-to-primary') {
+    setCurrentCollectionAddressCoordinatesToPrimary();
+  } else if (action.type === 'set-current-collection-address-coordinates-to-secondary') {
+    setCurrentCollectionAddressCoordinatesToSecondary();
+  } else if (action.type === 'set-current-collection-address-coordinates-to-tertiary') {
+    setCurrentCollectionAddressCoordinatesToTertiary();
+  } else if (action.type === 'set-current-selected-collection-address-to-primary') {
+    setCurrentSelectedCollectionAddressToPrimary();
+  } else if (action.type === 'set-current-selected-collection-address-to-secondary') {
+    setCurrentSelectedCollectionAddressToSecondary();
+  } else if (action.type === 'set-current-selected-collection-address-to-tertiary') {
+    setCurrentSelectedCollectionAddressToTertiary();
   }
 }
 
