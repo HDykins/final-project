@@ -86,7 +86,7 @@ function setCurrentDaySelection(day) {
 	Dispatcher.dispatch(action);
 }
 
-function setCurrentMonthSelection() {
+function setCurrentMonthSelection(month) {
 	var action = {
 		type: 'set-current-month-selection',
 	};

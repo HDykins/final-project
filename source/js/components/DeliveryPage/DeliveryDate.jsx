@@ -1,11 +1,13 @@
 var React = require('react');
+var DeliveryDayListItem = require('./DeliveryDayListItem.jsx');
+var DeliveryMonthListItem = require('./DeliveryMonthListItem.jsx');
 
 var DeliveryDate = React.createClass({
 
   addDayListItems: function () {
 	var dayListItem = [];
 	for (var iterator = 1; iterator<32; iterator = iterator + 1) {
-		dayListItem.push(<li key={iterator} day={iterator} onClick={this.handleDaySelectionClickEvent}><a href="#">{iterator}</a></li>);
+		dayListItem.push(<DeliveryDayListItem key={iterator} day={iterator} />);
 	}
 	return dayListItem;
   },
@@ -13,17 +15,9 @@ var DeliveryDate = React.createClass({
   addMonthListItems: function () {
 	var monthListItem = [];
 	for (var iterator = 1; iterator<13; iterator = iterator + 1) {
-		monthListItem.push(<li key={iterator} month={iterator} onClick={this.handleMonthSelectionClickEvent}><a href="#">{iterator}</a></li>);
+		monthListItem.push(<DeliveryMonthListItem key={iterator} month={iterator} />);
 	}
 	return monthListItem;
-  },
-
-  handleDaySelectionClickEvent: function () {
-  	DeliveryPageActionCreators.setCurrentDaySelection();
-  },
-
-  handleMonthSelectionClickEvent: function () {
-  	DeliveryPageActionCreators.setCurrentMonthSelection();
   },
 
   handleYearSelectionClickEvent: function () {

@@ -66,6 +66,22 @@ function setCurrentSelectedCollectionAddressToTertiary() {
 
 function setCurrentDaySelection(day) {
   currentDaySelection = day;
+  CurrentDeliveryUserDetailsStore.emit('change');
+}
+
+function setCurrentMonthSelection(month) {
+  currentMonthSelection = month;
+  CurrentDeliveryUserDetailsStore.emit('change');
+}
+
+function setCurrentYearSelection(year) {
+  currentYearSelection = year;
+  CurrentDeliveryUserDetailsStore.emit('change');
+}
+
+function setCurrentTimeSelection(time) {
+  currentTimeSelection = time
+  CurrentDeliveryUserDetailsStore.emit('change');
 }
 
 var CurrentDeliveryUserDetailsStore = objectAssign({}, EventEmitter.prototype, {
@@ -80,6 +96,22 @@ var CurrentDeliveryUserDetailsStore = objectAssign({}, EventEmitter.prototype, {
 
   getCurrentSelectedCollectionAddress: function () {
     return currentSelectedCollectionAddress;
+  },
+
+  getCurrentDaySelection: function () {
+    return currentDaySelection;
+  },
+
+  getCurrentMonthSelection: function () {
+    return currentMonthSelection;
+  },
+
+  getCurrentYearSelection: function () {
+    return currentYearSelection;
+  },
+
+  getCurrentTimeSelection: function () {
+    return currentTimeSelection;
   },
 
   addChangeListener: function (changeEventHandler) {
@@ -107,6 +139,14 @@ function handleAction(action) {
     setCurrentSelectedCollectionAddressToSecondary();
   } else if (action.type === 'set-current-selected-collection-address-to-tertiary') {
     setCurrentSelectedCollectionAddressToTertiary();
+  } else if (action.type === 'set-current-day-selection') {
+    setCurrentDaySelection(action.day);
+  } else if (action.type === 'set-current-month-selection') {
+    setCurrentMonthSelection(action.month);
+  } else if (action.type === 'set-current-year-selection') {
+    setCurrentYearSelection();
+  } else if (action.type === 'set-current-time-selection') {
+    setCurrentTimeSelection();
   }
 }
 
