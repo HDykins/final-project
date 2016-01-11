@@ -50843,6 +50843,7 @@ module.exports = PriceTotal;
 var React = require('react');
 var SignInFormActionCreators = require('../actions/SignInFormActionCreators.js');
 var AuthenticationService = require('../services/authentication.js');
+var StateStore = require('../stores/StateStore.js');
 
 var RegisterForm = React.createClass({displayName: "RegisterForm",
 
@@ -50901,40 +50902,49 @@ var RegisterForm = React.createClass({displayName: "RegisterForm",
 		), 
 		React.createElement("button", {onClick: this.handleXButtonClickEvent, className: "btn btn-default x-button"}, "X"), 
 		!this.state.successMessage ?
-		React.createElement("div", null, 	
-		React.createElement("div", {className: "rounded-box"}, 
-			React.createElement("input", {className: "registration-input", ref: "newEmail", placeholder: "Email"})
-		), 
-		React.createElement("div", {className: "rounded-box"}, 
-			React.createElement("input", {className: "registration-input", placeholder: "Retype email"})
-		), 
-		React.createElement("div", {className: "rounded-box"}, 
-			React.createElement("input", {className: "registration-input", ref: "newPassword", placeholder: "Password"})
-		), 
-		React.createElement("div", {className: "rounded-box"}, 
-			React.createElement("input", {className: "registration-input", placeholder: "Retype password"})
-		), 
-		React.createElement("div", {className: "rounded-box"}, 
-			React.createElement("input", {className: "registration-input", ref: "phoneNumber", placeholder: "Phone number"})
-		), 
-		this.state.failMessage ? 
-		React.createElement("div", {className: "col-xs-6 col-xs-offset-3"}, 
-			React.createElement("div", {className: "rounded-box"}, 
-				React.createElement("p", null, this.state.failMessage)
-			)
-		)
-		:null, 
-		React.createElement("div", {className: "col-xs-6 col-xs-offset-3"}, 
+		React.createElement("div", null, 
 			React.createElement("div", {className: "rounded-box"}, 
 				React.createElement("p", null, "Password must be between 6-16 characters and contain at least one number")
+			), 
+			React.createElement("div", {className: "rounded-box"}, 
+				React.createElement("input", {className: "registration-input", ref: "newEmail", placeholder: "Email"})
+			), 
+			React.createElement("div", {className: "rounded-box"}, 
+				React.createElement("input", {className: "registration-input", placeholder: "Retype email"})
+			), 
+			React.createElement("div", {className: "rounded-box"}, 
+				React.createElement("input", {className: "registration-input", ref: "newPassword", placeholder: "Password"})
+			), 
+			React.createElement("div", {className: "rounded-box"}, 
+				React.createElement("input", {className: "registration-input", placeholder: "Retype password"})
+			), 
+			React.createElement("div", {className: "rounded-box"}, 
+				React.createElement("input", {className: "registration-input", ref: "phoneNumber", placeholder: "Phone number"})
+			), 
+			this.state.failMessage ? 
+				React.createElement("div", {className: "col-xs-8 col-xs-offset-2"}, 
+					React.createElement("div", {className: "rounded-box"}, 
+						React.createElement("p", {className: "red"}, this.state.failMessage)
+					)
+				)
+			:null, 
+			React.createElement("div", {className: "col-xs-12"}, 
+				React.createElement("button", {onClick: this.handleUserRegisterFormSubmit, className: "btn important-button btn-success"}, "Register"), 
+				React.createElement("br", null), React.createElement("br", null)
 			)
-		), 
-		React.createElement("div", {className: "col-xs-12"}, 
-			React.createElement("button", {onClick: this.handleUserRegisterFormSubmit, className: "btn important-button btn-success"}, "Register"), 
-			React.createElement("br", null), React.createElement("br", null)
 		)
-		)
-		:null	
+		:
+		React.createElement("div", null, 
+			React.createElement("div", {className: "col-xs-8 col-xs-offset-2"}, 
+				React.createElement("div", {className: "rounded-box"}, 
+					React.createElement("p", null, "Thanks for registering, a confirmation of your order has been sent to your email")
+				)
+			), 
+			React.createElement("div", {className: "col-xs-12"}, 
+				StateStore.getCurrentPage() === "SIGN_IN_PAGE" ? React.createElement("button", {className: "btn important-button btn-success"}, "Continue to orders") : React.createElement("button", {className: "btn important-button btn-success"}, "Continue"), 
+				React.createElement("br", null), React.createElement("br", null)
+			)
+		)	
 	)
     );
   }
@@ -50942,7 +50952,7 @@ var RegisterForm = React.createClass({displayName: "RegisterForm",
 
 module.exports = RegisterForm;
 
-},{"../actions/SignInFormActionCreators.js":329,"../services/authentication.js":377,"react":322}],362:[function(require,module,exports){
+},{"../actions/SignInFormActionCreators.js":329,"../services/authentication.js":377,"../stores/StateStore.js":381,"react":322}],362:[function(require,module,exports){
 var React = require('react');
 var StateStore = require('../stores/StateStore.js');
 var SignInFormActionCreators = require('../actions/SignInFormActionCreators.js');

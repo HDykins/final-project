@@ -1,6 +1,7 @@
 var React = require('react');
 var SignInFormActionCreators = require('../actions/SignInFormActionCreators.js');
 var AuthenticationService = require('../services/authentication.js');
+var StateStore = require('../stores/StateStore.js');
 
 var RegisterForm = React.createClass({
 
@@ -59,40 +60,49 @@ var RegisterForm = React.createClass({
 		</div>
 		<button onClick={this.handleXButtonClickEvent} className="btn btn-default x-button">X</button>
 		{!this.state.successMessage ?
-		<div>	
-		<div className="rounded-box">
-			<input className="registration-input" ref="newEmail" placeholder="Email" />
-		</div>
-		<div className="rounded-box">
-			<input className="registration-input" placeholder="Retype email" />
-		</div>
-		<div className="rounded-box">
-			<input className="registration-input" ref="newPassword" placeholder="Password" />
-		</div>
-		<div className="rounded-box">
-			<input className="registration-input" placeholder="Retype password" />
-		</div>
-		<div className="rounded-box">
-			<input className="registration-input" ref="phoneNumber" placeholder="Phone number" />
-		</div>
-		{this.state.failMessage ? 
-		<div className="col-xs-6 col-xs-offset-3">
-			<div className="rounded-box">
-				<p>{this.state.failMessage}</p>
-			</div>
-		</div>
-		:null }
-		<div className="col-xs-6 col-xs-offset-3">
+		<div>
 			<div className="rounded-box">
 				<p>Password must be between 6-16 characters and contain at least one number</p>
 			</div>
+			<div className="rounded-box">
+				<input className="registration-input" ref="newEmail" placeholder="Email" />
+			</div>
+			<div className="rounded-box">
+				<input className="registration-input" placeholder="Retype email" />
+			</div>
+			<div className="rounded-box">
+				<input className="registration-input" ref="newPassword" placeholder="Password" />
+			</div>
+			<div className="rounded-box">
+				<input className="registration-input" placeholder="Retype password" />
+			</div>
+			<div className="rounded-box">
+				<input className="registration-input" ref="phoneNumber" placeholder="Phone number" />
+			</div>
+			{this.state.failMessage ? 
+				<div className="col-xs-8 col-xs-offset-2">
+					<div className="rounded-box">
+						<p className="red">{this.state.failMessage}</p>
+					</div>
+				</div>
+			:null }
+			<div className="col-xs-12">
+				<button onClick={this.handleUserRegisterFormSubmit} className="btn important-button btn-success">Register</button>
+				<br /><br />
+			</div>
 		</div>
-		<div className="col-xs-12">
-			<button onClick={this.handleUserRegisterFormSubmit} className="btn important-button btn-success">Register</button>
-			<br /><br />
-		</div>
-		</div>
-		:null }	
+		:
+		<div>
+			<div className="col-xs-8 col-xs-offset-2">
+				<div className="rounded-box">
+					<p>Thanks for registering, a confirmation of your order has been sent to your email</p>
+				</div>
+			</div>
+			<div className="col-xs-12">
+				{StateStore.getCurrentPage() === "SIGN_IN_PAGE" ? <button className="btn important-button btn-success">Continue to orders</button> : <button className="btn important-button btn-success">Continue</button>}
+				<br /><br />
+			</div>
+		</div> }	
 	</div>
     );
   }
