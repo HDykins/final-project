@@ -18,8 +18,6 @@ var currentPage = PAGES.LANDING_PAGE;
 var delivery = false;
 var collection = false;
 
-var isSignedIn = false;
-
 function toggleDeliveryChoice() {
   if (delivery === true) {
     delivery = false;
@@ -96,10 +94,6 @@ var StateStore = objectAssign({}, EventEmitter.prototype, {
   
   getCurrentPage: function () {
     return currentPage;
-  },
-
-  getSignedInStatus: function () {
-    return isSignedIn;
   },
 
   getDeliveryChoice: function () {

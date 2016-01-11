@@ -16,7 +16,22 @@ function setHideRegisterForm() {
 	Dispatcher.dispatch(action);
 }
 
+function setUserAuthenticationToken(token) {
+	var action = {
+		type: 'set-user-authentication-token',
+		token: token,
+	};
+}
+
+function setSignedInStatusToTrue() {
+	var action = {
+		type: 'set-signed-in-status-to-true',
+	};
+}
+
 module.exports = {
 	setShowRegisterForm: setShowRegisterForm,
-	setHideRegisterForm: setHideRegisterForm
+	setHideRegisterForm: setHideRegisterForm,
+	setUserAuthenticationToken: setUserAuthenticationToken,
+	setSignedInStatusToTrue: setSignedInStatusToTrue
 };
