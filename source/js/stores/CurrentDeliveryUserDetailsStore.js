@@ -21,8 +21,12 @@ var collectionAddressStates = {
 };
 
 var currentCollectionAddressCoordinates = {latitute: -0.0714564561271418, longitude: 51.643334192204};
+var currentSelectedCollectionAddress = "PRIMARY_COLLECTION_ADDRESS";
 
-currentSelectedCollectionAddress = "PRIMARY_COLLECTION_ADDRESS";
+var currentDaySelection = null;
+var currentMonthSelection = null;
+var currentYearSelection = null;
+var currentTimeSelection = null;
 
 function setPostCode() {
   deliveryDetails.postCode = 'EN12QN'
@@ -58,6 +62,10 @@ function setCurrentSelectedCollectionAddressToSecondary() {
 function setCurrentSelectedCollectionAddressToTertiary() {
   currentSelectedCollectionAddress = collectionAddressStates.TERTIARY_COLLECTION_ADDRESS;
   CurrentDeliveryUserDetailsStore.emit('change');
+}
+
+function setCurrentDaySelection(day) {
+  currentDaySelection = day;
 }
 
 var CurrentDeliveryUserDetailsStore = objectAssign({}, EventEmitter.prototype, {
