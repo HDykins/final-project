@@ -40742,24 +40742,24 @@ var CollectionLocationDetails = React.createClass({displayName: "CollectionLocat
 		), 
 		React.createElement("div", {onClick: this.handleSecondaryAddressClickEvent, className: CurrentDeliveryUserDetailsStore.getCurrentSelectedCollectionAddress() === "SECONDARY_COLLECTION_ADDRESS" ? "rounded-box highlight" : "rounded-box"}, 
 			React.createElement("div", {className: "col-xs-4"}, 
-				"41 Abbey Road", React.createElement("br", null), "Bush Hill Park", React.createElement("br", null), "Enfield"
+				"748 High Rd", React.createElement("br", null), "Tottenham"
 			), 
 			React.createElement("div", {className: "col-xs-4"}, 
 				"Collection times: 9-5pm", React.createElement("br", null), "Monday-Friday"
 			), 
 			React.createElement("div", {className: "col-xs-4"}, 
-				"Middlesex", React.createElement("br", null), "London", React.createElement("br", null), "EN12QN"
+				"London", React.createElement("br", null), "N170AP"
 			)
 		), 
 		React.createElement("div", {onClick: this.handleTertiaryAddressClickEvent, className: CurrentDeliveryUserDetailsStore.getCurrentSelectedCollectionAddress() === "TERTIARY_COLLECTION_ADDRESS" ? "rounded-box highlight" : "rounded-box"}, 
 			React.createElement("div", {className: "col-xs-4"}, 
-				"42 Abbey Road", React.createElement("br", null), "Bush Hill Park", React.createElement("br", null), "Enfield"
+				"The Leather Market", React.createElement("br", null), "Weston St"
 			), 
 			React.createElement("div", {className: "col-xs-4"}, 
 				"Collection times: 9-5pm", React.createElement("br", null), "Monday-Friday"
 			), 
 			React.createElement("div", {className: "col-xs-4"}, 
-				"Middlesex", React.createElement("br", null), "London", React.createElement("br", null), "EN12QN"
+				"London", React.createElement("br", null), "SE13ER"
 			)
 		)
 	)
@@ -42492,8 +42492,12 @@ var collectionAddressStates = {
 };
 
 var currentCollectionAddressCoordinates = {latitute: -0.0714564561271418, longitude: 51.643334192204};
+var currentSelectedCollectionAddress = "PRIMARY_COLLECTION_ADDRESS";
 
-currentSelectedCollectionAddress = "PRIMARY_COLLECTION_ADDRESS";
+var currentDaySelection = null;
+var currentMonthSelection = null;
+var currentYearSelection = null;
+var currentTimeSelection = null;
 
 function setPostCode() {
   deliveryDetails.postCode = 'EN12QN'
@@ -42529,6 +42533,10 @@ function setCurrentSelectedCollectionAddressToSecondary() {
 function setCurrentSelectedCollectionAddressToTertiary() {
   currentSelectedCollectionAddress = collectionAddressStates.TERTIARY_COLLECTION_ADDRESS;
   CurrentDeliveryUserDetailsStore.emit('change');
+}
+
+function setCurrentDaySelection(day) {
+  currentDaySelection = day;
 }
 
 var CurrentDeliveryUserDetailsStore = objectAssign({}, EventEmitter.prototype, {

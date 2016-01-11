@@ -38,24 +38,24 @@ var CollectionLocationDetails = React.createClass({
 		</div>
 		<div onClick={this.handleSecondaryAddressClickEvent} className={CurrentDeliveryUserDetailsStore.getCurrentSelectedCollectionAddress() === "SECONDARY_COLLECTION_ADDRESS" ? "rounded-box highlight" : "rounded-box"}>
 			<div className="col-xs-4">
-				41 Abbey Road<br/>Bush Hill Park<br/>Enfield
+				748 High Rd<br/>Tottenham
 			</div>
 			<div className="col-xs-4">
 				Collection times: 9-5pm<br/>Monday-Friday
 			</div>
 			<div className="col-xs-4">
-				Middlesex<br/>London<br/>EN12QN
+				London<br/>N170AP
 			</div>
 		</div>
 		<div onClick={this.handleTertiaryAddressClickEvent} className={CurrentDeliveryUserDetailsStore.getCurrentSelectedCollectionAddress() === "TERTIARY_COLLECTION_ADDRESS" ? "rounded-box highlight" : "rounded-box"}>
 			<div className="col-xs-4">
-				42 Abbey Road<br/>Bush Hill Park<br/>Enfield
+				The Leather Market<br/>Weston St
 			</div>
 			<div className="col-xs-4">
 				Collection times: 9-5pm<br/>Monday-Friday
 			</div>
 			<div className="col-xs-4">
-				Middlesex<br/>London<br/>EN12QN
+				London<br/>SE13ER
 			</div>
 		</div>
 	</div>
