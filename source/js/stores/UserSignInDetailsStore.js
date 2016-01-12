@@ -6,12 +6,17 @@ var isSignedIn = false;
 var token = null;
 
 function setSignedInStatusToTrue() {
-  isSignedIn = true
+  isSignedIn = true;
   UserSignInDetailsStore.emit('change');
 }
 
 function setSignedInStatusToFalse() {
-  isSignedIn = false
+  isSignedIn = false;
+  UserSignInDetailsStore.emit('change');
+}
+
+function setUserAuthenticationToken(newToken) {
+  token = newToken;
   UserSignInDetailsStore.emit('change');
 }
 
@@ -30,7 +35,11 @@ var UserSignInDetailsStore = objectAssign({}, EventEmitter.prototype, {
 function handleAction(action) {
 	if (action.type === 'set-signed-in-status-to-true') {
 		setSignedInStatusToTrue();
-	}
+	} else if (action.type === 'set-signed-in-status-to-false') {
+    setSignedInStatusToFalse();
+  } else if (action.type === 'set-user-authentication-token') {
+    setUserAuthenticationToken(action.token);
+  }
 }
 
 UserSignInDetailsStore.dispatchToken = Dispatcher.register(handleAction);

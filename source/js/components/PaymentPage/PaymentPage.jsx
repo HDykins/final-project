@@ -50,7 +50,7 @@ var PaymentPage = React.createClass({
     	        	</div>	
     	        	<div className="row">
     	        		<BackButton label="Back to delivery details" />
-    	        		<ContinueButton label="Confirm order details" />
+    	        		<ContinueButton confirmOrder={this.handleOrderConfirmButtonClickEvent} label="Confirm order details" />
     	        	</div>
     	        	{this.state.isTermsConditionsFormVisible ? <TermsConditions /> : null}
           		</div>

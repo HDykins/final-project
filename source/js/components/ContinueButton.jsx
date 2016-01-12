@@ -20,6 +20,7 @@ var ContinueButton = React.createClass({
     }
     else if (StateStore.getCurrentPage() === 'PAYMENT_PAGE') {
       PaymentPageActionCreators.changeToThanksPage();
+      this.props.confirmOrder()
     }       
   },
 

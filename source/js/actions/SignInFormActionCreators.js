@@ -21,12 +21,16 @@ function setUserAuthenticationToken(token) {
 		type: 'set-user-authentication-token',
 		token: token,
 	};
+
+	Dispatcher.dispatch(action);
 }
 
 function setSignedInStatusToTrue() {
 	var action = {
 		type: 'set-signed-in-status-to-true',
 	};
+
+	Dispatcher.dispatch(action);
 }
 
 module.exports = {

@@ -4,7 +4,8 @@ var HOST_NAME = 'http://localhost:8080';
 
 var API_ENDPOINTS = {
   REGISTER: '/api/users',
-  SIGN_IN: '/api/users/authenticate'
+  SIGN_IN: '/api/users/authenticate',
+  ORDER: '/api/users/orders'
 };
 
 function register(email, password, phoneNumber, handleResponse) {
@@ -54,7 +55,34 @@ function signIn(email, password, handleResponse) {
   });
 }
 
+function saveOrder(order, token, handleResponse) {
+
+  console.log(order);
+
+  var data = {
+    userChoices: order
+  };
+
+  var request = jQuery.ajax({
+    method: 'post',
+    url: HOST_NAME + API_ENDPOINTS.ORDER  + "?token=" + token,
+    dataType: 'json',
+    data: JSON.stringify(data),
+    contentType: 'application/json'
+  });
+
+  request.fail(function (jqXHR, textStatus, errorThrown) {
+    handleResponse(jqXHR, null);
+  });
+
+  request.done(function (data) {
+    handleResponse(null, data);
+  });
+}
+
+
 module.exports = {
   signIn: signIn,
-  register: register
+  register: register,
+  saveOrder: saveOrder
 };

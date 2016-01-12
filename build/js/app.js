@@ -49222,12 +49222,16 @@ function setUserAuthenticationToken(token) {
 		type: 'set-user-authentication-token',
 		token: token,
 	};
+
+	Dispatcher.dispatch(action);
 }
 
 function setSignedInStatusToTrue() {
 	var action = {
 		type: 'set-signed-in-status-to-true',
 	};
+
+	Dispatcher.dispatch(action);
 }
 
 module.exports = {
@@ -49437,7 +49441,7 @@ var Application = React.createClass({displayName: "Application",
 module.exports = Application;
 
 
-},{"../stores/StateStore.js":383,"./DecorationsPage/DecorationsPage.jsx":339,"./DeliveryPage/DeliveryPage.jsx":349,"./LandingPage/LandingPage.jsx":352,"./OrdersPage/OrdersPage.jsx":358,"./PaymentPage/PaymentPage.jsx":360,"./SignInPage/SignInPage.jsx":365,"./ThanksPage/ThanksPage.jsx":368,"./TreePage/TreePage.jsx":377,"react":322}],333:[function(require,module,exports){
+},{"../stores/StateStore.js":384,"./DecorationsPage/DecorationsPage.jsx":339,"./DeliveryPage/DeliveryPage.jsx":349,"./LandingPage/LandingPage.jsx":352,"./OrdersPage/OrdersPage.jsx":358,"./PaymentPage/PaymentPage.jsx":360,"./SignInPage/SignInPage.jsx":365,"./ThanksPage/ThanksPage.jsx":368,"./TreePage/TreePage.jsx":377,"react":322}],333:[function(require,module,exports){
 var React = require('react');
 var DecorationsPageActionCreators = require('../actions/DecorationsPageActionCreators.js');
 var DeliveryPageActionCreators = require('../actions/DeliveryPageActionCreators.js');
@@ -49474,7 +49478,7 @@ var BackButton = React.createClass({displayName: "BackButton",
 
 module.exports = BackButton;
 
-},{"../actions/DecorationsPageActionCreators.js":323,"../actions/DeliveryPageActionCreators.js":324,"../actions/PaymentPageActionCreators.js":328,"../stores/StateStore.js":383,"react":322}],334:[function(require,module,exports){
+},{"../actions/DecorationsPageActionCreators.js":323,"../actions/DeliveryPageActionCreators.js":324,"../actions/PaymentPageActionCreators.js":328,"../stores/StateStore.js":384,"react":322}],334:[function(require,module,exports){
 var React = require('react');
 var TreePageActionCreators = require('../actions/TreePageActionCreators.js');
 var DecorationsPageActionCreators = require('../actions/DecorationsPageActionCreators.js');
@@ -49497,6 +49501,7 @@ var ContinueButton = React.createClass({displayName: "ContinueButton",
     }
     else if (StateStore.getCurrentPage() === 'PAYMENT_PAGE') {
       PaymentPageActionCreators.changeToThanksPage();
+      this.props.confirmOrder()
     }       
   },
 
@@ -49514,7 +49519,7 @@ var ContinueButton = React.createClass({displayName: "ContinueButton",
 
 module.exports = ContinueButton;
 
-},{"../actions/DecorationsPageActionCreators.js":323,"../actions/DeliveryPageActionCreators.js":324,"../actions/PaymentPageActionCreators.js":328,"../actions/TreePageActionCreators.js":331,"../stores/StateStore.js":383,"react":322}],335:[function(require,module,exports){
+},{"../actions/DecorationsPageActionCreators.js":323,"../actions/DeliveryPageActionCreators.js":324,"../actions/PaymentPageActionCreators.js":328,"../actions/TreePageActionCreators.js":331,"../stores/StateStore.js":384,"react":322}],335:[function(require,module,exports){
 var React = require('react');
 var CurrentDecorationsUserDetailsStore = require('../../stores/CurrentDecorationsUserDetailsStore.js');
 
@@ -49872,7 +49877,7 @@ var DecorationsPage = React.createClass({displayName: "DecorationsPage",
 
 module.exports = DecorationsPage;
 
-},{"../../actions/DecorationsPageActionCreators.js":323,"../../stores/CurrentDecorationsUserDetailsStore.js":380,"../../stores/TotalPriceStore.js":384,"../BackButton.jsx":333,"../ContinueButton.jsx":334,"../Header1.jsx":351,"../NavBar.jsx":354,"../PriceTotal.jsx":362,"./DecorationsCostBox.jsx":335,"./DecorationsList.jsx":336,"./PreviewImage.jsx":340,"react":322}],340:[function(require,module,exports){
+},{"../../actions/DecorationsPageActionCreators.js":323,"../../stores/CurrentDecorationsUserDetailsStore.js":380,"../../stores/TotalPriceStore.js":385,"../BackButton.jsx":333,"../ContinueButton.jsx":334,"../Header1.jsx":351,"../NavBar.jsx":354,"../PriceTotal.jsx":362,"./DecorationsCostBox.jsx":335,"./DecorationsList.jsx":336,"./PreviewImage.jsx":340,"react":322}],340:[function(require,module,exports){
 var React = require('react');
 
 var PreviewImage = React.createClass({displayName: "PreviewImage",
@@ -49928,7 +49933,7 @@ var CollectOrDeliver = React.createClass({displayName: "CollectOrDeliver",
 
 module.exports = CollectOrDeliver;
 
-},{"../../actions/DeliveryPageActionCreators.js":324,"../../stores/StateStore.js":383,"react":322}],342:[function(require,module,exports){
+},{"../../actions/DeliveryPageActionCreators.js":324,"../../stores/StateStore.js":384,"react":322}],342:[function(require,module,exports){
 var React = require('react');
 var CurrentDeliveryUserDetailsStore = require('../../stores/CurrentDeliveryUserDetailsStore.js');
 var DeliveryPageActionCreators = require('../../actions/DeliveryPageActionCreators.js');
@@ -50318,7 +50323,7 @@ var DeliveryPage = React.createClass({displayName: "DeliveryPage",
 
 module.exports = DeliveryPage;
 
-},{"../../actions/DeliveryPageActionCreators.js":324,"../../stores/CurrentDeliveryUserDetailsStore.js":381,"../../stores/StateStore.js":383,"../BackButton.jsx":333,"../ContinueButton.jsx":334,"../Header1.jsx":351,"../NavBar.jsx":354,"../PriceTotal.jsx":362,"./CollectOrDeliver.jsx":341,"./CollectionLocationDetails.jsx":342,"./CollectionMap.jsx":343,"./DeliveryAddress.jsx":344,"./DeliveryDate.jsx":345,"./DeliveryInfo.jsx":347,"./PostCode.jsx":350,"react":322}],350:[function(require,module,exports){
+},{"../../actions/DeliveryPageActionCreators.js":324,"../../stores/CurrentDeliveryUserDetailsStore.js":381,"../../stores/StateStore.js":384,"../BackButton.jsx":333,"../ContinueButton.jsx":334,"../Header1.jsx":351,"../NavBar.jsx":354,"../PriceTotal.jsx":362,"./CollectOrDeliver.jsx":341,"./CollectionLocationDetails.jsx":342,"./CollectionMap.jsx":343,"./DeliveryAddress.jsx":344,"./DeliveryDate.jsx":345,"./DeliveryInfo.jsx":347,"./PostCode.jsx":350,"react":322}],350:[function(require,module,exports){
 var React = require('react');
 var DeliveryPageActionCreators = require('../../actions/DeliveryPageActionCreators.js');
 var CurrentDeliveryUserDetailsStore = require('../../stores/CurrentDeliveryUserDetailsStore.js');
@@ -50378,7 +50383,7 @@ module.exports = Header1;
 
 
 
-},{"../actions/DecorationsPageActionCreators.js":323,"../stores/StateStore.js":383,"react":322}],352:[function(require,module,exports){
+},{"../actions/DecorationsPageActionCreators.js":323,"../stores/StateStore.js":384,"react":322}],352:[function(require,module,exports){
 var React = require('react');
 var NavBar = require('../NavBar.jsx');
 var StartButton = require('./StartButton.jsx');
@@ -50498,7 +50503,7 @@ var NavBar = React.createClass({displayName: "NavBar",
 module.exports = NavBar;
 
 
-},{"../actions/NavBarActionCreators.js":326,"../stores/StateStore.js":383,"../stores/UserSignInDetailsStore.js":386,"react":322}],355:[function(require,module,exports){
+},{"../actions/NavBarActionCreators.js":326,"../stores/StateStore.js":384,"../stores/UserSignInDetailsStore.js":387,"react":322}],355:[function(require,module,exports){
 var React = require('react');
 
 var OrderSummary = React.createClass({displayName: "OrderSummary",
@@ -50691,7 +50696,7 @@ var OrdersPage = React.createClass({displayName: "OrdersPage",
 
 module.exports = OrdersPage;
 
-},{"../../stores/PopUpStore.js":382,"../Header1.jsx":351,"../NavBar.jsx":354,"../OrderSummary.jsx":355,"./OrderCancellationConfirmation.jsx":356,"./OrderOptionsButtons.jsx":357,"react":322}],359:[function(require,module,exports){
+},{"../../stores/PopUpStore.js":383,"../Header1.jsx":351,"../NavBar.jsx":354,"../OrderSummary.jsx":355,"./OrderCancellationConfirmation.jsx":356,"./OrderOptionsButtons.jsx":357,"react":322}],359:[function(require,module,exports){
 var React = require('react');
 var PaymentPageActionCreators = require('../../actions/PaymentPageActionCreators.js');
 
@@ -50807,7 +50812,7 @@ var PaymentPage = React.createClass({displayName: "PaymentPage",
     	        	), 	
     	        	React.createElement("div", {className: "row"}, 
     	        		React.createElement(BackButton, {label: "Back to delivery details"}), 
-    	        		React.createElement(ContinueButton, {label: "Confirm order details"})
+    	        		React.createElement(ContinueButton, {confirmOrder: this.handleOrderConfirmButtonClickEvent, label: "Confirm order details"})
     	        	), 
     	        	this.state.isTermsConditionsFormVisible ? React.createElement(TermsConditions, null) : null
           		)
@@ -50819,7 +50824,7 @@ var PaymentPage = React.createClass({displayName: "PaymentPage",
 module.exports = PaymentPage;
 
 
-},{"../../stores/PopUpStore.js":382,"../BackButton.jsx":333,"../ContinueButton.jsx":334,"../Header1.jsx":351,"../NavBar.jsx":354,"../OrderSummary.jsx":355,"../PriceTotal.jsx":362,"./CardDetails.jsx":359,"./TermsConditions.jsx":361,"react":322}],361:[function(require,module,exports){
+},{"../../stores/PopUpStore.js":383,"../BackButton.jsx":333,"../ContinueButton.jsx":334,"../Header1.jsx":351,"../NavBar.jsx":354,"../OrderSummary.jsx":355,"../PriceTotal.jsx":362,"./CardDetails.jsx":359,"./TermsConditions.jsx":361,"react":322}],361:[function(require,module,exports){
 var React = require('react');
 var PaymentPageActionCreators = require('../../actions/PaymentPageActionCreators.js');
 
@@ -50869,7 +50874,7 @@ var PriceTotal = React.createClass({displayName: "PriceTotal",
 
 module.exports = PriceTotal;
 
-},{"../stores/TotalPriceStore.js":384,"react":322}],363:[function(require,module,exports){
+},{"../stores/TotalPriceStore.js":385,"react":322}],363:[function(require,module,exports){
 var React = require('react');
 var SignInFormActionCreators = require('../actions/SignInFormActionCreators.js');
 var AuthenticationService = require('../services/authentication.js');
@@ -50982,9 +50987,11 @@ var RegisterForm = React.createClass({displayName: "RegisterForm",
 
 module.exports = RegisterForm;
 
-},{"../actions/SignInFormActionCreators.js":329,"../services/authentication.js":379,"../stores/StateStore.js":383,"react":322}],364:[function(require,module,exports){
+},{"../actions/SignInFormActionCreators.js":329,"../services/authentication.js":379,"../stores/StateStore.js":384,"react":322}],364:[function(require,module,exports){
 var React = require('react');
 var StateStore = require('../stores/StateStore.js');
+var UserSignInDetailsStore = require('../stores/UserSignInDetailsStore.js')
+var OrdersStore = require('../stores/OrdersStore.js');
 var SignInFormActionCreators = require('../actions/SignInFormActionCreators.js');
 var AuthenticationService = require('../services/authentication.js');
 
@@ -51010,13 +51017,13 @@ var SignInForm = React.createClass({displayName: "SignInForm",
   	});
   },
 
-  hideSignInFailMessage: function (message) {
+  hideSignInFailMessage: function () {
   	this.setState({
   		failMessage: null
   	});
   },
 
-  hideSignInSuccessMessage: function (message) {
+  hideSignInSuccessMessage: function () {
   	this.setState({
   		successMessage: null
   	});
@@ -51032,7 +51039,7 @@ var SignInForm = React.createClass({displayName: "SignInForm",
     AuthenticationService.signIn(this.refs.email.value, this.refs.password.value, function handleUserSignIn(error, response) {
 
       if (error) {
-      	this.hideSuccessMessage();
+      	this.hideSignInSuccessMessage();
         this.showSignInFailMessage('Failed to log in. Check email and password');
         return;
       }
@@ -51040,61 +51047,89 @@ var SignInForm = React.createClass({displayName: "SignInForm",
       SignInFormActionCreators.setUserAuthenticationToken(response.token);
       SignInFormActionCreators.setSignedInStatusToTrue();
       this.hideSignInFailMessage();
-      this.showSuccessMessage('You are signed in');
+      this.showSignInSuccessMessage('You are signed in');
+      console.log(OrdersStore.getOrder());
+      console.log(UserSignInDetailsStore.getSignedInStatus());
+      console.log(UserSignInDetailsStore.getCurrentToken());
 
+
+          AuthenticationService.saveOrder(OrdersStore.getOrder(), UserSignInDetailsStore.getCurrentToken(), function handleUserRegister(error, response) {
+
+          if (error) {
+            console.log("No");
+            // this.showRegisterFailMessage('Failed to register. Email may be in use');
+            return;
+          }
+
+          console.log("Yes");
+          // SignInFormActionCreators.setUserAuthenticationToken(response.token);
+          // SignInFormActionCreators.setSignedInStatusToTrue();
+          // this.hideRegisterFailMessage();
+          // this.showRegisterSuccessMessage('Successfully registered');
+
+        }.bind(this));
+          
     }.bind(this));
+
+
   },
 
   render: function () {
   var currentPage = StateStore.getCurrentPage();
 
-    return (
-	React.createElement("div", {className: "rounded-box", id: "sign-in-form"}, 
-		currentPage === "THANKS_PAGE" ? React.createElement("div", null, 
-			React.createElement("h3", null, "Would you like the ability to review your order at a later time?"), 
-			React.createElement("span", null, "(You will need to sign in)")
-		) : null, 
-		React.createElement("h4", null, "Sign-in form"), 
-		React.createElement("div", {className: "col-xs-8 col-xs-offset-2"}, 
-			React.createElement("div", {className: "rounded-box"}, 
-				React.createElement("div", {className: "col-xs-6"}, 
-					React.createElement("div", {className: "rounded-box"}, 
-						React.createElement("input", {type: "text", placeholder: "Email", ref: "email"})
-					), 
-					React.createElement("br", null), 
-					this.state.successMessage ?
-					React.createElement("div", {className: "rounded-box"}, 
-						React.createElement("span", {className: "red"}, this.state.successMessage)
-					)
-				    : null, 
-				    this.state.failMessage ?
-					React.createElement("div", {className: "rounded-box"}, 
-						React.createElement("span", {className: "red"}, this.state.failMessage)
-					)
-				    :null
-				), 
-				React.createElement("div", {className: "col-xs-6"}, 
-					React.createElement("div", {className: "rounded-box"}, 
-						React.createElement("input", {type: "text", placeholder: "Password", ref: "password"})
-					), 				
-					React.createElement("button", {onClick: this.handleUserSignInFormSubmit, className: "important-button btn btn-success"}, "Sign-in")
-				)
+  if (!UserSignInDetailsStore.getSignedInStatus()) { 
+    return (   
+  	React.createElement("div", {className: "rounded-box", id: "sign-in-form"}, 
+  		currentPage === "THANKS_PAGE" ? React.createElement("div", null, 
+  			React.createElement("h3", null, "Would you like the ability to review your order at a later time?"), 
+  			React.createElement("span", null, "(You will need to sign in)")
+  		) : null, 
+  		React.createElement("h4", null, "Sign-in form"), 
+  		React.createElement("div", {className: "col-xs-8 col-xs-offset-2"}, 
+  			React.createElement("div", {className: "rounded-box"}, 
+  				React.createElement("div", {className: "col-xs-6"}, 
+  					React.createElement("div", {className: "rounded-box"}, 
+  						React.createElement("input", {type: "text", placeholder: "Email", ref: "email"})
+  					), 
+  					React.createElement("br", null), 
+  					this.state.successMessage ?
+  					React.createElement("div", {className: "rounded-box"}, 
+  						React.createElement("span", {className: "red"}, this.state.successMessage)
+  					)
+  				    : null, 
+  				    this.state.failMessage ?
+  					React.createElement("div", {className: "rounded-box"}, 
+  						React.createElement("span", {className: "red"}, this.state.failMessage)
+  					)
+  				    :null
+  				), 
+  				React.createElement("div", {className: "col-xs-6"}, 
+  					React.createElement("div", {className: "rounded-box"}, 
+  						React.createElement("input", {type: "text", placeholder: "Password", ref: "password"})
+  					), 				
+  					React.createElement("button", {onClick: this.handleUserSignInFormSubmit, className: "important-button btn btn-success"}, "Sign-in")
+  				)
 
-			)
-		), 
-		React.createElement("div", {className: "col-xs-12"}, 
-			React.createElement("h3", null, "Don't have an account?"), 
-			React.createElement("button", {onClick: this.handleRegisterButtonClickEvent, className: "important-button btn btn-success"}, "Register"), 
-			React.createElement("br", null), React.createElement("br", null)
-		)	
-	)
+  			)
+  		), 
+  		React.createElement("div", {className: "col-xs-12"}, 
+  			React.createElement("h3", null, "Don't have an account?"), 
+  			React.createElement("button", {onClick: this.handleRegisterButtonClickEvent, className: "important-button btn btn-success"}, "Register"), 
+  			React.createElement("br", null), React.createElement("br", null)
+  		)
+  	)
+    );
+  } else {
+    return (  
+      React.createElement("div", {className: "rounded-box", id: "sign-in-form"}, this.state.successMessage)
     );
   }
+}
 });
 
 module.exports = SignInForm;
 
-},{"../actions/SignInFormActionCreators.js":329,"../services/authentication.js":379,"../stores/StateStore.js":383,"react":322}],365:[function(require,module,exports){
+},{"../actions/SignInFormActionCreators.js":329,"../services/authentication.js":379,"../stores/OrdersStore.js":382,"../stores/StateStore.js":384,"../stores/UserSignInDetailsStore.js":387,"react":322}],365:[function(require,module,exports){
 var React = require('react');
 var NavBar = require('../NavBar.jsx');
 var PopUpStore = require('../../stores/PopUpStore.js');
@@ -51157,7 +51192,7 @@ var SignInPage = React.createClass({displayName: "SignInPage",
 
 module.exports = SignInPage;
 
-},{"../../actions/SignInPageActionCreators.js":330,"../../stores/PopUpStore.js":382,"../NavBar.jsx":354,"../RegisterForm.jsx":363,"../SignInForm.jsx":364,"react":322}],366:[function(require,module,exports){
+},{"../../actions/SignInPageActionCreators.js":330,"../../stores/PopUpStore.js":383,"../NavBar.jsx":354,"../RegisterForm.jsx":363,"../SignInForm.jsx":364,"react":322}],366:[function(require,module,exports){
 var React = require('react');
 
 var SocialMedia = React.createClass({displayName: "SocialMedia",
@@ -51251,7 +51286,7 @@ var ThanksPage = React.createClass({displayName: "ThanksPage",
 
 module.exports = ThanksPage;
 
-},{"../../stores/PopUpStore.js":382,"../Header1.jsx":351,"../NavBar.jsx":354,"../RegisterForm.jsx":363,"../SignInForm.jsx":364,"./SocialMedia.jsx":366,"./ThanksMessage.jsx":367,"react":322}],369:[function(require,module,exports){
+},{"../../stores/PopUpStore.js":383,"../Header1.jsx":351,"../NavBar.jsx":354,"../RegisterForm.jsx":363,"../SignInForm.jsx":364,"./SocialMedia.jsx":366,"./ThanksMessage.jsx":367,"react":322}],369:[function(require,module,exports){
 var React = require('react');
 var TreeInformationStore = require('../../stores/TreeInformationStore.js');
 
@@ -51304,7 +51339,7 @@ var FactList = React.createClass({displayName: "FactList",
 module.exports = FactList;
 
 
-},{"../../stores/TreeInformationStore.js":385,"react":322}],370:[function(require,module,exports){
+},{"../../stores/TreeInformationStore.js":386,"react":322}],370:[function(require,module,exports){
 var React = require('react');
 var TreeInformationStore = require('../../stores/TreeInformationStore.js');
 
@@ -51371,7 +51406,7 @@ var HeightCategoryBox = React.createClass({displayName: "HeightCategoryBox",
 
 module.exports = HeightCategoryBox;
 
-},{"../../stores/TreeInformationStore.js":385,"react":322}],371:[function(require,module,exports){
+},{"../../stores/TreeInformationStore.js":386,"react":322}],371:[function(require,module,exports){
 var React = require('react');
 
 var LargeTreeIcon = React.createClass({displayName: "LargeTreeIcon",
@@ -51493,7 +51528,7 @@ var TreeDescription = React.createClass({displayName: "TreeDescription",
 
 module.exports = TreeDescription;
 
-},{"../../stores/TreeInformationStore.js":385,"react":322}],374:[function(require,module,exports){
+},{"../../stores/TreeInformationStore.js":386,"react":322}],374:[function(require,module,exports){
 var React = require('react');
 
 var TreeIcon = React.createClass({displayName: "TreeIcon",
@@ -51567,7 +51602,7 @@ module.exports = TreeIcons;
 
 
 
-},{"../../actions/TreePageActionCreators.js":331,"../../stores/TreeInformationStore.js":385,"./TreeIcon.jsx":374,"react":322}],376:[function(require,module,exports){
+},{"../../actions/TreePageActionCreators.js":331,"../../stores/TreeInformationStore.js":386,"./TreeIcon.jsx":374,"react":322}],376:[function(require,module,exports){
 var React = require('react');
 var FactList = require('./FactList.jsx');
 var TreeDescription = require('./TreeDescription.jsx');
@@ -51665,7 +51700,7 @@ var TreePage = React.createClass({displayName: "TreePage",
 
 module.exports = TreePage;
 
-},{"../../stores/TreeInformationStore.js":385,"../ContinueButton.jsx":334,"../Header1.jsx":351,"../NavBar.jsx":354,"../PriceTotal.jsx":362,"./HeightCategoryBox.jsx":370,"./LargeTreeIcon.jsx":371,"./SliderBox.jsx":372,"./TreeIcons.jsx":375,"./TreeInfo.jsx":376,"react":322}],378:[function(require,module,exports){
+},{"../../stores/TreeInformationStore.js":386,"../ContinueButton.jsx":334,"../Header1.jsx":351,"../NavBar.jsx":354,"../PriceTotal.jsx":362,"./HeightCategoryBox.jsx":370,"./LargeTreeIcon.jsx":371,"./SliderBox.jsx":372,"./TreeIcons.jsx":375,"./TreeInfo.jsx":376,"react":322}],378:[function(require,module,exports){
 var Dispatcher = require('flux').Dispatcher;
 
 module.exports = new Dispatcher();
@@ -51677,7 +51712,8 @@ var HOST_NAME = 'http://localhost:8080';
 
 var API_ENDPOINTS = {
   REGISTER: '/api/users',
-  SIGN_IN: '/api/users/authenticate'
+  SIGN_IN: '/api/users/authenticate',
+  ORDER: '/api/users/orders'
 };
 
 function register(email, password, phoneNumber, handleResponse) {
@@ -51727,9 +51763,36 @@ function signIn(email, password, handleResponse) {
   });
 }
 
+function saveOrder(order, token, handleResponse) {
+
+  console.log(order);
+
+  var data = {
+    userChoices: order
+  };
+
+  var request = jQuery.ajax({
+    method: 'post',
+    url: HOST_NAME + API_ENDPOINTS.ORDER  + "?token=" + token,
+    dataType: 'json',
+    data: JSON.stringify(data),
+    contentType: 'application/json'
+  });
+
+  request.fail(function (jqXHR, textStatus, errorThrown) {
+    handleResponse(jqXHR, null);
+  });
+
+  request.done(function (data) {
+    handleResponse(null, data);
+  });
+}
+
+
 module.exports = {
   signIn: signIn,
-  register: register
+  register: register,
+  saveOrder: saveOrder
 };
 
 
@@ -52070,6 +52133,35 @@ var Dispatcher = require('../dispatcher/Dispatcher');
 var EventEmitter = require('events').EventEmitter;
 var objectAssign = require('object-assign');
 
+var order = {
+	"stuff1": "abc",
+	"stuff2": "def",
+	"stuff3": "ghi"
+};
+
+var OrdersStore = objectAssign({}, EventEmitter.prototype, {
+
+  getOrder: function () {
+    return order;
+  },
+
+});
+
+function handleAction(action) {
+	if (action.type === 'set-signed-in-stajktus-to-true') {
+		setSignedInStatusToTrue();
+	} 
+}
+
+OrdersStore.dispatchToken = Dispatcher.register(handleAction);
+
+module.exports = OrdersStore;
+
+},{"../dispatcher/Dispatcher":378,"events":2,"object-assign":8}],383:[function(require,module,exports){
+var Dispatcher = require('../dispatcher/Dispatcher');
+var EventEmitter = require('events').EventEmitter;
+var objectAssign = require('object-assign');
+
 var cancellationFormIsVisible = false;
 var termsConditionsFormIsVisible = false;
 var registerFormIsVisible = false;
@@ -52148,7 +52240,7 @@ PopUpStore.dispatchToken = Dispatcher.register(handleAction);
 
 module.exports = PopUpStore;
 
-},{"../dispatcher/Dispatcher":378,"events":2,"object-assign":8}],383:[function(require,module,exports){
+},{"../dispatcher/Dispatcher":378,"events":2,"object-assign":8}],384:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher');
 var EventEmitter = require('events').EventEmitter;
 var objectAssign = require('object-assign');
@@ -52299,7 +52391,7 @@ StateStore.dispatchToken = Dispatcher.register(handleAction);
 
 module.exports = StateStore;
 
-},{"../dispatcher/Dispatcher":378,"events":2,"object-assign":8}],384:[function(require,module,exports){
+},{"../dispatcher/Dispatcher":378,"events":2,"object-assign":8}],385:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher');
 var EventEmitter = require('events').EventEmitter;
 var objectAssign = require('object-assign');
@@ -52337,7 +52429,7 @@ TotalPriceStore.dispatchToken = Dispatcher.register(handleAction);
 
 module.exports = TotalPriceStore;
 
-},{"../dispatcher/Dispatcher":378,"./CurrentDecorationsUserDetailsStore.js":380,"./TreeInformationStore.js":385,"events":2,"object-assign":8}],385:[function(require,module,exports){
+},{"../dispatcher/Dispatcher":378,"./CurrentDecorationsUserDetailsStore.js":380,"./TreeInformationStore.js":386,"events":2,"object-assign":8}],386:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher');
 var EventEmitter = require('events').EventEmitter;
 var objectAssign = require('object-assign');
@@ -52456,7 +52548,7 @@ TreeInformationStore.dispatchToken = Dispatcher.register(handleAction);
 
 module.exports = TreeInformationStore;
 
-},{"../dispatcher/Dispatcher":378,"events":2,"object-assign":8}],386:[function(require,module,exports){
+},{"../dispatcher/Dispatcher":378,"events":2,"object-assign":8}],387:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher');
 var EventEmitter = require('events').EventEmitter;
 var objectAssign = require('object-assign');
@@ -52465,12 +52557,17 @@ var isSignedIn = false;
 var token = null;
 
 function setSignedInStatusToTrue() {
-  isSignedIn = true
+  isSignedIn = true;
   UserSignInDetailsStore.emit('change');
 }
 
 function setSignedInStatusToFalse() {
-  isSignedIn = false
+  isSignedIn = false;
+  UserSignInDetailsStore.emit('change');
+}
+
+function setUserAuthenticationToken(newToken) {
+  token = newToken;
   UserSignInDetailsStore.emit('change');
 }
 
@@ -52489,7 +52586,11 @@ var UserSignInDetailsStore = objectAssign({}, EventEmitter.prototype, {
 function handleAction(action) {
 	if (action.type === 'set-signed-in-status-to-true') {
 		setSignedInStatusToTrue();
-	}
+	} else if (action.type === 'set-signed-in-status-to-false') {
+    setSignedInStatusToFalse();
+  } else if (action.type === 'set-user-authentication-token') {
+    setUserAuthenticationToken(action.token);
+  }
 }
 
 UserSignInDetailsStore.dispatchToken = Dispatcher.register(handleAction);
