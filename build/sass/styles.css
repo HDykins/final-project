@@ -177,6 +177,9 @@ h3, h4, p, .btn {
   color: white;
   text-shadow: -1px -1px 0 #464646, 1px -1px 0 #464646, -1px 1px 0 #464646, 1px 1px 0 #464646; }
 
+.white {
+  color: white; }
+
 .price {
   color: green; }
 

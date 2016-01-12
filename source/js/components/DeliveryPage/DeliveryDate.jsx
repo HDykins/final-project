@@ -1,6 +1,8 @@
 var React = require('react');
+var CurrentDeliveryUserDetailsStore = require('../../stores/CurrentDeliveryUserDetailsStore.js');
 var DeliveryDayListItem = require('./DeliveryDayListItem.jsx');
 var DeliveryMonthListItem = require('./DeliveryMonthListItem.jsx');
+var DeliveryPageActionCreators = require('../../actions/DeliveryPageActionCreators.js');
 
 var DeliveryDate = React.createClass({
 
@@ -21,12 +23,16 @@ var DeliveryDate = React.createClass({
   },
 
   handleYearSelectionClickEvent: function () {
-  	DeliveryPageActionCreators.setCurrentYearSelection();
+  	DeliveryPageActionCreators.setCurrentYearSelection("2016");
   },
 
-  handleTimeSelectionClickEvent: function () {
-  	DeliveryPageActionCreators.setCurrentTimeSelection();
+  handleSetTimeToMorningClickEvent: function () {
+  	DeliveryPageActionCreators.setCurrentTimeSelectionToMorning();
   },
+
+  handleSetTimeToAfternoonClickEvent: function () {
+  	DeliveryPageActionCreators.setCurrentTimeSelectionToAfternoon();
+  },  
 
   render: function () {
     return (
@@ -41,7 +47,7 @@ var DeliveryDate = React.createClass({
    				<div className="no-padding col-xs-4">
 					<div className="dropdown">
 			            <button className="btn small-button dropdown-toggle" type="button" id="dropdown-lights" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-			              Day
+			              <span className="white-text">{CurrentDeliveryUserDetailsStore.getCurrentDaySelection()}</span>
 			              <span className="caret"></span>
 			            </button>
 			            <ul className="dropdown-menu" aria-labelledby="dropdown-lights">
@@ -52,7 +58,7 @@ var DeliveryDate = React.createClass({
 		        <div className="no-padding col-xs-4">
 					<div className="dropdown">
 			            <button className="btn small-button dropdown-toggle" type="button" id="dropdown-lights" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-			              Month
+			              <span className="white-text">{CurrentDeliveryUserDetailsStore.getCurrentMonthSelection()}</span>
 			              <span className="caret"></span>
 			            </button>
 			            <ul className="dropdown-menu" aria-labelledby="dropdown-lights">
@@ -63,7 +69,7 @@ var DeliveryDate = React.createClass({
 		        <div className="no-padding col-xs-4">
 					<div className="dropdown">
 			            <button className="btn small-button dropdown-toggle" type="button" id="dropdown-lights" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-			              Year
+			              <span className="white-text">{CurrentDeliveryUserDetailsStore.getCurrentYearSelection()}</span>
 			              <span className="caret"></span>
 			            </button>
 			            <ul className="dropdown-menu" aria-labelledby="dropdown-lights">
@@ -77,12 +83,12 @@ var DeliveryDate = React.createClass({
    			<div className="rounded-box visible dropdown-time">
 				<div className="dropdown">
 		            <button className="btn small-button dropdown-toggle" type="button" id="dropdown-lights" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-		              Time
+		              <span className="white-text">{CurrentDeliveryUserDetailsStore.getCurrentTimeSelection()}</span>
 		              <span className="caret"></span>
 		            </button>
 		            <ul className="dropdown-menu" aria-labelledby="dropdown-lights">
-		              <li onClick={this.handleTimeSelectionClickEvent}><a href="#">Morning (8-12:30)</a></li>
-		              <li onClick={this.handleTimeSelectionClickEvent}><a href="#">Afternoon (12:30-5)</a></li>
+		              <li onClick={this.handleSetTimeToMorningClickEvent}><a href="#">Morning (8-12:30)</a></li>
+		              <li onClick={this.handleSetTimeToAfternoonClickEvent}><a href="#">Afternoon (12:30-5)</a></li>
 		            </ul>
 		         </div>	
 			</div>

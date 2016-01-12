@@ -21,7 +21,7 @@ var CardDetails = React.createClass({
 				<div className="rounded-box input-div">
 					<div className="dropdown">
 			            <button className="btn btn-default dropdown-toggle" type="button" id="dropdown-card-type" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-			              Card Type
+			              <span className="white-text">Card Type</span>
 			              <span className="caret"></span>
 			            </button>
 			            <ul className="dropdown-menu" aria-labelledby="dropdown-card-type">

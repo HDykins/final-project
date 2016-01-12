@@ -6,6 +6,10 @@ var deliveryDetails = {
   postCode: ''
 };
 
+var currentTotalDeliveryPrice = 0;
+
+var isDecorationInstallationSeviceSelected = false;
+
 var postCode = deliveryDetails.postCode;
 
 var collectionAddressCoordinates = {
@@ -23,10 +27,10 @@ var collectionAddressStates = {
 var currentCollectionAddressCoordinates = {latitute: -0.0714564561271418, longitude: 51.643334192204};
 var currentSelectedCollectionAddress = "PRIMARY_COLLECTION_ADDRESS";
 
-var currentDaySelection = null;
-var currentMonthSelection = null;
-var currentYearSelection = null;
-var currentTimeSelection = null;
+var currentDaySelection = "Day";
+var currentMonthSelection = "Month";
+var currentYearSelection = "Year";
+var currentTimeSelection = "Time";
 
 function setPostCode() {
   deliveryDetails.postCode = 'EN12QN'
@@ -79,9 +83,22 @@ function setCurrentYearSelection(year) {
   CurrentDeliveryUserDetailsStore.emit('change');
 }
 
-function setCurrentTimeSelection(time) {
-  currentTimeSelection = time
+function setCurrentTimeSelectionToMorning() {
+  currentTimeSelection = "Morning (8-12:30)"
   CurrentDeliveryUserDetailsStore.emit('change');
+}
+
+function setCurrentTimeSelectionToAfternoon() {
+  currentTimeSelection = "Afternoon (12:30-5)"
+  CurrentDeliveryUserDetailsStore.emit('change');
+}
+
+function toggleDecorationInstallationServiceSelection() {
+  if (isDecorationInstallationSeviceSelected) {
+    isDecorationInstallationSeviceSelected = false;
+  } else {
+    isDecorationInstallationSeviceSelected = true;
+  }
 }
 
 var CurrentDeliveryUserDetailsStore = objectAssign({}, EventEmitter.prototype, {
@@ -114,6 +131,10 @@ var CurrentDeliveryUserDetailsStore = objectAssign({}, EventEmitter.prototype, {
     return currentTimeSelection;
   },
 
+  getDecorationInstallationSelectionStatus: function () {
+    return isDecorationInstallationSeviceSelected;
+  },
+
   addChangeListener: function (changeEventHandler) {
     this.on('change', changeEventHandler);
   },
@@ -144,9 +165,13 @@ function handleAction(action) {
   } else if (action.type === 'set-current-month-selection') {
     setCurrentMonthSelection(action.month);
   } else if (action.type === 'set-current-year-selection') {
-    setCurrentYearSelection();
-  } else if (action.type === 'set-current-time-selection') {
-    setCurrentTimeSelection();
+    setCurrentYearSelection(action.year);
+  } else if (action.type === 'set-current-time-selection-to-morning') {
+    setCurrentTimeSelectionToMorning();
+  } else if (action.type === 'set-current-time-selection-to-afternoon') {
+    setCurrentTimeSelectionToAfternoon();
+  } else if (action.type === 'toggle-decoration-installation-service-selection') {
+    toggleDecorationInstallationServiceSelection();
   }
 }
 

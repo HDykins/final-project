@@ -49038,20 +49038,29 @@ function setCurrentDaySelection(day) {
 function setCurrentMonthSelection(month) {
 	var action = {
 		type: 'set-current-month-selection',
+		month: month
 	};
 	Dispatcher.dispatch(action);
 }
 
-function setCurrentYearSelection() {
+function setCurrentYearSelection(year) {
 	var action = {
 		type: 'set-current-year-selection',
+		year: year
 	};
 	Dispatcher.dispatch(action);
 }
 
-function setCurrentTimeSelection() {
+function setCurrentTimeSelectionToMorning() {
 	var action = {
-		type: 'set-current-time-selection',
+		type: 'set-current-time-selection-to-morning',
+	};
+	Dispatcher.dispatch(action);
+}
+
+function setCurrentTimeSelectionToAfternoon() {
+	var action = {
+		type: 'set-current-time-selection-to-afternoon',
 	};
 	Dispatcher.dispatch(action);
 }
@@ -49071,7 +49080,8 @@ module.exports = {
 	setCurrentDaySelection: setCurrentDaySelection,
 	setCurrentMonthSelection: setCurrentMonthSelection,
 	setCurrentYearSelection: setCurrentYearSelection,
-	setCurrentTimeSelection: setCurrentTimeSelection
+	setCurrentTimeSelectionToMorning: setCurrentTimeSelectionToMorning,
+	setCurrentTimeSelectionToAfternoon: setCurrentTimeSelectionToAfternoon
 };
 
 },{"../dispatcher/Dispatcher":378}],325:[function(require,module,exports){
@@ -49576,7 +49586,7 @@ var DecorationsList = React.createClass({displayName: "DecorationsList",
       React.createElement("div", {className: "rounded-box visible"}, 
           React.createElement("div", {className: "dropdown"}, 
             React.createElement("button", {className: "btn button-decorations-list btn-default dropdown-toggle", type: "button", id: "dropdown-lights", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "true"}, 
-              React.createElement("span", {className: "decorations-list-category-text"}, "Lights"), 
+              React.createElement("span", {className: "decorations-list-category-text white-text"}, "Lights"), 
               React.createElement("span", {className: "caret"})
             ), 
             React.createElement("ul", {className: "dropdown-menu", "aria-labelledby": "dropdown-lights"}, 
@@ -49586,7 +49596,7 @@ var DecorationsList = React.createClass({displayName: "DecorationsList",
           ), 
           React.createElement("div", {className: "dropdown"}, 
             React.createElement("button", {className: "btn button-decorations-list btn-default dropdown-toggle", type: "button", id: "dropdown-baubbles", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "true"}, 
-              React.createElement("span", {className: "decorations-list-category-text"}, "Baubles"), 
+              React.createElement("span", {className: "decorations-list-category-text white-text"}, "Baubles"), 
               React.createElement("span", {className: "caret"})
             ), 
             React.createElement("ul", {className: "dropdown-menu noclose", "aria-labelledby": "dropdown-baubles"}, 
@@ -49598,7 +49608,7 @@ var DecorationsList = React.createClass({displayName: "DecorationsList",
           ), 
           React.createElement("div", {className: "dropdown"}, 
             React.createElement("button", {className: "btn button-decorations-list btn-default dropdown-toggle", type: "button", id: "dropdown-tinsel", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "true"}, 
-              React.createElement("span", {className: "decorations-list-category-text"}, "Tinsel"), 
+              React.createElement("span", {className: "decorations-list-category-text white-text"}, "Tinsel"), 
               React.createElement("span", {className: "caret"})
             ), 
             React.createElement("ul", {className: "dropdown-menu", "aria-labelledby": "dropdown-tinsel"}, 
@@ -49609,7 +49619,7 @@ var DecorationsList = React.createClass({displayName: "DecorationsList",
           ), 
           React.createElement("div", {className: "dropdown"}, 
             React.createElement("button", {className: "btn button-decorations-list btn-default dropdown-toggle", type: "button", id: "dropdown-stars-icicles", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "true"}, 
-              React.createElement("span", {className: "decorations-list-category-text"}, "Stars and Icicles"), 
+              React.createElement("span", {className: "decorations-list-category-text white-text"}, "Stars and Icicles"), 
               React.createElement("span", {className: "caret"})
             ), 
             React.createElement("ul", {className: "dropdown-menu", "aria-labelledby": "dropdown-stars-icicles"}, 
@@ -49620,7 +49630,7 @@ var DecorationsList = React.createClass({displayName: "DecorationsList",
           ), 
           React.createElement("div", {className: "dropdown"}, 
             React.createElement("button", {className: "btn button-decorations-list btn-default dropdown-toggle", type: "button", id: "dropdown-shiny", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "true"}, 
-              React.createElement("span", {className: "decorations-list-category-text"}, "Shiny things"), 
+              React.createElement("span", {className: "decorations-list-category-text white-text"}, "Shiny things"), 
               React.createElement("span", {className: "caret"})
             ), 
             React.createElement("ul", {className: "dropdown-menu", "aria-labelledby": "dropdown-shiny"}, 
@@ -49629,7 +49639,7 @@ var DecorationsList = React.createClass({displayName: "DecorationsList",
           ), 
           React.createElement("div", {className: "dropdown"}, 
             React.createElement("button", {className: "btn button-decorations-list btn-default dropdown-toggle", type: "button", id: "dropdown-ornaments", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "true"}, 
-              React.createElement("span", {className: "decorations-list-category-text"}, "Festive Ornaments"), 
+              React.createElement("span", {className: "decorations-list-category-text white-text"}, "Festive Ornaments"), 
               React.createElement("span", {className: "caret"})
             ), 
             React.createElement("ul", {className: "dropdown-menu", "aria-labelledby": "dropdown-ornaments"}, 
@@ -49640,7 +49650,7 @@ var DecorationsList = React.createClass({displayName: "DecorationsList",
           ), 
           React.createElement("div", {className: "dropdown"}, 
             React.createElement("button", {className: "btn button-decorations-list btn-default dropdown-toggle", type: "button", id: "dropdown-small-ornaments", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "true"}, 
-              React.createElement("span", {className: "decorations-list-category-text"}, "Small Ornaments"), 
+              React.createElement("span", {className: "decorations-list-category-text white-text"}, "Small Ornaments"), 
               React.createElement("span", {className: "caret"})
             ), 
             React.createElement("ul", {className: "dropdown-menu", "aria-labelledby": "dropdown-small-ornaments"}, 
@@ -49649,7 +49659,7 @@ var DecorationsList = React.createClass({displayName: "DecorationsList",
           ), 
           React.createElement("div", {className: "dropdown"}, 
             React.createElement("button", {className: "btn button-decorations-list btn-default dropdown-toggle", type: "button", id: "dropdown-other-ornaments", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "true"}, 
-              React.createElement("span", {className: "decorations-list-category-text"}, "Other Ornaments"), 
+              React.createElement("span", {className: "decorations-list-category-text white-text"}, "Other Ornaments"), 
               React.createElement("span", {className: "caret"})
             ), 
             React.createElement("ul", {className: "dropdown-menu", "aria-labelledby": "dropdown-other-ornaments"}, 
@@ -49658,7 +49668,7 @@ var DecorationsList = React.createClass({displayName: "DecorationsList",
           ), 
           React.createElement("div", {className: "dropdown"}, 
             React.createElement("button", {className: "btn button-decorations-list btn-default dropdown-toggle", type: "button", id: "dropdown-angels", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "true"}, 
-              React.createElement("span", {className: "decorations-list-category-text"}, "Angels"), 
+              React.createElement("span", {className: "decorations-list-category-text white-text"}, "Angels"), 
               React.createElement("span", {className: "caret"})
             ), 
             React.createElement("ul", {className: "dropdown-menu", "aria-labelledby": "dropdown-angels"}, 
@@ -50062,8 +50072,10 @@ module.exports = DeliveryAddress;
 
 },{"react":322}],345:[function(require,module,exports){
 var React = require('react');
+var CurrentDeliveryUserDetailsStore = require('../../stores/CurrentDeliveryUserDetailsStore.js');
 var DeliveryDayListItem = require('./DeliveryDayListItem.jsx');
 var DeliveryMonthListItem = require('./DeliveryMonthListItem.jsx');
+var DeliveryPageActionCreators = require('../../actions/DeliveryPageActionCreators.js');
 
 var DeliveryDate = React.createClass({displayName: "DeliveryDate",
 
@@ -50084,12 +50096,16 @@ var DeliveryDate = React.createClass({displayName: "DeliveryDate",
   },
 
   handleYearSelectionClickEvent: function () {
-  	DeliveryPageActionCreators.setCurrentYearSelection();
+  	DeliveryPageActionCreators.setCurrentYearSelection("2016");
   },
 
-  handleTimeSelectionClickEvent: function () {
-  	DeliveryPageActionCreators.setCurrentTimeSelection();
+  handleSetTimeToMorningClickEvent: function () {
+  	DeliveryPageActionCreators.setCurrentTimeSelectionToMorning();
   },
+
+  handleSetTimeToAfternoonClickEvent: function () {
+  	DeliveryPageActionCreators.setCurrentTimeSelectionToAfternoon();
+  },  
 
   render: function () {
     return (
@@ -50104,7 +50120,7 @@ var DeliveryDate = React.createClass({displayName: "DeliveryDate",
    				React.createElement("div", {className: "no-padding col-xs-4"}, 
 					React.createElement("div", {className: "dropdown"}, 
 			            React.createElement("button", {className: "btn small-button dropdown-toggle", type: "button", id: "dropdown-lights", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "true"}, 
-			              "Day", 
+			              React.createElement("span", {className: "white-text"}, CurrentDeliveryUserDetailsStore.getCurrentDaySelection()), 
 			              React.createElement("span", {className: "caret"})
 			            ), 
 			            React.createElement("ul", {className: "dropdown-menu", "aria-labelledby": "dropdown-lights"}, 
@@ -50115,7 +50131,7 @@ var DeliveryDate = React.createClass({displayName: "DeliveryDate",
 		        React.createElement("div", {className: "no-padding col-xs-4"}, 
 					React.createElement("div", {className: "dropdown"}, 
 			            React.createElement("button", {className: "btn small-button dropdown-toggle", type: "button", id: "dropdown-lights", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "true"}, 
-			              "Month", 
+			              React.createElement("span", {className: "white-text"}, CurrentDeliveryUserDetailsStore.getCurrentMonthSelection()), 
 			              React.createElement("span", {className: "caret"})
 			            ), 
 			            React.createElement("ul", {className: "dropdown-menu", "aria-labelledby": "dropdown-lights"}, 
@@ -50126,7 +50142,7 @@ var DeliveryDate = React.createClass({displayName: "DeliveryDate",
 		        React.createElement("div", {className: "no-padding col-xs-4"}, 
 					React.createElement("div", {className: "dropdown"}, 
 			            React.createElement("button", {className: "btn small-button dropdown-toggle", type: "button", id: "dropdown-lights", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "true"}, 
-			              "Year", 
+			              React.createElement("span", {className: "white-text"}, CurrentDeliveryUserDetailsStore.getCurrentYearSelection()), 
 			              React.createElement("span", {className: "caret"})
 			            ), 
 			            React.createElement("ul", {className: "dropdown-menu", "aria-labelledby": "dropdown-lights"}, 
@@ -50140,12 +50156,12 @@ var DeliveryDate = React.createClass({displayName: "DeliveryDate",
    			React.createElement("div", {className: "rounded-box visible dropdown-time"}, 
 				React.createElement("div", {className: "dropdown"}, 
 		            React.createElement("button", {className: "btn small-button dropdown-toggle", type: "button", id: "dropdown-lights", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "true"}, 
-		              "Time", 
+		              React.createElement("span", {className: "white-text"}, CurrentDeliveryUserDetailsStore.getCurrentTimeSelection()), 
 		              React.createElement("span", {className: "caret"})
 		            ), 
 		            React.createElement("ul", {className: "dropdown-menu", "aria-labelledby": "dropdown-lights"}, 
-		              React.createElement("li", {onClick: this.handleTimeSelectionClickEvent}, React.createElement("a", {href: "#"}, "Morning (8-12:30)")), 
-		              React.createElement("li", {onClick: this.handleTimeSelectionClickEvent}, React.createElement("a", {href: "#"}, "Afternoon (12:30-5)"))
+		              React.createElement("li", {onClick: this.handleSetTimeToMorningClickEvent}, React.createElement("a", {href: "#"}, "Morning (8-12:30)")), 
+		              React.createElement("li", {onClick: this.handleSetTimeToAfternoonClickEvent}, React.createElement("a", {href: "#"}, "Afternoon (12:30-5)"))
 		            )
 		         )	
 			)
@@ -50157,7 +50173,7 @@ var DeliveryDate = React.createClass({displayName: "DeliveryDate",
 
 module.exports = DeliveryDate;
 
-},{"./DeliveryDayListItem.jsx":346,"./DeliveryMonthListItem.jsx":348,"react":322}],346:[function(require,module,exports){
+},{"../../actions/DeliveryPageActionCreators.js":324,"../../stores/CurrentDeliveryUserDetailsStore.js":381,"./DeliveryDayListItem.jsx":346,"./DeliveryMonthListItem.jsx":348,"react":322}],346:[function(require,module,exports){
 var React = require('react');
 var DeliveryPageActionCreators = require('../../actions/DeliveryPageActionCreators.js');
 var CurrentDeliveryUserDetailsStore = require('../../stores/CurrentDeliveryUserDetailsStore.js');
@@ -50183,7 +50199,7 @@ var DeliveryInfo = React.createClass({displayName: "DeliveryInfo",
   render: function () {
     return (
 	React.createElement("div", null, 
-		React.createElement("div", {className: "col-xs-6"}, 
+		React.createElement("div", {className: "col-xs-4"}, 
 			React.createElement("div", {className: "rounded-box"}, 
 				React.createElement("span", null, React.createElement("h3", null, "Additional delivery information"))
 			), 
@@ -50191,7 +50207,32 @@ var DeliveryInfo = React.createClass({displayName: "DeliveryInfo",
 				React.createElement("p", null, "Beware of Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum")
 			)
 		), 
-		React.createElement("div", {className: "col-xs-6"}, 
+		React.createElement("div", {className: "col-xs-8"}, 
+			React.createElement("div", {className: "rounded-box"}, 
+				React.createElement("div", {className: "row"}, 
+					React.createElement("div", {className: "col-xs-4"}, 
+						React.createElement("div", {className: "rounded-box"}, 
+							"Next day delivery", React.createElement("br", null), 
+							"(If ordered before 3pm)", React.createElement("br", null), 
+							"£15"
+						)
+					), 
+					React.createElement("div", {className: "col-xs-4"}, 
+						React.createElement("div", {className: "rounded-box"}, 
+							"1-5 days", React.createElement("br", null), 
+							React.createElement("br", null), 
+							"£6"					
+						)
+					), 
+					React.createElement("div", {className: "col-xs-4"}, 
+						React.createElement("div", {className: "rounded-box"}, 
+							"5-10 days", React.createElement("br", null), 
+							React.createElement("br", null), 
+							"£3"					
+						)
+					)
+				)		
+			), 
 			React.createElement("div", {className: "rounded-box"}, 
 				React.createElement("h3", null, "Fitted and decorated by our staff? ", React.createElement("span", {className: "price"}, "+£15")), 
 				React.createElement("input", {type: "checkbox", size: "width:20px"})
@@ -50341,7 +50382,7 @@ var PostCode = React.createClass({displayName: "PostCode",
     React.createElement("div", {className: "col-xs-6 col-xs-offset-3"}, 	
 	   	React.createElement("div", {className: "rounded-box"}, 
 			React.createElement("input", {className: "postcode-input", type: "text", placeholder: "Please input your postcode"}), 
-			React.createElement("button", {onClick: this.handleFindButtonClickEvent, className: "btn"}, "Find")
+			React.createElement("button", {onClick: this.handleFindButtonClickEvent, className: "btn white-text"}, "Find")
 		)
 	)
     );
@@ -50371,8 +50412,8 @@ var Header1 = React.createClass({displayName: "Header1",
 
     return (
 	React.createElement("div", {className: "row rounded-box"}, 
-		React.createElement("h1", null, this.props.label), 
-		currentPage === "DECORATIONS_PAGE" ? React.createElement("button", {onClick: this.handleNoDecorationsButtonClickEvent, className: "btn"}, "No Decorations") : null
+		React.createElement("h1", null, this.props.label, currentPage ==="DELIVERY_PAGE" ? React.createElement("h3", null, "10% off the total price price when you collect!"): null), 
+		currentPage === "DECORATIONS_PAGE" ? React.createElement("button", {onClick: this.handleNoDecorationsButtonClickEvent, className: "btn white-text"}, "No Decorations") : null
 	)
     );
   }
@@ -50628,7 +50669,7 @@ var OrderOptionsButtons = React.createClass({displayName: "OrderOptionsButtons",
 		), 
 		React.createElement("div", {className: "col-xs-3"}, 
 			React.createElement("button", {onClick: this.handleOrderAgainButtonClickEvent, type: "button", className: "btn"}, 
-				"Order again"
+				React.createElement("span", {className: "white-text"}, "Order again")
 			)
 		)
 	)	
@@ -50720,7 +50761,7 @@ var CardDetails = React.createClass({displayName: "CardDetails",
 				React.createElement("div", {className: "rounded-box input-div"}, 
 					React.createElement("div", {className: "dropdown"}, 
 			            React.createElement("button", {className: "btn btn-default dropdown-toggle", type: "button", id: "dropdown-card-type", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "true"}, 
-			              "Card Type", 
+			              React.createElement("span", {className: "white-text"}, "Card Type"), 
 			              React.createElement("span", {className: "caret"})
 			            ), 
 			            React.createElement("ul", {className: "dropdown-menu", "aria-labelledby": "dropdown-card-type"}, 
@@ -51997,10 +52038,10 @@ var collectionAddressStates = {
 var currentCollectionAddressCoordinates = {latitute: -0.0714564561271418, longitude: 51.643334192204};
 var currentSelectedCollectionAddress = "PRIMARY_COLLECTION_ADDRESS";
 
-var currentDaySelection = null;
-var currentMonthSelection = null;
-var currentYearSelection = null;
-var currentTimeSelection = null;
+var currentDaySelection = "Day";
+var currentMonthSelection = "Month";
+var currentYearSelection = "Year";
+var currentTimeSelection = "Time";
 
 function setPostCode() {
   deliveryDetails.postCode = 'EN12QN'
@@ -52053,8 +52094,13 @@ function setCurrentYearSelection(year) {
   CurrentDeliveryUserDetailsStore.emit('change');
 }
 
-function setCurrentTimeSelection(time) {
-  currentTimeSelection = time
+function setCurrentTimeSelectionToMorning() {
+  currentTimeSelection = "Morning (8-12:30)"
+  CurrentDeliveryUserDetailsStore.emit('change');
+}
+
+function setCurrentTimeSelectionToAfternoon() {
+  currentTimeSelection = "Afternoon (12:30-5)"
   CurrentDeliveryUserDetailsStore.emit('change');
 }
 
@@ -52118,9 +52164,11 @@ function handleAction(action) {
   } else if (action.type === 'set-current-month-selection') {
     setCurrentMonthSelection(action.month);
   } else if (action.type === 'set-current-year-selection') {
-    setCurrentYearSelection();
-  } else if (action.type === 'set-current-time-selection') {
-    setCurrentTimeSelection();
+    setCurrentYearSelection(action.year);
+  } else if (action.type === 'set-current-time-selection-to-morning') {
+    setCurrentTimeSelectionToMorning();
+  } else if (action.type === 'set-current-time-selection-to-afternoon') {
+    setCurrentTimeSelectionToAfternoon();
   }
 }
 

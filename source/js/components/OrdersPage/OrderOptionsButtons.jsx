@@ -36,7 +36,7 @@ var OrderOptionsButtons = React.createClass({
 		</div>
 		<div className="col-xs-3">
 			<button onClick={this.handleOrderAgainButtonClickEvent} type="button" className="btn">
-				Order again
+				<span className="white-text">Order again</span>
 			</button>
 		</div>
 	</div>	

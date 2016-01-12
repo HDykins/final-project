@@ -15,7 +15,7 @@ var PostCode = React.createClass({
     <div className="col-xs-6 col-xs-offset-3">	
 	   	<div className="rounded-box">
 			<input className="postcode-input" type="text" placeholder="Please input your postcode"/>
-			<button onClick={this.handleFindButtonClickEvent} className="btn">Find</button>
+			<button onClick={this.handleFindButtonClickEvent} className="btn white-text">Find</button>
 		</div>
 	</div>
     );

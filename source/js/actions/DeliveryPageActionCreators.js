@@ -89,20 +89,29 @@ function setCurrentDaySelection(day) {
 function setCurrentMonthSelection(month) {
 	var action = {
 		type: 'set-current-month-selection',
+		month: month
 	};
 	Dispatcher.dispatch(action);
 }
 
-function setCurrentYearSelection() {
+function setCurrentYearSelection(year) {
 	var action = {
 		type: 'set-current-year-selection',
+		year: year
 	};
 	Dispatcher.dispatch(action);
 }
 
-function setCurrentTimeSelection() {
+function setCurrentTimeSelectionToMorning() {
 	var action = {
-		type: 'set-current-time-selection',
+		type: 'set-current-time-selection-to-morning',
+	};
+	Dispatcher.dispatch(action);
+}
+
+function setCurrentTimeSelectionToAfternoon() {
+	var action = {
+		type: 'set-current-time-selection-to-afternoon',
 	};
 	Dispatcher.dispatch(action);
 }
@@ -122,5 +131,6 @@ module.exports = {
 	setCurrentDaySelection: setCurrentDaySelection,
 	setCurrentMonthSelection: setCurrentMonthSelection,
 	setCurrentYearSelection: setCurrentYearSelection,
-	setCurrentTimeSelection: setCurrentTimeSelection
+	setCurrentTimeSelectionToMorning: setCurrentTimeSelectionToMorning,
+	setCurrentTimeSelectionToAfternoon: setCurrentTimeSelectionToAfternoon
 };
