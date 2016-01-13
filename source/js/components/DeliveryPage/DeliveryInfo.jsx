@@ -1,6 +1,15 @@
 var React = require('react');
+var DeliveryPageActionCreators = require('../../actions/DeliveryPageActionCreators.js');
+var TotalPriceStore = require('../../stores/TotalPriceStore.js');
+var CurrentDeliveryUserDetailsStore = require('../../stores/CurrentDeliveryUserDetailsStore.js');
 
 var DeliveryInfo = React.createClass({
+
+  handleDecorationInstallationChangeEvent: function () {
+  	DeliveryPageActionCreators.toggleDecorationInstallationServiceSelection();
+  	DeliveryPageActionCreators.sumAllPrices()
+  },
+
   render: function () {
     return (
 	<div>
@@ -40,7 +49,7 @@ var DeliveryInfo = React.createClass({
 			</div>
 			<div className="rounded-box">
 				<h3>Fitted and decorated by our staff? <span className="price">+£15</span></h3>
-				<input type="checkbox" size="width:20px" />
+				<input onChange={this.handleDecorationInstallationChangeEvent} type="checkbox" checked={CurrentDeliveryUserDetailsStore.getDecorationInstallationSelectionStatus() ? "checked" : null} size="width:20px" />
 			</div>
 		</div>
 	</div>

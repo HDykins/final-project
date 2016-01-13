@@ -1,15 +1,21 @@
 var Dispatcher = require('../dispatcher/Dispatcher');
 var EventEmitter = require('events').EventEmitter;
 var objectAssign = require('object-assign');
+var StateStore = require('../stores/StateStore.js');
 var TreeInformationStore = require('./TreeInformationStore.js');
 var CurrentDecorationsUserDetailsStore = require('./CurrentDecorationsUserDetailsStore.js');
+var CurrentDeliveryUserDetailsStore = require('./CurrentDeliveryUserDetailsStore.js');
 
 
 currentTotalPrice = TreeInformationStore.getCurrentPrice();
 
 function sumAllPrices() {
   
-  currentTotalPrice = TreeInformationStore.getCurrentPrice() + CurrentDecorationsUserDetailsStore.getCurrentTotalDecorationsPrice() + 0;
+  if(StateStore.getCollectionChoice()) {
+    currentTotalPrice = 0.9*(TreeInformationStore.getCurrentPrice() + CurrentDecorationsUserDetailsStore.getCurrentTotalDecorationsPrice() + CurrentDeliveryUserDetailsStore.getCurrentTotalDeliveryPrice());
+  } else {
+    currentTotalPrice = TreeInformationStore.getCurrentPrice() + CurrentDecorationsUserDetailsStore.getCurrentTotalDecorationsPrice() + CurrentDeliveryUserDetailsStore.getCurrentTotalDeliveryPrice();
+  }
   // console.log(CurrentDecorationsUserDetailsStore.getCurrentTotalDecorationsPrice());
   // console.log(TreeInformationStore.getCurrentPrice());
   // console.log(currentTotalPrice);

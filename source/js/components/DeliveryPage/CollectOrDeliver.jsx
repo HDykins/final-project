@@ -8,16 +8,20 @@ var CollectOrDeliver = React.createClass({
   event.preventDefault();
   if (StateStore.getCollectionChoice()) {
   	DeliveryPageActionCreators.toggleCollectionChoice()
+    DeliveryPageActionCreators.sumAllPrices()
   }
   DeliveryPageActionCreators.toggleDeliveryChoice();
+  DeliveryPageActionCreators.sumAllPrices()
   },
 
   handleCollectButtonClickEvent: function () {
   event.preventDefault();
   if (StateStore.getDeliveryChoice()) {
   	DeliveryPageActionCreators.toggleDeliveryChoice()
+    DeliveryPageActionCreators.sumAllPrices()
   }
   DeliveryPageActionCreators.toggleCollectionChoice();
+  DeliveryPageActionCreators.sumAllPrices()
   },
 
   render: function () {

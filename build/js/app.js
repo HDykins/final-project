@@ -49065,6 +49065,20 @@ function setCurrentTimeSelectionToAfternoon() {
 	Dispatcher.dispatch(action);
 }
 
+function sumAllPrices() {
+	var action = {
+		type: 'sum-all-prices',
+	};
+	Dispatcher.dispatch(action);	
+}
+
+function toggleDecorationInstallationServiceSelection() {
+	var action = {
+		type: 'toggle-decoration-installation-service-selection',
+	};
+	Dispatcher.dispatch(action);
+}
+
 module.exports = {
 	changeToDecorationsPage: changeToDecorationsPage,
 	changeToPaymentPage: changeToPaymentPage,
@@ -49081,7 +49095,9 @@ module.exports = {
 	setCurrentMonthSelection: setCurrentMonthSelection,
 	setCurrentYearSelection: setCurrentYearSelection,
 	setCurrentTimeSelectionToMorning: setCurrentTimeSelectionToMorning,
-	setCurrentTimeSelectionToAfternoon: setCurrentTimeSelectionToAfternoon
+	setCurrentTimeSelectionToAfternoon: setCurrentTimeSelectionToAfternoon,
+	sumAllPrices: sumAllPrices,
+	toggleDecorationInstallationServiceSelection: toggleDecorationInstallationServiceSelection
 };
 
 },{"../dispatcher/Dispatcher":378}],325:[function(require,module,exports){
@@ -49918,16 +49934,20 @@ var CollectOrDeliver = React.createClass({displayName: "CollectOrDeliver",
   event.preventDefault();
   if (StateStore.getCollectionChoice()) {
   	DeliveryPageActionCreators.toggleCollectionChoice()
+    DeliveryPageActionCreators.sumAllPrices()
   }
   DeliveryPageActionCreators.toggleDeliveryChoice();
+  DeliveryPageActionCreators.sumAllPrices()
   },
 
   handleCollectButtonClickEvent: function () {
   event.preventDefault();
   if (StateStore.getDeliveryChoice()) {
   	DeliveryPageActionCreators.toggleDeliveryChoice()
+    DeliveryPageActionCreators.sumAllPrices()
   }
   DeliveryPageActionCreators.toggleCollectionChoice();
+  DeliveryPageActionCreators.sumAllPrices()
   },
 
   render: function () {
@@ -50194,8 +50214,17 @@ module.exports = DeliveryDayListItem;
 
 },{"../../actions/DeliveryPageActionCreators.js":324,"../../stores/CurrentDeliveryUserDetailsStore.js":381,"react":322}],347:[function(require,module,exports){
 var React = require('react');
+var DeliveryPageActionCreators = require('../../actions/DeliveryPageActionCreators.js');
+var TotalPriceStore = require('../../stores/TotalPriceStore.js');
+var CurrentDeliveryUserDetailsStore = require('../../stores/CurrentDeliveryUserDetailsStore.js');
 
 var DeliveryInfo = React.createClass({displayName: "DeliveryInfo",
+
+  handleDecorationInstallationChangeEvent: function () {
+  	DeliveryPageActionCreators.toggleDecorationInstallationServiceSelection();
+  	DeliveryPageActionCreators.sumAllPrices()
+  },
+
   render: function () {
     return (
 	React.createElement("div", null, 
@@ -50235,7 +50264,7 @@ var DeliveryInfo = React.createClass({displayName: "DeliveryInfo",
 			), 
 			React.createElement("div", {className: "rounded-box"}, 
 				React.createElement("h3", null, "Fitted and decorated by our staff? ", React.createElement("span", {className: "price"}, "+£15")), 
-				React.createElement("input", {type: "checkbox", size: "width:20px"})
+				React.createElement("input", {onChange: this.handleDecorationInstallationChangeEvent, type: "checkbox", checked: CurrentDeliveryUserDetailsStore.getDecorationInstallationSelectionStatus() ? "checked" : null, size: "width:20px"})
 			)
 		)
 	)
@@ -50247,7 +50276,7 @@ module.exports = DeliveryInfo;
 
 
 
-},{"react":322}],348:[function(require,module,exports){
+},{"../../actions/DeliveryPageActionCreators.js":324,"../../stores/CurrentDeliveryUserDetailsStore.js":381,"../../stores/TotalPriceStore.js":385,"react":322}],348:[function(require,module,exports){
 var React = require('react');
 var DeliveryPageActionCreators = require('../../actions/DeliveryPageActionCreators.js');
 
@@ -50412,7 +50441,8 @@ var Header1 = React.createClass({displayName: "Header1",
 
     return (
 	React.createElement("div", {className: "row rounded-box"}, 
-		React.createElement("h1", null, this.props.label, currentPage ==="DELIVERY_PAGE" ? React.createElement("h3", null, "10% off the total price price when you collect!"): null), 
+		React.createElement("h1", null, this.props.label), 
+    currentPage ==="DELIVERY_PAGE" ? React.createElement("h3", null, "10% off the total price price when you collect!"): null, 
 		currentPage === "DECORATIONS_PAGE" ? React.createElement("button", {onClick: this.handleNoDecorationsButtonClickEvent, className: "btn white-text"}, "No Decorations") : null
 	)
     );
@@ -52021,6 +52051,10 @@ var deliveryDetails = {
   postCode: ''
 };
 
+var currentTotalDeliveryPrice = 0;
+
+var isDecorationInstallationSeviceSelected = false;
+
 var postCode = deliveryDetails.postCode;
 
 var collectionAddressCoordinates = {
@@ -52104,10 +52138,25 @@ function setCurrentTimeSelectionToAfternoon() {
   CurrentDeliveryUserDetailsStore.emit('change');
 }
 
+function toggleDecorationInstallationServiceSelection() {
+  if (isDecorationInstallationSeviceSelected) {
+    isDecorationInstallationSeviceSelected = false;
+    currentTotalDeliveryPrice = currentTotalDeliveryPrice - 15;
+  } else {
+    isDecorationInstallationSeviceSelected = true;
+    currentTotalDeliveryPrice = currentTotalDeliveryPrice + 15;    
+  }
+  CurrentDeliveryUserDetailsStore.emit('change');
+}
+
 var CurrentDeliveryUserDetailsStore = objectAssign({}, EventEmitter.prototype, {
 
   getCurrentPostCode: function () {
     return postCode;
+  },
+
+  getCurrentTotalDeliveryPrice: function () {
+    return currentTotalDeliveryPrice;
   },
 
   getCurrentCollectionAddressCoordinates: function () {
@@ -52132,6 +52181,10 @@ var CurrentDeliveryUserDetailsStore = objectAssign({}, EventEmitter.prototype, {
 
   getCurrentTimeSelection: function () {
     return currentTimeSelection;
+  },
+
+  getDecorationInstallationSelectionStatus: function () {
+    return isDecorationInstallationSeviceSelected;
   },
 
   addChangeListener: function (changeEventHandler) {
@@ -52169,6 +52222,8 @@ function handleAction(action) {
     setCurrentTimeSelectionToMorning();
   } else if (action.type === 'set-current-time-selection-to-afternoon') {
     setCurrentTimeSelectionToAfternoon();
+  } else if (action.type === 'toggle-decoration-installation-service-selection') {
+    toggleDecorationInstallationServiceSelection();
   }
 }
 
@@ -52443,15 +52498,21 @@ module.exports = StateStore;
 var Dispatcher = require('../dispatcher/Dispatcher');
 var EventEmitter = require('events').EventEmitter;
 var objectAssign = require('object-assign');
+var StateStore = require('../stores/StateStore.js');
 var TreeInformationStore = require('./TreeInformationStore.js');
 var CurrentDecorationsUserDetailsStore = require('./CurrentDecorationsUserDetailsStore.js');
+var CurrentDeliveryUserDetailsStore = require('./CurrentDeliveryUserDetailsStore.js');
 
 
 currentTotalPrice = TreeInformationStore.getCurrentPrice();
 
 function sumAllPrices() {
   
-  currentTotalPrice = TreeInformationStore.getCurrentPrice() + CurrentDecorationsUserDetailsStore.getCurrentTotalDecorationsPrice() + 0;
+  if(StateStore.getCollectionChoice()) {
+    currentTotalPrice = 0.9*(TreeInformationStore.getCurrentPrice() + CurrentDecorationsUserDetailsStore.getCurrentTotalDecorationsPrice() + CurrentDeliveryUserDetailsStore.getCurrentTotalDeliveryPrice());
+  } else {
+    currentTotalPrice = TreeInformationStore.getCurrentPrice() + CurrentDecorationsUserDetailsStore.getCurrentTotalDecorationsPrice() + CurrentDeliveryUserDetailsStore.getCurrentTotalDeliveryPrice();
+  }
   // console.log(CurrentDecorationsUserDetailsStore.getCurrentTotalDecorationsPrice());
   // console.log(TreeInformationStore.getCurrentPrice());
   // console.log(currentTotalPrice);
@@ -52477,7 +52538,7 @@ TotalPriceStore.dispatchToken = Dispatcher.register(handleAction);
 
 module.exports = TotalPriceStore;
 
-},{"../dispatcher/Dispatcher":378,"./CurrentDecorationsUserDetailsStore.js":380,"./TreeInformationStore.js":386,"events":2,"object-assign":8}],386:[function(require,module,exports){
+},{"../dispatcher/Dispatcher":378,"../stores/StateStore.js":384,"./CurrentDecorationsUserDetailsStore.js":380,"./CurrentDeliveryUserDetailsStore.js":381,"./TreeInformationStore.js":386,"events":2,"object-assign":8}],386:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher');
 var EventEmitter = require('events').EventEmitter;
 var objectAssign = require('object-assign');

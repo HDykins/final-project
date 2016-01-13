@@ -116,6 +116,20 @@ function setCurrentTimeSelectionToAfternoon() {
 	Dispatcher.dispatch(action);
 }
 
+function sumAllPrices() {
+	var action = {
+		type: 'sum-all-prices',
+	};
+	Dispatcher.dispatch(action);	
+}
+
+function toggleDecorationInstallationServiceSelection() {
+	var action = {
+		type: 'toggle-decoration-installation-service-selection',
+	};
+	Dispatcher.dispatch(action);
+}
+
 module.exports = {
 	changeToDecorationsPage: changeToDecorationsPage,
 	changeToPaymentPage: changeToPaymentPage,
@@ -132,5 +146,7 @@ module.exports = {
 	setCurrentMonthSelection: setCurrentMonthSelection,
 	setCurrentYearSelection: setCurrentYearSelection,
 	setCurrentTimeSelectionToMorning: setCurrentTimeSelectionToMorning,
-	setCurrentTimeSelectionToAfternoon: setCurrentTimeSelectionToAfternoon
+	setCurrentTimeSelectionToAfternoon: setCurrentTimeSelectionToAfternoon,
+	sumAllPrices: sumAllPrices,
+	toggleDecorationInstallationServiceSelection: toggleDecorationInstallationServiceSelection
 };

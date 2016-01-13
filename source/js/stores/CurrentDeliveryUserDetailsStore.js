@@ -96,15 +96,22 @@ function setCurrentTimeSelectionToAfternoon() {
 function toggleDecorationInstallationServiceSelection() {
   if (isDecorationInstallationSeviceSelected) {
     isDecorationInstallationSeviceSelected = false;
+    currentTotalDeliveryPrice = currentTotalDeliveryPrice - 15;
   } else {
     isDecorationInstallationSeviceSelected = true;
+    currentTotalDeliveryPrice = currentTotalDeliveryPrice + 15;    
   }
+  CurrentDeliveryUserDetailsStore.emit('change');
 }
 
 var CurrentDeliveryUserDetailsStore = objectAssign({}, EventEmitter.prototype, {
 
   getCurrentPostCode: function () {
     return postCode;
+  },
+
+  getCurrentTotalDeliveryPrice: function () {
+    return currentTotalDeliveryPrice;
   },
 
   getCurrentCollectionAddressCoordinates: function () {
