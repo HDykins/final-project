@@ -6,9 +6,16 @@ var deliveryDetails = {
   postCode: ''
 };
 
+var deliveryOptionPrice = 0;
 var currentTotalDeliveryPrice = 0;
 
 var isDecorationInstallationSeviceSelected = false;
+
+var date = new Date();
+today = date.getDate();
+
+var monthIndex = date.getMonth();
+var todaysMonth = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][monthIndex];
 
 var postCode = deliveryDetails.postCode;
 
@@ -104,6 +111,28 @@ function toggleDecorationInstallationServiceSelection() {
   CurrentDeliveryUserDetailsStore.emit('change');
 }
 
+function setDeliveryOptionPrice() {
+  console.log("sfyguiygh")
+  if(todaysMonth === 'January') {
+
+    if ((currentDaySelection - today) === 1) {
+      deliveryOptionPrice = 15;
+    }
+    else if ((currentDaySelection - today) < 6 ) {
+      deliveryOptionPrice = 6;
+    }
+    else if (6 <= (currentDaySelection - today)) {
+      deliveryOptionPrice = 3;
+    } else { deliveryOptionPrice = 15;
+    }
+ }
+ currentTotalDeliveryPrice = currentTotalDeliveryPrice + deliveryOptionPrice;
+}
+
+function setDeliveryOptionPriceToZero() {
+  currentTotalDeliveryPrice = currentTotalDeliveryPrice - deliveryOptionPrice;
+}
+
 var CurrentDeliveryUserDetailsStore = objectAssign({}, EventEmitter.prototype, {
 
   getCurrentPostCode: function () {
@@ -140,6 +169,10 @@ var CurrentDeliveryUserDetailsStore = objectAssign({}, EventEmitter.prototype, {
 
   getDecorationInstallationSelectionStatus: function () {
     return isDecorationInstallationSeviceSelected;
+  },
+
+  getDeliveryOptionPrice: function () {
+    return deliveryOptionPrice;
   },
 
   addChangeListener: function (changeEventHandler) {
@@ -179,6 +212,10 @@ function handleAction(action) {
     setCurrentTimeSelectionToAfternoon();
   } else if (action.type === 'toggle-decoration-installation-service-selection') {
     toggleDecorationInstallationServiceSelection();
+  } else if (action.type === 'set-delivery-option-price') {
+    setDeliveryOptionPrice();
+  } else if (action.type === 'set-delivery-option-price-to-zero') {
+    setDeliveryOptionPriceToZero();
   }
 }
 

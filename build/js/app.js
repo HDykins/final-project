@@ -49079,6 +49079,20 @@ function toggleDecorationInstallationServiceSelection() {
 	Dispatcher.dispatch(action);
 }
 
+function setDeliveryOptionPrice() {
+	var action = {
+		type: 'set-delivery-option-price',
+	};
+	Dispatcher.dispatch(action);
+}
+
+function setDeliveryOptionPriceToZero() {
+	var action = {
+		type: 'set-delivery-option-price-to-zero',
+	};
+	Dispatcher.dispatch(action);
+}
+
 module.exports = {
 	changeToDecorationsPage: changeToDecorationsPage,
 	changeToPaymentPage: changeToPaymentPage,
@@ -49097,7 +49111,9 @@ module.exports = {
 	setCurrentTimeSelectionToMorning: setCurrentTimeSelectionToMorning,
 	setCurrentTimeSelectionToAfternoon: setCurrentTimeSelectionToAfternoon,
 	sumAllPrices: sumAllPrices,
-	toggleDecorationInstallationServiceSelection: toggleDecorationInstallationServiceSelection
+	toggleDecorationInstallationServiceSelection: toggleDecorationInstallationServiceSelection,
+	setDeliveryOptionPrice: setDeliveryOptionPrice,
+	setDeliveryOptionPriceToZero: setDeliveryOptionPriceToZero 
 };
 
 },{"../dispatcher/Dispatcher":378}],325:[function(require,module,exports){
@@ -49260,11 +49276,21 @@ function setSignedInStatusToTrue() {
 	Dispatcher.dispatch(action);
 }
 
+function setNewUserID(id) {
+	var action = {
+		type: 'set-new-user-id',
+		id: id,
+	};
+
+	Dispatcher.dispatch(action);
+}
+
 module.exports = {
 	setShowRegisterForm: setShowRegisterForm,
 	setHideRegisterForm: setHideRegisterForm,
 	setUserAuthenticationToken: setUserAuthenticationToken,
-	setSignedInStatusToTrue: setSignedInStatusToTrue
+	setSignedInStatusToTrue: setSignedInStatusToTrue,
+	setNewUserID: setNewUserID
 };
 
 },{"../dispatcher/Dispatcher":378}],330:[function(require,module,exports){
@@ -49467,7 +49493,7 @@ var Application = React.createClass({displayName: "Application",
 module.exports = Application;
 
 
-},{"../stores/StateStore.js":384,"./DecorationsPage/DecorationsPage.jsx":339,"./DeliveryPage/DeliveryPage.jsx":349,"./LandingPage/LandingPage.jsx":352,"./OrdersPage/OrdersPage.jsx":358,"./PaymentPage/PaymentPage.jsx":360,"./SignInPage/SignInPage.jsx":365,"./ThanksPage/ThanksPage.jsx":368,"./TreePage/TreePage.jsx":377,"react":322}],333:[function(require,module,exports){
+},{"../stores/StateStore.js":385,"./DecorationsPage/DecorationsPage.jsx":339,"./DeliveryPage/DeliveryPage.jsx":349,"./LandingPage/LandingPage.jsx":352,"./OrdersPage/OrdersPage.jsx":358,"./PaymentPage/PaymentPage.jsx":360,"./SignInPage/SignInPage.jsx":365,"./ThanksPage/ThanksPage.jsx":368,"./TreePage/TreePage.jsx":377,"react":322}],333:[function(require,module,exports){
 var React = require('react');
 var DecorationsPageActionCreators = require('../actions/DecorationsPageActionCreators.js');
 var DeliveryPageActionCreators = require('../actions/DeliveryPageActionCreators.js');
@@ -49504,7 +49530,7 @@ var BackButton = React.createClass({displayName: "BackButton",
 
 module.exports = BackButton;
 
-},{"../actions/DecorationsPageActionCreators.js":323,"../actions/DeliveryPageActionCreators.js":324,"../actions/PaymentPageActionCreators.js":328,"../stores/StateStore.js":384,"react":322}],334:[function(require,module,exports){
+},{"../actions/DecorationsPageActionCreators.js":323,"../actions/DeliveryPageActionCreators.js":324,"../actions/PaymentPageActionCreators.js":328,"../stores/StateStore.js":385,"react":322}],334:[function(require,module,exports){
 var React = require('react');
 var TreePageActionCreators = require('../actions/TreePageActionCreators.js');
 var DecorationsPageActionCreators = require('../actions/DecorationsPageActionCreators.js');
@@ -49526,8 +49552,8 @@ var ContinueButton = React.createClass({displayName: "ContinueButton",
       DeliveryPageActionCreators.changeToPaymentPage();
     }
     else if (StateStore.getCurrentPage() === 'PAYMENT_PAGE') {
+      this.props.confirmOrder();
       PaymentPageActionCreators.changeToThanksPage();
-      this.props.confirmOrder()
     }       
   },
 
@@ -49545,7 +49571,7 @@ var ContinueButton = React.createClass({displayName: "ContinueButton",
 
 module.exports = ContinueButton;
 
-},{"../actions/DecorationsPageActionCreators.js":323,"../actions/DeliveryPageActionCreators.js":324,"../actions/PaymentPageActionCreators.js":328,"../actions/TreePageActionCreators.js":331,"../stores/StateStore.js":384,"react":322}],335:[function(require,module,exports){
+},{"../actions/DecorationsPageActionCreators.js":323,"../actions/DeliveryPageActionCreators.js":324,"../actions/PaymentPageActionCreators.js":328,"../actions/TreePageActionCreators.js":331,"../stores/StateStore.js":385,"react":322}],335:[function(require,module,exports){
 var React = require('react');
 var CurrentDecorationsUserDetailsStore = require('../../stores/CurrentDecorationsUserDetailsStore.js');
 
@@ -49581,7 +49607,7 @@ var DecorationsCostBox = React.createClass({displayName: "DecorationsCostBox",
 module.exports = DecorationsCostBox;
 
 
-},{"../../stores/CurrentDecorationsUserDetailsStore.js":380,"react":322}],336:[function(require,module,exports){
+},{"../../stores/CurrentDecorationsUserDetailsStore.js":381,"react":322}],336:[function(require,module,exports){
 var React = require('react');
 var DecorationsListCheckBoxes = require('./DecorationsListCheckBoxes.jsx');
 var DecorationsListItem = require('./DecorationsListItem.jsx');
@@ -49749,7 +49775,7 @@ module.exports = DecorationsListItem;
 
 
 
-},{"../../stores/CurrentDecorationsUserDetailsStore.js":380,"./DecorationsListCheckBoxes.jsx":337,"react":322}],339:[function(require,module,exports){
+},{"../../stores/CurrentDecorationsUserDetailsStore.js":381,"./DecorationsListCheckBoxes.jsx":337,"react":322}],339:[function(require,module,exports){
 var React = require('react');
 var NavBar = require('../NavBar.jsx');
 var TotalPriceStore = require('../../stores/TotalPriceStore.js');
@@ -49903,7 +49929,7 @@ var DecorationsPage = React.createClass({displayName: "DecorationsPage",
 
 module.exports = DecorationsPage;
 
-},{"../../actions/DecorationsPageActionCreators.js":323,"../../stores/CurrentDecorationsUserDetailsStore.js":380,"../../stores/TotalPriceStore.js":385,"../BackButton.jsx":333,"../ContinueButton.jsx":334,"../Header1.jsx":351,"../NavBar.jsx":354,"../PriceTotal.jsx":362,"./DecorationsCostBox.jsx":335,"./DecorationsList.jsx":336,"./PreviewImage.jsx":340,"react":322}],340:[function(require,module,exports){
+},{"../../actions/DecorationsPageActionCreators.js":323,"../../stores/CurrentDecorationsUserDetailsStore.js":381,"../../stores/TotalPriceStore.js":386,"../BackButton.jsx":333,"../ContinueButton.jsx":334,"../Header1.jsx":351,"../NavBar.jsx":354,"../PriceTotal.jsx":362,"./DecorationsCostBox.jsx":335,"./DecorationsList.jsx":336,"./PreviewImage.jsx":340,"react":322}],340:[function(require,module,exports){
 var React = require('react');
 
 var PreviewImage = React.createClass({displayName: "PreviewImage",
@@ -49935,6 +49961,7 @@ var CollectOrDeliver = React.createClass({displayName: "CollectOrDeliver",
   if (StateStore.getCollectionChoice()) {
   	DeliveryPageActionCreators.toggleCollectionChoice()
     DeliveryPageActionCreators.sumAllPrices()
+    DeliveryPageActionCreators.setDeliveryOptionPriceToNull();
   }
   DeliveryPageActionCreators.toggleDeliveryChoice();
   DeliveryPageActionCreators.sumAllPrices()
@@ -49945,6 +49972,7 @@ var CollectOrDeliver = React.createClass({displayName: "CollectOrDeliver",
   if (StateStore.getDeliveryChoice()) {
   	DeliveryPageActionCreators.toggleDeliveryChoice()
     DeliveryPageActionCreators.sumAllPrices()
+    DeliveryPageActionCreators.setDeliveryOptionPriceToNull();
   }
   DeliveryPageActionCreators.toggleCollectionChoice();
   DeliveryPageActionCreators.sumAllPrices()
@@ -49963,7 +49991,7 @@ var CollectOrDeliver = React.createClass({displayName: "CollectOrDeliver",
 
 module.exports = CollectOrDeliver;
 
-},{"../../actions/DeliveryPageActionCreators.js":324,"../../stores/StateStore.js":384,"react":322}],342:[function(require,module,exports){
+},{"../../actions/DeliveryPageActionCreators.js":324,"../../stores/StateStore.js":385,"react":322}],342:[function(require,module,exports){
 var React = require('react');
 var CurrentDeliveryUserDetailsStore = require('../../stores/CurrentDeliveryUserDetailsStore.js');
 var DeliveryPageActionCreators = require('../../actions/DeliveryPageActionCreators.js');
@@ -50031,7 +50059,7 @@ var CollectionLocationDetails = React.createClass({displayName: "CollectionLocat
 
 module.exports = CollectionLocationDetails;
 
-},{"../../actions/DeliveryPageActionCreators.js":324,"../../stores/CurrentDeliveryUserDetailsStore.js":381,"react":322}],343:[function(require,module,exports){
+},{"../../actions/DeliveryPageActionCreators.js":324,"../../stores/CurrentDeliveryUserDetailsStore.js":382,"react":322}],343:[function(require,module,exports){
 var React = require('react');
 
 var CollectionMap = React.createClass({displayName: "CollectionMap",
@@ -50193,7 +50221,7 @@ var DeliveryDate = React.createClass({displayName: "DeliveryDate",
 
 module.exports = DeliveryDate;
 
-},{"../../actions/DeliveryPageActionCreators.js":324,"../../stores/CurrentDeliveryUserDetailsStore.js":381,"./DeliveryDayListItem.jsx":346,"./DeliveryMonthListItem.jsx":348,"react":322}],346:[function(require,module,exports){
+},{"../../actions/DeliveryPageActionCreators.js":324,"../../stores/CurrentDeliveryUserDetailsStore.js":382,"./DeliveryDayListItem.jsx":346,"./DeliveryMonthListItem.jsx":348,"react":322}],346:[function(require,module,exports){
 var React = require('react');
 var DeliveryPageActionCreators = require('../../actions/DeliveryPageActionCreators.js');
 var CurrentDeliveryUserDetailsStore = require('../../stores/CurrentDeliveryUserDetailsStore.js');
@@ -50202,6 +50230,9 @@ var DeliveryDayListItem = React.createClass({displayName: "DeliveryDayListItem",
 
   handleDaySelectionClickEvent: function () {
   	DeliveryPageActionCreators.setCurrentDaySelection(this.props.day);
+  	DeliveryPageActionCreators.setDeliveryOptionPrice();
+  	DeliveryPageActionCreators.sumAllPrices()
+  	console.log(CurrentDeliveryUserDetailsStore.getDeliveryOptionPrice());
   	console.log(CurrentDeliveryUserDetailsStore.getCurrentDaySelection());
   },
 
@@ -50212,7 +50243,7 @@ var DeliveryDayListItem = React.createClass({displayName: "DeliveryDayListItem",
 
 module.exports = DeliveryDayListItem;
 
-},{"../../actions/DeliveryPageActionCreators.js":324,"../../stores/CurrentDeliveryUserDetailsStore.js":381,"react":322}],347:[function(require,module,exports){
+},{"../../actions/DeliveryPageActionCreators.js":324,"../../stores/CurrentDeliveryUserDetailsStore.js":382,"react":322}],347:[function(require,module,exports){
 var React = require('react');
 var DeliveryPageActionCreators = require('../../actions/DeliveryPageActionCreators.js');
 var TotalPriceStore = require('../../stores/TotalPriceStore.js');
@@ -50240,22 +50271,22 @@ var DeliveryInfo = React.createClass({displayName: "DeliveryInfo",
 			React.createElement("div", {className: "rounded-box"}, 
 				React.createElement("div", {className: "row"}, 
 					React.createElement("div", {className: "col-xs-4"}, 
-						React.createElement("div", {className: "rounded-box"}, 
+						React.createElement("div", {className: CurrentDeliveryUserDetailsStore.getDeliveryOptionPrice() === 15 ? "rounded-box highlight" : "rounded-box"}, 
 							"Next day delivery", React.createElement("br", null), 
 							"(If ordered before 3pm)", React.createElement("br", null), 
 							"£15"
 						)
 					), 
 					React.createElement("div", {className: "col-xs-4"}, 
-						React.createElement("div", {className: "rounded-box"}, 
+						React.createElement("div", {className: CurrentDeliveryUserDetailsStore.getDeliveryOptionPrice() === 6 ? "rounded-box highlight" : "rounded-box"}, 
 							"1-5 days", React.createElement("br", null), 
 							React.createElement("br", null), 
 							"£6"					
 						)
 					), 
 					React.createElement("div", {className: "col-xs-4"}, 
-						React.createElement("div", {className: "rounded-box"}, 
-							"5-10 days", React.createElement("br", null), 
+						React.createElement("div", {className: CurrentDeliveryUserDetailsStore.getDeliveryOptionPrice() === 3 ? "rounded-box highlight" : "rounded-box"}, 
+							"6+ days", React.createElement("br", null), 
 							React.createElement("br", null), 
 							"£3"					
 						)
@@ -50276,7 +50307,7 @@ module.exports = DeliveryInfo;
 
 
 
-},{"../../actions/DeliveryPageActionCreators.js":324,"../../stores/CurrentDeliveryUserDetailsStore.js":381,"../../stores/TotalPriceStore.js":385,"react":322}],348:[function(require,module,exports){
+},{"../../actions/DeliveryPageActionCreators.js":324,"../../stores/CurrentDeliveryUserDetailsStore.js":382,"../../stores/TotalPriceStore.js":386,"react":322}],348:[function(require,module,exports){
 var React = require('react');
 var DeliveryPageActionCreators = require('../../actions/DeliveryPageActionCreators.js');
 
@@ -50393,7 +50424,7 @@ var DeliveryPage = React.createClass({displayName: "DeliveryPage",
 
 module.exports = DeliveryPage;
 
-},{"../../actions/DeliveryPageActionCreators.js":324,"../../stores/CurrentDeliveryUserDetailsStore.js":381,"../../stores/StateStore.js":384,"../BackButton.jsx":333,"../ContinueButton.jsx":334,"../Header1.jsx":351,"../NavBar.jsx":354,"../PriceTotal.jsx":362,"./CollectOrDeliver.jsx":341,"./CollectionLocationDetails.jsx":342,"./CollectionMap.jsx":343,"./DeliveryAddress.jsx":344,"./DeliveryDate.jsx":345,"./DeliveryInfo.jsx":347,"./PostCode.jsx":350,"react":322}],350:[function(require,module,exports){
+},{"../../actions/DeliveryPageActionCreators.js":324,"../../stores/CurrentDeliveryUserDetailsStore.js":382,"../../stores/StateStore.js":385,"../BackButton.jsx":333,"../ContinueButton.jsx":334,"../Header1.jsx":351,"../NavBar.jsx":354,"../PriceTotal.jsx":362,"./CollectOrDeliver.jsx":341,"./CollectionLocationDetails.jsx":342,"./CollectionMap.jsx":343,"./DeliveryAddress.jsx":344,"./DeliveryDate.jsx":345,"./DeliveryInfo.jsx":347,"./PostCode.jsx":350,"react":322}],350:[function(require,module,exports){
 var React = require('react');
 var DeliveryPageActionCreators = require('../../actions/DeliveryPageActionCreators.js');
 var CurrentDeliveryUserDetailsStore = require('../../stores/CurrentDeliveryUserDetailsStore.js');
@@ -50420,7 +50451,7 @@ var PostCode = React.createClass({displayName: "PostCode",
 
 module.exports = PostCode;
 
-},{"../../actions/DeliveryPageActionCreators.js":324,"../../stores/CurrentDeliveryUserDetailsStore.js":381,"react":322}],351:[function(require,module,exports){
+},{"../../actions/DeliveryPageActionCreators.js":324,"../../stores/CurrentDeliveryUserDetailsStore.js":382,"react":322}],351:[function(require,module,exports){
 var React = require('react');
 var StateStore = require('../stores/StateStore.js');
 var DecorationsPageActionCreators = require('../actions/DecorationsPageActionCreators.js');
@@ -50454,7 +50485,7 @@ module.exports = Header1;
 
 
 
-},{"../actions/DecorationsPageActionCreators.js":323,"../stores/StateStore.js":384,"react":322}],352:[function(require,module,exports){
+},{"../actions/DecorationsPageActionCreators.js":323,"../stores/StateStore.js":385,"react":322}],352:[function(require,module,exports){
 var React = require('react');
 var NavBar = require('../NavBar.jsx');
 var StartButton = require('./StartButton.jsx');
@@ -50574,7 +50605,7 @@ var NavBar = React.createClass({displayName: "NavBar",
 module.exports = NavBar;
 
 
-},{"../actions/NavBarActionCreators.js":326,"../stores/StateStore.js":384,"../stores/UserSignInDetailsStore.js":387,"react":322}],355:[function(require,module,exports){
+},{"../actions/NavBarActionCreators.js":326,"../stores/StateStore.js":385,"../stores/UserSignInDetailsStore.js":388,"react":322}],355:[function(require,module,exports){
 var React = require('react');
 
 var OrderSummary = React.createClass({displayName: "OrderSummary",
@@ -50767,7 +50798,7 @@ var OrdersPage = React.createClass({displayName: "OrdersPage",
 
 module.exports = OrdersPage;
 
-},{"../../stores/PopUpStore.js":383,"../Header1.jsx":351,"../NavBar.jsx":354,"../OrderSummary.jsx":355,"./OrderCancellationConfirmation.jsx":356,"./OrderOptionsButtons.jsx":357,"react":322}],359:[function(require,module,exports){
+},{"../../stores/PopUpStore.js":384,"../Header1.jsx":351,"../NavBar.jsx":354,"../OrderSummary.jsx":355,"./OrderCancellationConfirmation.jsx":356,"./OrderOptionsButtons.jsx":357,"react":322}],359:[function(require,module,exports){
 var React = require('react');
 var PaymentPageActionCreators = require('../../actions/PaymentPageActionCreators.js');
 
@@ -50841,6 +50872,11 @@ var BackButton = require('../BackButton.jsx');
 var PriceTotal = require('../PriceTotal.jsx');
 var ContinueButton = require('../ContinueButton.jsx');
 var TermsConditions = require('./TermsConditions.jsx')
+var OrdersStore = require('../../stores/OrdersStore.js');
+var AuthenticationService = require('../../services/authentication.js');
+var StateStore = require('../../stores/StateStore.js');
+var UserSignInDetailsStore = require('../../stores/UserSignInDetailsStore.js');
+var SignInFormActionCreators = require('../../actions/SignInFormActionCreators.js');
 
 var PaymentPage = React.createClass({displayName: "PaymentPage",
 
@@ -50864,6 +50900,29 @@ var PaymentPage = React.createClass({displayName: "PaymentPage",
     componentWillUnmount: function () {
         PopUpStore.removeChangeListener(this.updateState);
     },    
+
+    handleOrderConfirmButtonClickEvent : function () {
+
+              AuthenticationService.saveOrder(OrdersStore.getOrder(), function handleUserCofirmOrder(error, response) {
+
+          if (error) {
+            console.log("No");
+            // this.showRegisterFailMessage('Failed to register. Email may be in use');
+            return;
+          }
+
+          console.log("Yes");
+          if (UserSignInDetailsStore.getSignedInStatus()) {
+            null
+          }
+          // SignInFormActionCreators.setUserAuthenticationToken(response.token);
+          // PaymentPageActionCreators.setSignedInStatusToTrue();
+          // this.hideRegisterFailMessage();
+          // this.showRegisterSuccessMessage('Successfully registered');
+
+        }.bind(this));
+    },       
+   
 
     render: function () {
         return (
@@ -50895,7 +50954,7 @@ var PaymentPage = React.createClass({displayName: "PaymentPage",
 module.exports = PaymentPage;
 
 
-},{"../../stores/PopUpStore.js":383,"../BackButton.jsx":333,"../ContinueButton.jsx":334,"../Header1.jsx":351,"../NavBar.jsx":354,"../OrderSummary.jsx":355,"../PriceTotal.jsx":362,"./CardDetails.jsx":359,"./TermsConditions.jsx":361,"react":322}],361:[function(require,module,exports){
+},{"../../actions/SignInFormActionCreators.js":329,"../../services/authentication.js":380,"../../stores/OrdersStore.js":383,"../../stores/PopUpStore.js":384,"../../stores/StateStore.js":385,"../../stores/UserSignInDetailsStore.js":388,"../BackButton.jsx":333,"../ContinueButton.jsx":334,"../Header1.jsx":351,"../NavBar.jsx":354,"../OrderSummary.jsx":355,"../PriceTotal.jsx":362,"./CardDetails.jsx":359,"./TermsConditions.jsx":361,"react":322}],361:[function(require,module,exports){
 var React = require('react');
 var PaymentPageActionCreators = require('../../actions/PaymentPageActionCreators.js');
 
@@ -50945,13 +51004,19 @@ var PriceTotal = React.createClass({displayName: "PriceTotal",
 
 module.exports = PriceTotal;
 
-},{"../stores/TotalPriceStore.js":385,"react":322}],363:[function(require,module,exports){
+},{"../stores/TotalPriceStore.js":386,"react":322}],363:[function(require,module,exports){
 var React = require('react');
 var SignInFormActionCreators = require('../actions/SignInFormActionCreators.js');
 var AuthenticationService = require('../services/authentication.js');
 var StateStore = require('../stores/StateStore.js');
+var UserSignInDetailsStore = require('../stores/UserSignInDetailsStore.js');
+var HashID = require ('../services/HashID');
+
+var id = HashID.generate();
 
 var RegisterForm = React.createClass({displayName: "RegisterForm",
+
+  
 
   getInitialState: function () {
   	return {
@@ -50985,7 +51050,11 @@ var RegisterForm = React.createClass({displayName: "RegisterForm",
   },
 
   handleUserRegisterFormSubmit: function () {
-    AuthenticationService.register(this.refs.newEmail.value, this.refs.newPassword.value, this.refs.phoneNumber.value, function handleUserRegister(error, response) {
+  	var id = HashID.generate();
+  	console.log(id)
+  	SignInFormActionCreators.setNewUserID(id);
+  	console.log(UserSignInDetailsStore.getCurrentUserID());
+    AuthenticationService.register(this.refs.newEmail.value, this.refs.newPassword.value, this.refs.phoneNumber.value, id, function handleUserRegister(error, response) {
 
       if (error) {
         this.showRegisterFailMessage('Failed to register. Email may be in use');
@@ -51058,14 +51127,13 @@ var RegisterForm = React.createClass({displayName: "RegisterForm",
 
 module.exports = RegisterForm;
 
-},{"../actions/SignInFormActionCreators.js":329,"../services/authentication.js":379,"../stores/StateStore.js":384,"react":322}],364:[function(require,module,exports){
+},{"../actions/SignInFormActionCreators.js":329,"../services/HashID":379,"../services/authentication.js":380,"../stores/StateStore.js":385,"../stores/UserSignInDetailsStore.js":388,"react":322}],364:[function(require,module,exports){
 var React = require('react');
 var StateStore = require('../stores/StateStore.js');
 var UserSignInDetailsStore = require('../stores/UserSignInDetailsStore.js')
 var OrdersStore = require('../stores/OrdersStore.js');
 var SignInFormActionCreators = require('../actions/SignInFormActionCreators.js');
 var AuthenticationService = require('../services/authentication.js');
-
 
 var SignInForm = React.createClass({displayName: "SignInForm",
 
@@ -51123,24 +51191,23 @@ var SignInForm = React.createClass({displayName: "SignInForm",
       console.log(UserSignInDetailsStore.getSignedInStatus());
       console.log(UserSignInDetailsStore.getCurrentToken());
 
+        // AuthenticationService.getOrders(UserSignInDetailsStore.getCurrentUserID(), UserSignInDetailsStore.getCurrentToken(), function handleUserRegister(error, response) {
 
-          AuthenticationService.saveOrder(OrdersStore.getOrder(), UserSignInDetailsStore.getCurrentToken(), function handleUserRegister(error, response) {
+        //   if (error) {
+        //     console.log("No");
+        //     // this.showRegisterFailMessage('Failed to register. Email may be in use');
+        //     return;
+        //   }
 
-          if (error) {
-            console.log("No");
-            // this.showRegisterFailMessage('Failed to register. Email may be in use');
-            return;
-          }
+        //   console.log("Yes");
+        //   // SignInFormActionCreators.setUserAuthenticationToken(response.token);
+        //   // SignInFormActionCreators.setSignedInStatusToTrue();
+        //   // this.hideRegisterFailMessage();
+        //   // this.showRegisterSuccessMessage('Successfully registered');
 
-          console.log("Yes");
-          // SignInFormActionCreators.setUserAuthenticationToken(response.token);
-          // SignInFormActionCreators.setSignedInStatusToTrue();
-          // this.hideRegisterFailMessage();
-          // this.showRegisterSuccessMessage('Successfully registered');
+        // }.bind(this));
 
-        }.bind(this));
-          
-    }.bind(this));
+  }.bind(this));
 
 
   },
@@ -51200,7 +51267,7 @@ var SignInForm = React.createClass({displayName: "SignInForm",
 
 module.exports = SignInForm;
 
-},{"../actions/SignInFormActionCreators.js":329,"../services/authentication.js":379,"../stores/OrdersStore.js":382,"../stores/StateStore.js":384,"../stores/UserSignInDetailsStore.js":387,"react":322}],365:[function(require,module,exports){
+},{"../actions/SignInFormActionCreators.js":329,"../services/authentication.js":380,"../stores/OrdersStore.js":383,"../stores/StateStore.js":385,"../stores/UserSignInDetailsStore.js":388,"react":322}],365:[function(require,module,exports){
 var React = require('react');
 var NavBar = require('../NavBar.jsx');
 var PopUpStore = require('../../stores/PopUpStore.js');
@@ -51263,7 +51330,7 @@ var SignInPage = React.createClass({displayName: "SignInPage",
 
 module.exports = SignInPage;
 
-},{"../../actions/SignInPageActionCreators.js":330,"../../stores/PopUpStore.js":383,"../NavBar.jsx":354,"../RegisterForm.jsx":363,"../SignInForm.jsx":364,"react":322}],366:[function(require,module,exports){
+},{"../../actions/SignInPageActionCreators.js":330,"../../stores/PopUpStore.js":384,"../NavBar.jsx":354,"../RegisterForm.jsx":363,"../SignInForm.jsx":364,"react":322}],366:[function(require,module,exports){
 var React = require('react');
 
 var SocialMedia = React.createClass({displayName: "SocialMedia",
@@ -51357,7 +51424,7 @@ var ThanksPage = React.createClass({displayName: "ThanksPage",
 
 module.exports = ThanksPage;
 
-},{"../../stores/PopUpStore.js":383,"../Header1.jsx":351,"../NavBar.jsx":354,"../RegisterForm.jsx":363,"../SignInForm.jsx":364,"./SocialMedia.jsx":366,"./ThanksMessage.jsx":367,"react":322}],369:[function(require,module,exports){
+},{"../../stores/PopUpStore.js":384,"../Header1.jsx":351,"../NavBar.jsx":354,"../RegisterForm.jsx":363,"../SignInForm.jsx":364,"./SocialMedia.jsx":366,"./ThanksMessage.jsx":367,"react":322}],369:[function(require,module,exports){
 var React = require('react');
 var TreeInformationStore = require('../../stores/TreeInformationStore.js');
 
@@ -51410,7 +51477,7 @@ var FactList = React.createClass({displayName: "FactList",
 module.exports = FactList;
 
 
-},{"../../stores/TreeInformationStore.js":386,"react":322}],370:[function(require,module,exports){
+},{"../../stores/TreeInformationStore.js":387,"react":322}],370:[function(require,module,exports){
 var React = require('react');
 var TreeInformationStore = require('../../stores/TreeInformationStore.js');
 
@@ -51477,7 +51544,7 @@ var HeightCategoryBox = React.createClass({displayName: "HeightCategoryBox",
 
 module.exports = HeightCategoryBox;
 
-},{"../../stores/TreeInformationStore.js":386,"react":322}],371:[function(require,module,exports){
+},{"../../stores/TreeInformationStore.js":387,"react":322}],371:[function(require,module,exports){
 var React = require('react');
 
 var LargeTreeIcon = React.createClass({displayName: "LargeTreeIcon",
@@ -51599,7 +51666,7 @@ var TreeDescription = React.createClass({displayName: "TreeDescription",
 
 module.exports = TreeDescription;
 
-},{"../../stores/TreeInformationStore.js":386,"react":322}],374:[function(require,module,exports){
+},{"../../stores/TreeInformationStore.js":387,"react":322}],374:[function(require,module,exports){
 var React = require('react');
 
 var TreeIcon = React.createClass({displayName: "TreeIcon",
@@ -51673,7 +51740,7 @@ module.exports = TreeIcons;
 
 
 
-},{"../../actions/TreePageActionCreators.js":331,"../../stores/TreeInformationStore.js":386,"./TreeIcon.jsx":374,"react":322}],376:[function(require,module,exports){
+},{"../../actions/TreePageActionCreators.js":331,"../../stores/TreeInformationStore.js":387,"./TreeIcon.jsx":374,"react":322}],376:[function(require,module,exports){
 var React = require('react');
 var FactList = require('./FactList.jsx');
 var TreeDescription = require('./TreeDescription.jsx');
@@ -51771,12 +51838,85 @@ var TreePage = React.createClass({displayName: "TreePage",
 
 module.exports = TreePage;
 
-},{"../../stores/TreeInformationStore.js":386,"../ContinueButton.jsx":334,"../Header1.jsx":351,"../NavBar.jsx":354,"../PriceTotal.jsx":362,"./HeightCategoryBox.jsx":370,"./LargeTreeIcon.jsx":371,"./SliderBox.jsx":372,"./TreeIcons.jsx":375,"./TreeInfo.jsx":376,"react":322}],378:[function(require,module,exports){
+},{"../../stores/TreeInformationStore.js":387,"../ContinueButton.jsx":334,"../Header1.jsx":351,"../NavBar.jsx":354,"../PriceTotal.jsx":362,"./HeightCategoryBox.jsx":370,"./LargeTreeIcon.jsx":371,"./SliderBox.jsx":372,"./TreeIcons.jsx":375,"./TreeInfo.jsx":376,"react":322}],378:[function(require,module,exports){
 var Dispatcher = require('flux').Dispatcher;
 
 module.exports = new Dispatcher();
 
 },{"flux":4}],379:[function(require,module,exports){
+
+'use strict';
+
+/**
+ * The default alphabet is 25 numbers and lowercase letters.
+ * Any numbers that look like letters and vice versa are removed:
+ * 1 l, 0 o.
+ * Also the following letters are not present, to prevent any
+ * expletives: cfhistu
+ */
+var ALPHABET =
+  '23456789abdegjkmnpqrvwxyz';
+
+var ALPHABET_LENGTH = ALPHABET.length;
+
+// Governs the length of the ID.
+// With an alphabet of 25 chars,
+// a length of 8 gives us 25^8 or
+// 152,587,890,625 possibilities.
+// Should be enough...
+var ID_LENGTH = 8;
+
+/**
+ * Governs the number of times we should try to find
+ * a unique value before giving up.
+ * @type {Number}
+ */
+var UNIQUE_RETRIES = 9999;
+
+var HashID = {};
+
+/**
+ * Returns a randomly-generated friendly ID.
+ * Note that the friendly ID is not guaranteed to be
+ * unique to any other ID generated by this same method,
+ * so it is up to you to check for uniqueness.
+ * @return {String} friendly ID.
+ */
+HashID.generate = function() {
+  var rtn = '';
+  for (var i = 0; i < ID_LENGTH; i++) {
+    rtn += ALPHABET.charAt(Math.floor(Math.random() * ALPHABET_LENGTH));
+  }
+  return rtn;
+};
+
+/**
+ * Tries to generate a unique ID that is not defined in the
+ * `previous` array.
+ * @param  {Array} previous The list of previous ids to avoid.
+ * @return {String} A unique ID, or `null` if one could not be generated.
+ */
+HashID.generateUnique = function(previous) {
+  previous = previous || [];
+  var retries = 0;
+  var id;
+
+  // Try to generate a unique ID,
+  // i.e. one that isn't in the previous.
+  while(!id && retries < UNIQUE_RETRIES) {
+    id = HashID.generate();
+    if(previous.indexOf(id) !== -1) {
+      id = null;
+      retries++;
+    }
+  }
+
+  return id;
+};
+
+module.exports = HashID;
+
+},{}],380:[function(require,module,exports){
 var jQuery = require('jquery');
 
 var HOST_NAME = 'http://localhost:8080';
@@ -51787,12 +51927,13 @@ var API_ENDPOINTS = {
   ORDER: '/api/users/orders'
 };
 
-function register(email, password, phoneNumber, handleResponse) {
+function register(email, password, phoneNumber, id, handleResponse) {
 
   var data = {
     email: email,
     password: password,
-    phoneNumber: phoneNumber
+    phoneNumber: phoneNumber,
+    id: id
   };
 
   var request = jQuery.ajax({
@@ -51834,7 +51975,7 @@ function signIn(email, password, handleResponse) {
   });
 }
 
-function saveOrder(order, token, handleResponse) {
+function saveOrder(order, handleResponse) {
 
   console.log(order);
 
@@ -51844,10 +51985,12 @@ function saveOrder(order, token, handleResponse) {
 
   var request = jQuery.ajax({
     method: 'post',
-    url: HOST_NAME + API_ENDPOINTS.ORDER  + "?token=" + token,
+    url: HOST_NAME + API_ENDPOINTS.ORDER,
     dataType: 'json',
     data: JSON.stringify(data),
     contentType: 'application/json'
+
+
   });
 
   request.fail(function (jqXHR, textStatus, errorThrown) {
@@ -51859,6 +52002,22 @@ function saveOrder(order, token, handleResponse) {
   });
 }
 
+function getOrders(userId, token, handleResponse) {
+
+  var request = jQuery.ajax({
+    method: 'get',
+    url: HOST_NAME + API_ENDPOINTS.SIGN_IN + "/" + userId + "?token=" + token,
+    dataType: 'json',
+  });
+
+  request.fail(function (jqXHR, textStatus, errorThrown) {
+    handleResponse(jqXHR, null);
+  });
+
+  request.done(function (data) {
+    handleResponse(null, data);
+  });
+}
 
 module.exports = {
   signIn: signIn,
@@ -51867,7 +52026,7 @@ module.exports = {
 };
 
 
-},{"jquery":7}],380:[function(require,module,exports){
+},{"jquery":7}],381:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher');
 var EventEmitter = require('events').EventEmitter;
 var objectAssign = require('object-assign');
@@ -52042,7 +52201,7 @@ CurrentDecorationsUserDetailsStore.dispatchToken = Dispatcher.register(handleAct
 
 module.exports = CurrentDecorationsUserDetailsStore;    
 
-},{"../dispatcher/Dispatcher":378,"events":2,"object-assign":8}],381:[function(require,module,exports){
+},{"../dispatcher/Dispatcher":378,"events":2,"object-assign":8}],382:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher');
 var EventEmitter = require('events').EventEmitter;
 var objectAssign = require('object-assign');
@@ -52051,9 +52210,16 @@ var deliveryDetails = {
   postCode: ''
 };
 
+var deliveryOptionPrice = 0;
 var currentTotalDeliveryPrice = 0;
 
 var isDecorationInstallationSeviceSelected = false;
+
+var date = new Date();
+today = date.getDate();
+
+var monthIndex = date.getMonth();
+var todaysMonth = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][monthIndex];
 
 var postCode = deliveryDetails.postCode;
 
@@ -52149,6 +52315,28 @@ function toggleDecorationInstallationServiceSelection() {
   CurrentDeliveryUserDetailsStore.emit('change');
 }
 
+function setDeliveryOptionPrice() {
+  console.log("sfyguiygh")
+  if(todaysMonth === 'January') {
+
+    if ((currentDaySelection - today) === 1) {
+      deliveryOptionPrice = 15;
+    }
+    else if ((currentDaySelection - today) < 6 ) {
+      deliveryOptionPrice = 6;
+    }
+    else if (6 <= (currentDaySelection - today)) {
+      deliveryOptionPrice = 3;
+    } else { deliveryOptionPrice = 15;
+    }
+ }
+ currentTotalDeliveryPrice = currentTotalDeliveryPrice + deliveryOptionPrice;
+}
+
+function setDeliveryOptionPriceToZero() {
+  currentTotalDeliveryPrice = currentTotalDeliveryPrice - deliveryOptionPrice;
+}
+
 var CurrentDeliveryUserDetailsStore = objectAssign({}, EventEmitter.prototype, {
 
   getCurrentPostCode: function () {
@@ -52185,6 +52373,10 @@ var CurrentDeliveryUserDetailsStore = objectAssign({}, EventEmitter.prototype, {
 
   getDecorationInstallationSelectionStatus: function () {
     return isDecorationInstallationSeviceSelected;
+  },
+
+  getDeliveryOptionPrice: function () {
+    return deliveryOptionPrice;
   },
 
   addChangeListener: function (changeEventHandler) {
@@ -52224,6 +52416,10 @@ function handleAction(action) {
     setCurrentTimeSelectionToAfternoon();
   } else if (action.type === 'toggle-decoration-installation-service-selection') {
     toggleDecorationInstallationServiceSelection();
+  } else if (action.type === 'set-delivery-option-price') {
+    setDeliveryOptionPrice();
+  } else if (action.type === 'set-delivery-option-price-to-zero') {
+    setDeliveryOptionPriceToZero();
   }
 }
 
@@ -52231,15 +52427,15 @@ CurrentDeliveryUserDetailsStore.dispatchToken = Dispatcher.register(handleAction
 
 module.exports = CurrentDeliveryUserDetailsStore;
 
-},{"../dispatcher/Dispatcher":378,"events":2,"object-assign":8}],382:[function(require,module,exports){
+},{"../dispatcher/Dispatcher":378,"events":2,"object-assign":8}],383:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher');
 var EventEmitter = require('events').EventEmitter;
 var objectAssign = require('object-assign');
 
 var order = {
-	"stuff1": "abc",
-	"stuff2": "def",
-	"stuff3": "ghi"
+	stuff1: "abc",
+	stuff2: "def",
+	stuff3: "ghi"
 };
 
 var OrdersStore = objectAssign({}, EventEmitter.prototype, {
@@ -52260,7 +52456,7 @@ OrdersStore.dispatchToken = Dispatcher.register(handleAction);
 
 module.exports = OrdersStore;
 
-},{"../dispatcher/Dispatcher":378,"events":2,"object-assign":8}],383:[function(require,module,exports){
+},{"../dispatcher/Dispatcher":378,"events":2,"object-assign":8}],384:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher');
 var EventEmitter = require('events').EventEmitter;
 var objectAssign = require('object-assign');
@@ -52343,7 +52539,7 @@ PopUpStore.dispatchToken = Dispatcher.register(handleAction);
 
 module.exports = PopUpStore;
 
-},{"../dispatcher/Dispatcher":378,"events":2,"object-assign":8}],384:[function(require,module,exports){
+},{"../dispatcher/Dispatcher":378,"events":2,"object-assign":8}],385:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher');
 var EventEmitter = require('events').EventEmitter;
 var objectAssign = require('object-assign');
@@ -52494,7 +52690,7 @@ StateStore.dispatchToken = Dispatcher.register(handleAction);
 
 module.exports = StateStore;
 
-},{"../dispatcher/Dispatcher":378,"events":2,"object-assign":8}],385:[function(require,module,exports){
+},{"../dispatcher/Dispatcher":378,"events":2,"object-assign":8}],386:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher');
 var EventEmitter = require('events').EventEmitter;
 var objectAssign = require('object-assign');
@@ -52538,7 +52734,7 @@ TotalPriceStore.dispatchToken = Dispatcher.register(handleAction);
 
 module.exports = TotalPriceStore;
 
-},{"../dispatcher/Dispatcher":378,"../stores/StateStore.js":384,"./CurrentDecorationsUserDetailsStore.js":380,"./CurrentDeliveryUserDetailsStore.js":381,"./TreeInformationStore.js":386,"events":2,"object-assign":8}],386:[function(require,module,exports){
+},{"../dispatcher/Dispatcher":378,"../stores/StateStore.js":385,"./CurrentDecorationsUserDetailsStore.js":381,"./CurrentDeliveryUserDetailsStore.js":382,"./TreeInformationStore.js":387,"events":2,"object-assign":8}],387:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher');
 var EventEmitter = require('events').EventEmitter;
 var objectAssign = require('object-assign');
@@ -52657,13 +52853,14 @@ TreeInformationStore.dispatchToken = Dispatcher.register(handleAction);
 
 module.exports = TreeInformationStore;
 
-},{"../dispatcher/Dispatcher":378,"events":2,"object-assign":8}],387:[function(require,module,exports){
+},{"../dispatcher/Dispatcher":378,"events":2,"object-assign":8}],388:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher');
 var EventEmitter = require('events').EventEmitter;
 var objectAssign = require('object-assign');
 
 var isSignedIn = false;
 var token = null;
+var currentUserID = null;
 
 function setSignedInStatusToTrue() {
   isSignedIn = true;
@@ -52680,6 +52877,10 @@ function setUserAuthenticationToken(newToken) {
   UserSignInDetailsStore.emit('change');
 }
 
+function setNewUserID(id) {
+  currentUserID = id
+}
+
 var UserSignInDetailsStore = objectAssign({}, EventEmitter.prototype, {
 
   getSignedInStatus: function () {
@@ -52690,6 +52891,10 @@ var UserSignInDetailsStore = objectAssign({}, EventEmitter.prototype, {
     return token;
   },  
 
+  getCurrentUserID: function () {
+    return currentUserID;
+  },
+
 });
 
 function handleAction(action) {
@@ -52699,6 +52904,8 @@ function handleAction(action) {
     setSignedInStatusToFalse();
   } else if (action.type === 'set-user-authentication-token') {
     setUserAuthenticationToken(action.token);
+  } else if (action.type === 'set-new-user-id') {
+    setNewUserID(action.id);
   }
 }
 

@@ -6,6 +6,9 @@ var DeliveryDayListItem = React.createClass({
 
   handleDaySelectionClickEvent: function () {
   	DeliveryPageActionCreators.setCurrentDaySelection(this.props.day);
+  	DeliveryPageActionCreators.setDeliveryOptionPrice();
+  	DeliveryPageActionCreators.sumAllPrices()
+  	console.log(CurrentDeliveryUserDetailsStore.getDeliveryOptionPrice());
   	console.log(CurrentDeliveryUserDetailsStore.getCurrentDaySelection());
   },
 

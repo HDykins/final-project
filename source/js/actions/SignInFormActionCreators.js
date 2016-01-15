@@ -33,9 +33,19 @@ function setSignedInStatusToTrue() {
 	Dispatcher.dispatch(action);
 }
 
+function setNewUserID(id) {
+	var action = {
+		type: 'set-new-user-id',
+		id: id,
+	};
+
+	Dispatcher.dispatch(action);
+}
+
 module.exports = {
 	setShowRegisterForm: setShowRegisterForm,
 	setHideRegisterForm: setHideRegisterForm,
 	setUserAuthenticationToken: setUserAuthenticationToken,
-	setSignedInStatusToTrue: setSignedInStatusToTrue
+	setSignedInStatusToTrue: setSignedInStatusToTrue,
+	setNewUserID: setNewUserID
 };

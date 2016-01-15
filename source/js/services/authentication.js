@@ -8,12 +8,13 @@ var API_ENDPOINTS = {
   ORDER: '/api/users/orders'
 };
 
-function register(email, password, phoneNumber, handleResponse) {
+function register(email, password, phoneNumber, id, handleResponse) {
 
   var data = {
     email: email,
     password: password,
-    phoneNumber: phoneNumber
+    phoneNumber: phoneNumber,
+    id: id
   };
 
   var request = jQuery.ajax({
@@ -55,7 +56,7 @@ function signIn(email, password, handleResponse) {
   });
 }
 
-function saveOrder(order, token, handleResponse) {
+function saveOrder(order, handleResponse) {
 
   console.log(order);
 
@@ -65,10 +66,12 @@ function saveOrder(order, token, handleResponse) {
 
   var request = jQuery.ajax({
     method: 'post',
-    url: HOST_NAME + API_ENDPOINTS.ORDER  + "?token=" + token,
+    url: HOST_NAME + API_ENDPOINTS.ORDER,
     dataType: 'json',
     data: JSON.stringify(data),
     contentType: 'application/json'
+
+
   });
 
   request.fail(function (jqXHR, textStatus, errorThrown) {
@@ -80,6 +83,22 @@ function saveOrder(order, token, handleResponse) {
   });
 }
 
+function getOrders(userId, token, handleResponse) {
+
+  var request = jQuery.ajax({
+    method: 'get',
+    url: HOST_NAME + API_ENDPOINTS.SIGN_IN + "/" + userId + "?token=" + token,
+    dataType: 'json',
+  });
+
+  request.fail(function (jqXHR, textStatus, errorThrown) {
+    handleResponse(jqXHR, null);
+  });
+
+  request.done(function (data) {
+    handleResponse(null, data);
+  });
+}
 
 module.exports = {
   signIn: signIn,

@@ -2,8 +2,14 @@ var React = require('react');
 var SignInFormActionCreators = require('../actions/SignInFormActionCreators.js');
 var AuthenticationService = require('../services/authentication.js');
 var StateStore = require('../stores/StateStore.js');
+var UserSignInDetailsStore = require('../stores/UserSignInDetailsStore.js');
+var HashID = require ('../services/HashID');
+
+var id = HashID.generate();
 
 var RegisterForm = React.createClass({
+
+  
 
   getInitialState: function () {
   	return {
@@ -37,7 +43,11 @@ var RegisterForm = React.createClass({
   },
 
   handleUserRegisterFormSubmit: function () {
-    AuthenticationService.register(this.refs.newEmail.value, this.refs.newPassword.value, this.refs.phoneNumber.value, function handleUserRegister(error, response) {
+  	var id = HashID.generate();
+  	console.log(id)
+  	SignInFormActionCreators.setNewUserID(id);
+  	console.log(UserSignInDetailsStore.getCurrentUserID());
+    AuthenticationService.register(this.refs.newEmail.value, this.refs.newPassword.value, this.refs.phoneNumber.value, id, function handleUserRegister(error, response) {
 
       if (error) {
         this.showRegisterFailMessage('Failed to register. Email may be in use');

@@ -25,22 +25,22 @@ var DeliveryInfo = React.createClass({
 			<div className="rounded-box">
 				<div className="row">
 					<div className="col-xs-4">
-						<div className="rounded-box">
+						<div className={CurrentDeliveryUserDetailsStore.getDeliveryOptionPrice() === 15 ? "rounded-box highlight" : "rounded-box"}>
 							Next day delivery<br />
 							(If ordered before 3pm)<br />
 							£15
 						</div>
 					</div>
 					<div className="col-xs-4">
-						<div className="rounded-box">
+						<div className={CurrentDeliveryUserDetailsStore.getDeliveryOptionPrice() === 6 ? "rounded-box highlight" : "rounded-box"}>
 							1-5 days<br />
 							<br />
 							£6					
 						</div>
 					</div>
 					<div className="col-xs-4">
-						<div className="rounded-box">
-							5-10 days<br />
+						<div className={CurrentDeliveryUserDetailsStore.getDeliveryOptionPrice() === 3 ? "rounded-box highlight" : "rounded-box"}>
+							6+ days<br />
 							<br />
 							£3					
 						</div>

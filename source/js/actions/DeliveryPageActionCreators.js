@@ -130,6 +130,20 @@ function toggleDecorationInstallationServiceSelection() {
 	Dispatcher.dispatch(action);
 }
 
+function setDeliveryOptionPrice() {
+	var action = {
+		type: 'set-delivery-option-price',
+	};
+	Dispatcher.dispatch(action);
+}
+
+function setDeliveryOptionPriceToZero() {
+	var action = {
+		type: 'set-delivery-option-price-to-zero',
+	};
+	Dispatcher.dispatch(action);
+}
+
 module.exports = {
 	changeToDecorationsPage: changeToDecorationsPage,
 	changeToPaymentPage: changeToPaymentPage,
@@ -148,5 +162,7 @@ module.exports = {
 	setCurrentTimeSelectionToMorning: setCurrentTimeSelectionToMorning,
 	setCurrentTimeSelectionToAfternoon: setCurrentTimeSelectionToAfternoon,
 	sumAllPrices: sumAllPrices,
-	toggleDecorationInstallationServiceSelection: toggleDecorationInstallationServiceSelection
+	toggleDecorationInstallationServiceSelection: toggleDecorationInstallationServiceSelection,
+	setDeliveryOptionPrice: setDeliveryOptionPrice,
+	setDeliveryOptionPriceToZero: setDeliveryOptionPriceToZero 
 };

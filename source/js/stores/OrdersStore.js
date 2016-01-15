@@ -3,9 +3,9 @@ var EventEmitter = require('events').EventEmitter;
 var objectAssign = require('object-assign');
 
 var order = {
-	"stuff1": "abc",
-	"stuff2": "def",
-	"stuff3": "ghi"
+	stuff1: "abc",
+	stuff2: "def",
+	stuff3: "ghi"
 };
 
 var OrdersStore = objectAssign({}, EventEmitter.prototype, {

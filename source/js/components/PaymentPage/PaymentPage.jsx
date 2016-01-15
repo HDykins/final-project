@@ -8,6 +8,11 @@ var BackButton = require('../BackButton.jsx');
 var PriceTotal = require('../PriceTotal.jsx');
 var ContinueButton = require('../ContinueButton.jsx');
 var TermsConditions = require('./TermsConditions.jsx')
+var OrdersStore = require('../../stores/OrdersStore.js');
+var AuthenticationService = require('../../services/authentication.js');
+var StateStore = require('../../stores/StateStore.js');
+var UserSignInDetailsStore = require('../../stores/UserSignInDetailsStore.js');
+var SignInFormActionCreators = require('../../actions/SignInFormActionCreators.js');
 
 var PaymentPage = React.createClass({
 
@@ -31,6 +36,29 @@ var PaymentPage = React.createClass({
     componentWillUnmount: function () {
         PopUpStore.removeChangeListener(this.updateState);
     },    
+
+    handleOrderConfirmButtonClickEvent : function () {
+
+              AuthenticationService.saveOrder(OrdersStore.getOrder(), function handleUserCofirmOrder(error, response) {
+
+          if (error) {
+            console.log("No");
+            // this.showRegisterFailMessage('Failed to register. Email may be in use');
+            return;
+          }
+
+          console.log("Yes");
+          if (UserSignInDetailsStore.getSignedInStatus()) {
+            null
+          }
+          // SignInFormActionCreators.setUserAuthenticationToken(response.token);
+          // PaymentPageActionCreators.setSignedInStatusToTrue();
+          // this.hideRegisterFailMessage();
+          // this.showRegisterSuccessMessage('Successfully registered');
+
+        }.bind(this));
+    },       
+   
 
     render: function () {
         return (

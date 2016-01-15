@@ -5,7 +5,6 @@ var OrdersStore = require('../stores/OrdersStore.js');
 var SignInFormActionCreators = require('../actions/SignInFormActionCreators.js');
 var AuthenticationService = require('../services/authentication.js');
 
-
 var SignInForm = React.createClass({
 
   getInitialState: function () {
@@ -62,24 +61,23 @@ var SignInForm = React.createClass({
       console.log(UserSignInDetailsStore.getSignedInStatus());
       console.log(UserSignInDetailsStore.getCurrentToken());
 
+        // AuthenticationService.getOrders(UserSignInDetailsStore.getCurrentUserID(), UserSignInDetailsStore.getCurrentToken(), function handleUserRegister(error, response) {
 
-          AuthenticationService.saveOrder(OrdersStore.getOrder(), UserSignInDetailsStore.getCurrentToken(), function handleUserRegister(error, response) {
+        //   if (error) {
+        //     console.log("No");
+        //     // this.showRegisterFailMessage('Failed to register. Email may be in use');
+        //     return;
+        //   }
 
-          if (error) {
-            console.log("No");
-            // this.showRegisterFailMessage('Failed to register. Email may be in use');
-            return;
-          }
+        //   console.log("Yes");
+        //   // SignInFormActionCreators.setUserAuthenticationToken(response.token);
+        //   // SignInFormActionCreators.setSignedInStatusToTrue();
+        //   // this.hideRegisterFailMessage();
+        //   // this.showRegisterSuccessMessage('Successfully registered');
 
-          console.log("Yes");
-          // SignInFormActionCreators.setUserAuthenticationToken(response.token);
-          // SignInFormActionCreators.setSignedInStatusToTrue();
-          // this.hideRegisterFailMessage();
-          // this.showRegisterSuccessMessage('Successfully registered');
+        // }.bind(this));
 
-        }.bind(this));
-          
-    }.bind(this));
+  }.bind(this));
 
 
   },

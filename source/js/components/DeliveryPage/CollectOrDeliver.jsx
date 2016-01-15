@@ -9,6 +9,7 @@ var CollectOrDeliver = React.createClass({
   if (StateStore.getCollectionChoice()) {
   	DeliveryPageActionCreators.toggleCollectionChoice()
     DeliveryPageActionCreators.sumAllPrices()
+    DeliveryPageActionCreators.setDeliveryOptionPriceToNull();
   }
   DeliveryPageActionCreators.toggleDeliveryChoice();
   DeliveryPageActionCreators.sumAllPrices()
@@ -19,6 +20,7 @@ var CollectOrDeliver = React.createClass({
   if (StateStore.getDeliveryChoice()) {
   	DeliveryPageActionCreators.toggleDeliveryChoice()
     DeliveryPageActionCreators.sumAllPrices()
+    DeliveryPageActionCreators.setDeliveryOptionPriceToNull();
   }
   DeliveryPageActionCreators.toggleCollectionChoice();
   DeliveryPageActionCreators.sumAllPrices()
