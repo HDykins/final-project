@@ -48978,9 +48978,18 @@ function toggleCollectionChoice() {
 	Dispatcher.dispatch(action);
 }
 
-function setPostCode() {
+function setPostCode(response) {
 	var action = {
 		type: 'set-post-code',
+		data: response,
+	};
+	Dispatcher.dispatch(action);
+}
+
+function updateAddressDetails(addressDetails) {
+	var action = {
+		type: 'update-address-details',
+		addressDetails: addressDetails,
 	};
 	Dispatcher.dispatch(action);
 }
@@ -49099,6 +49108,7 @@ module.exports = {
 	toggleDeliveryChoice: toggleDeliveryChoice,
 	toggleCollectionChoice: toggleCollectionChoice,
 	setPostCode: setPostCode,
+	updateAddressDetails: updateAddressDetails,
 	setCurrentSelectedCollectionAddressToPrimary: setCurrentSelectedCollectionAddressToPrimary,
 	setCurrentSelectedCollectionAddressToSecondary: setCurrentSelectedCollectionAddressToSecondary,
 	setCurrentSelectedCollectionAddressToTertiary: setCurrentSelectedCollectionAddressToTertiary,
@@ -50097,8 +50107,16 @@ module.exports = CollectionMap;
 
 },{"react":322}],344:[function(require,module,exports){
 var React = require('react');
+var CurrentDeliveryUserDetailsStore = require('../../stores/CurrentDeliveryUserDetailsStore.js');
+var DeliveryPageActionCreators = require('../../actions/DeliveryPageActionCreators.js');
 
 var DeliveryAddress = React.createClass({displayName: "DeliveryAddress",
+
+  handleAddressDetailChange: function () {
+
+  	DeliveryPageActionCreators.updateAddressDetails([this.refs.addressLine1.value, this.refs.addressLine2.value, this.refs.townCity.value, this.refs.county.value, this.refs.postcode.value]);
+  },
+
   render: function () {
     return (
 	React.createElement("div", {className: "rounded-box"}, 
@@ -50106,27 +50124,27 @@ var DeliveryAddress = React.createClass({displayName: "DeliveryAddress",
 		React.createElement("ul", {className: "list-unstyled"}, 
 			React.createElement("div", {className: "col-xs-6 col-xs-offset-3"}, 
 				React.createElement("div", {className: "rounded-box"}, 
-					React.createElement("li", null, React.createElement("em", null, "Address Line 1    "), React.createElement("input", {type: "text", value: "40 Abbey Road"}))
+					React.createElement("li", null, React.createElement("em", null, "Address Line 1    "), React.createElement("input", {onChange: this.handleAddressDetailChange, type: "text", ref: "addressLine1", placeholder: "House number + Street name"}))
 				)
 			), 
 			React.createElement("div", {className: "col-xs-6 col-xs-offset-3"}, 
 				React.createElement("div", {className: "rounded-box"}, 
-					React.createElement("li", null, React.createElement("em", null, "Address Line 2    "), React.createElement("input", {type: "text", value: "Bush Hill Park"}))
+					React.createElement("li", null, React.createElement("em", null, "Address Line 2    "), React.createElement("input", {onChange: this.handleAddressDetailChange, type: "text", ref: "addressLine2", value: CurrentDeliveryUserDetailsStore.getDeliveryAddressDetails().addressLine2}))
 				)
 			), 
 			React.createElement("div", {className: "col-xs-6 col-xs-offset-3"}, 
 				React.createElement("div", {className: "rounded-box"}, 
-					React.createElement("li", null, React.createElement("em", null, "Town/City    "), React.createElement("input", {type: "text", value: "Enfield, London"}))
+					React.createElement("li", null, React.createElement("em", null, "Town/City    "), React.createElement("input", {onChange: this.handleAddressDetailChange, type: "text", ref: "townCity", value: CurrentDeliveryUserDetailsStore.getDeliveryAddressDetails().townCity}))
 				)
 			), 
 			React.createElement("div", {className: "col-xs-6 col-xs-offset-3"}, 
 				React.createElement("div", {className: "rounded-box"}, 
-					React.createElement("li", null, React.createElement("em", null, "County    "), React.createElement("input", {type: "text", value: "Middlesex"}))
+					React.createElement("li", null, React.createElement("em", null, "County    "), React.createElement("input", {onChange: this.handleAddressDetailChange, type: "text", ref: "county", value: CurrentDeliveryUserDetailsStore.getDeliveryAddressDetails().county}))
 				)
 			), 
 			 React.createElement("div", {className: "col-xs-6 col-xs-offset-3"}, 
 				React.createElement("div", {className: "rounded-box"}, 
-					React.createElement("li", null, React.createElement("em", null, "PostCode    "), React.createElement("input", {type: "text", value: "EN12QN"}))
+					React.createElement("li", null, React.createElement("em", null, "PostCode    "), React.createElement("input", {onChange: this.handleAddressDetailChange, type: "text", ref: "postcode", value: CurrentDeliveryUserDetailsStore.getDeliveryAddressDetails().postcode}))
 				)
 			)
 		)	
@@ -50137,7 +50155,7 @@ var DeliveryAddress = React.createClass({displayName: "DeliveryAddress",
 
 module.exports = DeliveryAddress;
 
-},{"react":322}],345:[function(require,module,exports){
+},{"../../actions/DeliveryPageActionCreators.js":324,"../../stores/CurrentDeliveryUserDetailsStore.js":382,"react":322}],345:[function(require,module,exports){
 var React = require('react');
 var CurrentDeliveryUserDetailsStore = require('../../stores/CurrentDeliveryUserDetailsStore.js');
 var DeliveryDayListItem = require('./DeliveryDayListItem.jsx');
@@ -50389,7 +50407,8 @@ var DeliveryPage = React.createClass({displayName: "DeliveryPage",
   },    
 
   render: function () {
-    console.log(CurrentDeliveryUserDetailsStore.getCurrentPostCode());
+
+    console.log(CurrentDeliveryUserDetailsStore.getDeliveryAddressDetails());
     return (
     	React.createElement("div", {className: "container-fluid grey-background"}, 
         	React.createElement(NavBar, null), 
@@ -50416,7 +50435,7 @@ var DeliveryPage = React.createClass({displayName: "DeliveryPage",
 	        	)
             : null, 
             
-            CurrentDeliveryUserDetailsStore.getCurrentPostCode() && this.state.deliveryButtonChosen ?
+            CurrentDeliveryUserDetailsStore.getDeliveryAddressDetails().postcode && this.state.deliveryButtonChosen ?
             React.createElement("div", null, 
   	        	React.createElement("div", {className: "row"}, 
   	        		React.createElement(DeliveryAddress, null)
@@ -50447,20 +50466,24 @@ module.exports = DeliveryPage;
 var React = require('react');
 var DeliveryPageActionCreators = require('../../actions/DeliveryPageActionCreators.js');
 var CurrentDeliveryUserDetailsStore = require('../../stores/CurrentDeliveryUserDetailsStore.js');
+var AuthenticationService = require('../../services/authentication.js');
 
 var PostCode = React.createClass({displayName: "PostCode",
 
   handleFindButtonClickEvent: function () {
   	event.preventDefault();
-  	DeliveryPageActionCreators.setPostCode()
-  	console.log(CurrentDeliveryUserDetailsStore.getCurrentPostCode());
+    AuthenticationService.getPostCode(this.refs.postcode.value, function handleGetDetailsFromDetails(error, response) {
+          DeliveryPageActionCreators.setPostCode(response)
+          console.log(CurrentDeliveryUserDetailsStore.getDeliveryAddressDetails());
+      });
+
   },
 
   render: function () {
     return (
     React.createElement("div", {className: "col-xs-6 col-xs-offset-3"}, 	
 	   	React.createElement("div", {className: "rounded-box"}, 
-			React.createElement("input", {className: "postcode-input", type: "text", placeholder: "Please input your postcode"}), 
+			React.createElement("input", {className: "postcode-input", type: "text", ref: "postcode", placeholder: "Please input your postcode"}), 
 			React.createElement("button", {onClick: this.handleFindButtonClickEvent, className: "btn white-text"}, "Find")
 		)
 	)
@@ -50470,7 +50493,7 @@ var PostCode = React.createClass({displayName: "PostCode",
 
 module.exports = PostCode;
 
-},{"../../actions/DeliveryPageActionCreators.js":324,"../../stores/CurrentDeliveryUserDetailsStore.js":382,"react":322}],351:[function(require,module,exports){
+},{"../../actions/DeliveryPageActionCreators.js":324,"../../services/authentication.js":380,"../../stores/CurrentDeliveryUserDetailsStore.js":382,"react":322}],351:[function(require,module,exports){
 var React = require('react');
 var StateStore = require('../stores/StateStore.js');
 var DecorationsPageActionCreators = require('../actions/DecorationsPageActionCreators.js');
@@ -52076,11 +52099,28 @@ function getOrders(userId, token, handleResponse) {
   });
 }
 
+function getPostCode(postcode, done) {
+
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', encodeURI('http://api.postcodes.io/postcodes/' + postcode + ''));
+  xhr.onload = function loadHandler() {
+    if (xhr.status !== 200) {
+      console.log('Not OK: ' + xhr.status);
+      return;
+    }
+
+    var data = JSON.parse(xhr.responseText);
+    done(null, data);
+  };
+  xhr.send();
+}
+
 module.exports = {
   signIn: signIn,
   register: register,
   saveOrder: saveOrder,
-  assignOrderToUser: assignOrderToUser
+  assignOrderToUser: assignOrderToUser,
+  getPostCode: getPostCode
 };
 
 
@@ -52265,8 +52305,12 @@ var EventEmitter = require('events').EventEmitter;
 var objectAssign = require('object-assign');
 var StateStore = require('./StateStore.js');
 
-var deliveryDetails = {
-  postCode: ''
+var deliveryAddressDetails = {
+  addressLine1: '',
+  addressLine2: '',
+  townCity: '',
+  county: '',
+  postcode: ''
 };
 
 var deliveryOptionPrice = 0;
@@ -52280,7 +52324,6 @@ today = date.getDate();
 var monthIndex = date.getMonth();
 var todaysMonth = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][monthIndex];
 
-var postCode = deliveryDetails.postCode;
 
 var collectionAddressCoordinates = {
   PRIMARY_COLLECTION_ADDRESS: {latitude: -0.0714564561271418, longitude: 51.643334192204},
@@ -52302,9 +52345,21 @@ var currentMonthSelection = "Month";
 var currentYearSelection = "Year";
 var currentTimeSelection = "Time";
 
-function setPostCode() {
-  deliveryDetails.postCode = 'EN12QN'
-  postCode = deliveryDetails.postCode;
+function setPostCode(data) {
+  deliveryAddressDetails.addressLine1 = null;
+  deliveryAddressDetails.addressLine2 = data.result.admin_ward;
+  deliveryAddressDetails.townCity = data.result.admin_district;
+  deliveryAddressDetails.county = data.result.region;
+  deliveryAddressDetails.postcode = data.result.postcode;
+  CurrentDeliveryUserDetailsStore.emit('change');
+}
+
+function updateAddressDetails(details) {
+  deliveryAddressDetails.addressLine1 = [details[0]];
+  deliveryAddressDetails.addressLine2 = [details[1]];
+  deliveryAddressDetails.townCity = [details[2]];
+  deliveryAddressDetails.county = [details[3]];
+  deliveryAddressDetails.postcode = [details[4]];
   CurrentDeliveryUserDetailsStore.emit('change');
 }
 
@@ -52418,8 +52473,8 @@ function setDeliveryOptionPriceToZero() {
 
 var CurrentDeliveryUserDetailsStore = objectAssign({}, EventEmitter.prototype, {
 
-  getCurrentPostCode: function () {
-    return postCode;
+  getDeliveryAddressDetails: function () {
+    return deliveryAddressDetails;
   },
 
   getCurrentTotalDeliveryPrice: function () {
@@ -52470,7 +52525,9 @@ var CurrentDeliveryUserDetailsStore = objectAssign({}, EventEmitter.prototype, {
 
 function handleAction(action) {
   if (action.type === 'set-post-code') {
-    setPostCode();
+    setPostCode(action.data);
+  } else if (action.type === 'update-address-details') {
+    updateAddressDetails(action.addressDetails);
   } else if (action.type === 'set-current-collection-address-coordinates-to-primary') {
     setCurrentCollectionAddressCoordinatesToPrimary();
   } else if (action.type === 'set-current-collection-address-coordinates-to-secondary') {

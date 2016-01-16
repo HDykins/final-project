@@ -43,7 +43,8 @@ var DeliveryPage = React.createClass({
   },    
 
   render: function () {
-    console.log(CurrentDeliveryUserDetailsStore.getCurrentPostCode());
+
+    console.log(CurrentDeliveryUserDetailsStore.getDeliveryAddressDetails());
     return (
     	<div className="container-fluid grey-background">
         	<NavBar />
@@ -70,7 +71,7 @@ var DeliveryPage = React.createClass({
 	        	</div>
             : null}
             
-            {CurrentDeliveryUserDetailsStore.getCurrentPostCode() && this.state.deliveryButtonChosen ?
+            {CurrentDeliveryUserDetailsStore.getDeliveryAddressDetails().postcode && this.state.deliveryButtonChosen ?
             <div>   
   	        	<div className="row">
   	        		<DeliveryAddress />

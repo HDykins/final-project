@@ -29,9 +29,18 @@ function toggleCollectionChoice() {
 	Dispatcher.dispatch(action);
 }
 
-function setPostCode() {
+function setPostCode(response) {
 	var action = {
 		type: 'set-post-code',
+		data: response,
+	};
+	Dispatcher.dispatch(action);
+}
+
+function updateAddressDetails(addressDetails) {
+	var action = {
+		type: 'update-address-details',
+		addressDetails: addressDetails,
 	};
 	Dispatcher.dispatch(action);
 }
@@ -150,6 +159,7 @@ module.exports = {
 	toggleDeliveryChoice: toggleDeliveryChoice,
 	toggleCollectionChoice: toggleCollectionChoice,
 	setPostCode: setPostCode,
+	updateAddressDetails: updateAddressDetails,
 	setCurrentSelectedCollectionAddressToPrimary: setCurrentSelectedCollectionAddressToPrimary,
 	setCurrentSelectedCollectionAddressToSecondary: setCurrentSelectedCollectionAddressToSecondary,
 	setCurrentSelectedCollectionAddressToTertiary: setCurrentSelectedCollectionAddressToTertiary,

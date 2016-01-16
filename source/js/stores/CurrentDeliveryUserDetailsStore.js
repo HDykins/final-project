@@ -3,8 +3,12 @@ var EventEmitter = require('events').EventEmitter;
 var objectAssign = require('object-assign');
 var StateStore = require('./StateStore.js');
 
-var deliveryDetails = {
-  postCode: ''
+var deliveryAddressDetails = {
+  addressLine1: '',
+  addressLine2: '',
+  townCity: '',
+  county: '',
+  postcode: ''
 };
 
 var deliveryOptionPrice = 0;
@@ -18,7 +22,6 @@ today = date.getDate();
 var monthIndex = date.getMonth();
 var todaysMonth = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][monthIndex];
 
-var postCode = deliveryDetails.postCode;
 
 var collectionAddressCoordinates = {
   PRIMARY_COLLECTION_ADDRESS: {latitude: -0.0714564561271418, longitude: 51.643334192204},
@@ -40,9 +43,21 @@ var currentMonthSelection = "Month";
 var currentYearSelection = "Year";
 var currentTimeSelection = "Time";
 
-function setPostCode() {
-  deliveryDetails.postCode = 'EN12QN'
-  postCode = deliveryDetails.postCode;
+function setPostCode(data) {
+  deliveryAddressDetails.addressLine1 = '';
+  deliveryAddressDetails.addressLine2 = data.result.admin_ward;
+  deliveryAddressDetails.townCity = data.result.admin_district;
+  deliveryAddressDetails.county = data.result.region;
+  deliveryAddressDetails.postcode = data.result.postcode;
+  CurrentDeliveryUserDetailsStore.emit('change');
+}
+
+function updateAddressDetails(details) {
+  deliveryAddressDetails.addressLine1 = [details[0]];
+  deliveryAddressDetails.addressLine2 = [details[1]];
+  deliveryAddressDetails.townCity = [details[2]];
+  deliveryAddressDetails.county = [details[3]];
+  deliveryAddressDetails.postcode = [details[4]];
   CurrentDeliveryUserDetailsStore.emit('change');
 }
 
@@ -156,8 +171,8 @@ function setDeliveryOptionPriceToZero() {
 
 var CurrentDeliveryUserDetailsStore = objectAssign({}, EventEmitter.prototype, {
 
-  getCurrentPostCode: function () {
-    return postCode;
+  getDeliveryAddressDetails: function () {
+    return deliveryAddressDetails;
   },
 
   getCurrentTotalDeliveryPrice: function () {
@@ -208,7 +223,9 @@ var CurrentDeliveryUserDetailsStore = objectAssign({}, EventEmitter.prototype, {
 
 function handleAction(action) {
   if (action.type === 'set-post-code') {
-    setPostCode();
+    setPostCode(action.data);
+  } else if (action.type === 'update-address-details') {
+    updateAddressDetails(action.addressDetails);
   } else if (action.type === 'set-current-collection-address-coordinates-to-primary') {
     setCurrentCollectionAddressCoordinatesToPrimary();
   } else if (action.type === 'set-current-collection-address-coordinates-to-secondary') {
