@@ -49966,24 +49966,35 @@ var CollectOrDeliver = React.createClass({displayName: "CollectOrDeliver",
 
   handleDeliverButtonClickEvent: function () {
   event.preventDefault();
-  if (StateStore.getCollectionChoice()) {
-  	DeliveryPageActionCreators.toggleCollectionChoice()
-    DeliveryPageActionCreators.sumAllPrices()
-    DeliveryPageActionCreators.setDeliveryOptionPriceToNull();
-  }
-  DeliveryPageActionCreators.toggleDeliveryChoice();
-  DeliveryPageActionCreators.sumAllPrices()
+    if (StateStore.getCollectionChoice()) {
+    	DeliveryPageActionCreators.toggleCollectionChoice();
+      DeliveryPageActionCreators.toggleDeliveryChoice()
+      DeliveryPageActionCreators.sumAllPrices();
+    } else if (StateStore.getDeliveryChoice()) {
+      DeliveryPageActionCreators.toggleDeliveryChoice();
+      DeliveryPageActionCreators.setDeliveryOptionPriceToZero();
+      DeliveryPageActionCreators.sumAllPrices();
+    } else {
+      DeliveryPageActionCreators.toggleDeliveryChoice();
+      DeliveryPageActionCreators.setDeliveryOptionPrice();
+      DeliveryPageActionCreators.sumAllPrices();
+    }
   },
 
   handleCollectButtonClickEvent: function () {
   event.preventDefault();
-  if (StateStore.getDeliveryChoice()) {
-  	DeliveryPageActionCreators.toggleDeliveryChoice()
-    DeliveryPageActionCreators.sumAllPrices()
-    DeliveryPageActionCreators.setDeliveryOptionPriceToNull();
-  }
-  DeliveryPageActionCreators.toggleCollectionChoice();
-  DeliveryPageActionCreators.sumAllPrices()
+    if (StateStore.getDeliveryChoice()) {
+    	DeliveryPageActionCreators.toggleDeliveryChoice()
+      DeliveryPageActionCreators.toggleCollectionChoice();
+      DeliveryPageActionCreators.setDeliveryOptionPriceToZero();
+      DeliveryPageActionCreators.sumAllPrices()
+    } else if (StateStore.getCollectionChoice()) {
+      DeliveryPageActionCreators.toggleCollectionChoice();
+      DeliveryPageActionCreators.sumAllPrices()
+    } else {
+      DeliveryPageActionCreators.toggleCollectionChoice();
+      DeliveryPageActionCreators.sumAllPrices()
+    }
   },
 
   render: function () {
@@ -50240,8 +50251,6 @@ var DeliveryDayListItem = React.createClass({displayName: "DeliveryDayListItem",
   	DeliveryPageActionCreators.setCurrentDaySelection(this.props.day);
   	DeliveryPageActionCreators.setDeliveryOptionPrice();
   	DeliveryPageActionCreators.sumAllPrices()
-  	console.log(CurrentDeliveryUserDetailsStore.getDeliveryOptionPrice());
-  	console.log(CurrentDeliveryUserDetailsStore.getCurrentDaySelection());
   },
 
 	render: function () {
@@ -50323,6 +50332,8 @@ var DeliveryMonthListItem = React.createClass({displayName: "DeliveryMonthListIt
 
   handleMonthSelectionClickEvent: function () {
   	DeliveryPageActionCreators.setCurrentMonthSelection(this.props.month);
+  	DeliveryPageActionCreators.setDeliveryOptionPrice();
+  	DeliveryPageActionCreators.sumAllPrices()
   },
 
 	render: function () {
@@ -52034,7 +52045,7 @@ function assignOrderToUser(orderId, userId, token, handleResponse) {
 
   var request = jQuery.ajax({
     method: 'patch',
-    url: HOST_NAME + API_ENDPOINTS.SIGN_IN + "/" + orderId + "?token" + token,
+    url: HOST_NAME + API_ENDPOINTS.ORDER + "/" + orderId + "?token" + token,
     dataType: 'json',
     data: data
   });
@@ -52252,6 +52263,7 @@ module.exports = CurrentDecorationsUserDetailsStore;
 var Dispatcher = require('../dispatcher/Dispatcher');
 var EventEmitter = require('events').EventEmitter;
 var objectAssign = require('object-assign');
+var StateStore = require('./StateStore.js');
 
 var deliveryDetails = {
   postCode: ''
@@ -52362,26 +52374,46 @@ function toggleDecorationInstallationServiceSelection() {
   CurrentDeliveryUserDetailsStore.emit('change');
 }
 
-function setDeliveryOptionPrice() {
-  console.log("sfyguiygh")
-  if(todaysMonth === 'January') {
+function calculateDeliveryOptionPrice() {
+  if(typeof currentMonthSelection !== "string") {
+    console.log(currentMonthSelection);
 
-    if ((currentDaySelection - today) === 1) {
-      deliveryOptionPrice = 15;
-    }
-    else if ((currentDaySelection - today) < 6 ) {
-      deliveryOptionPrice = 6;
-    }
-    else if (6 <= (currentDaySelection - today)) {
-      deliveryOptionPrice = 3;
-    } else { deliveryOptionPrice = 15;
-    }
+    if((currentMonthSelection-1) === monthIndex) {
+
+      if ((currentDaySelection - today) === 1) {
+        deliveryOptionPrice = 15;
+      }
+      else if (0 < (currentDaySelection - today) && (currentDaySelection - today) < 6 ) {
+        deliveryOptionPrice = 6;
+      }
+      else if ((currentDaySelection - today) < 0 ) {
+        deliveryOptionPrice = 3;
+      }
+      else if (6 <= (currentDaySelection - today)) {
+        deliveryOptionPrice = 3;
+      }
+    } else { 
+        deliveryOptionPrice = 3;
+      }
+      console.log(deliveryOptionPrice);
  }
- currentTotalDeliveryPrice = currentTotalDeliveryPrice + deliveryOptionPrice;
+}
+
+function setDeliveryOptionPrice() {
+  if(typeof currentMonthSelection !== "string") {
+   calculateDeliveryOptionPrice();
+      currentTotalDeliveryPrice = 0;
+    if (StateStore.getDeliveryChoice()) {
+      currentTotalDeliveryPrice = currentTotalDeliveryPrice + deliveryOptionPrice;
+      if (isDecorationInstallationSeviceSelected) {
+        currentTotalDeliveryPrice = currentTotalDeliveryPrice + 15;
+      }
+    }
+  }
 }
 
 function setDeliveryOptionPriceToZero() {
-  currentTotalDeliveryPrice = currentTotalDeliveryPrice - deliveryOptionPrice;
+  currentTotalDeliveryPrice = 0;
 }
 
 var CurrentDeliveryUserDetailsStore = objectAssign({}, EventEmitter.prototype, {
@@ -52474,7 +52506,7 @@ CurrentDeliveryUserDetailsStore.dispatchToken = Dispatcher.register(handleAction
 
 module.exports = CurrentDeliveryUserDetailsStore;
 
-},{"../dispatcher/Dispatcher":378,"events":2,"object-assign":8}],383:[function(require,module,exports){
+},{"../dispatcher/Dispatcher":378,"./StateStore.js":385,"events":2,"object-assign":8}],383:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher');
 var EventEmitter = require('events').EventEmitter;
 var objectAssign = require('object-assign');

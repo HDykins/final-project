@@ -6,24 +6,35 @@ var CollectOrDeliver = React.createClass({
 
   handleDeliverButtonClickEvent: function () {
   event.preventDefault();
-  if (StateStore.getCollectionChoice()) {
-  	DeliveryPageActionCreators.toggleCollectionChoice()
-    DeliveryPageActionCreators.sumAllPrices()
-    DeliveryPageActionCreators.setDeliveryOptionPriceToNull();
-  }
-  DeliveryPageActionCreators.toggleDeliveryChoice();
-  DeliveryPageActionCreators.sumAllPrices()
+    if (StateStore.getCollectionChoice()) {
+    	DeliveryPageActionCreators.toggleCollectionChoice();
+      DeliveryPageActionCreators.toggleDeliveryChoice()
+      DeliveryPageActionCreators.sumAllPrices();
+    } else if (StateStore.getDeliveryChoice()) {
+      DeliveryPageActionCreators.toggleDeliveryChoice();
+      DeliveryPageActionCreators.setDeliveryOptionPriceToZero();
+      DeliveryPageActionCreators.sumAllPrices();
+    } else {
+      DeliveryPageActionCreators.toggleDeliveryChoice();
+      DeliveryPageActionCreators.setDeliveryOptionPrice();
+      DeliveryPageActionCreators.sumAllPrices();
+    }
   },
 
   handleCollectButtonClickEvent: function () {
   event.preventDefault();
-  if (StateStore.getDeliveryChoice()) {
-  	DeliveryPageActionCreators.toggleDeliveryChoice()
-    DeliveryPageActionCreators.sumAllPrices()
-    DeliveryPageActionCreators.setDeliveryOptionPriceToNull();
-  }
-  DeliveryPageActionCreators.toggleCollectionChoice();
-  DeliveryPageActionCreators.sumAllPrices()
+    if (StateStore.getDeliveryChoice()) {
+    	DeliveryPageActionCreators.toggleDeliveryChoice()
+      DeliveryPageActionCreators.toggleCollectionChoice();
+      DeliveryPageActionCreators.setDeliveryOptionPriceToZero();
+      DeliveryPageActionCreators.sumAllPrices()
+    } else if (StateStore.getCollectionChoice()) {
+      DeliveryPageActionCreators.toggleCollectionChoice();
+      DeliveryPageActionCreators.sumAllPrices()
+    } else {
+      DeliveryPageActionCreators.toggleCollectionChoice();
+      DeliveryPageActionCreators.sumAllPrices()
+    }
   },
 
   render: function () {

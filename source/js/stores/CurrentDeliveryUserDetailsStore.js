@@ -1,6 +1,7 @@
 var Dispatcher = require('../dispatcher/Dispatcher');
 var EventEmitter = require('events').EventEmitter;
 var objectAssign = require('object-assign');
+var StateStore = require('./StateStore.js');
 
 var deliveryDetails = {
   postCode: ''
@@ -111,26 +112,46 @@ function toggleDecorationInstallationServiceSelection() {
   CurrentDeliveryUserDetailsStore.emit('change');
 }
 
-function setDeliveryOptionPrice() {
-  console.log("sfyguiygh")
-  if(todaysMonth === 'January') {
+function calculateDeliveryOptionPrice() {
+  if(typeof currentMonthSelection !== "string") {
+    console.log(currentMonthSelection);
 
-    if ((currentDaySelection - today) === 1) {
-      deliveryOptionPrice = 15;
-    }
-    else if ((currentDaySelection - today) < 6 ) {
-      deliveryOptionPrice = 6;
-    }
-    else if (6 <= (currentDaySelection - today)) {
-      deliveryOptionPrice = 3;
-    } else { deliveryOptionPrice = 15;
-    }
+    if((currentMonthSelection-1) === monthIndex) {
+
+      if ((currentDaySelection - today) === 1) {
+        deliveryOptionPrice = 15;
+      }
+      else if (0 < (currentDaySelection - today) && (currentDaySelection - today) < 6 ) {
+        deliveryOptionPrice = 6;
+      }
+      else if ((currentDaySelection - today) < 0 ) {
+        deliveryOptionPrice = 3;
+      }
+      else if (6 <= (currentDaySelection - today)) {
+        deliveryOptionPrice = 3;
+      }
+    } else { 
+        deliveryOptionPrice = 3;
+      }
+      console.log(deliveryOptionPrice);
  }
- currentTotalDeliveryPrice = currentTotalDeliveryPrice + deliveryOptionPrice;
+}
+
+function setDeliveryOptionPrice() {
+  if(typeof currentMonthSelection !== "string") {
+   calculateDeliveryOptionPrice();
+      currentTotalDeliveryPrice = 0;
+    if (StateStore.getDeliveryChoice()) {
+      currentTotalDeliveryPrice = currentTotalDeliveryPrice + deliveryOptionPrice;
+      if (isDecorationInstallationSeviceSelected) {
+        currentTotalDeliveryPrice = currentTotalDeliveryPrice + 15;
+      }
+    }
+  }
 }
 
 function setDeliveryOptionPriceToZero() {
-  currentTotalDeliveryPrice = currentTotalDeliveryPrice - deliveryOptionPrice;
+  currentTotalDeliveryPrice = 0;
 }
 
 var CurrentDeliveryUserDetailsStore = objectAssign({}, EventEmitter.prototype, {

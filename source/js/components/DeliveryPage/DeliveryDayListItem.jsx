@@ -8,8 +8,6 @@ var DeliveryDayListItem = React.createClass({
   	DeliveryPageActionCreators.setCurrentDaySelection(this.props.day);
   	DeliveryPageActionCreators.setDeliveryOptionPrice();
   	DeliveryPageActionCreators.sumAllPrices()
-  	console.log(CurrentDeliveryUserDetailsStore.getDeliveryOptionPrice());
-  	console.log(CurrentDeliveryUserDetailsStore.getCurrentDaySelection());
   },
 
 	render: function () {

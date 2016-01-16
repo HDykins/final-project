@@ -5,6 +5,8 @@ var DeliveryMonthListItem = React.createClass({
 
   handleMonthSelectionClickEvent: function () {
   	DeliveryPageActionCreators.setCurrentMonthSelection(this.props.month);
+  	DeliveryPageActionCreators.setDeliveryOptionPrice();
+  	DeliveryPageActionCreators.sumAllPrices()
   },
 
 	render: function () {
