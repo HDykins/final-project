@@ -54,12 +54,26 @@ var SignInForm = React.createClass({
       }
 
       SignInFormActionCreators.setUserAuthenticationToken(response.token);
+      SignInFormActionCreators.setCurrentUserId(response.id);
       SignInFormActionCreators.setSignedInStatusToTrue();
       this.hideSignInFailMessage();
       this.showSignInSuccessMessage('You are signed in');
-      console.log(OrdersStore.getOrder());
-      console.log(UserSignInDetailsStore.getSignedInStatus());
-      console.log(UserSignInDetailsStore.getCurrentToken());
+      // console.log(OrdersStore.getOrder());
+      // console.log(UserSignInDetailsStore.getSignedInStatus());
+      // console.log(UserSignInDetailsStore.getCurrentToken());
+
+        AuthenticationService.assignOrderToUser(OrdersStore.getCurrentOrderId(), UserSignInDetailsStore.getCurrentUserId(), UserSignInDetailsStore.getCurrentToken(), function handleUserSignIn(error, response) {
+
+      if (error) {
+        console.log("No");
+        // this.hideSignInSuccessMessage();
+        // this.showSignInFailMessage('Failed to log in. Check email and password');
+        return;
+      }
+
+      console.log("OrderAssignedHopefully");
+
+      }.bind(this));
 
         // AuthenticationService.getOrders(UserSignInDetailsStore.getCurrentUserID(), UserSignInDetailsStore.getCurrentToken(), function handleUserRegister(error, response) {
 

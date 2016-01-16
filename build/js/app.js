@@ -49232,12 +49232,20 @@ function setHideTermsConditionsForm() {
 	Dispatcher.dispatch(action);
 }
 
+function setCurrentOrderId() {
+	var action = {
+		type: 'set-current-order-id',
+	};
+	Dispatcher.dispatch(action);
+}
+
 
 module.exports = {
 	changeToDeliveryPage: changeToDeliveryPage,
 	changeToThanksPage: changeToThanksPage,
 	setShowTermsConditionsForm: setShowTermsConditionsForm,
-	setHideTermsConditionsForm: setHideTermsConditionsForm
+	setHideTermsConditionsForm: setHideTermsConditionsForm,
+	setCurrentOrderId: setCurrentOrderId
 };
 
 },{"../dispatcher/Dispatcher":378}],329:[function(require,module,exports){
@@ -49276,9 +49284,9 @@ function setSignedInStatusToTrue() {
 	Dispatcher.dispatch(action);
 }
 
-function setNewUserID(id) {
+function setCurrentUserId(id) {
 	var action = {
-		type: 'set-new-user-id',
+		type: 'set-current-user-id',
 		id: id,
 	};
 
@@ -49290,7 +49298,7 @@ module.exports = {
 	setHideRegisterForm: setHideRegisterForm,
 	setUserAuthenticationToken: setUserAuthenticationToken,
 	setSignedInStatusToTrue: setSignedInStatusToTrue,
-	setNewUserID: setNewUserID
+	setCurrentUserId: setCurrentUserId
 };
 
 },{"../dispatcher/Dispatcher":378}],330:[function(require,module,exports){
@@ -50876,7 +50884,7 @@ var OrdersStore = require('../../stores/OrdersStore.js');
 var AuthenticationService = require('../../services/authentication.js');
 var StateStore = require('../../stores/StateStore.js');
 var UserSignInDetailsStore = require('../../stores/UserSignInDetailsStore.js');
-var SignInFormActionCreators = require('../../actions/SignInFormActionCreators.js');
+var PaymentPageActionCreators = require('../../actions/PaymentPageActionCreators.js');
 
 var PaymentPage = React.createClass({displayName: "PaymentPage",
 
@@ -50903,7 +50911,12 @@ var PaymentPage = React.createClass({displayName: "PaymentPage",
 
     handleOrderConfirmButtonClickEvent : function () {
 
-              AuthenticationService.saveOrder(OrdersStore.getOrder(), function handleUserCofirmOrder(error, response) {
+      PaymentPageActionCreators.setCurrentOrderId();
+
+      console.log(OrdersStore.getOrder());
+      console.log(OrdersStore.getCurrentOrderId());
+
+          AuthenticationService.saveOrder(OrdersStore.getOrder(), OrdersStore.getCurrentOrderId(), function handleUserCofirmOrder(error, response) {
 
           if (error) {
             console.log("No");
@@ -50954,7 +50967,7 @@ var PaymentPage = React.createClass({displayName: "PaymentPage",
 module.exports = PaymentPage;
 
 
-},{"../../actions/SignInFormActionCreators.js":329,"../../services/authentication.js":380,"../../stores/OrdersStore.js":383,"../../stores/PopUpStore.js":384,"../../stores/StateStore.js":385,"../../stores/UserSignInDetailsStore.js":388,"../BackButton.jsx":333,"../ContinueButton.jsx":334,"../Header1.jsx":351,"../NavBar.jsx":354,"../OrderSummary.jsx":355,"../PriceTotal.jsx":362,"./CardDetails.jsx":359,"./TermsConditions.jsx":361,"react":322}],361:[function(require,module,exports){
+},{"../../actions/PaymentPageActionCreators.js":328,"../../services/authentication.js":380,"../../stores/OrdersStore.js":383,"../../stores/PopUpStore.js":384,"../../stores/StateStore.js":385,"../../stores/UserSignInDetailsStore.js":388,"../BackButton.jsx":333,"../ContinueButton.jsx":334,"../Header1.jsx":351,"../NavBar.jsx":354,"../OrderSummary.jsx":355,"../PriceTotal.jsx":362,"./CardDetails.jsx":359,"./TermsConditions.jsx":361,"react":322}],361:[function(require,module,exports){
 var React = require('react');
 var PaymentPageActionCreators = require('../../actions/PaymentPageActionCreators.js');
 
@@ -51012,11 +51025,7 @@ var StateStore = require('../stores/StateStore.js');
 var UserSignInDetailsStore = require('../stores/UserSignInDetailsStore.js');
 var HashID = require ('../services/HashID');
 
-var id = HashID.generate();
-
 var RegisterForm = React.createClass({displayName: "RegisterForm",
-
-  
 
   getInitialState: function () {
   	return {
@@ -51052,8 +51061,6 @@ var RegisterForm = React.createClass({displayName: "RegisterForm",
   handleUserRegisterFormSubmit: function () {
   	var id = HashID.generate();
   	console.log(id)
-  	SignInFormActionCreators.setNewUserID(id);
-  	console.log(UserSignInDetailsStore.getCurrentUserID());
     AuthenticationService.register(this.refs.newEmail.value, this.refs.newPassword.value, this.refs.phoneNumber.value, id, function handleUserRegister(error, response) {
 
       if (error) {
@@ -51184,12 +51191,26 @@ var SignInForm = React.createClass({displayName: "SignInForm",
       }
 
       SignInFormActionCreators.setUserAuthenticationToken(response.token);
+      SignInFormActionCreators.setCurrentUserId(response.id);
       SignInFormActionCreators.setSignedInStatusToTrue();
       this.hideSignInFailMessage();
       this.showSignInSuccessMessage('You are signed in');
-      console.log(OrdersStore.getOrder());
-      console.log(UserSignInDetailsStore.getSignedInStatus());
-      console.log(UserSignInDetailsStore.getCurrentToken());
+      // console.log(OrdersStore.getOrder());
+      // console.log(UserSignInDetailsStore.getSignedInStatus());
+      // console.log(UserSignInDetailsStore.getCurrentToken());
+
+        AuthenticationService.assignOrderToUser(OrdersStore.getCurrentOrderId(), UserSignInDetailsStore.getCurrentUserId(), UserSignInDetailsStore.getCurrentToken(), function handleUserSignIn(error, response) {
+
+      if (error) {
+        console.log("No");
+        // this.hideSignInSuccessMessage();
+        // this.showSignInFailMessage('Failed to log in. Check email and password');
+        return;
+      }
+
+      console.log("OrderAssignedHopefully");
+
+      }.bind(this));
 
         // AuthenticationService.getOrders(UserSignInDetailsStore.getCurrentUserID(), UserSignInDetailsStore.getCurrentToken(), function handleUserRegister(error, response) {
 
@@ -51924,7 +51945,7 @@ var HOST_NAME = 'http://localhost:8080';
 var API_ENDPOINTS = {
   REGISTER: '/api/users',
   SIGN_IN: '/api/users/authenticate',
-  ORDER: '/api/users/orders'
+  ORDER: '/api/orders'
 };
 
 function register(email, password, phoneNumber, id, handleResponse) {
@@ -51952,6 +51973,35 @@ function register(email, password, phoneNumber, id, handleResponse) {
   });
 }
 
+function saveOrder(order, orderId, handleResponse) {
+
+  console.log(order);
+
+  var data = {
+    userChoices: order,
+    id: orderId,
+    userId: "547g8x6n"
+  };
+
+  var request = jQuery.ajax({
+    method: 'post',
+    url: HOST_NAME + API_ENDPOINTS.ORDER,
+    dataType: 'json',
+    data: JSON.stringify(data),
+    contentType: 'application/json'
+
+
+  });
+
+  request.fail(function (jqXHR, textStatus, errorThrown) {
+    handleResponse(jqXHR, null);
+  });
+
+  request.done(function (data) {
+    handleResponse(null, data);
+  });
+}
+
 function signIn(email, password, handleResponse) {
 
   var data = {
@@ -51975,22 +52025,18 @@ function signIn(email, password, handleResponse) {
   });
 }
 
-function saveOrder(order, handleResponse) {
-
-  console.log(order);
+function assignOrderToUser(orderId, userId, token, handleResponse) {
 
   var data = {
-    userChoices: order
+    userId: userId,
+    orderId: orderId
   };
 
   var request = jQuery.ajax({
-    method: 'post',
-    url: HOST_NAME + API_ENDPOINTS.ORDER,
+    method: 'patch',
+    url: HOST_NAME + API_ENDPOINTS.SIGN_IN + "/" + orderId + "?token" + token,
     dataType: 'json',
-    data: JSON.stringify(data),
-    contentType: 'application/json'
-
-
+    data: data
   });
 
   request.fail(function (jqXHR, textStatus, errorThrown) {
@@ -52022,7 +52068,8 @@ function getOrders(userId, token, handleResponse) {
 module.exports = {
   signIn: signIn,
   register: register,
-  saveOrder: saveOrder
+  saveOrder: saveOrder,
+  assignOrderToUser: assignOrderToUser
 };
 
 
@@ -52431,6 +52478,7 @@ module.exports = CurrentDeliveryUserDetailsStore;
 var Dispatcher = require('../dispatcher/Dispatcher');
 var EventEmitter = require('events').EventEmitter;
 var objectAssign = require('object-assign');
+var HashID = require ('../services/HashID');
 
 var order = {
 	stuff1: "abc",
@@ -52438,10 +52486,20 @@ var order = {
 	stuff3: "ghi"
 };
 
+var currentOrderId = null;
+
+function setCurrentOrderId() {
+	currentOrderId = HashID.generate();
+}
+
 var OrdersStore = objectAssign({}, EventEmitter.prototype, {
 
   getOrder: function () {
     return order;
+  },
+
+  getCurrentOrderId: function() {
+  	return currentOrderId;
   },
 
 });
@@ -52449,6 +52507,8 @@ var OrdersStore = objectAssign({}, EventEmitter.prototype, {
 function handleAction(action) {
 	if (action.type === 'set-signed-in-stajktus-to-true') {
 		setSignedInStatusToTrue();
+	} else if (action.type === 'set-current-order-id') {
+		setCurrentOrderId();
 	} 
 }
 
@@ -52456,7 +52516,7 @@ OrdersStore.dispatchToken = Dispatcher.register(handleAction);
 
 module.exports = OrdersStore;
 
-},{"../dispatcher/Dispatcher":378,"events":2,"object-assign":8}],384:[function(require,module,exports){
+},{"../dispatcher/Dispatcher":378,"../services/HashID":379,"events":2,"object-assign":8}],384:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher');
 var EventEmitter = require('events').EventEmitter;
 var objectAssign = require('object-assign');
@@ -52857,10 +52917,16 @@ module.exports = TreeInformationStore;
 var Dispatcher = require('../dispatcher/Dispatcher');
 var EventEmitter = require('events').EventEmitter;
 var objectAssign = require('object-assign');
+var HashID = require ('../services/HashID');
 
 var isSignedIn = false;
 var token = null;
-var currentUserID = null;
+
+var currentUserId = null;
+
+function setCurrentUserId(id) {
+  currentUserId = id;
+}
 
 function setSignedInStatusToTrue() {
   isSignedIn = true;
@@ -52877,10 +52943,6 @@ function setUserAuthenticationToken(newToken) {
   UserSignInDetailsStore.emit('change');
 }
 
-function setNewUserID(id) {
-  currentUserID = id
-}
-
 var UserSignInDetailsStore = objectAssign({}, EventEmitter.prototype, {
 
   getSignedInStatus: function () {
@@ -52891,8 +52953,8 @@ var UserSignInDetailsStore = objectAssign({}, EventEmitter.prototype, {
     return token;
   },  
 
-  getCurrentUserID: function () {
-    return currentUserID;
+  getCurrentUserId: function () {
+    return currentUserId;
   },
 
 });
@@ -52904,8 +52966,8 @@ function handleAction(action) {
     setSignedInStatusToFalse();
   } else if (action.type === 'set-user-authentication-token') {
     setUserAuthenticationToken(action.token);
-  } else if (action.type === 'set-new-user-id') {
-    setNewUserID(action.id);
+  } else if (action.type === 'set-current-user-id') {
+    setCurrentUserId(action.id);
   }
 }
 
@@ -52913,4 +52975,4 @@ UserSignInDetailsStore.dispatchToken = Dispatcher.register(handleAction);
 
 module.exports = UserSignInDetailsStore;
 
-},{"../dispatcher/Dispatcher":378,"events":2,"object-assign":8}]},{},[1]);
+},{"../dispatcher/Dispatcher":378,"../services/HashID":379,"events":2,"object-assign":8}]},{},[1]);

@@ -29,10 +29,18 @@ function setHideTermsConditionsForm() {
 	Dispatcher.dispatch(action);
 }
 
+function setCurrentOrderId() {
+	var action = {
+		type: 'set-current-order-id',
+	};
+	Dispatcher.dispatch(action);
+}
+
 
 module.exports = {
 	changeToDeliveryPage: changeToDeliveryPage,
 	changeToThanksPage: changeToThanksPage,
 	setShowTermsConditionsForm: setShowTermsConditionsForm,
-	setHideTermsConditionsForm: setHideTermsConditionsForm
+	setHideTermsConditionsForm: setHideTermsConditionsForm,
+	setCurrentOrderId: setCurrentOrderId
 };

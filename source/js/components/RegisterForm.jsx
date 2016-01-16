@@ -5,11 +5,7 @@ var StateStore = require('../stores/StateStore.js');
 var UserSignInDetailsStore = require('../stores/UserSignInDetailsStore.js');
 var HashID = require ('../services/HashID');
 
-var id = HashID.generate();
-
 var RegisterForm = React.createClass({
-
-  
 
   getInitialState: function () {
   	return {
@@ -45,8 +41,6 @@ var RegisterForm = React.createClass({
   handleUserRegisterFormSubmit: function () {
   	var id = HashID.generate();
   	console.log(id)
-  	SignInFormActionCreators.setNewUserID(id);
-  	console.log(UserSignInDetailsStore.getCurrentUserID());
     AuthenticationService.register(this.refs.newEmail.value, this.refs.newPassword.value, this.refs.phoneNumber.value, id, function handleUserRegister(error, response) {
 
       if (error) {

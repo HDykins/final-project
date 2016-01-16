@@ -1,10 +1,16 @@
 var Dispatcher = require('../dispatcher/Dispatcher');
 var EventEmitter = require('events').EventEmitter;
 var objectAssign = require('object-assign');
+var HashID = require ('../services/HashID');
 
 var isSignedIn = false;
 var token = null;
-var currentUserID = null;
+
+var currentUserId = null;
+
+function setCurrentUserId(id) {
+  currentUserId = id;
+}
 
 function setSignedInStatusToTrue() {
   isSignedIn = true;
@@ -21,10 +27,6 @@ function setUserAuthenticationToken(newToken) {
   UserSignInDetailsStore.emit('change');
 }
 
-function setNewUserID(id) {
-  currentUserID = id
-}
-
 var UserSignInDetailsStore = objectAssign({}, EventEmitter.prototype, {
 
   getSignedInStatus: function () {
@@ -35,8 +37,8 @@ var UserSignInDetailsStore = objectAssign({}, EventEmitter.prototype, {
     return token;
   },  
 
-  getCurrentUserID: function () {
-    return currentUserID;
+  getCurrentUserId: function () {
+    return currentUserId;
   },
 
 });
@@ -48,8 +50,8 @@ function handleAction(action) {
     setSignedInStatusToFalse();
   } else if (action.type === 'set-user-authentication-token') {
     setUserAuthenticationToken(action.token);
-  } else if (action.type === 'set-new-user-id') {
-    setNewUserID(action.id);
+  } else if (action.type === 'set-current-user-id') {
+    setCurrentUserId(action.id);
   }
 }
 

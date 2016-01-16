@@ -12,7 +12,7 @@ var OrdersStore = require('../../stores/OrdersStore.js');
 var AuthenticationService = require('../../services/authentication.js');
 var StateStore = require('../../stores/StateStore.js');
 var UserSignInDetailsStore = require('../../stores/UserSignInDetailsStore.js');
-var SignInFormActionCreators = require('../../actions/SignInFormActionCreators.js');
+var PaymentPageActionCreators = require('../../actions/PaymentPageActionCreators.js');
 
 var PaymentPage = React.createClass({
 
@@ -39,7 +39,12 @@ var PaymentPage = React.createClass({
 
     handleOrderConfirmButtonClickEvent : function () {
 
-              AuthenticationService.saveOrder(OrdersStore.getOrder(), function handleUserCofirmOrder(error, response) {
+      PaymentPageActionCreators.setCurrentOrderId();
+
+      console.log(OrdersStore.getOrder());
+      console.log(OrdersStore.getCurrentOrderId());
+
+          AuthenticationService.saveOrder(OrdersStore.getOrder(), OrdersStore.getCurrentOrderId(), function handleUserCofirmOrder(error, response) {
 
           if (error) {
             console.log("No");
