@@ -43,7 +43,9 @@ var currentMonthSelection = "Month";
 var currentYearSelection = "Year";
 var currentTimeSelection = "Time";
 
-function setPostCode(data) {
+var additionalInformation = null;
+
+function setDeliveryAddressDetails(data) {
   deliveryAddressDetails.addressLine1 = '';
   deliveryAddressDetails.addressLine2 = data.result.admin_ward;
   deliveryAddressDetails.townCity = data.result.admin_district;
@@ -169,6 +171,10 @@ function setDeliveryOptionPriceToZero() {
   currentTotalDeliveryPrice = 0;
 }
 
+function setAdditionalInformation(information) {
+  additionalInformation = information;
+}
+
 var CurrentDeliveryUserDetailsStore = objectAssign({}, EventEmitter.prototype, {
 
   getDeliveryAddressDetails: function () {
@@ -211,6 +217,10 @@ var CurrentDeliveryUserDetailsStore = objectAssign({}, EventEmitter.prototype, {
     return deliveryOptionPrice;
   },
 
+  getAdditionalInformation: function () {
+    return additionalInformation;
+  },
+
   addChangeListener: function (changeEventHandler) {
     this.on('change', changeEventHandler);
   },
@@ -222,8 +232,8 @@ var CurrentDeliveryUserDetailsStore = objectAssign({}, EventEmitter.prototype, {
 });
 
 function handleAction(action) {
-  if (action.type === 'set-post-code') {
-    setPostCode(action.data);
+  if (action.type === 'set-delivery-address-details') {
+    setDeliveryAddressDetails(action.data);
   } else if (action.type === 'update-address-details') {
     updateAddressDetails(action.addressDetails);
   } else if (action.type === 'set-current-collection-address-coordinates-to-primary') {
@@ -254,6 +264,8 @@ function handleAction(action) {
     setDeliveryOptionPrice();
   } else if (action.type === 'set-delivery-option-price-to-zero') {
     setDeliveryOptionPriceToZero();
+  } else if (action.type === 'set-additional-information') {
+    setAdditionalInformation(action.information);
   }
 }
 

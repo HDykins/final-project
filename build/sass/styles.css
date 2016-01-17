@@ -143,6 +143,10 @@ em, strong, .tree-name, .total-price {
 strong {
   font-size: 2vw; }
 
+textarea {
+  width: 90%;
+  resize: none; }
+
 .start-button {
   width: 40vw;
   height: 10vw;

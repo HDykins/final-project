@@ -8,7 +8,7 @@ var PostCode = React.createClass({
   handleFindButtonClickEvent: function () {
   	event.preventDefault();
     AuthenticationService.getPostCode(this.refs.postcode.value, function handleGetDetailsFromDetails(error, response) {
-          DeliveryPageActionCreators.setPostCode(response)
+          DeliveryPageActionCreators.setDeliveryAddressDetails(response)
           console.log(CurrentDeliveryUserDetailsStore.getDeliveryAddressDetails());
       });
 

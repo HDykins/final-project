@@ -10,6 +10,10 @@ var DeliveryInfo = React.createClass({
   	DeliveryPageActionCreators.sumAllPrices()
   },
 
+  handleAdditionalInformationTextarea: function () {
+  	DeliveryPageActionCreators.setAdditionalInformation(this.refs.information.value);
+  },
+
   render: function () {
     return (
 	<div>
@@ -18,7 +22,7 @@ var DeliveryInfo = React.createClass({
 				<span><h3>Additional delivery information</h3></span>
 			</div>
 			<div className="rounded-box">
-				<p>Beware of Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum</p>
+				<p><textarea onChange={this.handleAdditionalInformationTextarea} ref="information" placeholder="Beware of the dog, mobile number etc."></textarea></p>
 			</div>
 		</div>
 		<div className="col-xs-8">

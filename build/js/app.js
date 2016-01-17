@@ -48978,9 +48978,9 @@ function toggleCollectionChoice() {
 	Dispatcher.dispatch(action);
 }
 
-function setPostCode(response) {
+function setDeliveryAddressDetails(response) {
 	var action = {
-		type: 'set-post-code',
+		type: 'set-delivery-address-details',
 		data: response,
 	};
 	Dispatcher.dispatch(action);
@@ -49102,12 +49102,20 @@ function setDeliveryOptionPriceToZero() {
 	Dispatcher.dispatch(action);
 }
 
+function setAdditionalInformation(information) {
+	var action = {
+		type: 'set-additional-information',
+		information: information,
+	};
+	Dispatcher.dispatch(action);
+}
+
 module.exports = {
 	changeToDecorationsPage: changeToDecorationsPage,
 	changeToPaymentPage: changeToPaymentPage,
 	toggleDeliveryChoice: toggleDeliveryChoice,
 	toggleCollectionChoice: toggleCollectionChoice,
-	setPostCode: setPostCode,
+	setDeliveryAddressDetails: setDeliveryAddressDetails,
 	updateAddressDetails: updateAddressDetails,
 	setCurrentSelectedCollectionAddressToPrimary: setCurrentSelectedCollectionAddressToPrimary,
 	setCurrentSelectedCollectionAddressToSecondary: setCurrentSelectedCollectionAddressToSecondary,
@@ -49123,7 +49131,8 @@ module.exports = {
 	sumAllPrices: sumAllPrices,
 	toggleDecorationInstallationServiceSelection: toggleDecorationInstallationServiceSelection,
 	setDeliveryOptionPrice: setDeliveryOptionPrice,
-	setDeliveryOptionPriceToZero: setDeliveryOptionPriceToZero 
+	setDeliveryOptionPriceToZero: setDeliveryOptionPriceToZero,
+	setAdditionalInformation: setAdditionalInformation
 };
 
 },{"../dispatcher/Dispatcher":378}],325:[function(require,module,exports){
@@ -49745,7 +49754,8 @@ module.exports = DecorationsList;
 
 },{"./DecorationsListCheckBoxes.jsx":337,"./DecorationsListItem.jsx":338,"react":322}],337:[function(require,module,exports){
 var React = require('react');
-var DecorationsPageActionCreators = require('../../actions/DecorationsPageActionCreators.js')
+var CurrentDecorationsUserDetailsStore = require('../../stores/CurrentDecorationsUserDetailsStore.js');
+var DecorationsPageActionCreators = require('../../actions/DecorationsPageActionCreators.js');
 
 var DecorationsListCheckBoxes = React.createClass({displayName: "DecorationsListCheckBoxes",
 
@@ -49756,14 +49766,14 @@ var DecorationsListCheckBoxes = React.createClass({displayName: "DecorationsList
 
 	render: function () {
 	    return (
-			React.createElement("input", {onChange: this.handleCheckBoxChange, type: "checkbox", id: "ID"})
+			React.createElement("input", {onChange: this.handleCheckBoxChange, type: "checkbox", checked: CurrentDecorationsUserDetailsStore.getDecorationStatus()[this.props.decorationName] ? "checked" : null, id: "ID"})
 		);
 	}
 });
 
 module.exports = DecorationsListCheckBoxes;
 
-},{"../../actions/DecorationsPageActionCreators.js":323,"react":322}],338:[function(require,module,exports){
+},{"../../actions/DecorationsPageActionCreators.js":323,"../../stores/CurrentDecorationsUserDetailsStore.js":381,"react":322}],338:[function(require,module,exports){
 var React = require('react');
 var DecorationsListCheckBoxes = require('./DecorationsListCheckBoxes.jsx');
 var CurrentDecorationsUserDetailsStore = require('../../stores/CurrentDecorationsUserDetailsStore.js');
@@ -50291,6 +50301,10 @@ var DeliveryInfo = React.createClass({displayName: "DeliveryInfo",
   	DeliveryPageActionCreators.sumAllPrices()
   },
 
+  handleAdditionalInformationTextarea: function () {
+  	DeliveryPageActionCreators.setAdditionalInformation(this.refs.information.value);
+  },
+
   render: function () {
     return (
 	React.createElement("div", null, 
@@ -50299,7 +50313,7 @@ var DeliveryInfo = React.createClass({displayName: "DeliveryInfo",
 				React.createElement("span", null, React.createElement("h3", null, "Additional delivery information"))
 			), 
 			React.createElement("div", {className: "rounded-box"}, 
-				React.createElement("p", null, "Beware of Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum")
+				React.createElement("p", null, React.createElement("textarea", {onChange: this.handleAdditionalInformationTextarea, ref: "information", placeholder: "Beware of the dog, mobile number etc."}))
 			)
 		), 
 		React.createElement("div", {className: "col-xs-8"}, 
@@ -50473,7 +50487,7 @@ var PostCode = React.createClass({displayName: "PostCode",
   handleFindButtonClickEvent: function () {
   	event.preventDefault();
     AuthenticationService.getPostCode(this.refs.postcode.value, function handleGetDetailsFromDetails(error, response) {
-          DeliveryPageActionCreators.setPostCode(response)
+          DeliveryPageActionCreators.setDeliveryAddressDetails(response)
           console.log(CurrentDeliveryUserDetailsStore.getDeliveryAddressDetails());
       });
 
@@ -50649,8 +50663,24 @@ module.exports = NavBar;
 
 },{"../actions/NavBarActionCreators.js":326,"../stores/StateStore.js":385,"../stores/UserSignInDetailsStore.js":388,"react":322}],355:[function(require,module,exports){
 var React = require('react');
+var TreeInformationStore = require('../stores/TreeInformationStore.js');
+var CurrentDecorationsUserDetailsStore = require('../stores/CurrentDecorationsUserDetailsStore.js');
+var CurrentDeliveryUserDetailsStore = require('../stores/CurrentDeliveryUserDetailsStore.js');
+var TotalPriceStore = require('../stores/TotalPriceStore.js');
 
 var OrderSummary = React.createClass({displayName: "OrderSummary",
+
+  addDecorationToList: function () {
+  	var decorationsToAdd = CurrentDecorationsUserDetailsStore.getListOfSelectedDecorations().map(
+		function renderDecorationListInCostBox(name) {
+			return (
+				React.createElement("li", {key: name}, React.createElement("span", {className: "price"}, CurrentDecorationsUserDetailsStore.getDecorationDescriptions()[name], ": "), React.createElement("span", {className: "price"}, '£' + CurrentDecorationsUserDetailsStore.getDecorationPrice()[name]))
+			);
+		}
+	);
+	return decorationsToAdd;
+  },
+
   render: function () {
     return (
 	React.createElement("div", null, 
@@ -50658,23 +50688,21 @@ var OrderSummary = React.createClass({displayName: "OrderSummary",
 			React.createElement("div", {className: "rounded-box"}, 
 				React.createElement("div", {className: "col-xs-6"}, 
 					React.createElement("h3", null, "Rundown of costs"), 
-					React.createElement("h4", null, "Tree:", React.createElement("span", {className: "price"}, " +£12")), 
+					React.createElement("h4", null, "Tree: ", TreeInformationStore.getCurrentTreeView(), React.createElement("span", {className: "price"}, "+£" + TreeInformationStore.getCurrentPrice())), 
 					React.createElement("ul", {className: "list-unstyled"}, 
 						React.createElement("li", null, "Height: 4ft"), 
 						React.createElement("li", null, "Width: ~3ft")
 					), 				
-					React.createElement("h4", null, "Services:", React.createElement("span", {className: "price"}, " +£21")), 
+					React.createElement("h4", null, "Services:", React.createElement("span", {className: "price"},  "+£" + CurrentDeliveryUserDetailsStore.getCurrentTotalDeliveryPrice())), 
 					React.createElement("ul", {className: "list-unstyled"}, 
-						React.createElement("li", null, "Delivery: ", React.createElement("span", {className: "price"}, " +£6")), 
-						React.createElement("li", null, "Fitted and decorated: ", React.createElement("span", {className: "price"}, " +£15"))
+						React.createElement("li", null, "Delivery: ", React.createElement("span", {className: "price"},  "+£" + CurrentDeliveryUserDetailsStore.getDeliveryOptionPrice())), 
+						CurrentDeliveryUserDetailsStore.getDecorationInstallationSelectionStatus() ? React.createElement("li", null, "Fitted and decorated: ", React.createElement("span", {className: "price"}, " +£15")) : null
 					)
 				), 
 				React.createElement("div", {className: "col-xs-6"}, 
-					React.createElement("h4", null, "Decorations:", React.createElement("span", {className: "price"}, " +£24")), 
+					React.createElement("h4", null, "Decorations:", React.createElement("span", {className: "price"},  "+£" + CurrentDecorationsUserDetailsStore.getCurrentTotalDecorationsPrice())), 
 					React.createElement("ul", {className: "list-unstyled"}, 
-						React.createElement("li", null, "Baubbles Gold - 6 pack: ", React.createElement("span", {className: "price"}, " +£5")), 
-						React.createElement("li", null, "Stars Gold - 8 pack: ", React.createElement("span", {className: "price"}, " +£4")), 
-						React.createElement("li", null, "Glitter Balls - 6 pack: ", React.createElement("span", {className: "price"}, " +£3"))
+						this.addDecorationToList()
 					)				
 				)
 			)
@@ -50682,11 +50710,11 @@ var OrderSummary = React.createClass({displayName: "OrderSummary",
 		React.createElement("div", {className: "col-xs-6"}, 
 			React.createElement("div", {className: "rounded-box"}, 
 				React.createElement("h2", null, "Final and total Price:"), 
-				React.createElement("span", {className: "price total-price"}, "£57")
+				React.createElement("span", {className: "price total-price"}, "£", TotalPriceStore.getCurrentOverallPrice())
 			), 
 			React.createElement("div", {className: "rounded-box"}, 
 				React.createElement("h2", null, "Estimated delivery date:"), 
-				React.createElement("span", {className: "delivery-date"}, "15th December")
+				React.createElement("span", {className: "delivery-date"}, CurrentDeliveryUserDetailsStore.getCurrentDaySelection(), "th December")
 			)
 		)
 	)
@@ -50698,7 +50726,7 @@ module.exports = OrderSummary;
 
 
 
-},{"react":322}],356:[function(require,module,exports){
+},{"../stores/CurrentDecorationsUserDetailsStore.js":381,"../stores/CurrentDeliveryUserDetailsStore.js":382,"../stores/TotalPriceStore.js":386,"../stores/TreeInformationStore.js":387,"react":322}],356:[function(require,module,exports){
 var React = require('react');
 var OrdersPageActionCreators = require('../../actions/OrdersPageActionCreators.js');
 
@@ -52345,8 +52373,10 @@ var currentMonthSelection = "Month";
 var currentYearSelection = "Year";
 var currentTimeSelection = "Time";
 
-function setPostCode(data) {
-  deliveryAddressDetails.addressLine1 = null;
+var additionalInformation = null;
+
+function setDeliveryAddressDetails(data) {
+  deliveryAddressDetails.addressLine1 = '';
   deliveryAddressDetails.addressLine2 = data.result.admin_ward;
   deliveryAddressDetails.townCity = data.result.admin_district;
   deliveryAddressDetails.county = data.result.region;
@@ -52471,6 +52501,10 @@ function setDeliveryOptionPriceToZero() {
   currentTotalDeliveryPrice = 0;
 }
 
+function setAdditionalInformation(information) {
+  additionalInformation = information;
+}
+
 var CurrentDeliveryUserDetailsStore = objectAssign({}, EventEmitter.prototype, {
 
   getDeliveryAddressDetails: function () {
@@ -52513,6 +52547,10 @@ var CurrentDeliveryUserDetailsStore = objectAssign({}, EventEmitter.prototype, {
     return deliveryOptionPrice;
   },
 
+  getAdditionalInformation: function () {
+    return additionalInformation;
+  },
+
   addChangeListener: function (changeEventHandler) {
     this.on('change', changeEventHandler);
   },
@@ -52524,8 +52562,8 @@ var CurrentDeliveryUserDetailsStore = objectAssign({}, EventEmitter.prototype, {
 });
 
 function handleAction(action) {
-  if (action.type === 'set-post-code') {
-    setPostCode(action.data);
+  if (action.type === 'set-delivery-address-details') {
+    setDeliveryAddressDetails(action.data);
   } else if (action.type === 'update-address-details') {
     updateAddressDetails(action.addressDetails);
   } else if (action.type === 'set-current-collection-address-coordinates-to-primary') {
@@ -52556,6 +52594,8 @@ function handleAction(action) {
     setDeliveryOptionPrice();
   } else if (action.type === 'set-delivery-option-price-to-zero') {
     setDeliveryOptionPriceToZero();
+  } else if (action.type === 'set-additional-information') {
+    setAdditionalInformation(action.information);
   }
 }
 
@@ -52570,9 +52610,22 @@ var objectAssign = require('object-assign');
 var HashID = require ('../services/HashID');
 
 var order = {
-	stuff1: "abc",
-	stuff2: "def",
-	stuff3: "ghi"
+	height: "abc",
+	width: "def",
+	tree: TreeInformationStore.getCurrentTreeView(),
+	decorationSelection: CurrentDecorationsUserDetailsStore.getDecorationStatus(),
+	listOfSelectedDecorations: CurrentDecorationsUserDetailsStore.getListOfSelectedDecorations(),
+	delivery: StateStore.getDeliveryChoice(),
+	collection: StateStore.getCollectionChoice(),
+	collectionAddress: CurrentDeliveryUserDetailsStore.getCurrentSelectedCollectionAddress(),
+	collectionCoordinates: CurrentDeliveryUserDetailsStore.getCurrentCollectionAddressCoordinates(),
+	deliveryDay: CurrentDeliveryUserDetailsStore.getCurrentDaySelection(),
+	deliveryMonth: CurrentDeliveryUserDetailsStore.getCurrentMonthSelection(),
+	deliveryYear: CurrentDeliveryUserDetailsStore.getCurrentYearSelection(),
+	deliveryTime: CurrentDeliveryUserDetailsStore.getCurrentTimeSelection(),
+	deliveryAddress: CurrentDeliveryUserDetailsStore.getDeliveryAddressDetails(),
+	decorationInstallation: CurrentDeliveryUserDetailsStore.getDecorationInstallationSelectionStatus(),
+	additionalInformation: CurrentDeliveryUserDetailsStore.getAdditionalInformation()
 };
 
 var currentOrderId = null;

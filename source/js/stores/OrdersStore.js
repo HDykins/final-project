@@ -4,9 +4,22 @@ var objectAssign = require('object-assign');
 var HashID = require ('../services/HashID');
 
 var order = {
-	stuff1: "abc",
-	stuff2: "def",
-	stuff3: "ghi"
+	height: "abc",
+	width: "def",
+	tree: TreeInformationStore.getCurrentTreeView(),
+	decorationSelection: CurrentDecorationsUserDetailsStore.getDecorationStatus(),
+	listOfSelectedDecorations: CurrentDecorationsUserDetailsStore.getListOfSelectedDecorations(),
+	delivery: StateStore.getDeliveryChoice(),
+	collection: StateStore.getCollectionChoice(),
+	collectionAddress: CurrentDeliveryUserDetailsStore.getCurrentSelectedCollectionAddress(),
+	collectionCoordinates: CurrentDeliveryUserDetailsStore.getCurrentCollectionAddressCoordinates(),
+	deliveryDay: CurrentDeliveryUserDetailsStore.getCurrentDaySelection(),
+	deliveryMonth: CurrentDeliveryUserDetailsStore.getCurrentMonthSelection(),
+	deliveryYear: CurrentDeliveryUserDetailsStore.getCurrentYearSelection(),
+	deliveryTime: CurrentDeliveryUserDetailsStore.getCurrentTimeSelection(),
+	deliveryAddress: CurrentDeliveryUserDetailsStore.getDeliveryAddressDetails(),
+	decorationInstallation: CurrentDeliveryUserDetailsStore.getDecorationInstallationSelectionStatus(),
+	additionalInformation: CurrentDeliveryUserDetailsStore.getAdditionalInformation()
 };
 
 var currentOrderId = null;

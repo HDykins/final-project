@@ -1,5 +1,6 @@
 var React = require('react');
-var DecorationsPageActionCreators = require('../../actions/DecorationsPageActionCreators.js')
+var CurrentDecorationsUserDetailsStore = require('../../stores/CurrentDecorationsUserDetailsStore.js');
+var DecorationsPageActionCreators = require('../../actions/DecorationsPageActionCreators.js');
 
 var DecorationsListCheckBoxes = React.createClass({
 
@@ -10,7 +11,7 @@ var DecorationsListCheckBoxes = React.createClass({
 
 	render: function () {
 	    return (
-			<input onChange={this.handleCheckBoxChange} type="checkbox" id="ID" />
+			<input onChange={this.handleCheckBoxChange} type="checkbox" checked={CurrentDecorationsUserDetailsStore.getDecorationStatus()[this.props.decorationName] ? "checked" : null} id="ID" />
 		);
 	}
 });

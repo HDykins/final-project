@@ -29,9 +29,9 @@ function toggleCollectionChoice() {
 	Dispatcher.dispatch(action);
 }
 
-function setPostCode(response) {
+function setDeliveryAddressDetails(response) {
 	var action = {
-		type: 'set-post-code',
+		type: 'set-delivery-address-details',
 		data: response,
 	};
 	Dispatcher.dispatch(action);
@@ -153,12 +153,20 @@ function setDeliveryOptionPriceToZero() {
 	Dispatcher.dispatch(action);
 }
 
+function setAdditionalInformation(information) {
+	var action = {
+		type: 'set-additional-information',
+		information: information,
+	};
+	Dispatcher.dispatch(action);
+}
+
 module.exports = {
 	changeToDecorationsPage: changeToDecorationsPage,
 	changeToPaymentPage: changeToPaymentPage,
 	toggleDeliveryChoice: toggleDeliveryChoice,
 	toggleCollectionChoice: toggleCollectionChoice,
-	setPostCode: setPostCode,
+	setDeliveryAddressDetails: setDeliveryAddressDetails,
 	updateAddressDetails: updateAddressDetails,
 	setCurrentSelectedCollectionAddressToPrimary: setCurrentSelectedCollectionAddressToPrimary,
 	setCurrentSelectedCollectionAddressToSecondary: setCurrentSelectedCollectionAddressToSecondary,
@@ -174,5 +182,6 @@ module.exports = {
 	sumAllPrices: sumAllPrices,
 	toggleDecorationInstallationServiceSelection: toggleDecorationInstallationServiceSelection,
 	setDeliveryOptionPrice: setDeliveryOptionPrice,
-	setDeliveryOptionPriceToZero: setDeliveryOptionPriceToZero 
+	setDeliveryOptionPriceToZero: setDeliveryOptionPriceToZero,
+	setAdditionalInformation: setAdditionalInformation
 };
