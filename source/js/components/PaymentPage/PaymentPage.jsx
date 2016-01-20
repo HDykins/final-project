@@ -40,6 +40,7 @@ var PaymentPage = React.createClass({
     handleOrderConfirmButtonClickEvent : function () {
 
       PaymentPageActionCreators.setCurrentOrderId();
+      PaymentPageActionCreators.setOrder();
 
       console.log(OrdersStore.getOrder());
       console.log(OrdersStore.getCurrentOrderId());
@@ -48,7 +49,6 @@ var PaymentPage = React.createClass({
 
           if (error) {
             console.log("No");
-            // this.showRegisterFailMessage('Failed to register. Email may be in use');
             return;
           }
 
@@ -56,10 +56,6 @@ var PaymentPage = React.createClass({
           if (UserSignInDetailsStore.getSignedInStatus()) {
             null
           }
-          // SignInFormActionCreators.setUserAuthenticationToken(response.token);
-          // PaymentPageActionCreators.setSignedInStatusToTrue();
-          // this.hideRegisterFailMessage();
-          // this.showRegisterSuccessMessage('Successfully registered');
 
         }.bind(this));
     },       

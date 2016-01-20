@@ -40,7 +40,7 @@ function saveOrder(order, orderId, handleResponse) {
   var data = {
     userChoices: order,
     id: orderId,
-    userId: "547g8x6n"
+    userId: "a9wm665z"
   };
 
   var request = jQuery.ajax({

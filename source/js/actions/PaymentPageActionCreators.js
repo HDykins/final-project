@@ -36,11 +36,19 @@ function setCurrentOrderId() {
 	Dispatcher.dispatch(action);
 }
 
+function setOrder() {
+	var action = {
+		type: 'set-order',
+	};
+	Dispatcher.dispatch(action);
+}
+
 
 module.exports = {
 	changeToDeliveryPage: changeToDeliveryPage,
 	changeToThanksPage: changeToThanksPage,
 	setShowTermsConditionsForm: setShowTermsConditionsForm,
 	setHideTermsConditionsForm: setHideTermsConditionsForm,
-	setCurrentOrderId: setCurrentOrderId
+	setCurrentOrderId: setCurrentOrderId,
+	setOrder: setOrder
 };

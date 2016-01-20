@@ -2,6 +2,7 @@ var React = require('react');
 var SignInFormActionCreators = require('../actions/SignInFormActionCreators.js');
 var AuthenticationService = require('../services/authentication.js');
 var StateStore = require('../stores/StateStore.js');
+var OrdersStore = require('../stores/OrdersStore.js');
 var UserSignInDetailsStore = require('../stores/UserSignInDetailsStore.js');
 var HashID = require ('../services/HashID');
 
@@ -48,10 +49,40 @@ var RegisterForm = React.createClass({
         return;
       }
 
-      SignInFormActionCreators.setUserAuthenticationToken(response.token);
-      SignInFormActionCreators.setSignedInStatusToTrue();
-      this.hideRegisterFailMessage();
-      this.showRegisterSuccessMessage('Successfully registered');
+		AuthenticationService.signIn(this.refs.newEmail.value, this.refs.newPassword.value, function handleUserSignIn(error, response) {
+
+			if (error) {
+			    console.log('Cant sign in');
+			    return;
+			}
+
+			SignInFormActionCreators.setUserAuthenticationToken(response.token);
+			SignInFormActionCreators.setCurrentUserId(response.id);
+			SignInFormActionCreators.setSignedInStatusToTrue();
+
+			this.hideRegisterFailMessage();
+			this.showRegisterSuccessMessage('Successfully registered');
+
+			console.log("Signed in as well");
+
+			if (StateStore.getCurrentPage() === "THANKS_PAGE") {
+
+				console.log(UserSignInDetailsStore.getCurrentToken());
+
+				AuthenticationService.assignOrderToUser(OrdersStore.getCurrentOrderId(), UserSignInDetailsStore.getCurrentUserId(), UserSignInDetailsStore.getCurrentToken(), function handleUserSignIn(error, response) {
+
+					if (error) {
+					  console.log("No");
+					  // this.hideSignInSuccessMessage();
+					  // this.showSignInFailMessage('Failed to log in. Check email and password');
+					  return;
+					}
+
+					console.log("OrderAssignedHopefully");
+
+				}.bind(this));		
+			}
+		}.bind(this));
 
     }.bind(this));
   },

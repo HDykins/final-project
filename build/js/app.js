@@ -49258,13 +49258,21 @@ function setCurrentOrderId() {
 	Dispatcher.dispatch(action);
 }
 
+function setOrder() {
+	var action = {
+		type: 'set-order',
+	};
+	Dispatcher.dispatch(action);
+}
+
 
 module.exports = {
 	changeToDeliveryPage: changeToDeliveryPage,
 	changeToThanksPage: changeToThanksPage,
 	setShowTermsConditionsForm: setShowTermsConditionsForm,
 	setHideTermsConditionsForm: setHideTermsConditionsForm,
-	setCurrentOrderId: setCurrentOrderId
+	setCurrentOrderId: setCurrentOrderId,
+	setOrder: setOrder
 };
 
 },{"../dispatcher/Dispatcher":378}],329:[function(require,module,exports){
@@ -50460,14 +50468,12 @@ var DeliveryPage = React.createClass({displayName: "DeliveryPage",
   componentDidMount: function () {
       StateStore.addChangeListener(this.updateState);
       CurrentDeliveryUserDetailsStore.addChangeListener(this.updateState);
-      OrdersStore.addChangeListener(this.updateState);
   },
 
   componentWillUnmount: function () {
     console.debug("degugged");
       StateStore.removeChangeListener(this.updateState);
       CurrentDeliveryUserDetailsStore.removeChangeListener(this.updateState);
-      OrdersStore.removeChangeListener(this.updateState);
   },    
 
   render: function () {
@@ -50713,6 +50719,7 @@ module.exports = NavBar;
 
 },{"../actions/NavBarActionCreators.js":326,"../stores/StateStore.js":385,"../stores/UserSignInDetailsStore.js":388,"react":322}],355:[function(require,module,exports){
 var React = require('react');
+var StateStore = require('../stores/StateStore.js');
 var TreeInformationStore = require('../stores/TreeInformationStore.js');
 var CurrentDecorationsUserDetailsStore = require('../stores/CurrentDecorationsUserDetailsStore.js');
 var CurrentDeliveryUserDetailsStore = require('../stores/CurrentDeliveryUserDetailsStore.js');
@@ -50721,54 +50728,105 @@ var TotalPriceStore = require('../stores/TotalPriceStore.js');
 var OrderSummary = React.createClass({displayName: "OrderSummary",
 
   addDecorationToList: function () {
-  	var decorationsToAdd = CurrentDecorationsUserDetailsStore.getListOfSelectedDecorations().map(
-		function renderDecorationListInCostBox(name) {
-			return (
-				React.createElement("li", {key: name}, React.createElement("span", {className: "price"}, CurrentDecorationsUserDetailsStore.getDecorationDescriptions()[name], ": "), React.createElement("span", {className: "price"}, '£' + CurrentDecorationsUserDetailsStore.getDecorationPrice()[name]))
-			);
-		}
+  	if (StateStore.getCurrentPage() === "ORDERS_PAGE") {
+  		var decorationsToAdd = this.props.order.listOfSelectedDecorations.map(
+			function renderDecorationListInCostBox(name) {
+				return (
+					React.createElement("li", {key: name}, React.createElement("span", {className: "price"}, CurrentDecorationsUserDetailsStore.getDecorationDescriptions()[name], ": "), React.createElement("span", {className: "price"}, '£' + CurrentDecorationsUserDetailsStore.getDecorationPrice()[name]))
+				);
+			}
 	);
 	return decorationsToAdd;
+	} else {
+		var decorationsToAdd = CurrentDecorationsUserDetailsStore.getListOfSelectedDecorations().map(
+			function renderDecorationListInCostBox(name) {
+				return (
+					React.createElement("li", {key: name}, React.createElement("span", {className: "price"}, CurrentDecorationsUserDetailsStore.getDecorationDescriptions()[name], ": "), React.createElement("span", {className: "price"}, '£' + CurrentDecorationsUserDetailsStore.getDecorationPrice()[name]))
+				);
+			}
+		);
+	return decorationsToAdd;	
+	}
   },
 
   render: function () {
-    return (
-	React.createElement("div", null, 
-		React.createElement("div", {className: "col-xs-6"}, 	
-			React.createElement("div", {className: "rounded-box"}, 
-				React.createElement("div", {className: "col-xs-6"}, 
-					React.createElement("h3", null, "Rundown of costs"), 
-					React.createElement("h4", null, "Tree: ", TreeInformationStore.getCurrentTreeView(), React.createElement("span", {className: "price"}, "+£" + TreeInformationStore.getCurrentPrice())), 
-					React.createElement("ul", {className: "list-unstyled"}, 
-						React.createElement("li", null, "Height: 4ft"), 
-						React.createElement("li", null, "Width: ~3ft")
-					), 				
-					React.createElement("h4", null, "Services:", React.createElement("span", {className: "price"},  "+£" + CurrentDeliveryUserDetailsStore.getCurrentTotalDeliveryPrice())), 
-					React.createElement("ul", {className: "list-unstyled"}, 
-						React.createElement("li", null, "Delivery: ", React.createElement("span", {className: "price"},  "+£" + CurrentDeliveryUserDetailsStore.getDeliveryOptionPrice())), 
-						CurrentDeliveryUserDetailsStore.getDecorationInstallationSelectionStatus() ? React.createElement("li", null, "Fitted and decorated: ", React.createElement("span", {className: "price"}, " +£15")) : null
+	if (StateStore.getCurrentPage() === "ORDERS_PAGE") {
+		return (
+			React.createElement("div", null, 
+				React.createElement("div", {className: "col-xs-6"}, 	
+					React.createElement("div", {className: "rounded-box"}, 
+						React.createElement("div", {className: "col-xs-6"}, 
+							React.createElement("h3", null, "Rundown of costs"), 
+							React.createElement("h4", null, "Tree: ", this.props.order.tree, React.createElement("span", {className: "price"}, "+£" + this.props.order.treePrice)), 
+							React.createElement("ul", {className: "list-unstyled"}, 
+								React.createElement("li", null, "Height: 4ft"), 
+								React.createElement("li", null, "Width: ~3ft")
+							), 				
+							React.createElement("h4", null, "Services:", React.createElement("span", {className: "price"},  "+£" + this.props.order.totalDeliveryPrice)), 
+							React.createElement("ul", {className: "list-unstyled"}, 
+								React.createElement("li", null, "Delivery: ", React.createElement("span", {className: "price"},  "+£" + this.props.order.decorationInstallation ? (this.props.order.deliveryOptionPrice-15) : this.props.order.deliveryOptionPrice)), 
+								this.props.order.decorationInstallation ? React.createElement("li", null, "Fitted and decorated: ", React.createElement("span", {className: "price"}, " +£15")) : null
+							)
+						), 
+						React.createElement("div", {className: "col-xs-6"}, 
+							React.createElement("h4", null, "Decorations:", React.createElement("span", {className: "price"},  "+£" + this.props.order.totalDecorationPrice)), 
+							React.createElement("ul", {className: "list-unstyled"}, 
+								this.addDecorationToList()
+							)				
+						)
 					)
 				), 
 				React.createElement("div", {className: "col-xs-6"}, 
-					React.createElement("h4", null, "Decorations:", React.createElement("span", {className: "price"},  "+£" + CurrentDecorationsUserDetailsStore.getCurrentTotalDecorationsPrice())), 
-					React.createElement("ul", {className: "list-unstyled"}, 
-						this.addDecorationToList()
-					)				
+					React.createElement("div", {className: "rounded-box"}, 
+						React.createElement("h2", null, "Final and total Price:"), 
+						React.createElement("span", {className: "price total-price"}, "£", this.props.order.totalPrice)
+					), 
+					React.createElement("div", {className: "rounded-box"}, 
+						React.createElement("h2", null, "Estimated delivery date:"), 
+						React.createElement("span", {className: "delivery-date"}, this.props.order.deliveryDay, "th ", this.props.order.deliveryMonth)
+					)
 				)
 			)
-		), 
-		React.createElement("div", {className: "col-xs-6"}, 
-			React.createElement("div", {className: "rounded-box"}, 
-				React.createElement("h2", null, "Final and total Price:"), 
-				React.createElement("span", {className: "price total-price"}, "£", TotalPriceStore.getCurrentOverallPrice())
-			), 
-			React.createElement("div", {className: "rounded-box"}, 
-				React.createElement("h2", null, "Estimated delivery date:"), 
-				React.createElement("span", {className: "delivery-date"}, CurrentDeliveryUserDetailsStore.getCurrentDaySelection(), "th December")
+		);
+	} else {
+		return (
+			React.createElement("div", null, 
+				React.createElement("div", {className: "col-xs-6"}, 	
+					React.createElement("div", {className: "rounded-box"}, 
+						React.createElement("div", {className: "col-xs-6"}, 
+							React.createElement("h3", null, "Rundown of costs"), 
+							React.createElement("h4", null, "Tree: ", TreeInformationStore.getCurrentTreeView(), React.createElement("span", {className: "price"}, "+£" + TreeInformationStore.getCurrentPrice())), 
+							React.createElement("ul", {className: "list-unstyled"}, 
+								React.createElement("li", null, "Height: 4ft"), 
+								React.createElement("li", null, "Width: ~3ft")
+							), 				
+							React.createElement("h4", null, "Services:", React.createElement("span", {className: "price"},  "+£" + CurrentDeliveryUserDetailsStore.getCurrentTotalDeliveryPrice())), 
+							React.createElement("ul", {className: "list-unstyled"}, 
+								React.createElement("li", null, "Delivery: ", React.createElement("span", {className: "price"},  "+£" + CurrentDeliveryUserDetailsStore.getDeliveryOptionPrice())), 
+								CurrentDeliveryUserDetailsStore.getDecorationInstallationSelectionStatus() ? React.createElement("li", null, "Fitted and decorated: ", React.createElement("span", {className: "price"}, " +£15")) : null
+							)
+						), 
+						React.createElement("div", {className: "col-xs-6"}, 
+							React.createElement("h4", null, "Decorations:", React.createElement("span", {className: "price"},  "+£" + CurrentDecorationsUserDetailsStore.getCurrentTotalDecorationsPrice())), 
+							React.createElement("ul", {className: "list-unstyled"}, 
+								this.addDecorationToList()
+							)				
+						)
+					)
+				), 
+				React.createElement("div", {className: "col-xs-6"}, 
+					React.createElement("div", {className: "rounded-box"}, 
+						React.createElement("h2", null, "Final and total Price:"), 
+						React.createElement("span", {className: "price total-price"}, "£", TotalPriceStore.getCurrentOverallPrice())
+					), 
+					React.createElement("div", {className: "rounded-box"}, 
+						React.createElement("h2", null, "Estimated delivery date:"), 
+						React.createElement("span", {className: "delivery-date"}, CurrentDeliveryUserDetailsStore.getCurrentDaySelection(), "th ", CurrentDeliveryUserDetailsStore.getCurrentMonthSelection())
+					)
+				)
 			)
-		)
-	)
-    );
+    	);
+	}
   }
 });
 
@@ -50776,7 +50834,7 @@ module.exports = OrderSummary;
 
 
 
-},{"../stores/CurrentDecorationsUserDetailsStore.js":381,"../stores/CurrentDeliveryUserDetailsStore.js":382,"../stores/TotalPriceStore.js":386,"../stores/TreeInformationStore.js":387,"react":322}],356:[function(require,module,exports){
+},{"../stores/CurrentDecorationsUserDetailsStore.js":381,"../stores/CurrentDeliveryUserDetailsStore.js":382,"../stores/StateStore.js":385,"../stores/TotalPriceStore.js":386,"../stores/TreeInformationStore.js":387,"react":322}],356:[function(require,module,exports){
 var React = require('react');
 var OrdersPageActionCreators = require('../../actions/OrdersPageActionCreators.js');
 
@@ -50899,11 +50957,9 @@ var OrdersPage = React.createClass({displayName: "OrdersPage",
   createOrders: function () {
     var orders = OrdersStore.getOrdersArray().map(function (orderObject) {
       return (
-        React.createElement("div", {key: Math.random(), className: "rounded-box"}, 
-          React.createElement("div", {key: Math.random(), className: "row"}, 
-            React.createElement(OrderSummary, {key: orderObject.id, order: orderObject.userChoices}), 
-            React.createElement(OrderOptionsButtons, {key: orderObject._id})
-          )
+        React.createElement("div", {key: Math.random(), className: "row"}, 
+          React.createElement(OrderSummary, {key: orderObject.id, order: orderObject.userChoices}), 
+          React.createElement(OrderOptionsButtons, {key: orderObject._id})
         )
       );
     });
@@ -50918,7 +50974,9 @@ var OrdersPage = React.createClass({displayName: "OrdersPage",
         		React.createElement("div", {className: "row"}, 
               React.createElement(Header1, {label: "Order History"})
 	        	), 	
-              this.createOrders(), 
+            React.createElement("div", {className: "rounded-box"}, 
+              this.createOrders()
+	        	), 
               this.state.isCancellationFormVisible ? React.createElement(OrderCancellationConfirmation, null) : null
       		)
       	)
@@ -51034,6 +51092,7 @@ var PaymentPage = React.createClass({displayName: "PaymentPage",
     handleOrderConfirmButtonClickEvent : function () {
 
       PaymentPageActionCreators.setCurrentOrderId();
+      PaymentPageActionCreators.setOrder();
 
       console.log(OrdersStore.getOrder());
       console.log(OrdersStore.getCurrentOrderId());
@@ -51144,6 +51203,7 @@ var React = require('react');
 var SignInFormActionCreators = require('../actions/SignInFormActionCreators.js');
 var AuthenticationService = require('../services/authentication.js');
 var StateStore = require('../stores/StateStore.js');
+var OrdersStore = require('../stores/OrdersStore.js');
 var UserSignInDetailsStore = require('../stores/UserSignInDetailsStore.js');
 var HashID = require ('../services/HashID');
 
@@ -51190,10 +51250,40 @@ var RegisterForm = React.createClass({displayName: "RegisterForm",
         return;
       }
 
-      SignInFormActionCreators.setUserAuthenticationToken(response.token);
-      SignInFormActionCreators.setSignedInStatusToTrue();
-      this.hideRegisterFailMessage();
-      this.showRegisterSuccessMessage('Successfully registered');
+		AuthenticationService.signIn(this.refs.newEmail.value, this.refs.newPassword.value, function handleUserSignIn(error, response) {
+
+			if (error) {
+			    console.log('Cant sign in');
+			    return;
+			}
+
+			SignInFormActionCreators.setUserAuthenticationToken(response.token);
+			SignInFormActionCreators.setCurrentUserId(response.id);
+			SignInFormActionCreators.setSignedInStatusToTrue();
+
+			this.hideRegisterFailMessage();
+			this.showRegisterSuccessMessage('Successfully registered');
+
+			console.log("Signed in as well");
+
+			if (StateStore.getCurrentPage() === "THANKS_PAGE") {
+
+				console.log(UserSignInDetailsStore.getCurrentToken());
+
+				AuthenticationService.assignOrderToUser(OrdersStore.getCurrentOrderId(), UserSignInDetailsStore.getCurrentUserId(), UserSignInDetailsStore.getCurrentToken(), function handleUserSignIn(error, response) {
+
+					if (error) {
+					  console.log("No");
+					  // this.hideSignInSuccessMessage();
+					  // this.showSignInFailMessage('Failed to log in. Check email and password');
+					  return;
+					}
+
+					console.log("OrderAssignedHopefully");
+
+				}.bind(this));		
+			}
+		}.bind(this));
 
     }.bind(this));
   },
@@ -51256,7 +51346,7 @@ var RegisterForm = React.createClass({displayName: "RegisterForm",
 
 module.exports = RegisterForm;
 
-},{"../actions/SignInFormActionCreators.js":329,"../services/HashID":379,"../services/authentication.js":380,"../stores/StateStore.js":385,"../stores/UserSignInDetailsStore.js":388,"react":322}],364:[function(require,module,exports){
+},{"../actions/SignInFormActionCreators.js":329,"../services/HashID":379,"../services/authentication.js":380,"../stores/OrdersStore.js":383,"../stores/StateStore.js":385,"../stores/UserSignInDetailsStore.js":388,"react":322}],364:[function(require,module,exports){
 var React = require('react');
 var StateStore = require('../stores/StateStore.js');
 var UserSignInDetailsStore = require('../stores/UserSignInDetailsStore.js');
@@ -52114,7 +52204,7 @@ function saveOrder(order, orderId, handleResponse) {
   var data = {
     userChoices: order,
     id: orderId,
-    userId: "547g8x6n"
+    userId: "a9wm665z"
   };
 
   var request = jQuery.ajax({
@@ -52721,13 +52811,16 @@ var StateStore = require('../stores/StateStore.js');
 var TreeInformationStore = require('../stores/TreeInformationStore.js');
 var CurrentDecorationsUserDetailsStore = require('../stores/CurrentDecorationsUserDetailsStore.js');
 var CurrentDeliveryUserDetailsStore = require('../stores/CurrentDeliveryUserDetailsStore.js');
+var TotalPriceStore = require('../stores/TotalPriceStore.js');
 
 var order = {
 	height: "abc",
 	width: "def",
 	tree: TreeInformationStore.getCurrentTreeView(),
+	treePrice: TreeInformationStore.getCurrentPrice(),
 	decorationSelection: CurrentDecorationsUserDetailsStore.getDecorationStatus(),
 	listOfSelectedDecorations: CurrentDecorationsUserDetailsStore.getListOfSelectedDecorations(),
+	totalDecorationPrice: CurrentDecorationsUserDetailsStore.getCurrentTotalDecorationsPrice(),
 	delivery: StateStore.getDeliveryChoice(),
 	collection: StateStore.getCollectionChoice(),
 	collectionAddress: CurrentDeliveryUserDetailsStore.getCurrentSelectedCollectionAddress(),
@@ -52737,8 +52830,11 @@ var order = {
 	deliveryYear: CurrentDeliveryUserDetailsStore.getCurrentYearSelection(),
 	deliveryTime: CurrentDeliveryUserDetailsStore.getCurrentTimeSelection(),
 	deliveryAddress: CurrentDeliveryUserDetailsStore.getDeliveryAddressDetails(),
+	deliveryOptionPrice: CurrentDeliveryUserDetailsStore.getDeliveryOptionPrice(),
 	decorationInstallation: CurrentDeliveryUserDetailsStore.getDecorationInstallationSelectionStatus(),
-	additionalInformation: CurrentDeliveryUserDetailsStore.getAdditionalInformation()
+	totalDeliveryPrice: CurrentDeliveryUserDetailsStore.getCurrentTotalDeliveryPrice(),
+	additionalInformation: CurrentDeliveryUserDetailsStore.getAdditionalInformation(),
+	totalPrice: TotalPriceStore.getCurrentOverallPrice()
 };
 
 var currentOrderId = null;
@@ -52754,6 +52850,32 @@ function setOrdersArray(orders) {
 	ordersArray = orders;
 	console.log(OrdersStore.getOrdersArray());
 	OrdersStore.emit('change');
+}
+
+function setOrder() {
+	order = {
+		height: "abc",
+		width: "def",
+		tree: TreeInformationStore.getCurrentTreeView(),
+		treePrice: TreeInformationStore.getCurrentPrice(),
+		decorationSelection: CurrentDecorationsUserDetailsStore.getDecorationStatus(),
+		listOfSelectedDecorations: CurrentDecorationsUserDetailsStore.getListOfSelectedDecorations(),
+		totalDecorationPrice: CurrentDecorationsUserDetailsStore.getCurrentTotalDecorationsPrice(),
+		delivery: StateStore.getDeliveryChoice(),
+		collection: StateStore.getCollectionChoice(),
+		collectionAddress: CurrentDeliveryUserDetailsStore.getCurrentSelectedCollectionAddress(),
+		collectionCoordinates: CurrentDeliveryUserDetailsStore.getCurrentCollectionAddressCoordinates(),
+		deliveryDay: CurrentDeliveryUserDetailsStore.getCurrentDaySelection(),
+		deliveryMonth: CurrentDeliveryUserDetailsStore.getCurrentMonthSelection(),
+		deliveryYear: CurrentDeliveryUserDetailsStore.getCurrentYearSelection(),
+		deliveryTime: CurrentDeliveryUserDetailsStore.getCurrentTimeSelection(),
+		deliveryAddress: CurrentDeliveryUserDetailsStore.getDeliveryAddressDetails(),
+		deliveryOptionPrice: CurrentDeliveryUserDetailsStore.getDeliveryOptionPrice(),
+		decorationInstallation: CurrentDeliveryUserDetailsStore.getDecorationInstallationSelectionStatus(),
+		totalDeliveryPrice: CurrentDeliveryUserDetailsStore.getCurrentTotalDeliveryPrice(),
+		additionalInformation: CurrentDeliveryUserDetailsStore.getAdditionalInformation(),
+		totalPrice: TotalPriceStore.getCurrentOverallPrice()
+	};
 }
 
 var OrdersStore = objectAssign({}, EventEmitter.prototype, {
@@ -52775,18 +52897,18 @@ var OrdersStore = objectAssign({}, EventEmitter.prototype, {
 function handleAction(action) {
 	if (action.type === 'set-current-order-id') {
 		setCurrentOrderId();
-	}  else if (action.type === 'send-orders-to-store') {
-		console.log('ok')
-		console.log(action.orders);
+	} else if (action.type === 'send-orders-to-store') {
 		setOrdersArray(action.orders);
-	} 
+	} else if (action.type === 'set-order') {
+		setOrder();
+	}
 }
 
 OrdersStore.dispatchToken = Dispatcher.register(handleAction);
 
 module.exports = OrdersStore;
 
-},{"../dispatcher/Dispatcher":378,"../services/HashID":379,"../stores/CurrentDecorationsUserDetailsStore.js":381,"../stores/CurrentDeliveryUserDetailsStore.js":382,"../stores/StateStore.js":385,"../stores/TreeInformationStore.js":387,"events":2,"object-assign":8}],384:[function(require,module,exports){
+},{"../dispatcher/Dispatcher":378,"../services/HashID":379,"../stores/CurrentDecorationsUserDetailsStore.js":381,"../stores/CurrentDeliveryUserDetailsStore.js":382,"../stores/StateStore.js":385,"../stores/TotalPriceStore.js":386,"../stores/TreeInformationStore.js":387,"events":2,"object-assign":8}],384:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher');
 var EventEmitter = require('events').EventEmitter;
 var objectAssign = require('object-assign');

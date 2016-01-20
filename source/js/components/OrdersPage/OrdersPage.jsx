@@ -51,7 +51,7 @@ var OrdersPage = React.createClass({
               <Header1 label="Order History"/>
 	        	</div>	
             <div className="rounded-box">
-                {this.createOrders()}
+              {this.createOrders()}
 	        	</div>
               {this.state.isCancellationFormVisible ? <OrderCancellationConfirmation /> : null}
       		</div>
