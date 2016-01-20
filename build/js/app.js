@@ -50681,6 +50681,7 @@ module.exports = StartButton;
 var React = require('react');
 var NavBarActionCreators = require('../actions/NavBarActionCreators.js');
 var UserSignInDetailsStore = require('../stores/UserSignInDetailsStore.js');
+var SignInFormActionCreators = require('../actions/SignInFormActionCreators.js');
 var StateStore = require('../stores/StateStore.js');
 
 var NavBar = React.createClass({displayName: "NavBar",
@@ -50695,6 +50696,7 @@ var NavBar = React.createClass({displayName: "NavBar",
   	event.preventDefault();
 
   	if (UserSignInDetailsStore.getSignedInStatus() === true) {
+      SignInFormActionCreators.sendOrdersToStore();
     	NavBarActionCreators.changeToOrdersPage();
 	}
 	else {
@@ -50717,7 +50719,7 @@ var NavBar = React.createClass({displayName: "NavBar",
 module.exports = NavBar;
 
 
-},{"../actions/NavBarActionCreators.js":326,"../stores/StateStore.js":385,"../stores/UserSignInDetailsStore.js":388,"react":322}],355:[function(require,module,exports){
+},{"../actions/NavBarActionCreators.js":326,"../actions/SignInFormActionCreators.js":329,"../stores/StateStore.js":385,"../stores/UserSignInDetailsStore.js":388,"react":322}],355:[function(require,module,exports){
 var React = require('react');
 var StateStore = require('../stores/StateStore.js');
 var TreeInformationStore = require('../stores/TreeInformationStore.js');

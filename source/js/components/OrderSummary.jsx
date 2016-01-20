@@ -44,7 +44,7 @@ var OrderSummary = React.createClass({
 							</ul>				
 							<h4>Services:<span className="price">{ "+£" + this.props.order.totalDeliveryPrice}</span></h4>
 							<ul className="list-unstyled">
-								<li>Delivery: <span className="price">{ "+£" + this.props.order.decorationInstallation ? (this.props.order.deliveryOptionPrice-15) : this.props.order.deliveryOptionPrice}</span></li>
+								<li>Delivery: <span className="price">{ "+£" + this.props.order.decorationInstallation ? (this.props.order.deliveryOptionPrice) : this.props.order.deliveryOptionPrice}</span></li>
 								{this.props.order.decorationInstallation ? <li>Fitted and decorated: <span className="price"> +£15</span></li> : null}
 							</ul>
 						</div>

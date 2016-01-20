@@ -1,6 +1,7 @@
 var React = require('react');
 var NavBarActionCreators = require('../actions/NavBarActionCreators.js');
 var UserSignInDetailsStore = require('../stores/UserSignInDetailsStore.js');
+var SignInFormActionCreators = require('../actions/SignInFormActionCreators.js');
 var StateStore = require('../stores/StateStore.js');
 
 var NavBar = React.createClass({
@@ -15,6 +16,7 @@ var NavBar = React.createClass({
   	event.preventDefault();
 
   	if (UserSignInDetailsStore.getSignedInStatus() === true) {
+      SignInFormActionCreators.sendOrdersToStore();
     	NavBarActionCreators.changeToOrdersPage();
 	}
 	else {
