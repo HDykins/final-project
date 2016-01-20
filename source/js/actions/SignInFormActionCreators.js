@@ -1,4 +1,16 @@
+var AuthenticationService = require('../services/authentication.js');
+var UserSignInDetailsStore = require('../stores/UserSignInDetailsStore.js');
+var OrdersStore = require('../stores/OrdersStore.js');
+
 var Dispatcher = require('../dispatcher/Dispatcher');
+
+function changeToOrdersPage() {
+	var action = {
+		type: 'change-to-orders-page',
+	};
+
+	Dispatcher.dispatch(action);
+}
 
 function setShowRegisterForm() {
 	var action = {
@@ -42,10 +54,45 @@ function setCurrentUserId(id) {
 	Dispatcher.dispatch(action);
 }
 
+function sendOrdersToStore() {
+
+
+	AuthenticationService.getOrders(UserSignInDetailsStore.getCurrentUserId(), UserSignInDetailsStore.getCurrentToken(), function handleUserRegister(error, response) {
+
+	    if (error) {
+	      console.log("Didn't get orders");
+	      // this.showRegisterFailMessage('Failed to register. Email may be in use');
+	      return;
+	    }
+
+	    console.log("Got orders from sign-in page");
+	    console.log(UserSignInDetailsStore.getCurrentUserId());
+	    console.log(UserSignInDetailsStore.getCurrentToken());
+	    console.log(OrdersStore.getOrdersArray());
+	    // SignInFormActionCreators.setUserAuthenticationToken(response.token);
+	    // SignInFormActionCreators.setSignedInStatusToTrue();
+	    // this.hideRegisterFailMessage();
+	    // this.showRegisterSuccessMessage('Successfully registered');
+	    console.log(response);
+
+	    var action = {
+			type: 'send-orders-to-store',
+			orders: response,
+		};
+
+		Dispatcher.dispatch(action);
+		changeToOrdersPage();
+
+	});
+
+}
+
 module.exports = {
+	changeToOrdersPage: changeToOrdersPage,
 	setShowRegisterForm: setShowRegisterForm,
 	setHideRegisterForm: setHideRegisterForm,
 	setUserAuthenticationToken: setUserAuthenticationToken,
 	setSignedInStatusToTrue: setSignedInStatusToTrue,
-	setCurrentUserId: setCurrentUserId
+	setCurrentUserId: setCurrentUserId,
+	sendOrdersToStore: sendOrdersToStore
 };

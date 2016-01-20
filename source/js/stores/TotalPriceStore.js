@@ -7,7 +7,7 @@ var CurrentDecorationsUserDetailsStore = require('./CurrentDecorationsUserDetail
 var CurrentDeliveryUserDetailsStore = require('./CurrentDeliveryUserDetailsStore.js');
 
 
-currentTotalPrice = TreeInformationStore.getCurrentPrice();
+var currentTotalPrice = TreeInformationStore.getCurrentPrice();
 
 function sumAllPrices() {
   

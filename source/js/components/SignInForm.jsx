@@ -1,6 +1,6 @@
 var React = require('react');
 var StateStore = require('../stores/StateStore.js');
-var UserSignInDetailsStore = require('../stores/UserSignInDetailsStore.js')
+var UserSignInDetailsStore = require('../stores/UserSignInDetailsStore.js');
 var OrdersStore = require('../stores/OrdersStore.js');
 var SignInFormActionCreators = require('../actions/SignInFormActionCreators.js');
 var AuthenticationService = require('../services/authentication.js');
@@ -45,53 +45,65 @@ var SignInForm = React.createClass({
   },
 
   handleUserSignInFormSubmit: function () {
+
+    if (StateStore.getCurrentPage() === "THANKS_PAGE") {
+
+      AuthenticationService.signIn(this.refs.email.value, this.refs.password.value, function handleUserSignIn(error, response) {
+
+        if (error) {
+        	this.hideSignInSuccessMessage();
+          this.showSignInFailMessage('Failed to log in. Check email and password');
+          return;
+        }
+
+        SignInFormActionCreators.setUserAuthenticationToken(response.token);
+        SignInFormActionCreators.setCurrentUserId(response.id);
+        SignInFormActionCreators.setSignedInStatusToTrue();
+        this.hideSignInFailMessage();
+        this.showSignInSuccessMessage('You are signed in');
+        // console.log(OrdersStore.getOrder());
+        // console.log(UserSignInDetailsStore.getSignedInStatus());
+        // console.log(UserSignInDetailsStore.getCurrentToken());
+
+          AuthenticationService.assignOrderToUser(OrdersStore.getCurrentOrderId(), UserSignInDetailsStore.getCurrentUserId(), UserSignInDetailsStore.getCurrentToken(), function handleUserSignIn(error, response) {
+
+        if (error) {
+          console.log("No");
+          // this.hideSignInSuccessMessage();
+          // this.showSignInFailMessage('Failed to log in. Check email and password');
+          return;
+        }
+
+        console.log("OrderAssignedHopefully");
+
+        }.bind(this));
+            
+
+    }.bind(this));
+  } else if (StateStore.getCurrentPage() === "SIGN_IN_PAGE") { 
+
     AuthenticationService.signIn(this.refs.email.value, this.refs.password.value, function handleUserSignIn(error, response) {
 
-      if (error) {
-      	this.hideSignInSuccessMessage();
-        this.showSignInFailMessage('Failed to log in. Check email and password');
-        return;
-      }
+    if (error) {
+      this.hideSignInSuccessMessage();
+      this.showSignInFailMessage('Failed to log in. Check email and password');
+      return;
+    }
 
-      SignInFormActionCreators.setUserAuthenticationToken(response.token);
-      SignInFormActionCreators.setCurrentUserId(response.id);
-      SignInFormActionCreators.setSignedInStatusToTrue();
-      this.hideSignInFailMessage();
-      this.showSignInSuccessMessage('You are signed in');
-      // console.log(OrdersStore.getOrder());
-      // console.log(UserSignInDetailsStore.getSignedInStatus());
-      // console.log(UserSignInDetailsStore.getCurrentToken());
+    SignInFormActionCreators.setUserAuthenticationToken(response.token);
+    SignInFormActionCreators.setCurrentUserId(response.id);
+    SignInFormActionCreators.setSignedInStatusToTrue();
+    this.hideSignInFailMessage();
+    this.showSignInSuccessMessage('You are signed in');
 
-        AuthenticationService.assignOrderToUser(OrdersStore.getCurrentOrderId(), UserSignInDetailsStore.getCurrentUserId(), UserSignInDetailsStore.getCurrentToken(), function handleUserSignIn(error, response) {
+    SignInFormActionCreators.sendOrdersToStore();
+    console.log(OrdersStore.getOrdersArray());
+    // console.log(OrdersStore.getOrder());
+    // console.log(UserSignInDetailsStore.getSignedInStatus());
+    // console.log(UserSignInDetailsStore.getCurrentToken());
+    }.bind(this));
 
-      if (error) {
-        console.log("No");
-        // this.hideSignInSuccessMessage();
-        // this.showSignInFailMessage('Failed to log in. Check email and password');
-        return;
-      }
-
-      console.log("OrderAssignedHopefully");
-
-      }.bind(this));
-
-        // AuthenticationService.getOrders(UserSignInDetailsStore.getCurrentUserID(), UserSignInDetailsStore.getCurrentToken(), function handleUserRegister(error, response) {
-
-        //   if (error) {
-        //     console.log("No");
-        //     // this.showRegisterFailMessage('Failed to register. Email may be in use');
-        //     return;
-        //   }
-
-        //   console.log("Yes");
-        //   // SignInFormActionCreators.setUserAuthenticationToken(response.token);
-        //   // SignInFormActionCreators.setSignedInStatusToTrue();
-        //   // this.hideRegisterFailMessage();
-        //   // this.showRegisterSuccessMessage('Successfully registered');
-
-        // }.bind(this));
-
-  }.bind(this));
+  }
 
 
   },

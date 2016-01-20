@@ -35,11 +35,14 @@ var DeliveryPage = React.createClass({
   componentDidMount: function () {
       StateStore.addChangeListener(this.updateState);
       CurrentDeliveryUserDetailsStore.addChangeListener(this.updateState);
+      OrdersStore.addChangeListener(this.updateState);
   },
 
   componentWillUnmount: function () {
+    console.debug("degugged");
       StateStore.removeChangeListener(this.updateState);
-      CurrentDeliveryUserDetailsStore.addChangeListener(this.updateState);
+      CurrentDeliveryUserDetailsStore.removeChangeListener(this.updateState);
+      OrdersStore.removeChangeListener(this.updateState);
   },    
 
   render: function () {

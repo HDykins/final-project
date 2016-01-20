@@ -112,7 +112,41 @@ function getOrders(userId, token, handleResponse) {
 
   var request = jQuery.ajax({
     method: 'get',
-    url: HOST_NAME + API_ENDPOINTS.SIGN_IN + "/" + userId + "?token=" + token,
+    url: HOST_NAME + API_ENDPOINTS.ORDER + "/user/" + userId + "?token=" + token,
+    dataType: 'json',
+  });
+
+  request.fail(function (jqXHR, textStatus, errorThrown) {
+    handleResponse(jqXHR, null);
+  });
+
+  request.done(function (data) {
+    handleResponse(null, data);
+  });
+}
+
+function getOrder(orderId, token, handleResponse) {
+
+  var request = jQuery.ajax({
+    method: 'get',
+    url: HOST_NAME + API_ENDPOINTS.ORDER + "/" + orderId + "?token=" + token,
+    dataType: 'json',
+  });
+
+  request.fail(function (jqXHR, textStatus, errorThrown) {
+    handleResponse(jqXHR, null);
+  });
+
+  request.done(function (data) {
+    handleResponse(null, data);
+  });
+}
+
+function deleteOrder(orderId, token, handleResponse) {
+
+  var request = jQuery.ajax({
+    method: 'delete',
+    url: HOST_NAME + API_ENDPOINTS.ORDER + "/" + orderId + "?token=" + token,
     dataType: 'json',
   });
 
@@ -146,5 +180,8 @@ module.exports = {
   register: register,
   saveOrder: saveOrder,
   assignOrderToUser: assignOrderToUser,
+  getOrders: getOrders,
+  getOrder: getOrder,
+  deleteOrder: deleteOrder,
   getPostCode: getPostCode
 };

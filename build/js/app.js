@@ -49268,7 +49268,19 @@ module.exports = {
 };
 
 },{"../dispatcher/Dispatcher":378}],329:[function(require,module,exports){
+var AuthenticationService = require('../services/authentication.js');
+var UserSignInDetailsStore = require('../stores/UserSignInDetailsStore.js');
+var OrdersStore = require('../stores/OrdersStore.js');
+
 var Dispatcher = require('../dispatcher/Dispatcher');
+
+function changeToOrdersPage() {
+	var action = {
+		type: 'change-to-orders-page',
+	};
+
+	Dispatcher.dispatch(action);
+}
 
 function setShowRegisterForm() {
 	var action = {
@@ -49312,15 +49324,50 @@ function setCurrentUserId(id) {
 	Dispatcher.dispatch(action);
 }
 
+function sendOrdersToStore() {
+
+
+	AuthenticationService.getOrders(UserSignInDetailsStore.getCurrentUserId(), UserSignInDetailsStore.getCurrentToken(), function handleUserRegister(error, response) {
+
+	    if (error) {
+	      console.log("Didn't get orders");
+	      // this.showRegisterFailMessage('Failed to register. Email may be in use');
+	      return;
+	    }
+
+	    console.log("Got orders from sign-in page");
+	    console.log(UserSignInDetailsStore.getCurrentUserId());
+	    console.log(UserSignInDetailsStore.getCurrentToken());
+	    console.log(OrdersStore.getOrdersArray());
+	    // SignInFormActionCreators.setUserAuthenticationToken(response.token);
+	    // SignInFormActionCreators.setSignedInStatusToTrue();
+	    // this.hideRegisterFailMessage();
+	    // this.showRegisterSuccessMessage('Successfully registered');
+	    console.log(response);
+
+	    var action = {
+			type: 'send-orders-to-store',
+			orders: response,
+		};
+
+		Dispatcher.dispatch(action);
+		changeToOrdersPage();
+
+	});
+
+}
+
 module.exports = {
+	changeToOrdersPage: changeToOrdersPage,
 	setShowRegisterForm: setShowRegisterForm,
 	setHideRegisterForm: setHideRegisterForm,
 	setUserAuthenticationToken: setUserAuthenticationToken,
 	setSignedInStatusToTrue: setSignedInStatusToTrue,
-	setCurrentUserId: setCurrentUserId
+	setCurrentUserId: setCurrentUserId,
+	sendOrdersToStore: sendOrdersToStore
 };
 
-},{"../dispatcher/Dispatcher":378}],330:[function(require,module,exports){
+},{"../dispatcher/Dispatcher":378,"../services/authentication.js":380,"../stores/OrdersStore.js":383,"../stores/UserSignInDetailsStore.js":388}],330:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher');
 
 
@@ -50413,11 +50460,14 @@ var DeliveryPage = React.createClass({displayName: "DeliveryPage",
   componentDidMount: function () {
       StateStore.addChangeListener(this.updateState);
       CurrentDeliveryUserDetailsStore.addChangeListener(this.updateState);
+      OrdersStore.addChangeListener(this.updateState);
   },
 
   componentWillUnmount: function () {
+    console.debug("degugged");
       StateStore.removeChangeListener(this.updateState);
-      CurrentDeliveryUserDetailsStore.addChangeListener(this.updateState);
+      CurrentDeliveryUserDetailsStore.removeChangeListener(this.updateState);
+      OrdersStore.removeChangeListener(this.updateState);
   },    
 
   render: function () {
@@ -50816,6 +50866,7 @@ module.exports = OrderOptionsButtons;
 },{"../../actions/OrdersPageActionCreators.js":327,"react":322}],358:[function(require,module,exports){
 var React = require('react');
 var NavBar = require('../NavBar.jsx');
+var OrdersStore = require('../../stores/OrdersStore.js');
 var PopUpStore = require('../../stores/PopUpStore.js');
 var Header1 = require('../Header1.jsx');
 var OrderSummary = require('../OrderSummary.jsx');
@@ -50845,6 +50896,20 @@ var OrdersPage = React.createClass({displayName: "OrdersPage",
     PopUpStore.removeChangeListener(this.updateState);
   },
 
+  createOrders: function () {
+    var orders = OrdersStore.getOrdersArray().map(function (orderObject) {
+      return (
+        React.createElement("div", {key: Math.random(), className: "rounded-box"}, 
+          React.createElement("div", {key: Math.random(), className: "row"}, 
+            React.createElement(OrderSummary, {key: orderObject.id, order: orderObject.userChoices}), 
+            React.createElement(OrderOptionsButtons, {key: orderObject._id})
+          )
+        )
+      );
+    });
+    return orders;
+  },
+
   render: function () {
     return (
     	React.createElement("div", {className: "container-fluid grey-background"}, 
@@ -50853,12 +50918,7 @@ var OrdersPage = React.createClass({displayName: "OrdersPage",
         		React.createElement("div", {className: "row"}, 
               React.createElement(Header1, {label: "Order History"})
 	        	), 	
-            React.createElement("div", {className: "rounded-box"}, 
-  	        	React.createElement("div", {className: "row"}, 
-                React.createElement(OrderSummary, null)
-              ), 
-                React.createElement(OrderOptionsButtons, null)
-	        	), 
+              this.createOrders(), 
               this.state.isCancellationFormVisible ? React.createElement(OrderCancellationConfirmation, null) : null
       		)
       	)
@@ -50868,7 +50928,7 @@ var OrdersPage = React.createClass({displayName: "OrdersPage",
 
 module.exports = OrdersPage;
 
-},{"../../stores/PopUpStore.js":384,"../Header1.jsx":351,"../NavBar.jsx":354,"../OrderSummary.jsx":355,"./OrderCancellationConfirmation.jsx":356,"./OrderOptionsButtons.jsx":357,"react":322}],359:[function(require,module,exports){
+},{"../../stores/OrdersStore.js":383,"../../stores/PopUpStore.js":384,"../Header1.jsx":351,"../NavBar.jsx":354,"../OrderSummary.jsx":355,"./OrderCancellationConfirmation.jsx":356,"./OrderOptionsButtons.jsx":357,"react":322}],359:[function(require,module,exports){
 var React = require('react');
 var PaymentPageActionCreators = require('../../actions/PaymentPageActionCreators.js');
 
@@ -51199,7 +51259,7 @@ module.exports = RegisterForm;
 },{"../actions/SignInFormActionCreators.js":329,"../services/HashID":379,"../services/authentication.js":380,"../stores/StateStore.js":385,"../stores/UserSignInDetailsStore.js":388,"react":322}],364:[function(require,module,exports){
 var React = require('react');
 var StateStore = require('../stores/StateStore.js');
-var UserSignInDetailsStore = require('../stores/UserSignInDetailsStore.js')
+var UserSignInDetailsStore = require('../stores/UserSignInDetailsStore.js');
 var OrdersStore = require('../stores/OrdersStore.js');
 var SignInFormActionCreators = require('../actions/SignInFormActionCreators.js');
 var AuthenticationService = require('../services/authentication.js');
@@ -51244,53 +51304,65 @@ var SignInForm = React.createClass({displayName: "SignInForm",
   },
 
   handleUserSignInFormSubmit: function () {
+
+    if (StateStore.getCurrentPage() === "THANKS_PAGE") {
+
+      AuthenticationService.signIn(this.refs.email.value, this.refs.password.value, function handleUserSignIn(error, response) {
+
+        if (error) {
+        	this.hideSignInSuccessMessage();
+          this.showSignInFailMessage('Failed to log in. Check email and password');
+          return;
+        }
+
+        SignInFormActionCreators.setUserAuthenticationToken(response.token);
+        SignInFormActionCreators.setCurrentUserId(response.id);
+        SignInFormActionCreators.setSignedInStatusToTrue();
+        this.hideSignInFailMessage();
+        this.showSignInSuccessMessage('You are signed in');
+        // console.log(OrdersStore.getOrder());
+        // console.log(UserSignInDetailsStore.getSignedInStatus());
+        // console.log(UserSignInDetailsStore.getCurrentToken());
+
+          AuthenticationService.assignOrderToUser(OrdersStore.getCurrentOrderId(), UserSignInDetailsStore.getCurrentUserId(), UserSignInDetailsStore.getCurrentToken(), function handleUserSignIn(error, response) {
+
+        if (error) {
+          console.log("No");
+          // this.hideSignInSuccessMessage();
+          // this.showSignInFailMessage('Failed to log in. Check email and password');
+          return;
+        }
+
+        console.log("OrderAssignedHopefully");
+
+        }.bind(this));
+            
+
+    }.bind(this));
+  } else if (StateStore.getCurrentPage() === "SIGN_IN_PAGE") { 
+
     AuthenticationService.signIn(this.refs.email.value, this.refs.password.value, function handleUserSignIn(error, response) {
 
-      if (error) {
-      	this.hideSignInSuccessMessage();
-        this.showSignInFailMessage('Failed to log in. Check email and password');
-        return;
-      }
+    if (error) {
+      this.hideSignInSuccessMessage();
+      this.showSignInFailMessage('Failed to log in. Check email and password');
+      return;
+    }
 
-      SignInFormActionCreators.setUserAuthenticationToken(response.token);
-      SignInFormActionCreators.setCurrentUserId(response.id);
-      SignInFormActionCreators.setSignedInStatusToTrue();
-      this.hideSignInFailMessage();
-      this.showSignInSuccessMessage('You are signed in');
-      // console.log(OrdersStore.getOrder());
-      // console.log(UserSignInDetailsStore.getSignedInStatus());
-      // console.log(UserSignInDetailsStore.getCurrentToken());
+    SignInFormActionCreators.setUserAuthenticationToken(response.token);
+    SignInFormActionCreators.setCurrentUserId(response.id);
+    SignInFormActionCreators.setSignedInStatusToTrue();
+    this.hideSignInFailMessage();
+    this.showSignInSuccessMessage('You are signed in');
 
-        AuthenticationService.assignOrderToUser(OrdersStore.getCurrentOrderId(), UserSignInDetailsStore.getCurrentUserId(), UserSignInDetailsStore.getCurrentToken(), function handleUserSignIn(error, response) {
+    SignInFormActionCreators.sendOrdersToStore();
+    console.log(OrdersStore.getOrdersArray());
+    // console.log(OrdersStore.getOrder());
+    // console.log(UserSignInDetailsStore.getSignedInStatus());
+    // console.log(UserSignInDetailsStore.getCurrentToken());
+    }.bind(this));
 
-      if (error) {
-        console.log("No");
-        // this.hideSignInSuccessMessage();
-        // this.showSignInFailMessage('Failed to log in. Check email and password');
-        return;
-      }
-
-      console.log("OrderAssignedHopefully");
-
-      }.bind(this));
-
-        // AuthenticationService.getOrders(UserSignInDetailsStore.getCurrentUserID(), UserSignInDetailsStore.getCurrentToken(), function handleUserRegister(error, response) {
-
-        //   if (error) {
-        //     console.log("No");
-        //     // this.showRegisterFailMessage('Failed to register. Email may be in use');
-        //     return;
-        //   }
-
-        //   console.log("Yes");
-        //   // SignInFormActionCreators.setUserAuthenticationToken(response.token);
-        //   // SignInFormActionCreators.setSignedInStatusToTrue();
-        //   // this.hideRegisterFailMessage();
-        //   // this.showRegisterSuccessMessage('Successfully registered');
-
-        // }.bind(this));
-
-  }.bind(this));
+  }
 
 
   },
@@ -52114,7 +52186,41 @@ function getOrders(userId, token, handleResponse) {
 
   var request = jQuery.ajax({
     method: 'get',
-    url: HOST_NAME + API_ENDPOINTS.SIGN_IN + "/" + userId + "?token=" + token,
+    url: HOST_NAME + API_ENDPOINTS.ORDER + "/user/" + userId + "?token=" + token,
+    dataType: 'json',
+  });
+
+  request.fail(function (jqXHR, textStatus, errorThrown) {
+    handleResponse(jqXHR, null);
+  });
+
+  request.done(function (data) {
+    handleResponse(null, data);
+  });
+}
+
+function getOrder(orderId, token, handleResponse) {
+
+  var request = jQuery.ajax({
+    method: 'get',
+    url: HOST_NAME + API_ENDPOINTS.ORDER + "/" + orderId + "?token=" + token,
+    dataType: 'json',
+  });
+
+  request.fail(function (jqXHR, textStatus, errorThrown) {
+    handleResponse(jqXHR, null);
+  });
+
+  request.done(function (data) {
+    handleResponse(null, data);
+  });
+}
+
+function deleteOrder(orderId, token, handleResponse) {
+
+  var request = jQuery.ajax({
+    method: 'delete',
+    url: HOST_NAME + API_ENDPOINTS.ORDER + "/" + orderId + "?token=" + token,
     dataType: 'json',
   });
 
@@ -52148,6 +52254,9 @@ module.exports = {
   register: register,
   saveOrder: saveOrder,
   assignOrderToUser: assignOrderToUser,
+  getOrders: getOrders,
+  getOrder: getOrder,
+  deleteOrder: deleteOrder,
   getPostCode: getPostCode
 };
 
@@ -52608,6 +52717,10 @@ var Dispatcher = require('../dispatcher/Dispatcher');
 var EventEmitter = require('events').EventEmitter;
 var objectAssign = require('object-assign');
 var HashID = require ('../services/HashID');
+var StateStore = require('../stores/StateStore.js');
+var TreeInformationStore = require('../stores/TreeInformationStore.js');
+var CurrentDecorationsUserDetailsStore = require('../stores/CurrentDecorationsUserDetailsStore.js');
+var CurrentDeliveryUserDetailsStore = require('../stores/CurrentDeliveryUserDetailsStore.js');
 
 var order = {
 	height: "abc",
@@ -52630,8 +52743,17 @@ var order = {
 
 var currentOrderId = null;
 
+
+var ordersArray = [];
+
 function setCurrentOrderId() {
 	currentOrderId = HashID.generate();
+}
+
+function setOrdersArray(orders) {
+	ordersArray = orders;
+	console.log(OrdersStore.getOrdersArray());
+	OrdersStore.emit('change');
 }
 
 var OrdersStore = objectAssign({}, EventEmitter.prototype, {
@@ -52644,13 +52766,19 @@ var OrdersStore = objectAssign({}, EventEmitter.prototype, {
   	return currentOrderId;
   },
 
+  getOrdersArray: function () {
+  	return ordersArray;
+  },
+
 });
 
 function handleAction(action) {
-	if (action.type === 'set-signed-in-stajktus-to-true') {
-		setSignedInStatusToTrue();
-	} else if (action.type === 'set-current-order-id') {
+	if (action.type === 'set-current-order-id') {
 		setCurrentOrderId();
+	}  else if (action.type === 'send-orders-to-store') {
+		console.log('ok')
+		console.log(action.orders);
+		setOrdersArray(action.orders);
 	} 
 }
 
@@ -52658,7 +52786,7 @@ OrdersStore.dispatchToken = Dispatcher.register(handleAction);
 
 module.exports = OrdersStore;
 
-},{"../dispatcher/Dispatcher":378,"../services/HashID":379,"events":2,"object-assign":8}],384:[function(require,module,exports){
+},{"../dispatcher/Dispatcher":378,"../services/HashID":379,"../stores/CurrentDecorationsUserDetailsStore.js":381,"../stores/CurrentDeliveryUserDetailsStore.js":382,"../stores/StateStore.js":385,"../stores/TreeInformationStore.js":387,"events":2,"object-assign":8}],384:[function(require,module,exports){
 var Dispatcher = require('../dispatcher/Dispatcher');
 var EventEmitter = require('events').EventEmitter;
 var objectAssign = require('object-assign');
@@ -52902,7 +53030,7 @@ var CurrentDecorationsUserDetailsStore = require('./CurrentDecorationsUserDetail
 var CurrentDeliveryUserDetailsStore = require('./CurrentDeliveryUserDetailsStore.js');
 
 
-currentTotalPrice = TreeInformationStore.getCurrentPrice();
+var currentTotalPrice = TreeInformationStore.getCurrentPrice();
 
 function sumAllPrices() {
   
