@@ -45,7 +45,7 @@ var PaymentPage = React.createClass({
       console.log(OrdersStore.getOrder());
       console.log(OrdersStore.getCurrentOrderId());
 
-          AuthenticationService.saveOrder(OrdersStore.getOrder(), OrdersStore.getCurrentOrderId(), function handleUserCofirmOrder(error, response) {
+          AuthenticationService.saveOrder(OrdersStore.getOrder(), OrdersStore.getCurrentOrderId(), UserSignInDetailsStore.getCurrentUserId(), function handleUserCofirmOrder(error, response) {
 
           if (error) {
             console.log("No");

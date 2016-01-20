@@ -51097,11 +51097,10 @@ var PaymentPage = React.createClass({displayName: "PaymentPage",
       console.log(OrdersStore.getOrder());
       console.log(OrdersStore.getCurrentOrderId());
 
-          AuthenticationService.saveOrder(OrdersStore.getOrder(), OrdersStore.getCurrentOrderId(), function handleUserCofirmOrder(error, response) {
+          AuthenticationService.saveOrder(OrdersStore.getOrder(), OrdersStore.getCurrentOrderId(), UserSignInDetailsStore.getCurrentUserId(), function handleUserCofirmOrder(error, response) {
 
           if (error) {
             console.log("No");
-            // this.showRegisterFailMessage('Failed to register. Email may be in use');
             return;
           }
 
@@ -51109,10 +51108,6 @@ var PaymentPage = React.createClass({displayName: "PaymentPage",
           if (UserSignInDetailsStore.getSignedInStatus()) {
             null
           }
-          // SignInFormActionCreators.setUserAuthenticationToken(response.token);
-          // PaymentPageActionCreators.setSignedInStatusToTrue();
-          // this.hideRegisterFailMessage();
-          // this.showRegisterSuccessMessage('Successfully registered');
 
         }.bind(this));
     },       
@@ -52197,15 +52192,23 @@ function register(email, password, phoneNumber, id, handleResponse) {
   });
 }
 
-function saveOrder(order, orderId, handleResponse) {
+function saveOrder(order, orderId, userId, handleResponse) {
 
   console.log(order);
 
-  var data = {
-    userChoices: order,
-    id: orderId,
-    userId: "a9wm665z"
-  };
+  if(userId) {
+    var data = {
+      userChoices: order,
+      id: orderId,
+      userId: userId
+    };
+  } else {
+    var data = {
+      userChoices: order,
+      id: orderId,
+      userId: "a9wm665z"
+    };
+  }
 
   var request = jQuery.ajax({
     method: 'post',

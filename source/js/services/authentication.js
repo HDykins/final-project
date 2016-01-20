@@ -33,15 +33,23 @@ function register(email, password, phoneNumber, id, handleResponse) {
   });
 }
 
-function saveOrder(order, orderId, handleResponse) {
+function saveOrder(order, orderId, userId, handleResponse) {
 
   console.log(order);
 
-  var data = {
-    userChoices: order,
-    id: orderId,
-    userId: "a9wm665z"
-  };
+  if(userId) {
+    var data = {
+      userChoices: order,
+      id: orderId,
+      userId: userId
+    };
+  } else {
+    var data = {
+      userChoices: order,
+      id: orderId,
+      userId: "a9wm665z"
+    };
+  }
 
   var request = jQuery.ajax({
     method: 'post',
