@@ -50296,7 +50296,7 @@ var DeliveryDate = React.createClass({displayName: "DeliveryDate",
 			              React.createElement("span", {className: "caret"})
 			            ), 
 			            React.createElement("ul", {className: "dropdown-menu", "aria-labelledby": "dropdown-lights"}, 
-			              React.createElement("li", {onClick: this.handleYearSelectionClickEvent}, React.createElement("a", {href: "#"}, "2016"))
+			              React.createElement("li", {onClick: this.handleYearSelectionClickEvent}, React.createElement("a", null, "2016"))
 			            )
 			        )	
 		        )	         
@@ -50310,8 +50310,8 @@ var DeliveryDate = React.createClass({displayName: "DeliveryDate",
 		              React.createElement("span", {className: "caret"})
 		            ), 
 		            React.createElement("ul", {className: "dropdown-menu", "aria-labelledby": "dropdown-lights"}, 
-		              React.createElement("li", {onClick: this.handleSetTimeToMorningClickEvent}, React.createElement("a", {href: "#"}, "Morning (8-12:30)")), 
-		              React.createElement("li", {onClick: this.handleSetTimeToAfternoonClickEvent}, React.createElement("a", {href: "#"}, "Afternoon (12:30-5)"))
+		              React.createElement("li", {onClick: this.handleSetTimeToMorningClickEvent}, React.createElement("a", null, "Morning ( 8-12:30 )")), 
+		              React.createElement("li", {onClick: this.handleSetTimeToAfternoonClickEvent}, React.createElement("a", null, "Afternoon ( 12:30-5 )"))
 		            )
 		         )	
 			)
@@ -50337,7 +50337,7 @@ var DeliveryDayListItem = React.createClass({displayName: "DeliveryDayListItem",
   },
 
 	render: function () {
-    return (React.createElement("li", {onClick: this.handleDaySelectionClickEvent}, React.createElement("a", {href: "#"}, this.props.day)));
+    return (React.createElement("li", {onClick: this.handleDaySelectionClickEvent}, React.createElement("a", null, this.props.day)));
   }
 });
 
@@ -50424,7 +50424,7 @@ var DeliveryMonthListItem = React.createClass({displayName: "DeliveryMonthListIt
   },
 
 	render: function () {
-    return (React.createElement("li", {onClick: this.handleMonthSelectionClickEvent}, React.createElement("a", {href: "#"}, this.props.month)));
+    return (React.createElement("li", {onClick: this.handleMonthSelectionClickEvent}, React.createElement("a", null, this.props.month)));
   }
 });
 

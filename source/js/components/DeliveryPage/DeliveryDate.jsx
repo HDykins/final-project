@@ -73,7 +73,7 @@ var DeliveryDate = React.createClass({
 			              <span className="caret"></span>
 			            </button>
 			            <ul className="dropdown-menu" aria-labelledby="dropdown-lights">
-			              <li onClick={this.handleYearSelectionClickEvent}><a href="#">2016</a></li>
+			              <li onClick={this.handleYearSelectionClickEvent}><a>2016</a></li>
 			            </ul>
 			        </div>	
 		        </div>	         
@@ -87,8 +87,8 @@ var DeliveryDate = React.createClass({
 		              <span className="caret"></span>
 		            </button>
 		            <ul className="dropdown-menu" aria-labelledby="dropdown-lights">
-		              <li onClick={this.handleSetTimeToMorningClickEvent}><a href="#">Morning (8-12:30)</a></li>
-		              <li onClick={this.handleSetTimeToAfternoonClickEvent}><a href="#">Afternoon (12:30-5)</a></li>
+		              <li onClick={this.handleSetTimeToMorningClickEvent}><a>Morning ( 8-12:30 )</a></li>
+		              <li onClick={this.handleSetTimeToAfternoonClickEvent}><a>Afternoon ( 12:30-5 )</a></li>
 		            </ul>
 		         </div>	
 			</div>
