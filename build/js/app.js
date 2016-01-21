@@ -49335,7 +49335,7 @@ function setCurrentUserId(id) {
 function sendOrdersToStore() {
 
 
-	AuthenticationService.getOrders(UserSignInDetailsStore.getCurrentUserId(), UserSignInDetailsStore.getCurrentToken(), function handleUserRegister(error, response) {
+	AuthenticationService.getOrders(UserSignInDetailsStore.getCurrentUserId(), UserSignInDetailsStore.getCurrentToken(), function handleGetOrders(error, response) {
 
 	    if (error) {
 	      console.log("Didn't get orders");
@@ -50766,7 +50766,7 @@ var OrderSummary = React.createClass({displayName: "OrderSummary",
 							), 				
 							React.createElement("h4", null, "Services:", React.createElement("span", {className: "price"},  "+£" + this.props.order.totalDeliveryPrice)), 
 							React.createElement("ul", {className: "list-unstyled"}, 
-								React.createElement("li", null, "Delivery: ", React.createElement("span", {className: "price"},  "+£" + this.props.order.decorationInstallation ? (this.props.order.deliveryOptionPrice-15) : this.props.order.deliveryOptionPrice)), 
+								React.createElement("li", null, "Delivery: ", React.createElement("span", {className: "price"},  "+£" + this.props.order.decorationInstallation ? (this.props.order.deliveryOptionPrice) : this.props.order.deliveryOptionPrice)), 
 								this.props.order.decorationInstallation ? React.createElement("li", null, "Fitted and decorated: ", React.createElement("span", {className: "price"}, " +£15")) : null
 							)
 						), 
@@ -50838,13 +50838,35 @@ module.exports = OrderSummary;
 
 },{"../stores/CurrentDecorationsUserDetailsStore.js":381,"../stores/CurrentDeliveryUserDetailsStore.js":382,"../stores/StateStore.js":385,"../stores/TotalPriceStore.js":386,"../stores/TreeInformationStore.js":387,"react":322}],356:[function(require,module,exports){
 var React = require('react');
+var UserSignInDetailsStore = require('../../stores/UserSignInDetailsStore.js');
 var OrdersPageActionCreators = require('../../actions/OrdersPageActionCreators.js');
+var SignInFormActionCreators = require('../../actions/SignInFormActionCreators.js');
+var AuthenticationService = require('../../services/authentication.js');
 
 var OrderCancellationConfirmation = React.createClass({displayName: "OrderCancellationConfirmation",
 
   handleXButtonClickEvent: function () {
   	event.preventDefault();
 
+    OrdersPageActionCreators.setHideCancellationForm();
+  },
+
+  handleYesButtonClickEvent: function () {
+  	event.preventDefault();
+
+  	console.log("orderId" + this.props.orderId);
+  	console.log("token" + UserSignInDetailsStore.getCurrentToken());
+
+    AuthenticationService.deleteOrder(this.props.orderId, UserSignInDetailsStore.getCurrentToken(), function handleOrderDelete(error, response) {
+
+        if (error) {
+        	console.log('Failed to delete order');
+          return;
+        }
+
+        console.log(response);
+        SignInFormActionCreators.sendOrdersToStore();
+    });
     OrdersPageActionCreators.setHideCancellationForm();
   },
 
@@ -50857,7 +50879,7 @@ var OrderCancellationConfirmation = React.createClass({displayName: "OrderCancel
 				React.createElement("div", {className: "rounded-box"}, 
 					React.createElement("h3", null, "Are you sure you wish to cancel this order?")
 				), 
-				React.createElement("button", {className: "btn danger-button"}, "Yes!"), 
+				React.createElement("button", {onClick: this.handleYesButtonClickEvent, className: "btn danger-button"}, "Yes!"), 
 				React.createElement("button", {onClick: this.handleXButtonClickEvent, className: "btn important-button"}, "No!")
 			)
 		)
@@ -50871,7 +50893,7 @@ module.exports = OrderCancellationConfirmation;
 
 
 
-},{"../../actions/OrdersPageActionCreators.js":327,"react":322}],357:[function(require,module,exports){
+},{"../../actions/OrdersPageActionCreators.js":327,"../../actions/SignInFormActionCreators.js":329,"../../services/authentication.js":380,"../../stores/UserSignInDetailsStore.js":388,"react":322}],357:[function(require,module,exports){
 var React = require('react');
 var OrdersPageActionCreators = require('../../actions/OrdersPageActionCreators.js');
 
@@ -50886,6 +50908,10 @@ var OrderOptionsButtons = React.createClass({displayName: "OrderOptionsButtons",
   handleCancelOrderButtonClickEvent: function () {
   	event.preventDefault();
 
+  	console.log(this.props.setOrderToBeChanged);
+  	console.log(this.props.orderId);
+
+  	this.props.setOrderToBeChanged(this.props.orderId)
     OrdersPageActionCreators.setShowCancellationForm();
   },
 
@@ -50933,6 +50959,9 @@ var OrderSummary = require('../OrderSummary.jsx');
 var OrderOptionsButtons = require('./OrderOptionsButtons.jsx');
 var OrderCancellationConfirmation = require('./OrderCancellationConfirmation.jsx');
 
+
+var selectedOrderId = null;
+
 var OrdersPage = React.createClass({displayName: "OrdersPage",
 
   getInitialState: function () {
@@ -50950,22 +50979,29 @@ var OrdersPage = React.createClass({displayName: "OrdersPage",
 
   componentDidMount: function () {
     PopUpStore.addChangeListener(this.updateState);
+    OrdersStore.addChangeListener(this.updateState);
   },
 
   componentWillUnmount: function () {
     PopUpStore.removeChangeListener(this.updateState);
+    OrdersStore.removeChangeListener(this.updateState);
   },
 
   createOrders: function () {
     var orders = OrdersStore.getOrdersArray().map(function (orderObject) {
+      console.log('orderObject' + orderObject);
       return (
         React.createElement("div", {key: Math.random(), className: "row"}, 
           React.createElement(OrderSummary, {key: orderObject.id, order: orderObject.userChoices}), 
-          React.createElement(OrderOptionsButtons, {key: orderObject._id})
+          React.createElement(OrderOptionsButtons, {key: orderObject._id, orderId: orderObject.id, setOrderToBeChanged: this.setSelectedOrderId})
         )
       );
-    });
+    }.bind(this));
     return orders;
+  },
+
+  setSelectedOrderId: function (orderId) {
+    selectedOrderId = orderId;
   },
 
   render: function () {
@@ -50979,7 +51015,7 @@ var OrdersPage = React.createClass({displayName: "OrdersPage",
             React.createElement("div", {className: "rounded-box"}, 
               this.createOrders()
 	        	), 
-              this.state.isCancellationFormVisible ? React.createElement(OrderCancellationConfirmation, null) : null
+              this.state.isCancellationFormVisible ? React.createElement(OrderCancellationConfirmation, {orderId: selectedOrderId}) : null
       		)
       	)
     );
@@ -52315,8 +52351,7 @@ function deleteOrder(orderId, token, handleResponse) {
 
   var request = jQuery.ajax({
     method: 'delete',
-    url: HOST_NAME + API_ENDPOINTS.ORDER + "/" + orderId + "?token=" + token,
-    dataType: 'json',
+    url: HOST_NAME + API_ENDPOINTS.ORDER + "/" + orderId + "?token=" + token
   });
 
   request.fail(function (jqXHR, textStatus, errorThrown) {
@@ -52896,6 +52931,14 @@ var OrdersStore = objectAssign({}, EventEmitter.prototype, {
   getOrdersArray: function () {
   	return ordersArray;
   },
+
+  addChangeListener: function (changeEventHandler) {
+    this.on('change', changeEventHandler);
+  },
+
+  removeChangeListener: function (changeEventHandler) {
+    this.removeListener('change', changeEventHandler);
+  }
 
 });
 

@@ -12,6 +12,10 @@ var OrderOptionsButtons = React.createClass({
   handleCancelOrderButtonClickEvent: function () {
   	event.preventDefault();
 
+  	console.log(this.props.setOrderToBeChanged);
+  	console.log(this.props.orderId);
+
+  	this.props.setOrderToBeChanged(this.props.orderId)
     OrdersPageActionCreators.setShowCancellationForm();
   },
 

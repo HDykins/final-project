@@ -1,11 +1,33 @@
 var React = require('react');
+var UserSignInDetailsStore = require('../../stores/UserSignInDetailsStore.js');
 var OrdersPageActionCreators = require('../../actions/OrdersPageActionCreators.js');
+var SignInFormActionCreators = require('../../actions/SignInFormActionCreators.js');
+var AuthenticationService = require('../../services/authentication.js');
 
 var OrderCancellationConfirmation = React.createClass({
 
   handleXButtonClickEvent: function () {
   	event.preventDefault();
 
+    OrdersPageActionCreators.setHideCancellationForm();
+  },
+
+  handleYesButtonClickEvent: function () {
+  	event.preventDefault();
+
+  	console.log("orderId" + this.props.orderId);
+  	console.log("token" + UserSignInDetailsStore.getCurrentToken());
+
+    AuthenticationService.deleteOrder(this.props.orderId, UserSignInDetailsStore.getCurrentToken(), function handleOrderDelete(error, response) {
+
+        if (error) {
+        	console.log('Failed to delete order');
+          return;
+        }
+
+        console.log(response);
+        SignInFormActionCreators.sendOrdersToStore();
+    });
     OrdersPageActionCreators.setHideCancellationForm();
   },
 
@@ -18,7 +40,7 @@ var OrderCancellationConfirmation = React.createClass({
 				<div className="rounded-box">
 					<h3>Are you sure you wish to cancel this order?</h3>
 				</div>
-				<button className="btn danger-button">Yes!</button>
+				<button onClick={this.handleYesButtonClickEvent} className="btn danger-button">Yes!</button>
 				<button onClick={this.handleXButtonClickEvent} className="btn important-button">No!</button>
 			</div>
 		</div>

@@ -57,7 +57,7 @@ function setCurrentUserId(id) {
 function sendOrdersToStore() {
 
 
-	AuthenticationService.getOrders(UserSignInDetailsStore.getCurrentUserId(), UserSignInDetailsStore.getCurrentToken(), function handleUserRegister(error, response) {
+	AuthenticationService.getOrders(UserSignInDetailsStore.getCurrentUserId(), UserSignInDetailsStore.getCurrentToken(), function handleGetOrders(error, response) {
 
 	    if (error) {
 	      console.log("Didn't get orders");

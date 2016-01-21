@@ -154,8 +154,7 @@ function deleteOrder(orderId, token, handleResponse) {
 
   var request = jQuery.ajax({
     method: 'delete',
-    url: HOST_NAME + API_ENDPOINTS.ORDER + "/" + orderId + "?token=" + token,
-    dataType: 'json',
+    url: HOST_NAME + API_ENDPOINTS.ORDER + "/" + orderId + "?token=" + token
   });
 
   request.fail(function (jqXHR, textStatus, errorThrown) {
