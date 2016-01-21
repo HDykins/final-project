@@ -49,7 +49,7 @@ var OrderSummary = React.createClass({
 							</ul>
 						</div>
 						<div className="col-xs-6">
-							<h4>Decorations:<span className="price">{ "+£" + this.props.order.totalDecorationPrice}</span></h4>
+							<h4>Decorations:<span className="price">{ "+£" + this.props.order.totalDecorationsPrice}</span></h4>
 							<ul className="list-unstyled">
 								{this.addDecorationToList()}
 							</ul>				

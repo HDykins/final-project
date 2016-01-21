@@ -7,25 +7,25 @@ var TreeIcons = React.createClass({
 
   changeToNorwegianView: function () {
   	TreePageActionCreators.changeToNorwegianView();
-    TreePageActionCreators.setCurrentPrice();
+    TreePageActionCreators.setCurrentTreePrice();
     TreePageActionCreators.sumAllPrices();
   },
 
   changeToNordmannView: function () {
   	TreePageActionCreators.changeToNordmannView()
-    TreePageActionCreators.setCurrentPrice();
+    TreePageActionCreators.setCurrentTreePrice();
     TreePageActionCreators.sumAllPrices();
   },
 
   changeToFraserView: function () {
   	TreePageActionCreators.changeToFraserView()
-    TreePageActionCreators.setCurrentPrice();
+    TreePageActionCreators.setCurrentTreePrice();
     TreePageActionCreators.sumAllPrices();
   },
 
   changeToArtificialView: function () {
   	TreePageActionCreators.changeToArtificialView()
-    TreePageActionCreators.setCurrentPrice();
+    TreePageActionCreators.setCurrentTreePrice();
     TreePageActionCreators.sumAllPrices();
   },
 

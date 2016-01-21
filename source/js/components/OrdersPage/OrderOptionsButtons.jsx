@@ -1,21 +1,29 @@
 var React = require('react');
 var OrdersPageActionCreators = require('../../actions/OrdersPageActionCreators.js');
+var TreeInformationStore = require('../../stores/TreeInformationStore.js');
 
 var OrderOptionsButtons = React.createClass({
 
   handleOrderAgainButtonClickEvent: function () {
+
+  	var orderDetails = this.props.order.userChoices
   	event.preventDefault();
 
-    OrdersPageActionCreators.changeToPaymentPage();
+  	OrdersPageActionCreators.populateStoresWithSelectedOrder(orderDetails);
+  	console.log(TreeInformationStore.getCurrentTreeView());
+  	console.log(TreeInformationStore.getCurrentHeight());
+  	console.log(TreeInformationStore.getCurrentPrice());
+
+  	OrdersPageActionCreators.changeToPaymentPage();
   },
 
   handleCancelOrderButtonClickEvent: function () {
   	event.preventDefault();
 
   	console.log(this.props.setOrderToBeChanged);
-  	console.log(this.props.orderId);
+  	console.log(this.props.order.id);
 
-  	this.props.setOrderToBeChanged(this.props.orderId)
+  	this.props.setOrderToBeChanged(this.props.order.id)
     OrdersPageActionCreators.setShowCancellationForm();
   },
 

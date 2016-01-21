@@ -41,7 +41,7 @@ var OrdersPage = React.createClass({
       return (
         <div key={Math.random()} className="row">
           <OrderSummary key={orderObject.id} order={orderObject.userChoices} />
-          <OrderOptionsButtons key={orderObject._id} orderId={orderObject.id} setOrderToBeChanged={this.setSelectedOrderId} />
+          <OrderOptionsButtons key={orderObject._id} order={orderObject} setOrderToBeChanged={this.setSelectedOrderId} />
         </div>
       );
     }.bind(this));

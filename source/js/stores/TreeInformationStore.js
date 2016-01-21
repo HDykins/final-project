@@ -61,7 +61,17 @@ function changeHeightToLarge() {
   TreeInformationStore.emit('change');
 }
 
-function setCurrentPrice() {
+function setHeight(height) {
+  currentHeight = HEIGHTS[height];
+  TreeInformationStore.emit('change');
+}
+
+function setTreeType(treeType) {
+  currentTreeView = TREE_TYPES[treeType];
+  TreeInformationStore.emit('change');
+}
+
+function setCurrentTreePrice() {
     currentPrice = TREE_PRICES[currentTreeView][currentHeight];
     console.log(currentPrice);
     TreeInformationStore.emit('change');
@@ -107,8 +117,12 @@ function handleAction(action) {
     changeHeightToMedium();
   } else if (action.type === 'change-height-to-large') {
     changeHeightToLarge();
-  } else if (action.type === 'set-current-price') {
-    setCurrentPrice();
+  } else if (action.type === 'set-height') {
+    setHeight(action.height);
+  } else if (action.type === 'set-tree-type') {
+    setTreeType(action.treeType);
+  } else if (action.type === 'set-current-tree-price') {
+    setCurrentTreePrice();
   }
 }
 

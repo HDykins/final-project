@@ -9,13 +9,13 @@ var CurrentDeliveryUserDetailsStore = require('../stores/CurrentDeliveryUserDeta
 var TotalPriceStore = require('../stores/TotalPriceStore.js');
 
 var order = {
-	height: "abc",
-	width: "def",
+	height: TreeInformationStore.getCurrentHeight(),
+	width: "5",
 	tree: TreeInformationStore.getCurrentTreeView(),
 	treePrice: TreeInformationStore.getCurrentPrice(),
 	decorationSelection: CurrentDecorationsUserDetailsStore.getDecorationStatus(),
 	listOfSelectedDecorations: CurrentDecorationsUserDetailsStore.getListOfSelectedDecorations(),
-	totalDecorationPrice: CurrentDecorationsUserDetailsStore.getCurrentTotalDecorationsPrice(),
+	totalDecorationsPrice: CurrentDecorationsUserDetailsStore.getCurrentTotalDecorationsPrice(),
 	delivery: StateStore.getDeliveryChoice(),
 	collection: StateStore.getCollectionChoice(),
 	collectionAddress: CurrentDeliveryUserDetailsStore.getCurrentSelectedCollectionAddress(),
@@ -49,13 +49,13 @@ function setOrdersArray(orders) {
 
 function setOrder() {
 	order = {
-		height: "abc",
+		height: TreeInformationStore.getCurrentHeight(),
 		width: "def",
 		tree: TreeInformationStore.getCurrentTreeView(),
 		treePrice: TreeInformationStore.getCurrentPrice(),
 		decorationSelection: CurrentDecorationsUserDetailsStore.getDecorationStatus(),
 		listOfSelectedDecorations: CurrentDecorationsUserDetailsStore.getListOfSelectedDecorations(),
-		totalDecorationPrice: CurrentDecorationsUserDetailsStore.getCurrentTotalDecorationsPrice(),
+		totalDecorationsPrice: CurrentDecorationsUserDetailsStore.getCurrentTotalDecorationsPrice(),
 		delivery: StateStore.getDeliveryChoice(),
 		collection: StateStore.getCollectionChoice(),
 		collectionAddress: CurrentDeliveryUserDetailsStore.getCurrentSelectedCollectionAddress(),

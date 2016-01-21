@@ -114,6 +114,19 @@ function clearSelectedDecorationsList() {
 	listOfSelectedDecorations = [];
 }
 
+function setDecorationStatus(decorationSelection) {
+	isDecorationSelected = decorationSelection;
+}
+
+function setListOfSelectedDecorations(array) {
+	listOfSelectedDecorations = array;
+}
+
+function setTotalDecorationsPrice(totalDecorationsPrice) {
+	currentTotalDecorationsPrice = totalDecorationsPrice;
+	CurrentDecorationsUserDetailsStore.emit('change');
+}
+
 var CurrentDecorationsUserDetailsStore = objectAssign({}, EventEmitter.prototype, {
   
   getDecorationStatus: function () {
@@ -153,19 +166,21 @@ var CurrentDecorationsUserDetailsStore = objectAssign({}, EventEmitter.prototype
 function handleAction(action) {
   if (action.type === 'toggle-decoration-selection') {
     toggleDecorationSelection(action.decorationName);
-  }
-  if (action.type === 'set-hovered-decoration') {
+  } else if (action.type === 'set-hovered-decoration') {
     setHoveredDecoration(action.decorationName);
-  }
-  if (action.type === 'set-hovered-decoration-to-null') {
+  } else if (action.type === 'set-hovered-decoration-to-null') {
     setHoveredDecorationToNull(action.decorationName);
-  }
-  if (action.type === 'set-current-total-decorations-price-to-zero') {
+  } else if (action.type === 'set-current-total-decorations-price-to-zero') {
     setCurrentTotalDecorationsPriceToZero(action.decorationName);
-  }
-  if (action.type === 'clear-selected-decorations-list') {
+  } else if (action.type === 'clear-selected-decorations-list') {
     clearSelectedDecorationsList();
-  }  
+  } else if (action.type === 'set-decoration-status') {
+  	setDecorationStatus(action.decorationSelection);
+  } else if (action.type === 'set-list-of-selected-decorations') {
+  	setListOfSelectedDecorations(action.listOfSelectedDecorations);
+  } else if (action.type === 'set-total-decorations-price') {
+  	setTotalDecorationsPrice(action.totalDecorationsPrice);
+  }
 }
 
 CurrentDecorationsUserDetailsStore.dispatchToken = Dispatcher.register(handleAction);

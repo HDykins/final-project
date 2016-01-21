@@ -49213,10 +49213,99 @@ function setHideCancellationForm() {
 	Dispatcher.dispatch(action);
 }
 
+function populateStoresWithSelectedOrder(orderDetails) {
+	console.log("stores populating.....");
+	console.log(orderDetails);
+	setHeight(orderDetails);
+	setTreeType(orderDetails);
+	setTreePrice();
+	setDecorationStatus(orderDetails);
+	setListOfSelectedDecorations(orderDetails);
+	setTotalDecorationsPrice(orderDetails);
+	sumAllPrices();
+}
+
+
+
+
+
+
+
+function setHeight(orderDetails) {
+	var action = {
+		type: 'set-height',
+		height: orderDetails.height,
+	};
+	Dispatcher.dispatch(action);
+}
+
+// function setWidth(orderDetails) {
+// 		var action = {
+// 		type: 'set-width',
+// 		width: orderDetails.width,
+// 	};
+// }
+
+function setTreeType(orderDetails) {
+	var action = {
+		type: 'set-tree-type',
+		treeType: orderDetails.tree,
+	};
+	Dispatcher.dispatch(action);
+}
+
+function setTreePrice() {
+	var action = {
+		type: 'set-current-tree-price',
+	};
+	Dispatcher.dispatch(action);
+}
+
+function setDecorationStatus(orderDetails) {
+	var action = {
+		type: 'set-decoration-status',
+		decorationSelection: orderDetails.decorationSelection,
+	};
+	Dispatcher.dispatch(action);
+}
+
+function setListOfSelectedDecorations(orderDetails) {
+	var action = {
+		type: 'set-list-of-selected-decorations',
+		listOfSelectedDecorations: orderDetails.listOfSelectedDecorations,
+	};
+	Dispatcher.dispatch(action);
+}
+
+function setTotalDecorationsPrice(orderDetails) {
+	var action = {
+		type: 'set-total-decorations-price',
+		totalDecorationsPrice: orderDetails.totalDecorationsPrice,
+	};
+	Dispatcher.dispatch(action);
+}
+
+function sumAllPrices() {
+	var action = {
+		type: 'sum-all-prices',
+	};
+	Dispatcher.dispatch(action);
+}
+
 module.exports = {
 	changeToPaymentPage: changeToPaymentPage,
 	setShowCancellationForm: setShowCancellationForm,
-	setHideCancellationForm: setHideCancellationForm
+	setHideCancellationForm: setHideCancellationForm,
+	populateStoresWithSelectedOrder: populateStoresWithSelectedOrder,
+	setHeight: setHeight,
+	// setWidth: setWidth,
+	setTreeType: setTreeType,
+	setTreePrice: setTreePrice,
+	setDecorationStatus: setDecorationStatus,
+	setListOfSelectedDecorations: setListOfSelectedDecorations,
+	setTotalDecorationsPrice: setTotalDecorationsPrice,
+	sumAllPrices: sumAllPrices,
+
 };
 
 },{"../dispatcher/Dispatcher":378}],328:[function(require,module,exports){
@@ -49459,9 +49548,9 @@ function changeHeightToLarge() {
 	Dispatcher.dispatch(action);
 }
 
-function setCurrentPrice() {
+function setCurrentTreePrice() {
 	var action = {
-		type: 'set-current-price',
+		type: 'set-current-tree-price',
 	};
 
 	Dispatcher.dispatch(action);
@@ -49483,7 +49572,7 @@ module.exports = {
 	changeHeightToSmall: changeHeightToSmall,
 	changeHeightToMedium: changeHeightToMedium,
 	changeHeightToLarge: changeHeightToLarge,
-	setCurrentPrice: setCurrentPrice,
+	setCurrentTreePrice: setCurrentTreePrice,
 	sumAllPrices: sumAllPrices
 };
 
@@ -50771,7 +50860,7 @@ var OrderSummary = React.createClass({displayName: "OrderSummary",
 							)
 						), 
 						React.createElement("div", {className: "col-xs-6"}, 
-							React.createElement("h4", null, "Decorations:", React.createElement("span", {className: "price"},  "+£" + this.props.order.totalDecorationPrice)), 
+							React.createElement("h4", null, "Decorations:", React.createElement("span", {className: "price"},  "+£" + this.props.order.totalDecorationsPrice)), 
 							React.createElement("ul", {className: "list-unstyled"}, 
 								this.addDecorationToList()
 							)				
@@ -50896,22 +50985,30 @@ module.exports = OrderCancellationConfirmation;
 },{"../../actions/OrdersPageActionCreators.js":327,"../../actions/SignInFormActionCreators.js":329,"../../services/authentication.js":380,"../../stores/UserSignInDetailsStore.js":388,"react":322}],357:[function(require,module,exports){
 var React = require('react');
 var OrdersPageActionCreators = require('../../actions/OrdersPageActionCreators.js');
+var TreeInformationStore = require('../../stores/TreeInformationStore.js');
 
 var OrderOptionsButtons = React.createClass({displayName: "OrderOptionsButtons",
 
   handleOrderAgainButtonClickEvent: function () {
+
+  	var orderDetails = this.props.order.userChoices
   	event.preventDefault();
 
-    OrdersPageActionCreators.changeToPaymentPage();
+  	OrdersPageActionCreators.populateStoresWithSelectedOrder(orderDetails);
+  	console.log(TreeInformationStore.getCurrentTreeView());
+  	console.log(TreeInformationStore.getCurrentHeight());
+  	console.log(TreeInformationStore.getCurrentPrice());
+
+  	OrdersPageActionCreators.changeToPaymentPage();
   },
 
   handleCancelOrderButtonClickEvent: function () {
   	event.preventDefault();
 
   	console.log(this.props.setOrderToBeChanged);
-  	console.log(this.props.orderId);
+  	console.log(this.props.order.id);
 
-  	this.props.setOrderToBeChanged(this.props.orderId)
+  	this.props.setOrderToBeChanged(this.props.order.id)
     OrdersPageActionCreators.setShowCancellationForm();
   },
 
@@ -50949,7 +51046,7 @@ module.exports = OrderOptionsButtons;
 
 
 
-},{"../../actions/OrdersPageActionCreators.js":327,"react":322}],358:[function(require,module,exports){
+},{"../../actions/OrdersPageActionCreators.js":327,"../../stores/TreeInformationStore.js":387,"react":322}],358:[function(require,module,exports){
 var React = require('react');
 var NavBar = require('../NavBar.jsx');
 var OrdersStore = require('../../stores/OrdersStore.js');
@@ -50993,7 +51090,7 @@ var OrdersPage = React.createClass({displayName: "OrdersPage",
       return (
         React.createElement("div", {key: Math.random(), className: "row"}, 
           React.createElement(OrderSummary, {key: orderObject.id, order: orderObject.userChoices}), 
-          React.createElement(OrderOptionsButtons, {key: orderObject._id, orderId: orderObject.id, setOrderToBeChanged: this.setSelectedOrderId})
+          React.createElement(OrderOptionsButtons, {key: orderObject._id, order: orderObject, setOrderToBeChanged: this.setSelectedOrderId})
         )
       );
     }.bind(this));
@@ -51869,19 +51966,19 @@ var SliderBox = React.createClass({displayName: "SliderBox",
 
   handleSmallSelectionClickEvent: function () {
   	TreePageActionCreators.changeHeightToSmall();
-  	TreePageActionCreators.setCurrentPrice();
+  	TreePageActionCreators.setCurrentTreePrice();
   	TreePageActionCreators.sumAllPrices();
   },
 
   handleMediumSelectionClickEvent: function () {
   	TreePageActionCreators.changeHeightToMedium();
-  	TreePageActionCreators.setCurrentPrice();
+  	TreePageActionCreators.setCurrentTreePrice();
   	TreePageActionCreators.sumAllPrices();
   },
 
   handleLargeSelectionClickEvent: function () {
   	TreePageActionCreators.changeHeightToLarge();
-  	TreePageActionCreators.setCurrentPrice();
+  	TreePageActionCreators.setCurrentTreePrice();
   	TreePageActionCreators.sumAllPrices();
   },
 
@@ -51980,25 +52077,25 @@ var TreeIcons = React.createClass({displayName: "TreeIcons",
 
   changeToNorwegianView: function () {
   	TreePageActionCreators.changeToNorwegianView();
-    TreePageActionCreators.setCurrentPrice();
+    TreePageActionCreators.setCurrentTreePrice();
     TreePageActionCreators.sumAllPrices();
   },
 
   changeToNordmannView: function () {
   	TreePageActionCreators.changeToNordmannView()
-    TreePageActionCreators.setCurrentPrice();
+    TreePageActionCreators.setCurrentTreePrice();
     TreePageActionCreators.sumAllPrices();
   },
 
   changeToFraserView: function () {
   	TreePageActionCreators.changeToFraserView()
-    TreePageActionCreators.setCurrentPrice();
+    TreePageActionCreators.setCurrentTreePrice();
     TreePageActionCreators.sumAllPrices();
   },
 
   changeToArtificialView: function () {
   	TreePageActionCreators.changeToArtificialView()
-    TreePageActionCreators.setCurrentPrice();
+    TreePageActionCreators.setCurrentTreePrice();
     TreePageActionCreators.sumAllPrices();
   },
 
@@ -52508,6 +52605,19 @@ function clearSelectedDecorationsList() {
 	listOfSelectedDecorations = [];
 }
 
+function setDecorationStatus(decorationSelection) {
+	isDecorationSelected = decorationSelection;
+}
+
+function setListOfSelectedDecorations(array) {
+	listOfSelectedDecorations = array;
+}
+
+function setTotalDecorationsPrice(totalDecorationsPrice) {
+	currentTotalDecorationsPrice = totalDecorationsPrice;
+	CurrentDecorationsUserDetailsStore.emit('change');
+}
+
 var CurrentDecorationsUserDetailsStore = objectAssign({}, EventEmitter.prototype, {
   
   getDecorationStatus: function () {
@@ -52547,19 +52657,21 @@ var CurrentDecorationsUserDetailsStore = objectAssign({}, EventEmitter.prototype
 function handleAction(action) {
   if (action.type === 'toggle-decoration-selection') {
     toggleDecorationSelection(action.decorationName);
-  }
-  if (action.type === 'set-hovered-decoration') {
+  } else if (action.type === 'set-hovered-decoration') {
     setHoveredDecoration(action.decorationName);
-  }
-  if (action.type === 'set-hovered-decoration-to-null') {
+  } else if (action.type === 'set-hovered-decoration-to-null') {
     setHoveredDecorationToNull(action.decorationName);
-  }
-  if (action.type === 'set-current-total-decorations-price-to-zero') {
+  } else if (action.type === 'set-current-total-decorations-price-to-zero') {
     setCurrentTotalDecorationsPriceToZero(action.decorationName);
-  }
-  if (action.type === 'clear-selected-decorations-list') {
+  } else if (action.type === 'clear-selected-decorations-list') {
     clearSelectedDecorationsList();
-  }  
+  } else if (action.type === 'set-decoration-status') {
+  	setDecorationStatus(action.decorationSelection);
+  } else if (action.type === 'set-list-of-selected-decorations') {
+  	setListOfSelectedDecorations(action.listOfSelectedDecorations);
+  } else if (action.type === 'set-total-decorations-price') {
+  	setTotalDecorationsPrice(action.totalDecorationsPrice);
+  }
 }
 
 CurrentDecorationsUserDetailsStore.dispatchToken = Dispatcher.register(handleAction);
@@ -52854,13 +52966,13 @@ var CurrentDeliveryUserDetailsStore = require('../stores/CurrentDeliveryUserDeta
 var TotalPriceStore = require('../stores/TotalPriceStore.js');
 
 var order = {
-	height: "abc",
-	width: "def",
+	height: TreeInformationStore.getCurrentHeight(),
+	width: "5",
 	tree: TreeInformationStore.getCurrentTreeView(),
 	treePrice: TreeInformationStore.getCurrentPrice(),
 	decorationSelection: CurrentDecorationsUserDetailsStore.getDecorationStatus(),
 	listOfSelectedDecorations: CurrentDecorationsUserDetailsStore.getListOfSelectedDecorations(),
-	totalDecorationPrice: CurrentDecorationsUserDetailsStore.getCurrentTotalDecorationsPrice(),
+	totalDecorationsPrice: CurrentDecorationsUserDetailsStore.getCurrentTotalDecorationsPrice(),
 	delivery: StateStore.getDeliveryChoice(),
 	collection: StateStore.getCollectionChoice(),
 	collectionAddress: CurrentDeliveryUserDetailsStore.getCurrentSelectedCollectionAddress(),
@@ -52894,13 +53006,13 @@ function setOrdersArray(orders) {
 
 function setOrder() {
 	order = {
-		height: "abc",
+		height: TreeInformationStore.getCurrentHeight(),
 		width: "def",
 		tree: TreeInformationStore.getCurrentTreeView(),
 		treePrice: TreeInformationStore.getCurrentPrice(),
 		decorationSelection: CurrentDecorationsUserDetailsStore.getDecorationStatus(),
 		listOfSelectedDecorations: CurrentDecorationsUserDetailsStore.getListOfSelectedDecorations(),
-		totalDecorationPrice: CurrentDecorationsUserDetailsStore.getCurrentTotalDecorationsPrice(),
+		totalDecorationsPrice: CurrentDecorationsUserDetailsStore.getCurrentTotalDecorationsPrice(),
 		delivery: StateStore.getDeliveryChoice(),
 		collection: StateStore.getCollectionChoice(),
 		collectionAddress: CurrentDeliveryUserDetailsStore.getCurrentSelectedCollectionAddress(),
@@ -53298,7 +53410,17 @@ function changeHeightToLarge() {
   TreeInformationStore.emit('change');
 }
 
-function setCurrentPrice() {
+function setHeight(height) {
+  currentHeight = HEIGHTS[height];
+  TreeInformationStore.emit('change');
+}
+
+function setTreeType(treeType) {
+  currentTreeView = TREE_TYPES[treeType];
+  TreeInformationStore.emit('change');
+}
+
+function setCurrentTreePrice() {
     currentPrice = TREE_PRICES[currentTreeView][currentHeight];
     console.log(currentPrice);
     TreeInformationStore.emit('change');
@@ -53344,8 +53466,12 @@ function handleAction(action) {
     changeHeightToMedium();
   } else if (action.type === 'change-height-to-large') {
     changeHeightToLarge();
-  } else if (action.type === 'set-current-price') {
-    setCurrentPrice();
+  } else if (action.type === 'set-height') {
+    setHeight(action.height);
+  } else if (action.type === 'set-tree-type') {
+    setTreeType(action.treeType);
+  } else if (action.type === 'set-current-tree-price') {
+    setCurrentTreePrice();
   }
 }
 

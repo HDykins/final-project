@@ -7,19 +7,19 @@ var SliderBox = React.createClass({
 
   handleSmallSelectionClickEvent: function () {
   	TreePageActionCreators.changeHeightToSmall();
-  	TreePageActionCreators.setCurrentPrice();
+  	TreePageActionCreators.setCurrentTreePrice();
   	TreePageActionCreators.sumAllPrices();
   },
 
   handleMediumSelectionClickEvent: function () {
   	TreePageActionCreators.changeHeightToMedium();
-  	TreePageActionCreators.setCurrentPrice();
+  	TreePageActionCreators.setCurrentTreePrice();
   	TreePageActionCreators.sumAllPrices();
   },
 
   handleLargeSelectionClickEvent: function () {
   	TreePageActionCreators.changeHeightToLarge();
-  	TreePageActionCreators.setCurrentPrice();
+  	TreePageActionCreators.setCurrentTreePrice();
   	TreePageActionCreators.sumAllPrices();
   },
 
