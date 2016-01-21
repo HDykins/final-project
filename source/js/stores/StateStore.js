@@ -90,6 +90,14 @@ function removeAllListItems() {
   ListItemStore.emit('change');
 }
 
+function setDeliveryStatus(deliveryStatus) {
+  delivery = deliveryStatus
+}
+
+function setCollectionStatus(collectionStatus) {
+  collection = collectionStatus
+}
+
 var StateStore = objectAssign({}, EventEmitter.prototype, {
   
   getCurrentPage: function () {
@@ -141,6 +149,10 @@ function handleAction(action) {
     toggleDeliveryChoice();   
   } else if (action.type === 'remove_all_list_items') {
     removeListItem(action.itemId);
+  } else if (action.type === 'set-delivery-status') {
+    setDeliveryStatus(action.deliveryStatus);
+  } else if (action.type === 'set-collection-status') {
+    setCollectionStatus(action.collectionStatus);
   }
 }
 

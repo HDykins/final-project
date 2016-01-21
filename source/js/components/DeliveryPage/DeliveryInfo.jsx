@@ -22,7 +22,7 @@ var DeliveryInfo = React.createClass({
 				<span><h3>Additional delivery information</h3></span>
 			</div>
 			<div className="rounded-box">
-				<p><textarea onChange={this.handleAdditionalInformationTextarea} ref="information" placeholder="Beware of the dog, mobile number etc."></textarea></p>
+				<p><textarea onChange={this.handleAdditionalInformationTextarea} ref="information" value={CurrentDeliveryUserDetailsStore.getAdditionalInformation()} placeholder="Beware of the dog, mobile number etc."></textarea></p>
 			</div>
 		</div>
 		<div className="col-xs-8">

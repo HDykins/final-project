@@ -49222,6 +49222,17 @@ function populateStoresWithSelectedOrder(orderDetails) {
 	setDecorationStatus(orderDetails);
 	setListOfSelectedDecorations(orderDetails);
 	setTotalDecorationsPrice(orderDetails);
+	setDeliveryStatus(orderDetails);
+	setCollectionStatus(orderDetails);
+	setCollectionAddressDetails(orderDetails);
+	setDaySelection(orderDetails);
+	setMonthSelection(orderDetails);
+	setYearSelection(orderDetails);
+	setDeliveryTimeSelection(orderDetails);
+	setDeliveryAddress(orderDetails);
+	setDecorationInstallationStatus(orderDetails);
+	setDeliveryOptionPrice();
+	setOldAdditionalInformation(orderDetails);
 	sumAllPrices();
 }
 
@@ -49285,6 +49296,98 @@ function setTotalDecorationsPrice(orderDetails) {
 	Dispatcher.dispatch(action);
 }
 
+function setDeliveryStatus(orderDetails) {
+	var action = {
+		type: 'set-delivery-status',
+		deliveryStatus: orderDetails.delivery,
+	};
+	Dispatcher.dispatch(action);
+}
+
+function setCollectionStatus(orderDetails) {
+	var action = {
+		type: 'set-collection-status',
+		collectionStatus: orderDetails.collection,
+	};
+	Dispatcher.dispatch(action);
+}
+
+function setCollectionAddressDetails(orderDetails) {
+	var action = {
+		type: 'set-collection-address-details',
+		collectionAddress: orderDetails.collectionAddress,
+	};
+	Dispatcher.dispatch(action);
+}
+
+function setDaySelection(orderDetails) {
+	var action = {
+		type: 'set-current-day-selection',
+		day: orderDetails.deliveryDay
+	};
+	Dispatcher.dispatch(action);
+}
+
+function setMonthSelection(orderDetails) {
+	var action = {
+		type: 'set-current-month-selection',
+		month: orderDetails.deliveryMonth
+	};
+	Dispatcher.dispatch(action);
+}
+
+function setYearSelection(orderDetails) {
+	var action = {
+		type: 'set-current-year-selection',
+		year: orderDetails.deliveryYear
+	};
+	Dispatcher.dispatch(action);
+}
+
+function setDeliveryTimeSelection(orderDetails) {
+	if (orderDetails.deliveryTime === 'Morning (8-12:30)') {
+		var action = {
+			type: 'set-current-time-selection-to-morning',
+		};
+	} else {
+		var action = {
+			type: 'set-current-time-selection-to-afternoon',
+		};
+	}
+	Dispatcher.dispatch(action);
+}
+
+function setDeliveryAddress(orderDetails) {
+	var action = {
+		type: 'set-delivery-address',
+		deliveryAddress: orderDetails.deliveryAddress
+	};
+	Dispatcher.dispatch(action);
+}
+
+function setDecorationInstallationStatus(orderDetails) {
+	var action = {
+		type: 'set-decoration-installation-status',
+		decorationInstallation: orderDetails.decorationInstallation
+	};
+	Dispatcher.dispatch(action);	
+}
+
+function setDeliveryOptionPrice() {
+	var action = {
+		type: 'set-delivery-option-price',
+	};
+	Dispatcher.dispatch(action);
+}
+
+function setOldAdditionalInformation(orderDetails) {
+	var action = {
+		type: 'set-old-additional-information',
+		additionalInformation: orderDetails.additionalInformation,
+	};
+	Dispatcher.dispatch(action);
+}
+
 function sumAllPrices() {
 	var action = {
 		type: 'sum-all-prices',
@@ -49304,6 +49407,17 @@ module.exports = {
 	setDecorationStatus: setDecorationStatus,
 	setListOfSelectedDecorations: setListOfSelectedDecorations,
 	setTotalDecorationsPrice: setTotalDecorationsPrice,
+	setDeliveryStatus: setDeliveryStatus,
+	setCollectionStatus: setCollectionStatus,
+	setCollectionAddressDetails: setCollectionAddressDetails,
+	setDaySelection: setDaySelection,
+	setMonthSelection: setMonthSelection,
+	setYearSelection: setYearSelection,
+	setDeliveryTimeSelection: setDeliveryTimeSelection,
+	setDeliveryAddress: setDeliveryAddress,
+	setDecorationInstallationStatus: setDecorationInstallationStatus,
+	setDeliveryOptionPrice: setDeliveryOptionPrice,
+	setOldAdditionalInformation: setOldAdditionalInformation,	
 	sumAllPrices: sumAllPrices,
 
 };
@@ -50457,7 +50571,7 @@ var DeliveryInfo = React.createClass({displayName: "DeliveryInfo",
 				React.createElement("span", null, React.createElement("h3", null, "Additional delivery information"))
 			), 
 			React.createElement("div", {className: "rounded-box"}, 
-				React.createElement("p", null, React.createElement("textarea", {onChange: this.handleAdditionalInformationTextarea, ref: "information", placeholder: "Beware of the dog, mobile number etc."}))
+				React.createElement("p", null, React.createElement("textarea", {onChange: this.handleAdditionalInformationTextarea, ref: "information", value: CurrentDeliveryUserDetailsStore.getAdditionalInformation(), placeholder: "Beware of the dog, mobile number etc."}))
 			)
 		), 
 		React.createElement("div", {className: "col-xs-8"}, 
@@ -52856,6 +52970,27 @@ function setAdditionalInformation(information) {
   additionalInformation = information;
 }
 
+function setDeliveryAddress(deliveryAddress) {
+  deliveryAddressDetails = deliveryAddress;
+}
+
+function setCollectionAddressDetails(collectionAddress) {
+  if (collectionAddress === 'PRIMARY_COLLECTION_ADDRESS') {
+    setCurrentSelectedCollectionAddressToPrimary();
+    setCurrentCollectionAddressCoordinatesToPrimary();
+  } else if (collectionAddress === 'SECONDARY_COLLECTION_ADDRESS') {
+    setCurrentSelectedCollectionAddressToSecondary();
+    setCurrentCollectionAddressCoordinatesToSecondary();
+  } else if (collectionAddress === 'TERTIARY_COLLECTION_ADDRESS') {
+    setCurrentSelectedCollectionAddressToTertiary();
+    setCurrentCollectionAddressCoordinatesToTertiary()
+  } 
+}
+
+function setDecorationInstallationStatus(decorationInstallation) {
+  isDecorationInstallationSeviceSelected = decorationInstallation;
+}
+
 var CurrentDeliveryUserDetailsStore = objectAssign({}, EventEmitter.prototype, {
 
   getDeliveryAddressDetails: function () {
@@ -52947,6 +53082,14 @@ function handleAction(action) {
     setDeliveryOptionPriceToZero();
   } else if (action.type === 'set-additional-information') {
     setAdditionalInformation(action.information);
+  } else if (action.type === 'set-delivery-address') {
+    setDeliveryAddress(action.deliveryAddress);
+  } else if (action.type === 'set-collection-address-details') {
+    setCollectionAddressDetails(action.collectionAddress);
+  } else if (action.type === 'set-decoration-installation-status') {
+    setDecorationInstallationStatus(action.decorationInstallation);
+  } else if (action.type === 'set-old-additional-information') {
+    setAdditionalInformation(action.additionalInformation);
   }
 }
 
@@ -53244,6 +53387,14 @@ function removeAllListItems() {
   ListItemStore.emit('change');
 }
 
+function setDeliveryStatus(deliveryStatus) {
+  delivery = deliveryStatus
+}
+
+function setCollectionStatus(collectionStatus) {
+  collection = collectionStatus
+}
+
 var StateStore = objectAssign({}, EventEmitter.prototype, {
   
   getCurrentPage: function () {
@@ -53295,6 +53446,10 @@ function handleAction(action) {
     toggleDeliveryChoice();   
   } else if (action.type === 'remove_all_list_items') {
     removeListItem(action.itemId);
+  } else if (action.type === 'set-delivery-status') {
+    setDeliveryStatus(action.deliveryStatus);
+  } else if (action.type === 'set-collection-status') {
+    setCollectionStatus(action.collectionStatus);
   }
 }
 

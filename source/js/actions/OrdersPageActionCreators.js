@@ -34,6 +34,17 @@ function populateStoresWithSelectedOrder(orderDetails) {
 	setDecorationStatus(orderDetails);
 	setListOfSelectedDecorations(orderDetails);
 	setTotalDecorationsPrice(orderDetails);
+	setDeliveryStatus(orderDetails);
+	setCollectionStatus(orderDetails);
+	setCollectionAddressDetails(orderDetails);
+	setDaySelection(orderDetails);
+	setMonthSelection(orderDetails);
+	setYearSelection(orderDetails);
+	setDeliveryTimeSelection(orderDetails);
+	setDeliveryAddress(orderDetails);
+	setDecorationInstallationStatus(orderDetails);
+	setDeliveryOptionPrice();
+	setOldAdditionalInformation(orderDetails);
 	sumAllPrices();
 }
 
@@ -97,6 +108,98 @@ function setTotalDecorationsPrice(orderDetails) {
 	Dispatcher.dispatch(action);
 }
 
+function setDeliveryStatus(orderDetails) {
+	var action = {
+		type: 'set-delivery-status',
+		deliveryStatus: orderDetails.delivery,
+	};
+	Dispatcher.dispatch(action);
+}
+
+function setCollectionStatus(orderDetails) {
+	var action = {
+		type: 'set-collection-status',
+		collectionStatus: orderDetails.collection,
+	};
+	Dispatcher.dispatch(action);
+}
+
+function setCollectionAddressDetails(orderDetails) {
+	var action = {
+		type: 'set-collection-address-details',
+		collectionAddress: orderDetails.collectionAddress,
+	};
+	Dispatcher.dispatch(action);
+}
+
+function setDaySelection(orderDetails) {
+	var action = {
+		type: 'set-current-day-selection',
+		day: orderDetails.deliveryDay
+	};
+	Dispatcher.dispatch(action);
+}
+
+function setMonthSelection(orderDetails) {
+	var action = {
+		type: 'set-current-month-selection',
+		month: orderDetails.deliveryMonth
+	};
+	Dispatcher.dispatch(action);
+}
+
+function setYearSelection(orderDetails) {
+	var action = {
+		type: 'set-current-year-selection',
+		year: orderDetails.deliveryYear
+	};
+	Dispatcher.dispatch(action);
+}
+
+function setDeliveryTimeSelection(orderDetails) {
+	if (orderDetails.deliveryTime === 'Morning (8-12:30)') {
+		var action = {
+			type: 'set-current-time-selection-to-morning',
+		};
+	} else {
+		var action = {
+			type: 'set-current-time-selection-to-afternoon',
+		};
+	}
+	Dispatcher.dispatch(action);
+}
+
+function setDeliveryAddress(orderDetails) {
+	var action = {
+		type: 'set-delivery-address',
+		deliveryAddress: orderDetails.deliveryAddress
+	};
+	Dispatcher.dispatch(action);
+}
+
+function setDecorationInstallationStatus(orderDetails) {
+	var action = {
+		type: 'set-decoration-installation-status',
+		decorationInstallation: orderDetails.decorationInstallation
+	};
+	Dispatcher.dispatch(action);	
+}
+
+function setDeliveryOptionPrice() {
+	var action = {
+		type: 'set-delivery-option-price',
+	};
+	Dispatcher.dispatch(action);
+}
+
+function setOldAdditionalInformation(orderDetails) {
+	var action = {
+		type: 'set-old-additional-information',
+		additionalInformation: orderDetails.additionalInformation,
+	};
+	Dispatcher.dispatch(action);
+}
+
 function sumAllPrices() {
 	var action = {
 		type: 'sum-all-prices',
@@ -116,6 +219,17 @@ module.exports = {
 	setDecorationStatus: setDecorationStatus,
 	setListOfSelectedDecorations: setListOfSelectedDecorations,
 	setTotalDecorationsPrice: setTotalDecorationsPrice,
+	setDeliveryStatus: setDeliveryStatus,
+	setCollectionStatus: setCollectionStatus,
+	setCollectionAddressDetails: setCollectionAddressDetails,
+	setDaySelection: setDaySelection,
+	setMonthSelection: setMonthSelection,
+	setYearSelection: setYearSelection,
+	setDeliveryTimeSelection: setDeliveryTimeSelection,
+	setDeliveryAddress: setDeliveryAddress,
+	setDecorationInstallationStatus: setDecorationInstallationStatus,
+	setDeliveryOptionPrice: setDeliveryOptionPrice,
+	setOldAdditionalInformation: setOldAdditionalInformation,	
 	sumAllPrices: sumAllPrices,
 
 };

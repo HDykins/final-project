@@ -175,6 +175,27 @@ function setAdditionalInformation(information) {
   additionalInformation = information;
 }
 
+function setDeliveryAddress(deliveryAddress) {
+  deliveryAddressDetails = deliveryAddress;
+}
+
+function setCollectionAddressDetails(collectionAddress) {
+  if (collectionAddress === 'PRIMARY_COLLECTION_ADDRESS') {
+    setCurrentSelectedCollectionAddressToPrimary();
+    setCurrentCollectionAddressCoordinatesToPrimary();
+  } else if (collectionAddress === 'SECONDARY_COLLECTION_ADDRESS') {
+    setCurrentSelectedCollectionAddressToSecondary();
+    setCurrentCollectionAddressCoordinatesToSecondary();
+  } else if (collectionAddress === 'TERTIARY_COLLECTION_ADDRESS') {
+    setCurrentSelectedCollectionAddressToTertiary();
+    setCurrentCollectionAddressCoordinatesToTertiary()
+  } 
+}
+
+function setDecorationInstallationStatus(decorationInstallation) {
+  isDecorationInstallationSeviceSelected = decorationInstallation;
+}
+
 var CurrentDeliveryUserDetailsStore = objectAssign({}, EventEmitter.prototype, {
 
   getDeliveryAddressDetails: function () {
@@ -266,6 +287,14 @@ function handleAction(action) {
     setDeliveryOptionPriceToZero();
   } else if (action.type === 'set-additional-information') {
     setAdditionalInformation(action.information);
+  } else if (action.type === 'set-delivery-address') {
+    setDeliveryAddress(action.deliveryAddress);
+  } else if (action.type === 'set-collection-address-details') {
+    setCollectionAddressDetails(action.collectionAddress);
+  } else if (action.type === 'set-decoration-installation-status') {
+    setDecorationInstallationStatus(action.decorationInstallation);
+  } else if (action.type === 'set-old-additional-information') {
+    setAdditionalInformation(action.additionalInformation);
   }
 }
 
