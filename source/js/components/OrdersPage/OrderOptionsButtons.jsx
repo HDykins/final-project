@@ -1,6 +1,7 @@
 var React = require('react');
 var OrdersPageActionCreators = require('../../actions/OrdersPageActionCreators.js');
 var TreeInformationStore = require('../../stores/TreeInformationStore.js');
+var moment = require('moment');
 
 var OrderOptionsButtons = React.createClass({
 
@@ -33,7 +34,7 @@ var OrderOptionsButtons = React.createClass({
 		<div className="col-xs-3">
 			<div className="rounded-box">
 				<span>Date Ordered:&nbsp;</span>
-				<span className="red">11/12/2015</span>
+				<span className="red">{this.props.order.userChoices.orderDate}</span>
 			</div>
 		</div>
 		<div className="col-xs-3">

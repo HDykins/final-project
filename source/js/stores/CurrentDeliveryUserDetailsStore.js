@@ -4,6 +4,8 @@ var objectAssign = require('object-assign');
 var moment = require('moment');
 var StateStore = require('./StateStore.js');
 
+var todaysDate = moment().format('DD:MM:YY');
+
 var deliveryAddressDetails = {
   addressLine1: '',
   addressLine2: '',
@@ -194,6 +196,10 @@ function setDecorationInstallationStatus(decorationInstallation) {
 }
 
 var CurrentDeliveryUserDetailsStore = objectAssign({}, EventEmitter.prototype, {
+
+  getTodaysDate: function () {
+    return todaysDate;
+  },
 
   getDeliveryAddressDetails: function () {
     return deliveryAddressDetails;

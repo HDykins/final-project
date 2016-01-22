@@ -54538,6 +54538,7 @@ var TreeInformationStore = require('../stores/TreeInformationStore.js');
 var CurrentDecorationsUserDetailsStore = require('../stores/CurrentDecorationsUserDetailsStore.js');
 var CurrentDeliveryUserDetailsStore = require('../stores/CurrentDeliveryUserDetailsStore.js');
 var TotalPriceStore = require('../stores/TotalPriceStore.js');
+var moment = require('moment');
 
 var OrderSummary = React.createClass({displayName: "OrderSummary",
 
@@ -54597,7 +54598,7 @@ var OrderSummary = React.createClass({displayName: "OrderSummary",
 					), 
 					React.createElement("div", {className: "rounded-box"}, 
 						React.createElement("h2", null, "Estimated delivery date:"), 
-						React.createElement("span", {className: "delivery-date"}, this.props.order.deliveryDay, "th ", this.props.order.deliveryMonth)
+						React.createElement("span", {className: "delivery-date"}, moment().date(this.props.order.deliveryDay).format('Do'), " ", moment().month(this.props.order.deliveryMonth).format('MMMM'))
 					)
 				)
 			)
@@ -54635,7 +54636,7 @@ var OrderSummary = React.createClass({displayName: "OrderSummary",
 					), 
 					React.createElement("div", {className: "rounded-box"}, 
 						React.createElement("h2", null, "Estimated delivery date:"), 
-						React.createElement("span", {className: "delivery-date"}, CurrentDeliveryUserDetailsStore.getCurrentDaySelection(), "th ", CurrentDeliveryUserDetailsStore.getCurrentMonthSelection())
+						React.createElement("span", {className: "delivery-date"}, moment().date(CurrentDeliveryUserDetailsStore.getCurrentDaySelection()).format('Do'), " ", moment().month(CurrentDeliveryUserDetailsStore.getCurrentMonthSelection()).format('MMMM'))
 					)
 				)
 			)
@@ -54648,7 +54649,7 @@ module.exports = OrderSummary;
 
 
 
-},{"../stores/CurrentDecorationsUserDetailsStore.js":382,"../stores/CurrentDeliveryUserDetailsStore.js":383,"../stores/StateStore.js":386,"../stores/TotalPriceStore.js":387,"../stores/TreeInformationStore.js":388,"react":323}],357:[function(require,module,exports){
+},{"../stores/CurrentDecorationsUserDetailsStore.js":382,"../stores/CurrentDeliveryUserDetailsStore.js":383,"../stores/StateStore.js":386,"../stores/TotalPriceStore.js":387,"../stores/TreeInformationStore.js":388,"moment":8,"react":323}],357:[function(require,module,exports){
 var React = require('react');
 var UserSignInDetailsStore = require('../../stores/UserSignInDetailsStore.js');
 var OrdersPageActionCreators = require('../../actions/OrdersPageActionCreators.js');
@@ -54709,6 +54710,7 @@ module.exports = OrderCancellationConfirmation;
 var React = require('react');
 var OrdersPageActionCreators = require('../../actions/OrdersPageActionCreators.js');
 var TreeInformationStore = require('../../stores/TreeInformationStore.js');
+var moment = require('moment');
 
 var OrderOptionsButtons = React.createClass({displayName: "OrderOptionsButtons",
 
@@ -54741,7 +54743,7 @@ var OrderOptionsButtons = React.createClass({displayName: "OrderOptionsButtons",
 		React.createElement("div", {className: "col-xs-3"}, 
 			React.createElement("div", {className: "rounded-box"}, 
 				React.createElement("span", null, "Date Ordered: "), 
-				React.createElement("span", {className: "red"}, "11/12/2015")
+				React.createElement("span", {className: "red"}, this.props.order.userChoices.orderDate)
 			)
 		), 
 		React.createElement("div", {className: "col-xs-3"}, 
@@ -54769,7 +54771,7 @@ module.exports = OrderOptionsButtons;
 
 
 
-},{"../../actions/OrdersPageActionCreators.js":328,"../../stores/TreeInformationStore.js":388,"react":323}],359:[function(require,module,exports){
+},{"../../actions/OrdersPageActionCreators.js":328,"../../stores/TreeInformationStore.js":388,"moment":8,"react":323}],359:[function(require,module,exports){
 var React = require('react');
 var NavBar = require('../NavBar.jsx');
 var OrdersStore = require('../../stores/OrdersStore.js');
@@ -56408,6 +56410,8 @@ var objectAssign = require('object-assign');
 var moment = require('moment');
 var StateStore = require('./StateStore.js');
 
+var todaysDate = moment().format('DD:MM:YY');
+
 var deliveryAddressDetails = {
   addressLine1: '',
   addressLine2: '',
@@ -56599,6 +56603,10 @@ function setDecorationInstallationStatus(decorationInstallation) {
 
 var CurrentDeliveryUserDetailsStore = objectAssign({}, EventEmitter.prototype, {
 
+  getTodaysDate: function () {
+    return todaysDate;
+  },
+
   getDeliveryAddressDetails: function () {
     return deliveryAddressDetails;
   },
@@ -56724,6 +56732,7 @@ var order = {
 	totalDecorationsPrice: CurrentDecorationsUserDetailsStore.getCurrentTotalDecorationsPrice(),
 	delivery: StateStore.getDeliveryChoice(),
 	collection: StateStore.getCollectionChoice(),
+	orderDate: CurrentDeliveryUserDetailsStore.getTodaysDate(),	
 	collectionAddress: CurrentDeliveryUserDetailsStore.getCurrentSelectedCollectionAddress(),
 	collectionCoordinates: CurrentDeliveryUserDetailsStore.getCurrentCollectionAddressCoordinates(),
 	deliveryDay: CurrentDeliveryUserDetailsStore.getCurrentDaySelection(),
@@ -56764,6 +56773,7 @@ function setOrder() {
 		totalDecorationsPrice: CurrentDecorationsUserDetailsStore.getCurrentTotalDecorationsPrice(),
 		delivery: StateStore.getDeliveryChoice(),
 		collection: StateStore.getCollectionChoice(),
+		orderDate: CurrentDeliveryUserDetailsStore.getTodaysDate(),			
 		collectionAddress: CurrentDeliveryUserDetailsStore.getCurrentSelectedCollectionAddress(),
 		collectionCoordinates: CurrentDeliveryUserDetailsStore.getCurrentCollectionAddressCoordinates(),
 		deliveryDay: CurrentDeliveryUserDetailsStore.getCurrentDaySelection(),

@@ -4,6 +4,7 @@ var TreeInformationStore = require('../stores/TreeInformationStore.js');
 var CurrentDecorationsUserDetailsStore = require('../stores/CurrentDecorationsUserDetailsStore.js');
 var CurrentDeliveryUserDetailsStore = require('../stores/CurrentDeliveryUserDetailsStore.js');
 var TotalPriceStore = require('../stores/TotalPriceStore.js');
+var moment = require('moment');
 
 var OrderSummary = React.createClass({
 
@@ -63,7 +64,7 @@ var OrderSummary = React.createClass({
 					</div>
 					<div className="rounded-box">
 						<h2>Estimated delivery date:</h2>
-						<span className="delivery-date">{this.props.order.deliveryDay}th {this.props.order.deliveryMonth}</span>
+						<span className="delivery-date">{moment().date(this.props.order.deliveryDay).format('Do')} {moment().month(this.props.order.deliveryMonth).format('MMMM')}</span>
 					</div>
 				</div>
 			</div>
@@ -101,7 +102,7 @@ var OrderSummary = React.createClass({
 					</div>
 					<div className="rounded-box">
 						<h2>Estimated delivery date:</h2>
-						<span className="delivery-date">{CurrentDeliveryUserDetailsStore.getCurrentDaySelection()}th {CurrentDeliveryUserDetailsStore.getCurrentMonthSelection()}</span>
+						<span className="delivery-date">{moment().date(CurrentDeliveryUserDetailsStore.getCurrentDaySelection()).format('Do')} {moment().month(CurrentDeliveryUserDetailsStore.getCurrentMonthSelection()).format('MMMM')}</span>
 					</div>
 				</div>
 			</div>
