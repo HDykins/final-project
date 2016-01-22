@@ -37,19 +37,19 @@ var OrderSummary = React.createClass({
 					<div className="rounded-box">
 						<div className="col-xs-6">
 							<h3>Rundown of costs</h3>
-							<h4>Tree: {this.props.order.tree}<span className="price">{"+£" + this.props.order.treePrice}</span></h4>
+							<h4>Tree: {this.props.order.tree}<span className="price">{" +£" + this.props.order.treePrice}</span></h4>
 							<ul className="list-unstyled">
 								<li>Height: 4ft</li>
 								<li>Width: ~3ft</li>
 							</ul>				
-							<h4>Services:<span className="price">{ "+£" + this.props.order.totalDeliveryPrice}</span></h4>
+							<h4>Services:<span className="price">{ " +£" + this.props.order.totalDeliveryPrice}</span></h4>
 							<ul className="list-unstyled">
-								<li>Delivery: <span className="price">{ "+£" + this.props.order.decorationInstallation ? (this.props.order.deliveryOptionPrice) : this.props.order.deliveryOptionPrice}</span></li>
-								{this.props.order.decorationInstallation ? <li>Fitted and decorated: <span className="price"> +£15</span></li> : null}
+								<li>Delivery: <span className="price">{ " +£" + this.props.order.deliveryOptionPrice}</span></li>
+								{this.props.order.decorationInstallation ? <li>Fitted and decorated: <span className="price">"+" + £15</span></li> : null}
 							</ul>
 						</div>
 						<div className="col-xs-6">
-							<h4>Decorations:<span className="price">{ "+£" + this.props.order.totalDecorationsPrice}</span></h4>
+							<h4>Decorations:<span className="price">{ " +£" + this.props.order.totalDecorationsPrice}</span></h4>
 							<ul className="list-unstyled">
 								{this.addDecorationToList()}
 							</ul>				
@@ -59,7 +59,7 @@ var OrderSummary = React.createClass({
 				<div className="col-xs-6">
 					<div className="rounded-box">
 						<h2>Final and total Price:</h2>
-						<span className="price total-price">£{this.props.order.totalPrice}</span>
+						<span className="price total-price">{"£" + this.props.order.totalPrice}</span>
 					</div>
 					<div className="rounded-box">
 						<h2>Estimated delivery date:</h2>
@@ -75,19 +75,19 @@ var OrderSummary = React.createClass({
 					<div className="rounded-box">
 						<div className="col-xs-6">
 							<h3>Rundown of costs</h3>
-							<h4>Tree: {TreeInformationStore.getCurrentTreeView()}<span className="price">{"+£" + TreeInformationStore.getCurrentPrice()}</span></h4>
+							<h4>Tree: {TreeInformationStore.getCurrentTreeView()}<span className="price">{" +£" + TreeInformationStore.getCurrentPrice()}</span></h4>
 							<ul className="list-unstyled">
 								<li>Height: 4ft</li>
 								<li>Width: ~3ft</li>
 							</ul>				
-							<h4>Services:<span className="price">{ "+£" + CurrentDeliveryUserDetailsStore.getCurrentTotalDeliveryPrice()}</span></h4>
+							<h4>Services:<span className="price">{ " +£" + CurrentDeliveryUserDetailsStore.getCurrentTotalDeliveryPrice()}</span></h4>
 							<ul className="list-unstyled">
-								<li>Delivery: <span className="price">{ "+£" + CurrentDeliveryUserDetailsStore.getDeliveryOptionPrice()}</span></li>
+								<li>Delivery: <span className="price">{ " +£" + CurrentDeliveryUserDetailsStore.getDeliveryOptionPrice()}</span></li>
 								{CurrentDeliveryUserDetailsStore.getDecorationInstallationSelectionStatus() ? <li>Fitted and decorated: <span className="price"> +£15</span></li> : null}
 							</ul>
 						</div>
 						<div className="col-xs-6">
-							<h4>Decorations:<span className="price">{ "+£" + CurrentDecorationsUserDetailsStore.getCurrentTotalDecorationsPrice()}</span></h4>
+							<h4>Decorations:<span className="price">{ " +£" + CurrentDecorationsUserDetailsStore.getCurrentTotalDecorationsPrice()}</span></h4>
 							<ul className="list-unstyled">
 								{this.addDecorationToList()}
 							</ul>				
@@ -97,7 +97,7 @@ var OrderSummary = React.createClass({
 				<div className="col-xs-6">
 					<div className="rounded-box">
 						<h2>Final and total Price:</h2>
-						<span className="price total-price">£{TotalPriceStore.getCurrentOverallPrice()}</span>
+						<span className="price total-price">{"£" + TotalPriceStore.getCurrentOverallPrice()}</span>
 					</div>
 					<div className="rounded-box">
 						<h2>Estimated delivery date:</h2>

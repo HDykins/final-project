@@ -23,7 +23,9 @@ var DeliveryDate = React.createClass({
   },
 
   handleYearSelectionClickEvent: function () {
-  	DeliveryPageActionCreators.setCurrentYearSelection("2016");
+  	DeliveryPageActionCreators.setCurrentYearSelection(2016);
+  	DeliveryPageActionCreators.setDeliveryOptionPrice();
+  	DeliveryPageActionCreators.sumAllPrices()
   },
 
   handleSetTimeToMorningClickEvent: function () {

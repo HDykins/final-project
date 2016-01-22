@@ -1,6 +1,7 @@
 var Dispatcher = require('../dispatcher/Dispatcher');
 var EventEmitter = require('events').EventEmitter;
 var objectAssign = require('object-assign');
+var moment = require('moment');
 var StateStore = require('./StateStore.js');
 
 var deliveryAddressDetails = {
@@ -15,13 +16,6 @@ var deliveryOptionPrice = 0;
 var currentTotalDeliveryPrice = 0;
 
 var isDecorationInstallationSeviceSelected = false;
-
-var date = new Date();
-today = date.getDate();
-
-var monthIndex = date.getMonth();
-var todaysMonth = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][monthIndex];
-
 
 var collectionAddressCoordinates = {
   PRIMARY_COLLECTION_ADDRESS: {latitude: -0.0714564561271418, longitude: 51.643334192204},
@@ -130,32 +124,34 @@ function toggleDecorationInstallationServiceSelection() {
 }
 
 function calculateDeliveryOptionPrice() {
-  if(typeof currentMonthSelection !== "string") {
-    console.log(currentMonthSelection);
 
-    if((currentMonthSelection-1) === monthIndex) {
+  console.log(typeof currentDaySelection !== "string");
+  console.log(typeof currentMonthSelection !== "string");
+  console.log(currentYearSelection);
 
-      if ((currentDaySelection - today) === 1) {
-        deliveryOptionPrice = 15;
-      }
-      else if (0 < (currentDaySelection - today) && (currentDaySelection - today) < 6 ) {
-        deliveryOptionPrice = 6;
-      }
-      else if ((currentDaySelection - today) < 0 ) {
-        deliveryOptionPrice = 3;
-      }
-      else if (6 <= (currentDaySelection - today)) {
-        deliveryOptionPrice = 3;
-      }
-    } else { 
-        deliveryOptionPrice = 3;
-      }
-      console.log(deliveryOptionPrice);
- }
+  if((typeof currentDaySelection !== "string") && (typeof currentMonthSelection !== "string") && (typeof currentYearSelection !== "string")) {
+    console.log("calculate");
+
+    var daysUntilOrderDate = moment().set('year', currentYearSelection).set('month', (currentMonthSelection-1)).set('date', currentDaySelection).diff(moment(), 'days')
+
+    if (daysUntilOrderDate === 1) {
+      deliveryOptionPrice = 15;
+    }
+    else if (0 < daysUntilOrderDate && daysUntilOrderDate < 6 ) {
+      deliveryOptionPrice = 6;
+    }
+    else if (daysUntilOrderDate < 0 ) {
+      currentDaySelection = "Day";
+      currentMonthSelection = "Month";
+    }
+    else if (6 <= daysUntilOrderDate) {
+      deliveryOptionPrice = 3;
+    }
+  }
 }
 
 function setDeliveryOptionPrice() {
-  if(typeof currentMonthSelection !== "string") {
+  if ((typeof currentDaySelection !== "string") && (typeof currentMonthSelection !== "string") && (typeof currentYearSelection !== "string")) {
    calculateDeliveryOptionPrice();
       currentTotalDeliveryPrice = 0;
     if (StateStore.getDeliveryChoice()) {
@@ -165,6 +161,7 @@ function setDeliveryOptionPrice() {
       }
     }
   }
+  CurrentDeliveryUserDetailsStore.emit('change');
 }
 
 function setDeliveryOptionPriceToZero() {
