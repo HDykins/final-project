@@ -3,6 +3,9 @@ var EventEmitter = require('events').EventEmitter;
 var objectAssign = require('object-assign');
 var moment = require('moment');
 var StateStore = require('./StateStore.js');
+var GoogleMapsLoader = require('google-maps');
+
+GoogleMapsLoader.KEY = 'AIzaSyB8WWc9dvvtCbgLGkEWj3Ma1I01OsWYJaw';
 
 var todaysDate = moment().format('DD:MM:YY');
 
@@ -20,10 +23,12 @@ var currentTotalDeliveryPrice = 0;
 var isDecorationInstallationSeviceSelected = false;
 
 var collectionAddressCoordinates = {
-  PRIMARY_COLLECTION_ADDRESS: {latitude: -0.0714564561271418, longitude: 51.643334192204},
-  SECONDARY_COLLECTION_ADDRESS: {latitude: -0.0676001303937897, longitude: 51.6031465071854},
-  TERTIARY_COLLECTION_ADDRESS: {latitude: -0.0839700532759249,longitude: 51.4999559669139}
+  PRIMARY_COLLECTION_ADDRESS: {lat: 51.643334192204, lng: -0.07145645612717999},
+  SECONDARY_COLLECTION_ADDRESS: {lat: 51.6031465071854, lng: -0.0676001303937897},
+  TERTIARY_COLLECTION_ADDRESS: {lat: 51.4999559669139, lng: -0.0839700532759249}
 };
+
+var arrayOfMarkers = [];
 
 var collectionAddressStates = {
   PRIMARY_COLLECTION_ADDRESS: "PRIMARY_COLLECTION_ADDRESS",
@@ -31,7 +36,7 @@ var collectionAddressStates = {
   TERTIARY_COLLECTION_ADDRESS: "TERTIARY_COLLECTION_ADDRESS"
 };
 
-var currentCollectionAddressCoordinates = {latitute: -0.0714564561271418, longitude: 51.643334192204};
+var currentCollectionAddressCoordinates = {lat: 51.643334192204, lng: -0.07145645612717999};
 var currentSelectedCollectionAddress = "PRIMARY_COLLECTION_ADDRESS";
 
 var currentDaySelection = "Day";
@@ -40,6 +45,25 @@ var currentYearSelection = "Year";
 var currentTimeSelection = "Time";
 
 var additionalInformation = null;
+
+function setMarkerArray(array) {
+  arrayOfMarkers = array;
+  console.log(arrayOfMarkers);
+}
+
+function animateMarkersOnLocationChange() {
+  GoogleMapsLoader.load(function(google) {
+    arrayOfMarkers.map(function (marker) {
+      marker.setAnimation(null);
+      // console.log(CurrentDeliveryUserDetailsStore.getCurrentCollectionAddressCoordinates().lat);
+      // console.log({lat: location.getPosition().lat(), lng: location.getPosition().lng() });
+      if (currentCollectionAddressCoordinates.lat === marker.getPosition().lat()) {
+        marker.setAnimation(google.maps.Animation.BOUNCE);
+      }
+    });
+  });
+  CurrentDeliveryUserDetailsStore.emit('change');
+}
 
 function setDeliveryAddressDetails(data) {
   deliveryAddressDetails.addressLine1 = '';
@@ -260,6 +284,10 @@ function handleAction(action) {
     setDeliveryAddressDetails(action.data);
   } else if (action.type === 'update-address-details') {
     updateAddressDetails(action.addressDetails);
+  } else if (action.type === 'set-marker-array') {
+    setMarkerArray(action.array);
+  } else if (action.type === 'animate-markers-on-location-change') {
+    animateMarkersOnLocationChange();
   } else if (action.type === 'set-current-collection-address-coordinates-to-primary') {
     setCurrentCollectionAddressCoordinatesToPrimary();
   } else if (action.type === 'set-current-collection-address-coordinates-to-secondary') {

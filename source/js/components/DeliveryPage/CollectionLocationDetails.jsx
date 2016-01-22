@@ -7,16 +7,19 @@ var CollectionLocationDetails = React.createClass({
   handlePrimaryAddressClickEvent: function () {
   	DeliveryPageActionCreators.setCurrentSelectedCollectionAddressToPrimary();
   	DeliveryPageActionCreators.setCurrentCollectionAddressCoordinatesToPrimary();
+  	DeliveryPageActionCreators.animateMarkersOnLocationChange();
   },
 
   handleSecondaryAddressClickEvent: function () {
   	DeliveryPageActionCreators.setCurrentSelectedCollectionAddressToSecondary();
   	DeliveryPageActionCreators.setCurrentCollectionAddressCoordinatesToSecondary();
+  	DeliveryPageActionCreators.animateMarkersOnLocationChange();
   },
 
   handleTertiaryAddressClickEvent: function () {
   	DeliveryPageActionCreators.setCurrentSelectedCollectionAddressToTertiary();
   	DeliveryPageActionCreators.setCurrentCollectionAddressCoordinatesToTertiary();
+  	DeliveryPageActionCreators.animateMarkersOnLocationChange();
   },  
 
   render: function () {

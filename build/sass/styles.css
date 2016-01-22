@@ -386,6 +386,10 @@ input[type=text] {
 .red {
   color: red; }
 
+.map-div {
+  height: 35vw;
+  max-height: 390px; }
+
 .danger-button {
   width: 90%;
   height: 6vw;

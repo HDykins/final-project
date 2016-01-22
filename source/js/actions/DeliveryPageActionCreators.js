@@ -15,6 +15,21 @@ function changeToPaymentPage() {
 	Dispatcher.dispatch(action);
 }
 
+function setMarkerArray(array) {
+	var action = {
+		type:'set-marker-array',
+		array: array,
+	};
+	Dispatcher.dispatch(action);
+}
+
+function animateMarkersOnLocationChange() {
+	var action = {
+		type:'animate-markers-on-location-change',
+	};
+	Dispatcher.dispatch(action);
+}
+
 function toggleDeliveryChoice() {
 	var action = {
 		type: 'toggle-delivery-choice',
@@ -164,6 +179,8 @@ function setAdditionalInformation(information) {
 module.exports = {
 	changeToDecorationsPage: changeToDecorationsPage,
 	changeToPaymentPage: changeToPaymentPage,
+	setMarkerArray: setMarkerArray,
+	animateMarkersOnLocationChange: animateMarkersOnLocationChange,
 	toggleDeliveryChoice: toggleDeliveryChoice,
 	toggleCollectionChoice: toggleCollectionChoice,
 	setDeliveryAddressDetails: setDeliveryAddressDetails,

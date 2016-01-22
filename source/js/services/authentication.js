@@ -182,6 +182,16 @@ function getPostCode(postcode, done) {
   xhr.send();
 }
 
+  function initBlankFormMap(myLatLngObject) {
+
+      var mapInfoForms = {
+    center: {lat: 51.507310, lng: -0.127646},
+      zoom: 8
+    }
+
+    blankFormMap = new google.maps.Map(document.getElementById('blank-form-map'), mapInfoForms);
+  }
+
 module.exports = {
   signIn: signIn,
   register: register,
