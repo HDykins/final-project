@@ -12,9 +12,9 @@ var currentTotalPrice = TreeInformationStore.getCurrentPrice();
 function sumAllPrices() {
   
   if(StateStore.getCollectionChoice()) {
-    currentTotalPrice = 0.9*(TreeInformationStore.getCurrentPrice() + CurrentDecorationsUserDetailsStore.getCurrentTotalDecorationsPrice() + CurrentDeliveryUserDetailsStore.getCurrentTotalDeliveryPrice());
+    currentTotalPrice = (0.9*(TreeInformationStore.getCurrentPrice() + CurrentDecorationsUserDetailsStore.getCurrentTotalDecorationsPrice() + CurrentDeliveryUserDetailsStore.getCurrentTotalDeliveryPrice())).toFixed(2);
   } else {
-    currentTotalPrice = TreeInformationStore.getCurrentPrice() + CurrentDecorationsUserDetailsStore.getCurrentTotalDecorationsPrice() + CurrentDeliveryUserDetailsStore.getCurrentTotalDeliveryPrice();
+    currentTotalPrice = (TreeInformationStore.getCurrentPrice() + CurrentDecorationsUserDetailsStore.getCurrentTotalDecorationsPrice() + CurrentDeliveryUserDetailsStore.getCurrentTotalDeliveryPrice()).toFixed(2);
   }
   // console.log(CurrentDecorationsUserDetailsStore.getCurrentTotalDecorationsPrice());
   // console.log(TreeInformationStore.getCurrentPrice());

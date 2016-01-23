@@ -10,7 +10,8 @@ var TotalPriceStore = require('../stores/TotalPriceStore.js');
 
 var order = {
 	height: TreeInformationStore.getCurrentHeight(),
-	width: "5",
+	heightValue: TreeInformationStore.getCurrentHeightValue(),
+	widthValue: TreeInformationStore.getCurrentWidthValue(),
 	tree: TreeInformationStore.getCurrentTreeView(),
 	treePrice: TreeInformationStore.getCurrentPrice(),
 	decorationSelection: CurrentDecorationsUserDetailsStore.getDecorationStatus(),
@@ -51,7 +52,8 @@ function setOrdersArray(orders) {
 function setOrder() {
 	order = {
 		height: TreeInformationStore.getCurrentHeight(),
-		width: "def",
+		heightValue: TreeInformationStore.getCurrentHeightValue(),
+		widthValue: TreeInformationStore.getCurrentWidthValue(),
 		tree: TreeInformationStore.getCurrentTreeView(),
 		treePrice: TreeInformationStore.getCurrentPrice(),
 		decorationSelection: CurrentDecorationsUserDetailsStore.getDecorationStatus(),

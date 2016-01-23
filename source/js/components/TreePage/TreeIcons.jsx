@@ -9,24 +9,28 @@ var TreeIcons = React.createClass({
   	TreePageActionCreators.changeToNorwegianView();
     TreePageActionCreators.setCurrentTreePrice();
     TreePageActionCreators.sumAllPrices();
+    TreePageActionCreators.setHeightValue(TreeInformationStore.getCurrentHeightValue());
   },
 
   changeToNordmannView: function () {
   	TreePageActionCreators.changeToNordmannView()
     TreePageActionCreators.setCurrentTreePrice();
     TreePageActionCreators.sumAllPrices();
+    TreePageActionCreators.setHeightValue(TreeInformationStore.getCurrentHeightValue());
   },
 
   changeToFraserView: function () {
   	TreePageActionCreators.changeToFraserView()
     TreePageActionCreators.setCurrentTreePrice();
     TreePageActionCreators.sumAllPrices();
+    TreePageActionCreators.setHeightValue(TreeInformationStore.getCurrentHeightValue());
   },
 
   changeToArtificialView: function () {
   	TreePageActionCreators.changeToArtificialView()
     TreePageActionCreators.setCurrentTreePrice();
     TreePageActionCreators.sumAllPrices();
+    TreePageActionCreators.setHeightValue(TreeInformationStore.getCurrentHeightValue());
   },
 
   render: function () {

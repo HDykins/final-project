@@ -40,8 +40,8 @@ var OrderSummary = React.createClass({
 							<h3>Rundown of costs</h3>
 							<h4>Tree: {this.props.order.tree}<span className="price">{" +£" + this.props.order.treePrice}</span></h4>
 							<ul className="list-unstyled">
-								<li>Height: 4ft</li>
-								<li>Width: ~3ft</li>
+								<li>Height: {this.props.order.heightValue + "ft"}</li>
+								<li>Width: {this.props.order.widthValue + "ft"}</li>
 							</ul>				
 							<h4>Services:<span className="price">{ " +£" + this.props.order.totalDeliveryPrice}</span></h4>
 							<ul className="list-unstyled">
@@ -78,8 +78,8 @@ var OrderSummary = React.createClass({
 							<h3>Rundown of costs</h3>
 							<h4>Tree: {TreeInformationStore.getCurrentTreeView()}<span className="price">{" +£" + TreeInformationStore.getCurrentPrice()}</span></h4>
 							<ul className="list-unstyled">
-								<li>Height: 4ft</li>
-								<li>Width: ~3ft</li>
+								<li>Height: {TreeInformationStore.getCurrentHeightValue() + "ft"}</li>
+								<li>Width: {TreeInformationStore.getCurrentWidthValue() + "ft"}</li>
 							</ul>				
 							<h4>Services:<span className="price">{ " +£" + CurrentDeliveryUserDetailsStore.getCurrentTotalDeliveryPrice()}</span></h4>
 							<ul className="list-unstyled">

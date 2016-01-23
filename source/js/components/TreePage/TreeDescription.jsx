@@ -6,7 +6,7 @@ var TreeDescription = React.createClass({
   	if (TreeInformationStore.getCurrentTreeView() === "NORWEGIAN_SPRUCE") {
 	    return (
 		<div className="rounded-box">
-			<p>The Norway Spruce is the traditional Christmas tree which can be found in many homes throughout the UK and Europe.   Norway Spruce can be found naturally in Northern and Central Europe. The tree features pointed mid-green colour needles with long cylindrical brown cones which hang down. Many people enjoy its scent once its indoors during December.</p>
+			<p>The Norwegian Spruce is the traditional Christmas tree which favoured by many homes throughout the UK and Europe. The Norwegian Spruce can be found naturally in Northern and Central Europe. The tree features pointed mid-green colour needles with long cylindrical brown cones which hang down. Many people enjoy its scent once its indoors during December.</p>
 		</div>
 		);
 	} else if (TreeInformationStore.getCurrentTreeView() === "NORDMANN_FIR") {

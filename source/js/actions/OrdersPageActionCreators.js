@@ -29,6 +29,7 @@ function populateStoresWithSelectedOrder(orderDetails) {
 	console.log("stores populating.....");
 	console.log(orderDetails);
 	setHeight(orderDetails);
+	setHeightValue(orderDetails)
 	setTreeType(orderDetails);
 	setTreePrice();
 	setDecorationStatus(orderDetails);
@@ -62,12 +63,13 @@ function setHeight(orderDetails) {
 	Dispatcher.dispatch(action);
 }
 
-// function setWidth(orderDetails) {
-// 		var action = {
-// 		type: 'set-width',
-// 		width: orderDetails.width,
-// 	};
-// }
+function setHeightValue(orderDetails) {
+	var action = {
+		type: 'set-height-value',
+		heightValue: orderDetails.heightValue,
+	}
+	Dispatcher.dispatch(action);
+}
 
 function setTreeType(orderDetails) {
 	var action = {
@@ -213,7 +215,7 @@ module.exports = {
 	setHideCancellationForm: setHideCancellationForm,
 	populateStoresWithSelectedOrder: populateStoresWithSelectedOrder,
 	setHeight: setHeight,
-	// setWidth: setWidth,
+	setHeightValue: setHeightValue,
 	setTreeType: setTreeType,
 	setTreePrice: setTreePrice,
 	setDecorationStatus: setDecorationStatus,

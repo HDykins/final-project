@@ -24,6 +24,8 @@ var HEIGHTS = {
 
 var currentTreeView = TREE_TYPES.NORWEGIAN_SPRUCE;
 var currentHeight = HEIGHTS.MEDIUM;
+var currentHeightValue = 7;
+var currentWidthValue = 3.5;
 var currentPrice = 24;
 
 function changeToNorwegianView() {
@@ -66,6 +68,16 @@ function setHeight(height) {
   TreeInformationStore.emit('change');
 }
 
+function setHeightValue(height) {
+  currentHeightValue = height;
+  if (currentTreeView === "FRASER_FIR") {
+    currentWidthValue = (height/3).toFixed(2);
+  } else {
+    currentWidthValue = (height/2).toFixed(2);
+  }
+  TreeInformationStore.emit('change');
+}
+
 function setTreeType(treeType) {
   currentTreeView = TREE_TYPES[treeType];
   TreeInformationStore.emit('change');
@@ -85,6 +97,14 @@ var TreeInformationStore = objectAssign({}, EventEmitter.prototype, {
 
   getCurrentHeight: function () {
     return currentHeight;
+  },
+
+  getCurrentHeightValue: function () {
+    return currentHeightValue;
+  },
+
+  getCurrentWidthValue: function () {
+    return currentWidthValue;
   },
 
   getCurrentPrice: function () {
@@ -119,6 +139,8 @@ function handleAction(action) {
     changeHeightToLarge();
   } else if (action.type === 'set-height') {
     setHeight(action.height);
+  } else if (action.type === 'set-height-value') {
+    setHeightValue(action.heightValue);
   } else if (action.type === 'set-tree-type') {
     setTreeType(action.treeType);
   } else if (action.type === 'set-current-tree-price') {

@@ -65,6 +65,14 @@ function changeHeightToLarge() {
 	Dispatcher.dispatch(action);
 }
 
+function setHeightValue(value) {
+	var action = {
+		type: 'set-height-value',
+		heightValue: value,
+	}
+	Dispatcher.dispatch(action);
+}
+
 function setCurrentTreePrice() {
 	var action = {
 		type: 'set-current-tree-price',
@@ -89,6 +97,7 @@ module.exports = {
 	changeHeightToSmall: changeHeightToSmall,
 	changeHeightToMedium: changeHeightToMedium,
 	changeHeightToLarge: changeHeightToLarge,
+	setHeightValue: setHeightValue,
 	setCurrentTreePrice: setCurrentTreePrice,
 	sumAllPrices: sumAllPrices
 };
