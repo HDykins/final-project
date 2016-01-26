@@ -5,7 +5,7 @@ var LargeTreeIcon = React.createClass({
   	if (this.props.treeView === "NORWEGIAN_SPRUCE") {
 	    return (
 		<div className="rounded-box">
-			<img src="../source/images/tree-photos/norwegian-spruce.jpg" className="tree-icon-image-large" />
+			<img src="../../images/tree-photos/norwegian-spruce.jpg" className="tree-icon-image-large" />
 		</div>
 		);
   	} else if (this.props.treeView === "NORDMANN_FIR") {

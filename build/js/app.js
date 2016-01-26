@@ -39770,9 +39770,9 @@ var PreviewImage = React.createClass({displayName: "PreviewImage",
     return (
    	React.createElement("div", {className: "col-xs-6"}, 
 		React.createElement("div", {className: "rounded-box"}, 
-			this.props.decoration === null ? React.createElement("img", {className: "photo-far", src: "../source/images/tree-photos/norwegian-spruce.jpg"}) : React.createElement("img", {className: "photo-far", src: "../source/images/tree-photos/" + this.props.decoration.far + ".jpg"}), 
-			this.props.decoration === null ? React.createElement("img", {className: "photo-tree", src: "../source/images/tree-photos/norwegian-spruce.jpg"}) : React.createElement("img", {className: "photo-tree", src: "../source/images/tree-photos/" + this.props.decoration.tree + ".jpg"}), 
-			this.props.decoration === null ? React.createElement("img", {className: "photo-close", src: "../source/images/landing-page-background.jpg"}) : React.createElement("img", {className: "photo-close", src: "../source/images/tree-photos/" + this.props.decoration.close + ".jpg"})
+			this.props.decoration === null ? React.createElement("img", {className: "photo-far", src: "../../images/tree-photos/norwegian-spruce.jpg"}) : React.createElement("img", {className: "photo-far", src: "../../images/tree-photos/" + this.props.decoration.far + ".jpg"}), 
+			this.props.decoration === null ? React.createElement("img", {className: "photo-tree", src: "../../images/tree-photos/norwegian-spruce.jpg"}) : React.createElement("img", {className: "photo-tree", src: "../../images/tree-photos/" + this.props.decoration.tree + ".jpg"}), 
+			this.props.decoration === null ? React.createElement("img", {className: "photo-close", src: "../../images/landing-page-background.jpg"}) : React.createElement("img", {className: "photo-close", src: "../../images/tree-photos/" + this.props.decoration.close + ".jpg"})
 		)
 	)
     );
@@ -41705,7 +41705,7 @@ var LargeTreeIcon = React.createClass({displayName: "LargeTreeIcon",
   	if (this.props.treeView === "NORWEGIAN_SPRUCE") {
 	    return (
 		React.createElement("div", {className: "rounded-box"}, 
-			React.createElement("img", {src: "../source/images/tree-photos/norwegian-spruce.jpg", className: "tree-icon-image-large"})
+			React.createElement("img", {src: "../../images/tree-photos/norwegian-spruce.jpg", className: "tree-icon-image-large"})
 		)
 		);
   	} else if (this.props.treeView === "NORDMANN_FIR") {
@@ -41874,7 +41874,7 @@ var TreeIcons = React.createClass({displayName: "TreeIcons",
   render: function () {
     return (
 	React.createElement("div", {className: "row"}, 
-		React.createElement(TreeIcon, {handleClick: this.changeToNorwegianView, label: "Norwegian Spruce", price: "£20-40", image: "../source/images/tree-photos/norwegian-spruce.jpg", className: TreeInformationStore.getCurrentTreeView() === "NORWEGIAN_SPRUCE" ? "highlight" : null}), 
+		React.createElement(TreeIcon, {handleClick: this.changeToNorwegianView, label: "Norwegian Spruce", price: "£20-40", image: "../../images/tree-photos/norwegian-spruce.jpg", className: TreeInformationStore.getCurrentTreeView() === "NORWEGIAN_SPRUCE" ? "highlight" : null}), 
 		React.createElement(TreeIcon, {handleClick: this.changeToNordmannView, label: "Nordmann Fir", price: "£28-48", image: "http://www.cawstonchristmastrees.co.uk/media/catalog/product/cache/1/image/a064d5fcd2c1dc59bbfcc0d0b1e10b16/7/f/7ft_premier_nordmann_fir.jpg", className: TreeInformationStore.getCurrentTreeView() === "NORDMANN_FIR" ? "highlight" : null}), 
 		React.createElement(TreeIcon, {handleClick: this.changeToFraserView, label: "Fraser Fir", price: "£35-55", image: "http://www.balsamhill.co.uk/v/vspfiles/photos/FRA-T-UK-2.jpg", className: TreeInformationStore.getCurrentTreeView() === "FRASER_FIR" ? "highlight" : null}), 
 		React.createElement(TreeIcon, {handleClick: this.changeToArtificialView, label: "Artificial", price: "£12-70", image: "https://26jvuybq3aw22hpt11xno70y-wpengine.netdna-ssl.com/assets/Memphis-Spruce-Christmas-Tree1.jpg", className: TreeInformationStore.getCurrentTreeView() === "ARTIFICIAL" ? "highlight" : null})
