@@ -40481,7 +40481,7 @@ var LandingPageActionCreators = require('../../actions/LandingPageActionCreators
 
 var StartButton = React.createClass({displayName: "StartButton",
 
-  handleStartButtonClickEvent: function () {
+  handleStartButtonClickEvent: function (event) {
   	event.preventDefault();
 
     LandingPageActionCreators.changeToTreePage();
@@ -41100,56 +41100,100 @@ var RegisterForm = React.createClass({displayName: "RegisterForm",
 
   handleXButtonClickEvent: function () {
   	event.preventDefault();
+  	console.log(this.validateRegisterFields());
 
     SignInFormActionCreators.setHideRegisterForm();
   },
 
+  validateRegisterFields: function () {
+
+	function validateEmail(email) {
+	var emailInput = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+	return emailInput.test(email);
+	}
+
+	function validatePassword(password) {
+	  var passwordInput = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,16}$/;
+	  return passwordInput.test(password);
+	}
+
+	function validateUKPhoneNumber(phoneNumber) {
+	  var phoneNumberInput = /^(?:(?:\(?(?:0(?:0|11)\)?[\s-]?\(?|\+)44\)?[\s-]?(?:\(?0\)?[\s-]?)?)|(?:\(?0))(?:(?:\d{5}\)?[\s-]?\d{4,5})|(?:\d{4}\)?[\s-]?(?:\d{5}|\d{3}[\s-]?\d{3}))|(?:\d{3}\)?[\s-]?\d{3}[\s-]?\d{3,4})|(?:\d{2}\)?[\s-]?\d{4}[\s-]?\d{4}))(?:[\s-]?(?:x|ext\.?|\#)\d{3,4})?$/;
+	return phoneNumberInput.test(phoneNumber);
+	}
+
+	// console.log("email: " + validateEmail(this.refs.newEmail.value));
+	// console.log("password " + validatePassword(this.refs.newPassword.value));
+	// console.log("phoneNumberUK " + validateUKPhoneNumber(this.refs.phoneNumber.value));
+	// console.log("aaaaallll o it " + validateEmail(this.refs.newEmail.value) && 
+ //  		validatePassword(this.refs.newPassword.value) && 
+ //  		validateUKPhoneNumber(this.refs.phoneNumber.value) && 
+ //  		this.refs.newEmail.value === this.refs.retypeEmail.value && 
+ //  		this.refs.newPassword.value === this.refs.retypePassword.value);
+
+  	if (validateEmail(this.refs.newEmail.value) && 
+  		validatePassword(this.refs.newPassword.value) && 
+  		validateUKPhoneNumber(this.refs.phoneNumber.value) && 
+  		this.refs.newEmail.value === this.refs.retypeEmail.value && 
+  		this.refs.newPassword.value === this.refs.retypePassword.value) {
+		return true;
+  	}
+  	else {
+  		return false;
+  	}
+  },
+
   handleUserRegisterFormSubmit: function () {
-  	var id = HashID.generate();
-  	console.log(id)
-    AuthenticationService.register(this.refs.newEmail.value, this.refs.newPassword.value, this.refs.phoneNumber.value, id, function handleUserRegister(error, response) {
 
-      if (error) {
-        this.showRegisterFailMessage('Failed to register. Email may be in use');
-        return;
-      }
+  	if (this.validateRegisterFields) {
+  		var id = HashID.generate();
+  		console.log(id)
+	    AuthenticationService.register(this.refs.newEmail.value, this.refs.newPassword.value, this.refs.phoneNumber.value, id, function handleUserRegister(error, response) {
 
-		AuthenticationService.signIn(this.refs.newEmail.value, this.refs.newPassword.value, function handleUserSignIn(error, response) {
+	      if (error) {
+	        this.showRegisterFailMessage('Failed to register. Email may be in use');
+	        return;
+	      }
 
-			if (error) {
-			    console.log('Cant sign in');
-			    return;
-			}
+			AuthenticationService.signIn(this.refs.newEmail.value, this.refs.newPassword.value, function handleUserSignIn(error, response) {
 
-			SignInFormActionCreators.setUserAuthenticationToken(response.token);
-			SignInFormActionCreators.setCurrentUserId(response.id);
-			SignInFormActionCreators.setSignedInStatusToTrue();
+				if (error) {
+				    console.log('Cant sign in');
+				    return;
+				}
 
-			this.hideRegisterFailMessage();
-			this.showRegisterSuccessMessage('Successfully registered');
+				SignInFormActionCreators.setUserAuthenticationToken(response.token);
+				SignInFormActionCreators.setCurrentUserId(response.id);
+				SignInFormActionCreators.setSignedInStatusToTrue();
 
-			console.log("Signed in as well");
+				this.hideRegisterFailMessage();
+				this.showRegisterSuccessMessage('Successfully registered');
 
-			if (StateStore.getCurrentPage() === "THANKS_PAGE") {
+				console.log("Signed in as well");
 
-				console.log(UserSignInDetailsStore.getCurrentToken());
+				if (StateStore.getCurrentPage() === "THANKS_PAGE") {
 
-				AuthenticationService.assignOrderToUser(OrdersStore.getCurrentOrderId(), UserSignInDetailsStore.getCurrentUserId(), UserSignInDetailsStore.getCurrentToken(), function handleUserSignIn(error, response) {
+					console.log(UserSignInDetailsStore.getCurrentToken());
 
-					if (error) {
-					  console.log("No");
-					  // this.hideSignInSuccessMessage();
-					  // this.showSignInFailMessage('Failed to log in. Check email and password');
-					  return;
-					}
+					AuthenticationService.assignOrderToUser(OrdersStore.getCurrentOrderId(), UserSignInDetailsStore.getCurrentUserId(), UserSignInDetailsStore.getCurrentToken(), function handleUserSignIn(error, response) {
 
-					console.log("OrderAssignedHopefully");
+						if (error) {
+						  console.log("No");
+						  // this.hideSignInSuccessMessage();
+						  // this.showSignInFailMessage('Failed to log in. Check email and password');
+						  return;
+						}
 
-				}.bind(this));		
-			}
-		}.bind(this));
+						console.log("OrderAssignedHopefully");
 
-    }.bind(this));
+					}.bind(this));		
+				}
+			}.bind(this));
+
+	    }.bind(this));
+	} else {
+		console.log("no dice");
+	}
   },
 
   render: function () {
@@ -41168,13 +41212,13 @@ var RegisterForm = React.createClass({displayName: "RegisterForm",
 				React.createElement("input", {className: "registration-input", ref: "newEmail", placeholder: "Email"})
 			), 
 			React.createElement("div", {className: "rounded-box"}, 
-				React.createElement("input", {className: "registration-input", placeholder: "Retype email"})
+				React.createElement("input", {className: "registration-input", ref: "retypeEmail", placeholder: "Retype email"})
 			), 
 			React.createElement("div", {className: "rounded-box"}, 
 				React.createElement("input", {className: "registration-input", ref: "newPassword", placeholder: "Password"})
 			), 
 			React.createElement("div", {className: "rounded-box"}, 
-				React.createElement("input", {className: "registration-input", placeholder: "Retype password"})
+				React.createElement("input", {className: "registration-input", ref: "retypePassword", placeholder: "Retype password"})
 			), 
 			React.createElement("div", {className: "rounded-box"}, 
 				React.createElement("input", {className: "registration-input", ref: "phoneNumber", placeholder: "Phone number"})
@@ -42069,7 +42113,7 @@ function saveOrder(order, orderId, userId, handleResponse) {
     var data = {
       userChoices: order,
       id: orderId,
-      userId: "a9wm665z"
+      userId: "wb9ebav5"
     };
   }
 

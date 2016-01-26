@@ -3,7 +3,7 @@ var LandingPageActionCreators = require('../../actions/LandingPageActionCreators
 
 var StartButton = React.createClass({
 
-  handleStartButtonClickEvent: function () {
+  handleStartButtonClickEvent: function (event) {
   	event.preventDefault();
 
     LandingPageActionCreators.changeToTreePage();
