@@ -25,11 +25,11 @@ var CardDetails = React.createClass({
 			              <span className="caret"></span>
 			            </button>
 			            <ul className="dropdown-menu" aria-labelledby="dropdown-card-type">
-			              <li><a href="#">Visa</a></li>
-			              <li><a href="#">Visa Debit</a></li>
-			              <li><a href="#">American Express</a></li>
-			              <li><a href="#">Maestro</a></li>
-			              <li><a href="#">Mastercard</a></li>
+			              <li>Visa</li>
+			              <li>Visa Debit</li>
+			              <li>American Express</li>
+			              <li>Maestro</li>
+			              <li>Mastercard</li>
 			            </ul>
 			        </div>
 				</div>

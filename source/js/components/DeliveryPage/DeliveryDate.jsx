@@ -22,6 +22,13 @@ var DeliveryDate = React.createClass({
 	return monthListItem;
   },
 
+  handleMonthSelectionChange: function () {
+  	console.log("stored date month    " + parseInt(this.refs.month.value));
+  	DeliveryPageActionCreators.setCurrentMonthSelection(parseInt(this.refs.month.value));
+  	DeliveryPageActionCreators.setDeliveryOptionPrice();
+  	DeliveryPageActionCreators.sumAllPrices()
+  },
+
   handleYearSelectionClickEvent: function () {
   	DeliveryPageActionCreators.setCurrentYearSelection(2016);
   	DeliveryPageActionCreators.setDeliveryOptionPrice();
@@ -37,6 +44,7 @@ var DeliveryDate = React.createClass({
   },  
 
   render: function () {
+  	console.log(CurrentDeliveryUserDetailsStore.getShowDateValidationMessage());
     return (
    	<div>
    		<div className="col-xs-4">
@@ -59,13 +67,10 @@ var DeliveryDate = React.createClass({
 		        </div>
 		        <div className="no-padding col-xs-4">
 					<div className="dropdown">
-			            <button className="btn small-button dropdown-toggle" type="button" id="dropdown-lights" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-			              <span className="white-text">{CurrentDeliveryUserDetailsStore.getCurrentMonthSelection()}</span>
-			              <span className="caret"></span>
-			            </button>
-			            <ul className="dropdown-menu" aria-labelledby="dropdown-lights">
-			              {this.addMonthListItems()}
-			            </ul>
+						<select onChange={this.handleMonthSelectionChange} name="ok" className="form-control center btn small-button dropdown-toggle white-text" data-width="fit" ref="month" required>
+							<option value="">Month</option>
+							{this.addMonthListItems()}
+						</select>
 			        </div>
 		        </div>
 		        <div className="no-padding col-xs-4">
@@ -80,6 +85,10 @@ var DeliveryDate = React.createClass({
 			        </div>	
 		        </div>	         
 			</div>
+			{CurrentDeliveryUserDetailsStore.getShowDateValidationMessage() ?
+			<div>eiygfyuiaegyug
+			</div>
+			: null}
 		</div>
 		<div className="col-xs-4">
    			<div className="rounded-box visible dropdown-time">

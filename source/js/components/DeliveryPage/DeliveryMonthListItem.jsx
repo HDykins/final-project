@@ -10,7 +10,7 @@ var DeliveryMonthListItem = React.createClass({
   },
 
 	render: function () {
-    return (<li onClick={this.handleMonthSelectionClickEvent}><a>{this.props.month}</a></li>);
+    return (<option onClick={this.handleMonthSelectionClickEvent}>{this.props.month}</option>);
   }
 });
 

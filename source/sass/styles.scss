@@ -193,10 +193,10 @@ $almost-white-blue : rgba(230,240,255,0.8);
 
 .rounded-box {
 	@extend .border;
-	min-height: 10vh;
-	margin-top: 2vh;
-	margin-bottom: 2vh;
-	padding: 2vh;
+	min-height: 100px;
+	margin-top: 1vw;
+	margin-bottom: 1vw;
+	padding: 1vw;
 	overflow: hidden;
 	background-color: white;
 }
@@ -338,6 +338,7 @@ h3, h4, p, .btn {
 	border-radius: 8px;
 	width: 25vw;
 	height: 50px;
+  line-height: 35px;
 	color: white;
 	@extend .white-text;
     font-size: 20px;
@@ -517,7 +518,7 @@ input[type=text] {
 
 .map-div {
   height: 35vw;
-  max-height: 390px;
+  max-height: 400px;
 }
 
 .danger-button {
@@ -537,4 +538,19 @@ input[type=text] {
 #sign-in-form input[type=text]  {
 	width: 80%;
 	font-size: 2.5vw;
+}
+
+.order-options {
+  width: 100%;
+  height: 8vw;
+  min-height: 80px;
+  margin: 0;
+}
+
+.order-options-row {
+  margin: 0;
+}
+
+.order-row {
+  margin: 0;
 }

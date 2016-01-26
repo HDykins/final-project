@@ -126,6 +126,20 @@ function setCurrentYearSelection(year) {
 	Dispatcher.dispatch(action);
 }
 
+function setShowDateValidationMessageToTrue () {
+	var action = {
+		type: 'set-show-date-validation-message-to-true',
+	};
+	Dispatcher.dispatch(action);
+}
+
+function setShowDateValidationMessageToFalse () {
+	var action = {
+		type: 'set-show-date-validation-message-to-false',
+	};
+	Dispatcher.dispatch(action);	
+}
+
 function setCurrentTimeSelectionToMorning() {
 	var action = {
 		type: 'set-current-time-selection-to-morning',
@@ -194,6 +208,8 @@ module.exports = {
 	setCurrentDaySelection: setCurrentDaySelection,
 	setCurrentMonthSelection: setCurrentMonthSelection,
 	setCurrentYearSelection: setCurrentYearSelection,
+	setShowDateValidationMessageToTrue: setShowDateValidationMessageToTrue,
+	setShowDateValidationMessageToFalse: setShowDateValidationMessageToFalse,
 	setCurrentTimeSelectionToMorning: setCurrentTimeSelectionToMorning,
 	setCurrentTimeSelectionToAfternoon: setCurrentTimeSelectionToAfternoon,
 	sumAllPrices: sumAllPrices,

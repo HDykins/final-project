@@ -38567,6 +38567,20 @@ function setCurrentYearSelection(year) {
 	Dispatcher.dispatch(action);
 }
 
+function setShowDateValidationMessageToTrue () {
+	var action = {
+		type: 'set-show-date-validation-message-to-true',
+	};
+	Dispatcher.dispatch(action);
+}
+
+function setShowDateValidationMessageToFalse () {
+	var action = {
+		type: 'set-show-date-validation-message-to-false',
+	};
+	Dispatcher.dispatch(action);	
+}
+
 function setCurrentTimeSelectionToMorning() {
 	var action = {
 		type: 'set-current-time-selection-to-morning',
@@ -38635,6 +38649,8 @@ module.exports = {
 	setCurrentDaySelection: setCurrentDaySelection,
 	setCurrentMonthSelection: setCurrentMonthSelection,
 	setCurrentYearSelection: setCurrentYearSelection,
+	setShowDateValidationMessageToTrue: setShowDateValidationMessageToTrue,
+	setShowDateValidationMessageToFalse: setShowDateValidationMessageToFalse,
 	setCurrentTimeSelectionToMorning: setCurrentTimeSelectionToMorning,
 	setCurrentTimeSelectionToAfternoon: setCurrentTimeSelectionToAfternoon,
 	sumAllPrices: sumAllPrices,
@@ -39342,6 +39358,7 @@ var DecorationsPageActionCreators = require('../actions/DecorationsPageActionCre
 var DeliveryPageActionCreators = require('../actions/DeliveryPageActionCreators.js');
 var PaymentPageActionCreators = require('../actions/PaymentPageActionCreators.js');
 var StateStore = require('../stores/StateStore.js');
+var CurrentDeliveryUserDetailsStore = require('../stores/CurrentDeliveryUserDetailsStore.js');
 
 var ContinueButton = React.createClass({displayName: "ContinueButton",
 
@@ -39354,8 +39371,17 @@ var ContinueButton = React.createClass({displayName: "ContinueButton",
       DecorationsPageActionCreators.changeToDeliveryPage();
     }
     else if (StateStore.getCurrentPage() === 'DELIVERY_PAGE') {
+      console.log(typeof CurrentDeliveryUserDetailsStore.getCurrentMonthSelection());
+      console.log(CurrentDeliveryUserDetailsStore.getCurrentMonthSelection());
+
+      if ((typeof CurrentDeliveryUserDetailsStore.getCurrentDaySelection() !== "string") && (typeof CurrentDeliveryUserDetailsStore.getCurrentMonthSelection() !== "string") && (typeof CurrentDeliveryUserDetailsStore.getCurrentYearSelection() !== "string")) {
+      DeliveryPageActionCreators.setShowDateValidationMessageToFalse();
       DeliveryPageActionCreators.changeToPaymentPage();
+    } else {
+      console.log("No date");
+      DeliveryPageActionCreators.setShowDateValidationMessageToTrue();
     }
+  }
     else if (StateStore.getCurrentPage() === 'PAYMENT_PAGE') {
       this.props.confirmOrder();
       PaymentPageActionCreators.changeToThanksPage();
@@ -39376,7 +39402,7 @@ var ContinueButton = React.createClass({displayName: "ContinueButton",
 
 module.exports = ContinueButton;
 
-},{"../actions/DecorationsPageActionCreators.js":223,"../actions/DeliveryPageActionCreators.js":224,"../actions/PaymentPageActionCreators.js":228,"../actions/TreePageActionCreators.js":231,"../stores/StateStore.js":285,"react":222}],235:[function(require,module,exports){
+},{"../actions/DecorationsPageActionCreators.js":223,"../actions/DeliveryPageActionCreators.js":224,"../actions/PaymentPageActionCreators.js":228,"../actions/TreePageActionCreators.js":231,"../stores/CurrentDeliveryUserDetailsStore.js":282,"../stores/StateStore.js":285,"react":222}],235:[function(require,module,exports){
 var React = require('react');
 var CurrentDecorationsUserDetailsStore = require('../../stores/CurrentDecorationsUserDetailsStore.js');
 
@@ -40022,11 +40048,18 @@ var DeliveryDate = React.createClass({displayName: "DeliveryDate",
   },
 
   addMonthListItems: function () {
-	var monthListItem = "";
+	var monthListItem = [];
 	for (var iterator = 1; iterator<13; iterator = iterator + 1) {
-		monthListItem.concat(React.createElement(DeliveryMonthListItem, {key: iterator, month: iterator}));
+		monthListItem.push(React.createElement(DeliveryMonthListItem, {key: iterator, month: iterator}));
 	}
 	return monthListItem;
+  },
+
+  handleMonthSelectionChange: function () {
+  	console.log("stored date month    " + parseInt(this.refs.month.value));
+  	DeliveryPageActionCreators.setCurrentMonthSelection(parseInt(this.refs.month.value));
+  	DeliveryPageActionCreators.setDeliveryOptionPrice();
+  	DeliveryPageActionCreators.sumAllPrices()
   },
 
   handleYearSelectionClickEvent: function () {
@@ -40044,6 +40077,7 @@ var DeliveryDate = React.createClass({displayName: "DeliveryDate",
   },  
 
   render: function () {
+  	console.log(CurrentDeliveryUserDetailsStore.getShowDateValidationMessage());
     return (
    	React.createElement("div", null, 
    		React.createElement("div", {className: "col-xs-4"}, 
@@ -40065,9 +40099,12 @@ var DeliveryDate = React.createClass({displayName: "DeliveryDate",
 			         )
 		        ), 
 		        React.createElement("div", {className: "no-padding col-xs-4"}, 
-React.createElement("select", {className: "form-control", required: true}, 
-			              this.addMonthListItems()
-)
+					React.createElement("div", {className: "dropdown"}, 
+						React.createElement("select", {onChange: this.handleMonthSelectionChange, name: "ok", className: "form-control center btn small-button dropdown-toggle white-text", "data-width": "fit", ref: "month", required: true}, 
+							React.createElement("option", {value: ""}, "Month"), 
+							this.addMonthListItems()
+						)
+			        )
 		        ), 
 		        React.createElement("div", {className: "no-padding col-xs-4"}, 
 					React.createElement("div", {className: "dropdown"}, 
@@ -40080,7 +40117,11 @@ React.createElement("select", {className: "form-control", required: true},
 			            )
 			        )	
 		        )	         
+			), 
+			CurrentDeliveryUserDetailsStore.getShowDateValidationMessage() ?
+			React.createElement("div", null, "eiygfyuiaegyug"
 			)
+			: null
 		), 
 		React.createElement("div", {className: "col-xs-4"}, 
    			React.createElement("div", {className: "rounded-box visible dropdown-time"}, 
@@ -40204,7 +40245,7 @@ var DeliveryMonthListItem = React.createClass({displayName: "DeliveryMonthListIt
   },
 
 	render: function () {
-    return (React.createElement("option", {onClick: this.handleMonthSelectionClickEvent}, React.createElement("a", null, this.props.month)));
+    return (React.createElement("option", {onClick: this.handleMonthSelectionClickEvent}, this.props.month));
   }
 });
 
@@ -40488,7 +40529,7 @@ var NavBar = React.createClass({displayName: "NavBar",
     console.log(StateStore.getCurrentPage());
     return (
 		React.createElement("nav", {className: "navbar transparent"}, 
-  				StateStore.getCurrentPage() === "SIGN_IN_PAGE" || StateStore.getCurrentPage() === "ORDERS_PAGE" ? React.createElement("button", {onClick: this.handleHomeButtonClickEvent, type: "button", className: "btn navbar-btn absolute-left"}, React.createElement("a", {href: "#bottom"}, "Contact Us")) : React.createElement("button", {onClick: this.handleHomeButtonClickEvent, type: "button", className: "btn navbar-btn left"}, React.createElement("a", {href: "#bottom"}, "Contact Us")), 
+  				StateStore.getCurrentPage() === "SIGN_IN_PAGE" || StateStore.getCurrentPage() === "ORDERS_PAGE" ? React.createElement("a", {onClick: this.handleHomeButtonClickEvent, role: "button", className: "btn navbar-btn absolute-left", href: "#bottom"}, "Contact Us") : React.createElement("a", {onClick: this.handleHomeButtonClickEvent, role: "button", className: "btn navbar-btn left", href: "#bottom"}, "Contact Us"), 
   				StateStore.getCurrentPage() === "LANDING_PAGE" ? null : React.createElement("button", {onClick: this.handleHomeButtonClickEvent, type: "button", className: "btn navbar-btn center"}, "Home"), 
   				StateStore.getCurrentPage() === "SIGN_IN_PAGE" || StateStore.getCurrentPage() === "ORDERS_PAGE" ? null : React.createElement("button", {onClick: this.handleOrdersButtonClickEvent, type: "button", className: "btn navbar-btn right"}, "My orders")
   		)
@@ -40535,7 +40576,7 @@ var OrderSummary = React.createClass({displayName: "OrderSummary",
   render: function () {
 	if (StateStore.getCurrentPage() === "ORDERS_PAGE") {
 		return (
-			React.createElement("div", null, 
+			React.createElement("div", {className: "row"}, 
 				React.createElement("div", {className: "col-xs-6"}, 	
 					React.createElement("div", {className: "rounded-box"}, 
 						React.createElement("div", {className: "col-xs-6"}, 
@@ -40573,7 +40614,7 @@ var OrderSummary = React.createClass({displayName: "OrderSummary",
 		);
 	} else {
 		return (
-			React.createElement("div", null, 
+			React.createElement("div", {className: "row"}, 
 				React.createElement("div", {className: "col-xs-6"}, 	
 					React.createElement("div", {className: "rounded-box"}, 
 						React.createElement("div", {className: "col-xs-6"}, 
@@ -40707,25 +40748,25 @@ var OrderOptionsButtons = React.createClass({displayName: "OrderOptionsButtons",
 
   render: function () {	
     return (
-    React.createElement("div", {className: "row"}, 	
+    React.createElement("div", {className: "row order-options-row"}, 	
 		React.createElement("div", {className: "col-xs-3"}, 
-			React.createElement("div", {className: "rounded-box"}, 
+			React.createElement("div", {className: "rounded-box order-options"}, 
 				React.createElement("span", null, "Date Ordered: "), 
 				React.createElement("span", {className: "red"}, this.props.order.userChoices.orderDate)
 			)
 		), 
 		React.createElement("div", {className: "col-xs-3"}, 
-			React.createElement("button", {onClick: this.handleCancelOrderButtonClickEvent, type: "button", className: "btn danger-button"}, 
+			React.createElement("button", {onClick: this.handleCancelOrderButtonClickEvent, type: "button", className: "btn danger-button order-options"}, 
 				"Cancel Order"
 			)
 		), 
 		React.createElement("div", {className: "col-xs-3"}, 
-			React.createElement("div", {className: "rounded-box"}, 
+			React.createElement("div", {className: "rounded-box order-options"}, 
 				React.createElement("p", null, "You can order another tree using these order details!")
 			)
 		), 
 		React.createElement("div", {className: "col-xs-3"}, 
-			React.createElement("button", {onClick: this.handleOrderAgainButtonClickEvent, type: "button", className: "btn"}, 
+			React.createElement("button", {onClick: this.handleOrderAgainButtonClickEvent, type: "button", className: "btn order-options"}, 
 				React.createElement("span", {className: "white-text"}, "Order again")
 			)
 		)
@@ -40781,7 +40822,7 @@ var OrdersPage = React.createClass({displayName: "OrdersPage",
     var orders = OrdersStore.getOrdersArray().map(function (orderObject) {
       console.log('orderObject' + orderObject);
       return (
-        React.createElement("div", {key: Math.random(), className: "row"}, 
+        React.createElement("div", {key: Math.random(), className: "row order-row"}, 
           React.createElement(OrderSummary, {key: orderObject.id, order: orderObject.userChoices}), 
           React.createElement(OrderOptionsButtons, {key: orderObject._id, order: orderObject, setOrderToBeChanged: this.setSelectedOrderId})
         )
@@ -40804,7 +40845,7 @@ var OrdersPage = React.createClass({displayName: "OrdersPage",
 	        	), 	
             React.createElement("div", {className: "rounded-box"}, 
               this.createOrders()
-	        	), 
+            ), 
               this.state.isCancellationFormVisible ? React.createElement(OrderCancellationConfirmation, {orderId: selectedOrderId}) : null
       		)
       	)
@@ -40842,11 +40883,11 @@ var CardDetails = React.createClass({displayName: "CardDetails",
 			              React.createElement("span", {className: "caret"})
 			            ), 
 			            React.createElement("ul", {className: "dropdown-menu", "aria-labelledby": "dropdown-card-type"}, 
-			              React.createElement("li", null, React.createElement("a", {href: "#"}, "Visa")), 
-			              React.createElement("li", null, React.createElement("a", {href: "#"}, "Visa Debit")), 
-			              React.createElement("li", null, React.createElement("a", {href: "#"}, "American Express")), 
-			              React.createElement("li", null, React.createElement("a", {href: "#"}, "Maestro")), 
-			              React.createElement("li", null, React.createElement("a", {href: "#"}, "Mastercard"))
+			              React.createElement("li", null, "Visa"), 
+			              React.createElement("li", null, "Visa Debit"), 
+			              React.createElement("li", null, "American Express"), 
+			              React.createElement("li", null, "Maestro"), 
+			              React.createElement("li", null, "Mastercard")
 			            )
 			        )
 				), 
@@ -42421,6 +42462,8 @@ var currentMonthSelection = "Month";
 var currentYearSelection = "Year";
 var currentTimeSelection = "Time";
 
+var showDateValidationMessage = false;
+
 var additionalInformation = null;
 
 function setMarkerArray(array) {
@@ -42502,6 +42545,16 @@ function setCurrentMonthSelection(month) {
 
 function setCurrentYearSelection(year) {
   currentYearSelection = year;
+  CurrentDeliveryUserDetailsStore.emit('change');
+}
+
+function setShowDateValidationMessageToTrue() {
+  showDateValidationMessage = true;
+  CurrentDeliveryUserDetailsStore.emit('change');
+}
+
+function setShowDateValidationMessageToFalse() {
+  showDateValidationMessage = false;
   CurrentDeliveryUserDetailsStore.emit('change');
 }
 
@@ -42630,6 +42683,10 @@ var CurrentDeliveryUserDetailsStore = objectAssign({}, EventEmitter.prototype, {
     return currentYearSelection;
   },
 
+  getShowDateValidationMessage: function () {
+    return showDateValidationMessage;
+  },
+
   getCurrentTimeSelection: function () {
     return currentTimeSelection;
   },
@@ -42683,6 +42740,10 @@ function handleAction(action) {
     setCurrentMonthSelection(action.month);
   } else if (action.type === 'set-current-year-selection') {
     setCurrentYearSelection(action.year);
+  } else if (action.type === 'set-show-date-validation-message-to-false') {
+    setShowDateValidationMessageToFalse();
+  } else if (action.type === 'set-show-date-validation-message-to-true') {
+    setShowDateValidationMessageToTrue();
   } else if (action.type === 'set-current-time-selection-to-morning') {
     setCurrentTimeSelectionToMorning();
   } else if (action.type === 'set-current-time-selection-to-afternoon') {

@@ -33,7 +33,7 @@ var OrderSummary = React.createClass({
   render: function () {
 	if (StateStore.getCurrentPage() === "ORDERS_PAGE") {
 		return (
-			<div>
+			<div className="row">
 				<div className="col-xs-6">	
 					<div className="rounded-box">
 						<div className="col-xs-6">
@@ -71,7 +71,7 @@ var OrderSummary = React.createClass({
 		);
 	} else {
 		return (
-			<div>
+			<div className="row">
 				<div className="col-xs-6">	
 					<div className="rounded-box">
 						<div className="col-xs-6">

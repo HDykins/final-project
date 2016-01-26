@@ -44,6 +44,8 @@ var currentMonthSelection = "Month";
 var currentYearSelection = "Year";
 var currentTimeSelection = "Time";
 
+var showDateValidationMessage = false;
+
 var additionalInformation = null;
 
 function setMarkerArray(array) {
@@ -125,6 +127,16 @@ function setCurrentMonthSelection(month) {
 
 function setCurrentYearSelection(year) {
   currentYearSelection = year;
+  CurrentDeliveryUserDetailsStore.emit('change');
+}
+
+function setShowDateValidationMessageToTrue() {
+  showDateValidationMessage = true;
+  CurrentDeliveryUserDetailsStore.emit('change');
+}
+
+function setShowDateValidationMessageToFalse() {
+  showDateValidationMessage = false;
   CurrentDeliveryUserDetailsStore.emit('change');
 }
 
@@ -253,6 +265,10 @@ var CurrentDeliveryUserDetailsStore = objectAssign({}, EventEmitter.prototype, {
     return currentYearSelection;
   },
 
+  getShowDateValidationMessage: function () {
+    return showDateValidationMessage;
+  },
+
   getCurrentTimeSelection: function () {
     return currentTimeSelection;
   },
@@ -306,6 +322,10 @@ function handleAction(action) {
     setCurrentMonthSelection(action.month);
   } else if (action.type === 'set-current-year-selection') {
     setCurrentYearSelection(action.year);
+  } else if (action.type === 'set-show-date-validation-message-to-false') {
+    setShowDateValidationMessageToFalse();
+  } else if (action.type === 'set-show-date-validation-message-to-true') {
+    setShowDateValidationMessageToTrue();
   } else if (action.type === 'set-current-time-selection-to-morning') {
     setCurrentTimeSelectionToMorning();
   } else if (action.type === 'set-current-time-selection-to-afternoon') {

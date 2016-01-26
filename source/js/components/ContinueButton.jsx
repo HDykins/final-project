@@ -4,6 +4,7 @@ var DecorationsPageActionCreators = require('../actions/DecorationsPageActionCre
 var DeliveryPageActionCreators = require('../actions/DeliveryPageActionCreators.js');
 var PaymentPageActionCreators = require('../actions/PaymentPageActionCreators.js');
 var StateStore = require('../stores/StateStore.js');
+var CurrentDeliveryUserDetailsStore = require('../stores/CurrentDeliveryUserDetailsStore.js');
 
 var ContinueButton = React.createClass({
 
@@ -16,8 +17,17 @@ var ContinueButton = React.createClass({
       DecorationsPageActionCreators.changeToDeliveryPage();
     }
     else if (StateStore.getCurrentPage() === 'DELIVERY_PAGE') {
+      console.log(typeof CurrentDeliveryUserDetailsStore.getCurrentMonthSelection());
+      console.log(CurrentDeliveryUserDetailsStore.getCurrentMonthSelection());
+
+      if ((typeof CurrentDeliveryUserDetailsStore.getCurrentDaySelection() !== "string") && (typeof CurrentDeliveryUserDetailsStore.getCurrentMonthSelection() !== "string") && (typeof CurrentDeliveryUserDetailsStore.getCurrentYearSelection() !== "string")) {
+      DeliveryPageActionCreators.setShowDateValidationMessageToFalse();
       DeliveryPageActionCreators.changeToPaymentPage();
+    } else {
+      console.log("No date");
+      DeliveryPageActionCreators.setShowDateValidationMessageToTrue();
     }
+  }
     else if (StateStore.getCurrentPage() === 'PAYMENT_PAGE') {
       this.props.confirmOrder();
       PaymentPageActionCreators.changeToThanksPage();

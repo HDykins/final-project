@@ -39,7 +39,7 @@ var OrdersPage = React.createClass({
     var orders = OrdersStore.getOrdersArray().map(function (orderObject) {
       console.log('orderObject' + orderObject);
       return (
-        <div key={Math.random()} className="row">
+        <div key={Math.random()} className="row order-row">
           <OrderSummary key={orderObject.id} order={orderObject.userChoices} />
           <OrderOptionsButtons key={orderObject._id} order={orderObject} setOrderToBeChanged={this.setSelectedOrderId} />
         </div>
@@ -62,7 +62,7 @@ var OrdersPage = React.createClass({
 	        	</div>	
             <div className="rounded-box">
               {this.createOrders()}
-	        	</div>
+            </div>
               {this.state.isCancellationFormVisible ? <OrderCancellationConfirmation orderId={selectedOrderId} /> : null}
       		</div>
       	</div>
