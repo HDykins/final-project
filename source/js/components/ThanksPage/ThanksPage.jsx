@@ -16,8 +16,7 @@ var ThanksPage = React.createClass({
   },
 
   updateState: function () {
-      this.setState(
-      {
+      this.setState({
         isRegisterFormVisible: PopUpStore.getRegisterFormIsVisible()
       });
   },

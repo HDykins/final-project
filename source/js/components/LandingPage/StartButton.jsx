@@ -12,7 +12,7 @@ var StartButton = React.createClass({
   render: function () {
     return (
       <div>
-        <button onClick={this.handleStartButtonClickEvent} type="button" className="btn start-button "><strong>Order now!</strong></button>
+        <button onClick={this.handleStartButtonClickEvent} type="button" className="btn btn-success btn-lg">Order now!</button>
       </div>
     );
   }

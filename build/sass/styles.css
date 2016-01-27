@@ -269,7 +269,7 @@
   h4 {
     font-size: 2.3vw; }
   span, p, li {
-    font-size: 1.8vw; }
+    font-size: 15px; }
   .btn.start-button {
     text-shadow: -1px -1px 0 white,   1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white; }
   .btn.navbar-btn {
@@ -330,8 +330,7 @@
   span, p, li {
     font-size: 12px; }
   .btn.start-button {
-    font-size: 20px;
-    text-shadow: -1px -1px 0 white,   1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white; }
+    font-size: 20px; }
   .btn.navbar-btn {
     font-size: 15px; }
   img.tree-icon-image {
@@ -362,11 +361,13 @@
   margin-top: 2vh;
   margin-bottom: 2vh; }
 
-.border, .rounded-box, .btn, .tree-icon-image, .tree-icon-image-large, .photo-far, .photo-tree, .photo-close {
-  border: solid #464646 2px;
-  border-radius: 2vw; }
+.border, .btn, .btn-option, .btn-sm, .tree-icon-image, .tree-icon-image-large, .photo-far, .photo-tree, .photo-close {
+  border: solid #464646 1px;
+  border-radius: 5px; }
 
 .rounded-box {
+  border: solid #464646 1px;
+  border-radius: 20px;
   min-height: 100px;
   margin-top: 1vw;
   margin-bottom: 1vw;
@@ -388,6 +389,13 @@ em, strong, .tree-name, .total-price {
 strong {
   font-size: 2vw; }
 
+hr {
+  color: #464646;
+  border: #464646 1px solid; }
+
+p, ul {
+  font-size: 18px; }
+
 textarea {
   width: 90%;
   resize: none; }
@@ -397,8 +405,7 @@ textarea {
   height: 10vw;
   min-height: 60px;
   font-size: 3vw;
-  border-radius: 5vw;
-  text-shadow: -2px -2px 0 white,   2px -2px 0 white, -2px 2px 0 white, 2px 2px 0 white; }
+  border-radius: 5vw; }
 
 h1, h2 {
   margin-top: 1.5vw;
@@ -422,7 +429,7 @@ h3, h4, p, .btn {
   margin-right: 10%;
   font-size: 1.4vw; }
 
-.white-text, .navbar-btn, .important-button, .danger-button {
+.white-text, .btn-success, .important-button, .danger-button {
   color: white;
   text-shadow: -1px -1px 0 #464646, 1px -1px 0 #464646, -1px 1px 0 #464646, 1px 1px 0 #464646; }
 
@@ -449,51 +456,35 @@ h3, h4, p, .btn {
   width: 20vw; }
 
 .transparent {
-  border-radius: 2vw;
-  background-color: rgba(110, 110, 110, 0.5); }
+  border-radius: 1%;
+  background-color: rgba(180, 180, 180, 0.5); }
 
-.landing-page {
-  background: url(../images/landing-page-background.jpg) no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover; }
+.btn-option {
+  background-color: #e6e6e6;
+  box-shadow: #a0a0a0 2px 2px; }
 
-.grey-background {
-  background: gainsboro;
-  background: -webkit-linear-gradient(left, grey, gainsboro, grey);
-  /* For Safari 5.1 to 6.0 */
-  background: -o-linear-gradient(#78e164, #5ab446);
-  /* For Opera 11.1 to 12.0 */
-  background: -moz-linear-gradient(#78e164, #5ab446);
-  /* For Firefox 3.6 to 15 */
-  background: linear-gradient(left, grey, gainsboro, grey);
-  /* Standard syntax */ }
+.btn-success {
+  box-shadow: #a0c8a0 2px 2px; }
 
-.btn {
-  background: gainsboro;
-  background: -webkit-linear-gradient(gainsboro, grey);
-  /* For Safari 5.1 to 6.0 */
-  background: -o-linear-gradient(#78e164, #5ab446);
-  /* For Opera 11.1 to 12.0 */
-  background: -moz-linear-gradient(#78e164, #5ab446);
-  /* For Firefox 3.6 to 15 */
-  background: linear-gradient(gainsboro, grey);
-  /* Standard syntax */ }
+.btn-lg {
+  padding: 15px 30px; }
+
+.btn-sm {
+  padding: 5px; }
 
 .navbar-btn {
-  border-radius: 8px;
   width: 25vw;
-  height: 50px;
-  line-height: 35px;
-  color: white;
-  font-size: 20px; }
+  height: 30px;
+  line-height: 30px;
+  font-size: 15px;
+  color: #464646; }
 
 .left {
   float: left; }
 
 .center {
-  float: center; }
+  float: center;
+  line-height: 47px; }
 
 .absolute-left {
   position: absolute;
@@ -535,8 +526,14 @@ h3, h4, p, .btn {
 .decorations-cost-box {
   font-size: 2vw; }
 
+.btn-progress {
+  padding: 20px 5px;
+  width: 100%;
+  height: 110px;
+  margin: 15px 0; }
+
 .arrow-button {
-  width: 3vw; }
+  width: 40px; }
 
 .button-decorations-list {
   width: 90%;

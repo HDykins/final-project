@@ -45,6 +45,14 @@ function setSignedInStatusToTrue() {
 	Dispatcher.dispatch(action);
 }
 
+function setSignedInStatusToFalse() {
+	var action = {
+		type: 'set-signed-in-status-to-false',
+	};
+
+	Dispatcher.dispatch(action);
+}
+
 function setCurrentUserId(id) {
 	var action = {
 		type: 'set-current-user-id',
@@ -93,6 +101,7 @@ module.exports = {
 	setHideRegisterForm: setHideRegisterForm,
 	setUserAuthenticationToken: setUserAuthenticationToken,
 	setSignedInStatusToTrue: setSignedInStatusToTrue,
+	setSignedInStatusToFalse: setSignedInStatusToFalse,
 	setCurrentUserId: setCurrentUserId,
 	sendOrdersToStore: sendOrdersToStore
 };

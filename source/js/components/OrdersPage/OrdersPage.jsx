@@ -6,6 +6,7 @@ var Header1 = require('../Header1.jsx');
 var OrderSummary = require('../OrderSummary.jsx');
 var OrderOptionsButtons = require('./OrderOptionsButtons.jsx');
 var OrderCancellationConfirmation = require('./OrderCancellationConfirmation.jsx');
+var OrdersPageActionCreators = require('../../actions/OrdersPageActionCreators.js');
 
 
 var selectedOrderId = null;
@@ -52,7 +53,12 @@ var OrdersPage = React.createClass({
     selectedOrderId = orderId;
   },
 
+  handleNewOrderClickEvent: function () {
+    OrdersPageActionCreators.changeToTreePage();
+  },
+
   render: function () {
+    console.log(this.createOrders());
     return (
     	<div className="container-fluid grey-background">
         	<NavBar />
@@ -60,12 +66,20 @@ var OrdersPage = React.createClass({
         		<div className="row">
               <Header1 label="Order History"/>
 	        	</div>	
-            <div className="rounded-box">
+            {this.createOrders().length === 0 ? 
+            (<div className="rounded-box">  
+              <p>You have no orders</p>
+              <h3>Would you like to create a new order?</h3>
+              <a onClick={this.handleNewOrderClickEvent} href="#top" role="button" className="btn btn-success bt-lg">Build tree</a>
+            </div>) 
+            : 
+            (<div className="rounded-box">
               {this.createOrders()}
-            </div>
-              {this.state.isCancellationFormVisible ? <OrderCancellationConfirmation orderId={selectedOrderId} /> : null}
-      		</div>
-      	</div>
+            </div>)
+            }
+          {this.state.isCancellationFormVisible ? <OrderCancellationConfirmation orderId={selectedOrderId} /> : null}
+    		</div>
+      </div>
     );
   }
 });

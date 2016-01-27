@@ -41,6 +41,14 @@ var UserSignInDetailsStore = objectAssign({}, EventEmitter.prototype, {
     return currentUserId;
   },
 
+  addChangeListener: function (changeEventHandler) {
+    this.on('change', changeEventHandler);
+  },
+
+  removeChangeListener: function (changeEventHandler) {
+    this.removeListener('change', changeEventHandler);
+  }
+
 });
 
 function handleAction(action) {

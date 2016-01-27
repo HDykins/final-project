@@ -22,11 +22,11 @@ var BackButton = React.createClass({
 
   render: function () {
     return (
-    <div onClick={this.handleBackButtonClickEvent} className="col-xs-3">	
-		<div className="rounded-box">
-			<span><strong>{this.props.label}</strong></span><br />
-			<img className="arrow-button" src="../source/images/back.png" />
-		</div>
+    <div className="col-xs-3">	
+      <a onClick={this.handleBackButtonClickEvent} href="#top"className="btn btn-success btn-lg btn-progress">
+  			<span className="white-text">{this.props.label}</span><br />
+  			<img className="arrow-button" src="../images/back.png" />
+      </a>
 	</div>
     );
   }

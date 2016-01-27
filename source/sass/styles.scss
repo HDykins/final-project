@@ -6,6 +6,7 @@ $lime-green-darker: rgb(90,180,70);
 $grey-background: rgb(220,220,220);
 $light-blue : rgba(161,219,255,0.8);
 $almost-white-blue : rgba(230,240,255,0.8);
+$off-white: rgb(230,230,230);
 
 @media (max-width: 800px) {
   .col-xs-8 {
@@ -45,7 +46,7 @@ $almost-white-blue : rgba(230,240,255,0.8);
   font-size: 2.3vw;
   }
   span, p, li {
-  font-size: 1.8vw;
+  font-size: 15px;
   }
   .btn.start-button {
   text-shadow:
@@ -139,11 +140,6 @@ $almost-white-blue : rgba(230,240,255,0.8);
   }  
   .btn.start-button {
   font-size: 20px;
-  text-shadow:
-  -1px -1px 0 white,  
-   1px -1px 0 white,
-  -1px 1px 0 white,
-   1px 1px 0 white;
   }
   .btn.navbar-btn {
   font-size: 15px;
@@ -187,12 +183,13 @@ $almost-white-blue : rgba(230,240,255,0.8);
 }
 
 .border {
-	border: solid $off-black 2px;
-	border-radius: 2vw;
+	border: solid $off-black 1px;
+	border-radius: 5px;
 }
 
 .rounded-box {
-	@extend .border;
+  border: solid $off-black 1px;
+  border-radius: 20px;
 	min-height: 100px;
 	margin-top: 1vw;
 	margin-bottom: 1vw;
@@ -223,6 +220,15 @@ strong {
 	font-size: 2vw;
 }
 
+hr {
+  color: $off-black;
+  border: $off-black 1px solid;
+}
+
+p, ul{
+  font-size: 18px;
+}
+
 textarea {
   width: 90%;
   resize: none;
@@ -234,11 +240,6 @@ textarea {
 	min-height: 60px;
 	font-size: 3vw;
 	border-radius: 5vw;
-	text-shadow:
-	-2px -2px 0 white,  
-    2px -2px 0 white,
-    -2px 2px 0 white,
-     2px 2px 0 white;
 }
 
 h1, h2 {
@@ -305,43 +306,40 @@ h3, h4, p, .btn {
 }
 
 .transparent {
-	border-radius: 2vw;
-	background-color: rgba(110,110,110,0.5);
-}
-
-.landing-page {
-  background: url(../images/landing-page-background.jpg) no-repeat center center fixed; 
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-}
-
-.grey-background {
-	background: $grey-background;
-    background: -webkit-linear-gradient(left, grey, $grey-background, grey); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient($lime-green, $lime-green-darker); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient($lime-green, $lime-green-darker); /* For Firefox 3.6 to 15 */
-    background: linear-gradient(left, grey, $grey-background, grey); /* Standard syntax */
+	border-radius: 1%;
+	background-color: rgba(180,180,180,0.5);
 }
 
 .btn {
-	@extend .border;
-	background: $grey-background;
-    background: -webkit-linear-gradient($grey-background, grey); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient($lime-green, $lime-green-darker); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient($lime-green, $lime-green-darker); /* For Firefox 3.6 to 15 */
-    background: linear-gradient($grey-background, grey); /* Standard syntax */
+  @extend .border;
 }
 
+.btn-option {
+  @extend .border;
+  background-color: $off-white;
+  box-shadow: rgb(160,160,160) 2px 2px;
+  }
+
+.btn-success {
+    @extend .white-text;
+    box-shadow: rgb(160,200,160) 2px 2px;
+}
+
+.btn-lg {
+  padding: 15px 30px;
+}
+
+.btn-sm {
+  @extend .border;
+  padding: 5px;
+  }
+
 .navbar-btn {
-	border-radius: 8px;
 	width: 25vw;
-	height: 50px;
-  line-height: 35px;
-	color: white;
-	@extend .white-text;
-    font-size: 20px;
+	height: 30px;
+  line-height: 30px;
+    font-size: 15px;
+    color: $off-black;
 }
 
 .left {
@@ -350,6 +348,7 @@ h3, h4, p, .btn {
 
 .center {
 	float: center;
+  line-height: 47px;
 }
 
 .absolute-left {
@@ -400,8 +399,15 @@ h3, h4, p, .btn {
 	font-size: 2vw;
 }
 
+.btn-progress {
+  padding: 20px 5px;
+	width: 100%;
+  height:110px;
+  margin: 15px 0;
+}
+
 .arrow-button {
-	width: 3vw;
+  width:40px;
 }
 
 .button-decorations-list{
@@ -468,6 +474,9 @@ input[type=text] {
     background: linear-gradient($lime-green, $lime-green-darker); /* Standard syntax */
     @extend .white-text;
     overflow: hidden;
+}
+
+.important-button {
 }
 
 .x-button {

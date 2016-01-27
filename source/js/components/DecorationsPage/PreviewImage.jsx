@@ -5,7 +5,7 @@ var PreviewImage = React.createClass({
   	console.log(this.props.decoration);
     return (
    	<div className="col-xs-6">
-		<div className="rounded-box">
+		<div>
 			{this.props.decoration === null ? <img className="photo-far" src={"../../images/tree-photos/norwegian-spruce.jpg"} /> : <img className="photo-far" src={"../../images/tree-photos/" + this.props.decoration.far + ".jpg"} />}
 			{this.props.decoration === null ? <img className="photo-tree" src={"../../images/tree-photos/norwegian-spruce.jpg"} /> : <img className="photo-tree" src={"../../images/tree-photos/" + this.props.decoration.tree + ".jpg"} />}
 			{this.props.decoration === null ? <img className="photo-close" src={"../../images/landing-page-background.jpg"} /> : <img className="photo-close" src={"../../images/tree-photos/" + this.props.decoration.close + ".jpg"} />}

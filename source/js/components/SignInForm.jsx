@@ -1,4 +1,5 @@
 var React = require('react');
+var LogOutButton = require('./LogOutButton.jsx');
 var StateStore = require('../stores/StateStore.js');
 var UserSignInDetailsStore = require('../stores/UserSignInDetailsStore.js');
 var OrdersStore = require('../stores/OrdersStore.js');
@@ -10,9 +11,25 @@ var SignInForm = React.createClass({
   getInitialState: function () {
   	return {
   		failMessage: null,
-  		successMessage: null
+  		successMessage: null,
+      isSignedIn: UserSignInDetailsStore.getSignedInStatus()
   	};
-  },	
+  },
+
+  updateState: function () {
+    this.setState({
+      isSignedIn: UserSignInDetailsStore.getSignedInStatus()
+    });
+  },
+
+  componentDidMount: function () {
+    UserSignInDetailsStore.addChangeListener(this.updateState);
+  },
+
+
+  componentWillUnmount: function () {
+    UserSignInDetailsStore.removeChangeListener(this.updateState);
+  }, 
 
   showSignInFailMessage: function (message) {
   	this.setState({
@@ -79,34 +96,34 @@ var SignInForm = React.createClass({
         }.bind(this));
             
 
-    }.bind(this));
-  } else if (StateStore.getCurrentPage() === "SIGN_IN_PAGE") { 
+      }.bind(this));
+    } else if (StateStore.getCurrentPage() === "SIGN_IN_PAGE") { 
 
     AuthenticationService.signIn(this.refs.email.value, this.refs.password.value, function handleUserSignIn(error, response) {
 
-    if (error) {
-      this.hideSignInSuccessMessage();
-      this.showSignInFailMessage('Failed to log in. Check email and password');
-      return;
+      if (error) {
+        this.hideSignInSuccessMessage();
+        this.showSignInFailMessage('Failed to log in. Check email and password');
+        return;
+      }
+
+      SignInFormActionCreators.setUserAuthenticationToken(response.token);
+      SignInFormActionCreators.setCurrentUserId(response.id);
+      SignInFormActionCreators.setSignedInStatusToTrue();
+      this.hideSignInFailMessage();
+      this.showSignInSuccessMessage('You are signed in');
+
+      SignInFormActionCreators.sendOrdersToStore();
+      console.log(OrdersStore.getOrdersArray());
+      // console.log(OrdersStore.getOrder());
+      // console.log(UserSignInDetailsStore.getSignedInStatus());
+      // console.log(UserSignInDetailsStore.getCurrentToken());
+      }.bind(this));
+
     }
 
-    SignInFormActionCreators.setUserAuthenticationToken(response.token);
-    SignInFormActionCreators.setCurrentUserId(response.id);
-    SignInFormActionCreators.setSignedInStatusToTrue();
-    this.hideSignInFailMessage();
-    this.showSignInSuccessMessage('You are signed in');
-
-    SignInFormActionCreators.sendOrdersToStore();
-    console.log(OrdersStore.getOrdersArray());
-    // console.log(OrdersStore.getOrder());
-    // console.log(UserSignInDetailsStore.getSignedInStatus());
-    // console.log(UserSignInDetailsStore.getCurrentToken());
-    }.bind(this));
-
-  }
-
-
   },
+
 
   render: function () {
   var currentPage = StateStore.getCurrentPage();
@@ -126,11 +143,6 @@ var SignInForm = React.createClass({
   						<input type="text" placeholder="Email" ref="email" />
   					</div>
   					<br />
-  					{this.state.successMessage ?
-  					<div className="rounded-box">
-  						<span className="red">{this.state.successMessage}</span>
-  					</div>
-  				    : null}
   				    {this.state.failMessage ?
   					<div className="rounded-box">
   						<span className="red">{this.state.failMessage}</span>
@@ -155,7 +167,11 @@ var SignInForm = React.createClass({
     );
   } else {
     return (  
-      <div className="rounded-box" id="sign-in-form">{this.state.successMessage}</div>
+      <div className="rounded-box" id="sign-in-form"><p>{this.state.successMessage}</p>
+        <LogOutButton />
+        <p>Your order comfirmation has been sent to your provided email address</p>
+        <button className="btn btn-success btn-lg">Review my orders</button>
+      </div>
     );
   }
 }

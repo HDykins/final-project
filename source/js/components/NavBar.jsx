@@ -28,9 +28,9 @@ var NavBar = React.createClass({
     console.log(StateStore.getCurrentPage());
     return (
 		<nav className="navbar transparent">
-  				{StateStore.getCurrentPage() === "SIGN_IN_PAGE" || StateStore.getCurrentPage() === "ORDERS_PAGE" ? <a onClick={this.handleHomeButtonClickEvent} role="button" className="btn navbar-btn absolute-left" href="#bottom">Contact Us</a> : <a onClick={this.handleHomeButtonClickEvent} role="button" className="btn navbar-btn left" href="#bottom">Contact Us</a>}
-  				{StateStore.getCurrentPage() === "LANDING_PAGE" ? null : <button onClick={this.handleHomeButtonClickEvent} type="button" className="btn navbar-btn center">Home</button>}
-  				{StateStore.getCurrentPage() === "SIGN_IN_PAGE" || StateStore.getCurrentPage() === "ORDERS_PAGE" ? null : <button onClick={this.handleOrdersButtonClickEvent} type="button" className="btn navbar-btn right">My orders</button>}
+  				{StateStore.getCurrentPage() === "SIGN_IN_PAGE" || StateStore.getCurrentPage() === "ORDERS_PAGE" ? <a onClick={this.handleHomeButtonClickEvent} id="top" role="button" className="navbar-btn absolute-left" href="#contact">Contact Us</a> : <a onClick={this.handleHomeButtonClickEvent} id="top-of" role="button" className="navbar-btn left" href="#bottom">Contact Us</a>}
+  				{StateStore.getCurrentPage() === "LANDING_PAGE" ? null : <a onClick={this.handleHomeButtonClickEvent} role="button" className="navbar-btn center">Home</a>}
+  				{StateStore.getCurrentPage() === "SIGN_IN_PAGE" || StateStore.getCurrentPage() === "ORDERS_PAGE" ? null : <a onClick={this.handleOrdersButtonClickEvent} role="button" className="navbar-btn right">My orders</a>}
   		</nav>
     );
   }

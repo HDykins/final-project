@@ -9,6 +9,14 @@ function changeToPaymentPage() {
 	Dispatcher.dispatch(action);
 }
 
+function changeToTreePage() {
+	var action = {
+		type: 'change-to-tree-page',
+	};
+
+	Dispatcher.dispatch(action);
+}
+
 function setShowCancellationForm() {
 	var action = {
 		type: 'set-show-cancellation-form',
@@ -211,6 +219,7 @@ function sumAllPrices() {
 
 module.exports = {
 	changeToPaymentPage: changeToPaymentPage,
+	changeToTreePage: changeToTreePage,
 	setShowCancellationForm: setShowCancellationForm,
 	setHideCancellationForm: setHideCancellationForm,
 	populateStoresWithSelectedOrder: populateStoresWithSelectedOrder,
