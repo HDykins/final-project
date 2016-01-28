@@ -150,10 +150,10 @@ var RegisterForm = React.createClass({
 				<input className="registration-input" ref="retypeEmail" placeholder="Retype email" />
 			</div>
 			<div className="rounded-box">
-				<input className="registration-input" ref="newPassword" placeholder="Password" />
+				<input className="registration-input" type="password" ref="newPassword" placeholder="Password" />
 			</div>
 			<div className="rounded-box">
-				<input className="registration-input" ref="retypePassword" placeholder="Retype password" />
+				<input className="registration-input" type="password" ref="retypePassword" placeholder="Retype password" />
 			</div>
 			<div className="rounded-box">
 				<input className="registration-input" ref="phoneNumber" placeholder="Phone number" />

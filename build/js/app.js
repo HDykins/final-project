@@ -41323,10 +41323,10 @@ var RegisterForm = React.createClass({displayName: "RegisterForm",
 				React.createElement("input", {className: "registration-input", ref: "retypeEmail", placeholder: "Retype email"})
 			), 
 			React.createElement("div", {className: "rounded-box"}, 
-				React.createElement("input", {className: "registration-input", ref: "newPassword", placeholder: "Password"})
+				React.createElement("input", {className: "registration-input", type: "password", ref: "newPassword", placeholder: "Password"})
 			), 
 			React.createElement("div", {className: "rounded-box"}, 
-				React.createElement("input", {className: "registration-input", ref: "retypePassword", placeholder: "Retype password"})
+				React.createElement("input", {className: "registration-input", type: "password", ref: "retypePassword", placeholder: "Retype password"})
 			), 
 			React.createElement("div", {className: "rounded-box"}, 
 				React.createElement("input", {className: "registration-input", ref: "phoneNumber", placeholder: "Phone number"})
@@ -41516,7 +41516,7 @@ var SignInForm = React.createClass({displayName: "SignInForm",
   				), 
   				React.createElement("div", {className: "col-xs-6"}, 
   					React.createElement("div", {className: "rounded-box"}, 
-  						React.createElement("input", {type: "text", placeholder: "Password", ref: "password"})
+  						React.createElement("input", {type: "password", placeholder: "Password", ref: "password"})
   					), 				
   					React.createElement("button", {onClick: this.handleUserSignInFormSubmit, className: "important-button btn btn-success"}, "Sign-in")
   				)

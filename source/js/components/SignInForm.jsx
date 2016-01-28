@@ -151,7 +151,7 @@ var SignInForm = React.createClass({
   				</div>
   				<div className="col-xs-6">
   					<div className="rounded-box">
-  						<input type="text" placeholder="Password" ref="password" />
+  						<input type="password" placeholder="Password" ref="password" />
   					</div>				
   					<button onClick={this.handleUserSignInFormSubmit} className="important-button btn btn-success">Sign-in</button>
   				</div>

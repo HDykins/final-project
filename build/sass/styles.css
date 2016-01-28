@@ -650,9 +650,10 @@ input[type=text] {
   /* Standard syntax */
   overflow: hidden; }
 
-#sign-in-form input[type=text] {
+#sign-in-form input[type=text], #sign-in-form input[type=password] {
   width: 80%;
-  font-size: 2.5vw; }
+  font-size: 2.5vw;
+  height: 5vw; }
 
 .order-options {
   width: 100%;
