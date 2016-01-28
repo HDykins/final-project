@@ -35,6 +35,8 @@ var DeliveryPage = React.createClass({
   componentDidMount: function () {
       StateStore.addChangeListener(this.updateState);
       CurrentDeliveryUserDetailsStore.addChangeListener(this.updateState);
+  var node = this.getDOMNode();
+  node.scrollTop = node.scrollHeight;
   },
 
   componentWillUnmount: function () {
@@ -56,14 +58,28 @@ var DeliveryPage = React.createClass({
         			<CollectOrDeliver deliveryChoice={this.state.deliveryButtonChosen} collectionChoice={this.state.collectionButtonChosen} />
         		</div>
 
-        		{this.state.collectionButtonChosen ? 
-            <div className="row">
-	        		<CollectionMap />
-	        		<CollectionLocationDetails />
+        		{this.state.collectionButtonChosen ?
+            <div>  
+              <hr />  
               <div className="row">
-                <DeliveryDate label="Choose collection date and preferred time" />
+                <h2>Choose collection point</h2>
               </div>
-	        	</div> 
+              <hr />
+              <div className="row">
+  	        		<CollectionMap />
+  	        		<CollectionLocationDetails />
+              </div> 
+              <div className="row">
+              <hr />
+                <h2>Choose a collection date and preferred time</h2>
+              </div>
+              <hr />
+              <div className={CurrentDeliveryUserDetailsStore.getShowDateValidationMessage() ? "rounded-box required-field" : "rounded-box"}>
+                <div className="row">
+                  <DeliveryDate />
+                </div>
+              </div>
+            </div>
             : null}
 
             {this.state.deliveryButtonChosen ? 
@@ -78,7 +94,12 @@ var DeliveryPage = React.createClass({
   	        		<DeliveryAddress />
   	        	</div>
               <div className="row">
-                <DeliveryDate label="Choose delivery date and preferred time" />
+                <h2>Choose a delivery date and preferred time</h2>
+              </div>
+              <div className={CurrentDeliveryUserDetailsStore.getShowDateValidationMessage() ? "rounded-box required-field" : "rounded-box"}>
+                <div className="row">
+                  <DeliveryDate />
+                </div>
               </div>
               <div className="row">
                 <DeliveryInfo />

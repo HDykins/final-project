@@ -11,7 +11,7 @@ var DeliveryAddress = React.createClass({
 
   render: function () {
     return (
-	<div className="rounded-box">
+	<div>
 		<h3>Delivery Address</h3>
 		<ul className="list-unstyled">
 			<div className="col-xs-6 col-xs-offset-3">

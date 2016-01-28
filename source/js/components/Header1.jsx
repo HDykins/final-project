@@ -17,11 +17,15 @@ var Header1 = React.createClass({
     var currentPage = StateStore.getCurrentPage();  
 
     return (
-	<div className="row rounded-box">
-		<h1>{this.props.label}</h1>
-    {currentPage ==="DELIVERY_PAGE" ? <h3>10% off the total price price when you collect!</h3>: null}
-		{currentPage === "DECORATIONS_PAGE" ? <button onClick={this.handleNoDecorationsButtonClickEvent} className="btn btn-option">No Decorations</button> : null}
-	</div>
+  <div>    
+    <hr />
+  	<div className="row">
+  		<h1>{this.props.label}</h1>
+      {currentPage ==="DELIVERY_PAGE" ? <h3>10% off the total price price when you collect!</h3>: null}
+  		{currentPage === "DECORATIONS_PAGE" ? <button onClick={this.handleNoDecorationsButtonClickEvent} className="btn btn-option">No Decorations</button> : null}
+  	</div>
+    <hr />
+  </div>
     );
   }
 });

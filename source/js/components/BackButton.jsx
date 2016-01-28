@@ -7,7 +7,6 @@ var StateStore = require('../stores/StateStore.js');
 var BackButton = React.createClass({
 
   handleBackButtonClickEvent: function () {
-  	event.preventDefault();
     if (StateStore.getCurrentPage() === 'DECORATIONS_PAGE') {
       DecorationsPageActionCreators.changeToTreePage();
     }
@@ -25,7 +24,7 @@ var BackButton = React.createClass({
     <div className="col-xs-3">	
       <a onClick={this.handleBackButtonClickEvent} href="#top"className="btn btn-success btn-lg btn-progress">
   			<span className="white-text">{this.props.label}</span><br />
-  			<img className="arrow-button" src="../images/back.png" />
+  			<i className="fa fa-arrow-left fa-2x arrow-button"></i>
       </a>
 	</div>
     );

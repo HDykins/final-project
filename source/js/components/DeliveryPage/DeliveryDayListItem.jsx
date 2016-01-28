@@ -11,7 +11,7 @@ var DeliveryDayListItem = React.createClass({
   },
 
 	render: function () {
-    return (<li onClick={this.handleDaySelectionClickEvent}><a>{this.props.day}</a></li>);
+    return (<option onClick={this.handleDaySelectionClickEvent}>{this.props.day}</option>);
   }
 });
 

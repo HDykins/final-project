@@ -25,7 +25,7 @@ var SliderBox = React.createClass({
 
   render: function () {
     return (
-	<div className="rounded-box">
+	<div>
     <Rcslider onChange={this.handleSliderEvent} min={3} max={12} step={0.5} defaultValue={7} />
   	<label>Height: <p>{TreeInformationStore.getCurrentHeightValue() + "ft"}</p></label><br />
   	<label>Est. Max Width: <p>{TreeInformationStore.getCurrentWidthValue() + "ft"}</p></label>

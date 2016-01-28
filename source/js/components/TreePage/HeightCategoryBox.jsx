@@ -17,7 +17,7 @@ var HeightCategoryBox = React.createClass({
 
   render: function () {
     return (
-	<div className="rounded-box">
+	<div>
 		<div className="col-xs-4">
 			<div className={TreeInformationStore.getCurrentHeight() === "SMALL" ? "rounded-box highlight" : "rounded-box no-highlight"}>
 				<h4>

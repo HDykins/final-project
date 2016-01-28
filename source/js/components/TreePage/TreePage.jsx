@@ -39,26 +39,30 @@ var TreePage = React.createClass({
     	<div className="container-fluid grey-background">
         	<NavBar />
         	<div className="container">
-        		<img src="../images/current-step-image-1.png" />
-        		<div className="row">
-	        		<Header1 label="Choose tree type" />
-	        	</div>
-        		<div className="row">
-	        		<LargeTreeIcon treeView={this.state.treeView} />
-	        	</div>	
-				<TreeIcons />
-	        	<div className="row">
-					<TreeInfo />       		
-	        	</div>
+            <img src="../images/current-step-image-1.png" />
+            <div className="row">
+              <Header1 label="Choose tree type" />
+            </div>
+            <div className="rounded-box">
+          		<div className="row">
+  	        		<LargeTreeIcon treeView={this.state.treeView} />
+  	        	</div>	
+  				    <TreeIcons />
+  	        	<div className="row">
+  					   <TreeInfo />       		
+  	        	</div>
+            </div>
 	        	<Header1 label="Choose tree height"/>
-	        	<div className="row">
-	        		<div className="col-xs-6">
-	        			<SliderBox />
-	        		</div>
-	        		<div className="col-xs-6">
-	        			<HeightCategoryBox />
-	        		</div>	
-	        	</div>
+            <div className="rounded-box">
+  	        	<div className="row">
+  	        		<div className="col-xs-6">
+  	        			<SliderBox />
+  	        		</div>
+  	        		<div className="col-xs-6">
+  	        			<HeightCategoryBox />
+  	        		</div>	
+  	        	</div>
+            </div>
 	        	<div className="row">
 	        		<div className="col-xs-3"></div>
 	        		<PriceTotal />

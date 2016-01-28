@@ -41,8 +41,8 @@ var CollectOrDeliver = React.createClass({
   	console.log(this.props.deliveryChoice);
     return (
     <div>
-		<button onClick={this.handleCollectButtonClickEvent} className="btn important-button">Collect</button>
-		<button onClick={this.handleDeliverButtonClickEvent} className="btn important-button">Deliver</button>
+		<button onClick={this.handleCollectButtonClickEvent} className="btn btn-success btn-lg">Collect</button>
+		<button onClick={this.handleDeliverButtonClickEvent} className="btn btn-success btn-lg">Deliver</button>
 	</div>
     );
   }

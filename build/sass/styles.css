@@ -500,13 +500,15 @@ h3, h4, p, .btn {
 
 .highlight {
   background-color: rgba(161, 219, 255, 0.8);
+  border: double #464646 3px;
+  border-radius: 20px;
   background: #78e164;
   /* For browsers that do not support gradients */
   background: -webkit-linear-gradient(rgba(161, 219, 255, 0.8), rgba(230, 240, 255, 0.8));
   /* For Safari 5.1 to 6.0 */
-  background: -o-linear-gradient(#78e164, #5ab446);
+  background: -o-linear-gradient(rgba(161, 219, 255, 0.8), rgba(230, 240, 255, 0.8));
   /* For Opera 11.1 to 12.0 */
-  background: -moz-linear-gradient(#78e164, #5ab446);
+  background: -moz-linear-gradient(rgba(161, 219, 255, 0.8), rgba(230, 240, 255, 0.8));
   /* For Firefox 3.6 to 15 */
   background: linear-gradient(rgba(161, 219, 255, 0.8), rgba(230, 240, 255, 0.8));
   /* Standard syntax */ }
@@ -533,7 +535,7 @@ h3, h4, p, .btn {
   margin: 15px 0; }
 
 .arrow-button {
-  width: 40px; }
+  color: white; }
 
 .button-decorations-list {
   width: 90%;
@@ -571,9 +573,9 @@ input[type=text] {
   padding: 0; }
 
 .small-button {
-  width: 95%;
-  margin-left: 0;
-  margin-right: 0; }
+  width: 80%;
+  margin-left: 10%;
+  margin-right: 10%; }
 
 .important-button {
   width: 20vw;
@@ -631,7 +633,9 @@ input[type=text] {
 
 .map-div {
   height: 35vw;
-  max-height: 400px; }
+  max-height: 320px;
+  margin-top: 1vw;
+  margin-bottom: 1vw; }
 
 .danger-button {
   width: 90%;
@@ -653,7 +657,7 @@ input[type=text] {
 #sign-in-form input[type=text], #sign-in-form input[type=password] {
   width: 80%;
   font-size: 2.5vw;
-  height: 5vw; }
+  height: 90px; }
 
 .order-options {
   width: 100%;
@@ -666,3 +670,6 @@ input[type=text] {
 
 .order-row {
   margin: 0; }
+
+.required-field {
+  border: solid red 3px; }

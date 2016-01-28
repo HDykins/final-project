@@ -40,7 +40,7 @@ var SignInPage = React.createClass({
         	<NavBar />
         	<div className="container">
         		<div className="row">
-              <div className="rounded-box">
+              <div>
                 <h2> You must sign-in to view your orders</h2>
               </div>
 	        	</div>	
@@ -49,7 +49,7 @@ var SignInPage = React.createClass({
 	        	</div>
             <div className="row">
               <h3>Alternatively you can proceed to build your own tree as a guest!</h3>
-              <button onClick={this.handleBuildTreeAsGuestButtonClickEvent} className="btn important-button btn-success">Build tree</button>
+              <button onClick={this.handleBuildTreeAsGuestButtonClickEvent} className="btn btn-success btn-lg">Build tree</button>
             </div>
             {this.state.isRegisterFormVisible ? <RegisterForm /> : null}
       		</div>

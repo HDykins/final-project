@@ -39342,7 +39342,6 @@ var StateStore = require('../stores/StateStore.js');
 var BackButton = React.createClass({displayName: "BackButton",
 
   handleBackButtonClickEvent: function () {
-  	event.preventDefault();
     if (StateStore.getCurrentPage() === 'DECORATIONS_PAGE') {
       DecorationsPageActionCreators.changeToTreePage();
     }
@@ -39360,7 +39359,7 @@ var BackButton = React.createClass({displayName: "BackButton",
     React.createElement("div", {className: "col-xs-3"}, 	
       React.createElement("a", {onClick: this.handleBackButtonClickEvent, href: "#top", className: "btn btn-success btn-lg btn-progress"}, 
   			React.createElement("span", {className: "white-text"}, this.props.label), React.createElement("br", null), 
-  			React.createElement("img", {className: "arrow-button", src: "../images/back.png"})
+  			React.createElement("i", {className: "fa fa-arrow-left fa-2x arrow-button"})
       )
 	)
     );
@@ -39381,7 +39380,6 @@ var CurrentDeliveryUserDetailsStore = require('../stores/CurrentDeliveryUserDeta
 var ContinueButton = React.createClass({displayName: "ContinueButton",
 
   handleContinueButtonClickEvent: function () {
-  	event.preventDefault();
   	if (StateStore.getCurrentPage() === 'TREE_PAGE') {
   		TreePageActionCreators.changeToDecorationsPage();
   	} 
@@ -39409,9 +39407,9 @@ var ContinueButton = React.createClass({displayName: "ContinueButton",
   render: function () {
     return (
     React.createElement("div", {className: "col-xs-3 right"}, 	
-		React.createElement("a", {onClick: this.handleContinueButtonClickEvent, href: "#top-of", className: "btn btn-success btn-lg btn-progress"}, 
+		React.createElement("a", {onClick: this.handleContinueButtonClickEvent, href: CurrentDeliveryUserDetailsStore.getShowDateValidationMessage() ? "#bottom" : "#top", className: "btn btn-success btn-lg btn-progress"}, 
 			React.createElement("span", {className: "white-text"}, this.props.label), React.createElement("br", null), 
-			React.createElement("img", {className: "arrow-button", src: "../images/forward.png"})
+			React.createElement("i", {className: "fa fa-arrow-right fa-2x arrow-button"})
 		)
 	)	
     );
@@ -39843,8 +39841,8 @@ var CollectOrDeliver = React.createClass({displayName: "CollectOrDeliver",
   	console.log(this.props.deliveryChoice);
     return (
     React.createElement("div", null, 
-		React.createElement("button", {onClick: this.handleCollectButtonClickEvent, className: "btn important-button"}, "Collect"), 
-		React.createElement("button", {onClick: this.handleDeliverButtonClickEvent, className: "btn important-button"}, "Deliver")
+		React.createElement("button", {onClick: this.handleCollectButtonClickEvent, className: "btn btn-success btn-lg"}, "Collect"), 
+		React.createElement("button", {onClick: this.handleDeliverButtonClickEvent, className: "btn btn-success btn-lg"}, "Deliver")
 	)
     );
   }
@@ -39880,9 +39878,6 @@ var CollectionLocationDetails = React.createClass({displayName: "CollectionLocat
   render: function () {
     return (
    	React.createElement("div", {className: "col-xs-6"}, 
-		React.createElement("div", {className: "rounded-box"}, 
-			React.createElement("h2", null, "Choose collection point")
-		), 
 		React.createElement("div", {onClick: this.handlePrimaryAddressClickEvent, className: CurrentDeliveryUserDetailsStore.getCurrentSelectedCollectionAddress() === "PRIMARY_COLLECTION_ADDRESS" ? "rounded-box highlight" : "rounded-box"}, 
 			React.createElement("div", {className: "col-xs-4"}, 
 				"40 Abbey Road", React.createElement("br", null), "Bush Hill Park", React.createElement("br", null), "Enfield"
@@ -40012,7 +40007,7 @@ var DeliveryAddress = React.createClass({displayName: "DeliveryAddress",
 
   render: function () {
     return (
-	React.createElement("div", {className: "rounded-box"}, 
+	React.createElement("div", null, 
 		React.createElement("h3", null, "Delivery Address"), 
 		React.createElement("ul", {className: "list-unstyled"}, 
 			React.createElement("div", {className: "col-xs-6 col-xs-offset-3"}, 
@@ -40073,6 +40068,12 @@ var DeliveryDate = React.createClass({displayName: "DeliveryDate",
 	return monthListItem;
   },
 
+  handleDaySelectionChange: function () {
+  	DeliveryPageActionCreators.setCurrentDaySelection(parseInt(this.refs.day.value));
+  	DeliveryPageActionCreators.setDeliveryOptionPrice();
+  	DeliveryPageActionCreators.sumAllPrices()
+  },
+
   handleMonthSelectionChange: function () {
   	console.log("stored date month    " + parseInt(this.refs.month.value));
   	DeliveryPageActionCreators.setCurrentMonthSelection(parseInt(this.refs.month.value));
@@ -40080,81 +40081,60 @@ var DeliveryDate = React.createClass({displayName: "DeliveryDate",
   	DeliveryPageActionCreators.sumAllPrices()
   },
 
-  handleYearSelectionClickEvent: function () {
+  handleYearSelectionChange: function () {
   	DeliveryPageActionCreators.setCurrentYearSelection(2016);
   	DeliveryPageActionCreators.setDeliveryOptionPrice();
   	DeliveryPageActionCreators.sumAllPrices()
   },
 
-  handleSetTimeToMorningClickEvent: function () {
-  	DeliveryPageActionCreators.setCurrentTimeSelectionToMorning();
+  handleTimeSelectionChange: function () {
+  	if (this.refs.time.value === "Morning ( 8-12:30 )") {
+	  	DeliveryPageActionCreators.setCurrentTimeSelectionToMorning();
+	} else if (this.refs.time.value === "Afternoon ( 12:30-5 )") {
+	  	DeliveryPageActionCreators.setCurrentTimeSelectionToAfternoon();
+	}
   },
-
-  handleSetTimeToAfternoonClickEvent: function () {
-  	DeliveryPageActionCreators.setCurrentTimeSelectionToAfternoon();
-  },  
 
   render: function () {
   	console.log(CurrentDeliveryUserDetailsStore.getShowDateValidationMessage());
     return (
    	React.createElement("div", null, 
-   		React.createElement("div", {className: "col-xs-4"}, 
-   			React.createElement("div", {className: "rounded-box"}, 
-				React.createElement("h4", null, this.props.label)
-			)
-		), 
-		React.createElement("div", {className: "col-xs-4"}, 
-   			React.createElement("div", {className: "rounded-box visible dropdown-date"}, 
+		React.createElement("div", {className: "col-xs-8"}, 
+			React.createElement("div", {className: "row"}, 
    				React.createElement("div", {className: "no-padding col-xs-4"}, 
-					React.createElement("div", {className: "dropdown"}, 
-			            React.createElement("button", {className: "btn small-button dropdown-toggle", type: "button", id: "dropdown-lights", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "true"}, 
-			              React.createElement("span", {className: "white-text"}, CurrentDeliveryUserDetailsStore.getCurrentDaySelection()), 
-			              React.createElement("span", {className: "caret"})
-			            ), 
-			            React.createElement("ul", {className: "dropdown-menu", "aria-labelledby": "dropdown-lights"}, 
-			              this.addDayListItems()
-			            )
-			         )
+					React.createElement("select", {onChange: this.handleDaySelectionChange, name: "ok", className: "form-control btn small-button dropdown-toggle", "data-width": "fit", ref: "day"}, 
+						React.createElement("option", {value: ""}, "Day"), 
+			            this.addDayListItems()
+				    )
 		        ), 
 		        React.createElement("div", {className: "no-padding col-xs-4"}, 
-					React.createElement("div", {className: "dropdown"}, 
-						React.createElement("select", {onChange: this.handleMonthSelectionChange, name: "ok", className: "form-control center btn small-button dropdown-toggle white-text", "data-width": "fit", ref: "month", required: true}, 
-							React.createElement("option", {value: ""}, "Month"), 
-							this.addMonthListItems()
-						)
+					React.createElement("select", {onChange: this.handleMonthSelectionChange, name: "ok", className: "form-control btn small-button dropdown-toggle", "data-width": "fit", ref: "month"}, 
+						React.createElement("option", {value: ""}, "Month"), 
+						this.addMonthListItems()
+					)
+		        ), 
+		        React.createElement("div", {className: "no-padding col-xs-4"}, 
+					React.createElement("select", {onChange: this.handleYearSelectionChange, name: "ok", className: "form-control btn small-button dropdown-toggle", "data-width": "fit", ref: "year"}, 
+						React.createElement("option", {value: ""}, "Year"), 
+			            React.createElement("option", null, "2016")
 			        )
-		        ), 
-		        React.createElement("div", {className: "no-padding col-xs-4"}, 
-					React.createElement("div", {className: "dropdown"}, 
-			            React.createElement("button", {className: "btn small-button dropdown-toggle", type: "button", id: "dropdown-lights", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "true"}, 
-			              React.createElement("span", {className: "white-text"}, CurrentDeliveryUserDetailsStore.getCurrentYearSelection()), 
-			              React.createElement("span", {className: "caret"})
-			            ), 
-			            React.createElement("ul", {className: "dropdown-menu", "aria-labelledby": "dropdown-lights"}, 
-			              React.createElement("li", {onClick: this.handleYearSelectionClickEvent}, React.createElement("a", null, "2016"))
-			            )
-			        )	
 		        )	         
-			), 
-			CurrentDeliveryUserDetailsStore.getShowDateValidationMessage() ?
-			React.createElement("div", null, "eiygfyuiaegyug"
 			)
-			: null
 		), 
 		React.createElement("div", {className: "col-xs-4"}, 
-   			React.createElement("div", {className: "rounded-box visible dropdown-time"}, 
-				React.createElement("div", {className: "dropdown"}, 
-		            React.createElement("button", {className: "btn small-button dropdown-toggle", type: "button", id: "dropdown-lights", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "true"}, 
-		              React.createElement("span", {className: "white-text"}, CurrentDeliveryUserDetailsStore.getCurrentTimeSelection()), 
-		              React.createElement("span", {className: "caret"})
-		            ), 
-		            React.createElement("ul", {className: "dropdown-menu", "aria-labelledby": "dropdown-lights"}, 
-		              React.createElement("li", {onClick: this.handleSetTimeToMorningClickEvent}, React.createElement("a", null, "Morning ( 8-12:30 )")), 
-		              React.createElement("li", {onClick: this.handleSetTimeToAfternoonClickEvent}, React.createElement("a", null, "Afternoon ( 12:30-5 )"))
-		            )
-		         )	
-			)
-		)
+			React.createElement("div", {className: "row"}, 
+			React.createElement("div", {className: "no-padding col-xs-12"}, 
+	             React.createElement("select", {onChange: this.handleTimeSelectionChange, name: "ok", className: "form-control btn small-button dropdown-toggle", "data-width": "fit", ref: "time"}, 
+					React.createElement("option", {value: ""}, "Time"), 
+	            	React.createElement("option", null, "Morning ( 8-12:30 )"), 
+	            	React.createElement("option", null, "Afternoon ( 12:30-5 )")
+	            )
+	        )
+	        )	
+		), 
+		CurrentDeliveryUserDetailsStore.getShowDateValidationMessage() ?
+		React.createElement("div", null, "Please select a date before continuing")
+		: null
 	)
     );
   }
@@ -40176,7 +40156,7 @@ var DeliveryDayListItem = React.createClass({displayName: "DeliveryDayListItem",
   },
 
 	render: function () {
-    return (React.createElement("li", {onClick: this.handleDaySelectionClickEvent}, React.createElement("a", null, this.props.day)));
+    return (React.createElement("option", {onClick: this.handleDaySelectionClickEvent}, this.props.day));
   }
 });
 
@@ -40201,47 +40181,55 @@ var DeliveryInfo = React.createClass({displayName: "DeliveryInfo",
 
   render: function () {
     return (
-	React.createElement("div", null, 
-		React.createElement("div", {className: "col-xs-4"}, 
-			React.createElement("div", {className: "rounded-box"}, 
-				React.createElement("span", null, React.createElement("h3", null, "Additional delivery information"))
-			), 
-			React.createElement("div", {className: "rounded-box"}, 
-				React.createElement("p", null, React.createElement("textarea", {onChange: this.handleAdditionalInformationTextarea, ref: "information", value: CurrentDeliveryUserDetailsStore.getAdditionalInformation(), placeholder: "Beware of the dog, mobile number etc."}))
+    React.createElement("div", null, 	
+		React.createElement("div", {className: "row"}, 
+			React.createElement("div", {className: "col-xs-12"}, 
+				React.createElement("div", null, 
+					React.createElement("div", {className: "row"}, 
+						React.createElement("div", {className: "col-xs-4"}, 
+							React.createElement("div", {className: CurrentDeliveryUserDetailsStore.getDeliveryOptionPrice() === 15 ? "rounded-box highlight" : "rounded-box"}, 
+								"Next day delivery", React.createElement("br", null), 
+								"(If ordered before 3pm)", React.createElement("br", null), 
+								"£15"
+							)
+						), 
+						React.createElement("div", {className: "col-xs-4"}, 
+							React.createElement("div", {className: CurrentDeliveryUserDetailsStore.getDeliveryOptionPrice() === 6 ? "rounded-box highlight" : "rounded-box"}, 
+								"1-5 days", React.createElement("br", null), 
+								React.createElement("br", null), 
+								"£6"					
+							)
+						), 
+						React.createElement("div", {className: "col-xs-4"}, 
+							React.createElement("div", {className: CurrentDeliveryUserDetailsStore.getDeliveryOptionPrice() === 3 ? "rounded-box highlight" : "rounded-box"}, 
+								"6+ days", React.createElement("br", null), 
+								React.createElement("br", null), 
+								"£3"					
+							)
+						)
+					)		
+				)
 			)
 		), 
-		React.createElement("div", {className: "col-xs-8"}, 
-			React.createElement("div", {className: "rounded-box"}, 
-				React.createElement("div", {className: "row"}, 
-					React.createElement("div", {className: "col-xs-4"}, 
-						React.createElement("div", {className: CurrentDeliveryUserDetailsStore.getDeliveryOptionPrice() === 15 ? "rounded-box highlight" : "rounded-box"}, 
-							"Next day delivery", React.createElement("br", null), 
-							"(If ordered before 3pm)", React.createElement("br", null), 
-							"£15"
-						)
-					), 
-					React.createElement("div", {className: "col-xs-4"}, 
-						React.createElement("div", {className: CurrentDeliveryUserDetailsStore.getDeliveryOptionPrice() === 6 ? "rounded-box highlight" : "rounded-box"}, 
-							"1-5 days", React.createElement("br", null), 
-							React.createElement("br", null), 
-							"£6"					
-						)
-					), 
-					React.createElement("div", {className: "col-xs-4"}, 
-						React.createElement("div", {className: CurrentDeliveryUserDetailsStore.getDeliveryOptionPrice() === 3 ? "rounded-box highlight" : "rounded-box"}, 
-							"6+ days", React.createElement("br", null), 
-							React.createElement("br", null), 
-							"£3"					
-						)
-					)
-				)		
-			), 
-			React.createElement("div", {className: "rounded-box"}, 
-				React.createElement("h3", null, "Fitted and decorated by our staff? ", React.createElement("span", {className: "price"}, "+£15")), 
-				React.createElement("input", {onChange: this.handleDecorationInstallationChangeEvent, type: "checkbox", checked: CurrentDeliveryUserDetailsStore.getDecorationInstallationSelectionStatus() ? "checked" : null, size: "width:20px"})
+		React.createElement("div", {className: "row"}, 		
+			React.createElement("div", {className: "col-xs-8 col-xs-offset-2"}, 
+				React.createElement("div", null, 
+					React.createElement("h3", null, "Fitted and decorated by our staff? ", React.createElement("span", {className: "price"}, "+£15")), 
+					React.createElement("input", {onChange: this.handleDecorationInstallationChangeEvent, type: "checkbox", checked: CurrentDeliveryUserDetailsStore.getDecorationInstallationSelectionStatus() ? "checked" : null, size: "width:20px"})
+				)
 			)
-		)
-	)
+		), 	
+		React.createElement("div", {className: "row"}, 
+			React.createElement("h3", null, "Additional delivery information")
+		), 
+		React.createElement("div", {className: "row"}, 		
+			React.createElement("div", {className: "col-xs-4 col-xs-offset-4"}, 
+				React.createElement("div", null, 
+					React.createElement("p", null, React.createElement("textarea", {onChange: this.handleAdditionalInformationTextarea, ref: "information", value: CurrentDeliveryUserDetailsStore.getAdditionalInformation(), placeholder: "Beware of the dog, mobile number etc."}))
+				)
+			)
+		)	
+	)	
     );
   }
 });
@@ -40307,6 +40295,8 @@ var DeliveryPage = React.createClass({displayName: "DeliveryPage",
   componentDidMount: function () {
       StateStore.addChangeListener(this.updateState);
       CurrentDeliveryUserDetailsStore.addChangeListener(this.updateState);
+  var node = this.getDOMNode();
+  node.scrollTop = node.scrollHeight;
   },
 
   componentWillUnmount: function () {
@@ -40328,14 +40318,28 @@ var DeliveryPage = React.createClass({displayName: "DeliveryPage",
         			React.createElement(CollectOrDeliver, {deliveryChoice: this.state.deliveryButtonChosen, collectionChoice: this.state.collectionButtonChosen})
         		), 
 
-        		this.state.collectionButtonChosen ? 
-            React.createElement("div", {className: "row"}, 
-	        		React.createElement(CollectionMap, null), 
-	        		React.createElement(CollectionLocationDetails, null), 
+        		this.state.collectionButtonChosen ?
+            React.createElement("div", null, 
+              React.createElement("hr", null), 
               React.createElement("div", {className: "row"}, 
-                React.createElement(DeliveryDate, {label: "Choose collection date and preferred time"})
+                React.createElement("h2", null, "Choose collection point")
+              ), 
+              React.createElement("hr", null), 
+              React.createElement("div", {className: "row"}, 
+  	        		React.createElement(CollectionMap, null), 
+  	        		React.createElement(CollectionLocationDetails, null)
+              ), 
+              React.createElement("div", {className: "row"}, 
+              React.createElement("hr", null), 
+                React.createElement("h2", null, "Choose a collection date and preferred time")
+              ), 
+              React.createElement("hr", null), 
+              React.createElement("div", {className: CurrentDeliveryUserDetailsStore.getShowDateValidationMessage() ? "rounded-box required-field" : "rounded-box"}, 
+                React.createElement("div", {className: "row"}, 
+                  React.createElement(DeliveryDate, null)
+                )
               )
-	        	) 
+            )
             : null, 
 
             this.state.deliveryButtonChosen ? 
@@ -40350,7 +40354,12 @@ var DeliveryPage = React.createClass({displayName: "DeliveryPage",
   	        		React.createElement(DeliveryAddress, null)
   	        	), 
               React.createElement("div", {className: "row"}, 
-                React.createElement(DeliveryDate, {label: "Choose delivery date and preferred time"})
+                React.createElement("h2", null, "Choose a delivery date and preferred time")
+              ), 
+              React.createElement("div", {className: CurrentDeliveryUserDetailsStore.getShowDateValidationMessage() ? "rounded-box required-field" : "rounded-box"}, 
+                React.createElement("div", {className: "row"}, 
+                  React.createElement(DeliveryDate, null)
+                )
               ), 
               React.createElement("div", {className: "row"}, 
                 React.createElement(DeliveryInfo, null)
@@ -40391,9 +40400,9 @@ var PostCode = React.createClass({displayName: "PostCode",
   render: function () {
     return (
     React.createElement("div", {className: "col-xs-6 col-xs-offset-3"}, 	
-	   	React.createElement("div", {className: "rounded-box"}, 
+	   	React.createElement("div", null, 
 			React.createElement("input", {className: "postcode-input", type: "text", ref: "postcode", placeholder: "Please input your postcode"}), 
-			React.createElement("button", {onClick: this.handleFindButtonClickEvent, className: "btn white-text"}, "Find")
+			React.createElement("button", {onClick: this.handleFindButtonClickEvent, className: "btn btn-option"}, "Find")
 		)
 	)
     );
@@ -40443,11 +40452,15 @@ var Header1 = React.createClass({displayName: "Header1",
     var currentPage = StateStore.getCurrentPage();  
 
     return (
-	React.createElement("div", {className: "row rounded-box"}, 
-		React.createElement("h1", null, this.props.label), 
-    currentPage ==="DELIVERY_PAGE" ? React.createElement("h3", null, "10% off the total price price when you collect!"): null, 
-		currentPage === "DECORATIONS_PAGE" ? React.createElement("button", {onClick: this.handleNoDecorationsButtonClickEvent, className: "btn btn-option"}, "No Decorations") : null
-	)
+  React.createElement("div", null, 
+    React.createElement("hr", null), 
+  	React.createElement("div", {className: "row"}, 
+  		React.createElement("h1", null, this.props.label), 
+      currentPage ==="DELIVERY_PAGE" ? React.createElement("h3", null, "10% off the total price price when you collect!"): null, 
+  		currentPage === "DECORATIONS_PAGE" ? React.createElement("button", {onClick: this.handleNoDecorationsButtonClickEvent, className: "btn btn-option"}, "No Decorations") : null
+  	), 
+    React.createElement("hr", null)
+  )
     );
   }
 });
@@ -40622,8 +40635,8 @@ var NavBar = React.createClass({displayName: "NavBar",
   render: function () {
     console.log(StateStore.getCurrentPage());
     return (
-		React.createElement("nav", {className: "navbar transparent"}, 
-  				StateStore.getCurrentPage() === "SIGN_IN_PAGE" || StateStore.getCurrentPage() === "ORDERS_PAGE" ? React.createElement("a", {onClick: this.handleHomeButtonClickEvent, id: "top", role: "button", className: "navbar-btn absolute-left", href: "#contact"}, "Contact Us") : React.createElement("a", {onClick: this.handleHomeButtonClickEvent, id: "top-of", role: "button", className: "navbar-btn left", href: "#bottom"}, "Contact Us"), 
+		React.createElement("nav", {className: "navbar transparent", id: "top"}, 
+  				StateStore.getCurrentPage() === "SIGN_IN_PAGE" || StateStore.getCurrentPage() === "ORDERS_PAGE" ? React.createElement("a", {onClick: this.handleHomeButtonClickEvent, role: "button", className: "navbar-btn absolute-left", href: "#contact"}, "Contact Us") : React.createElement("a", {onClick: this.handleHomeButtonClickEvent, role: "button", className: "navbar-btn left", href: "#contact"}, "Contact Us"), 
   				StateStore.getCurrentPage() === "LANDING_PAGE" ? null : React.createElement("a", {onClick: this.handleHomeButtonClickEvent, role: "button", className: "navbar-btn center"}, "Home"), 
   				StateStore.getCurrentPage() === "SIGN_IN_PAGE" || StateStore.getCurrentPage() === "ORDERS_PAGE" ? null : React.createElement("a", {onClick: this.handleOrdersButtonClickEvent, role: "button", className: "navbar-btn right"}, "My orders")
   		)
@@ -41502,30 +41515,30 @@ var SignInForm = React.createClass({displayName: "SignInForm",
   		) : null, 
   		React.createElement("h4", null, "Sign-in form"), 
   		React.createElement("div", {className: "col-xs-8 col-xs-offset-2"}, 
-  			React.createElement("div", {className: "rounded-box"}, 
+  			React.createElement("div", null, 
   				React.createElement("div", {className: "col-xs-6"}, 
-  					React.createElement("div", {className: "rounded-box"}, 
+  					React.createElement("div", null, 
   						React.createElement("input", {type: "text", placeholder: "Email", ref: "email"})
   					), 
   					React.createElement("br", null), 
   				    this.state.failMessage ?
-  					React.createElement("div", {className: "rounded-box"}, 
+  					React.createElement("div", null, 
   						React.createElement("span", {className: "red"}, this.state.failMessage)
   					)
   				    :null
   				), 
   				React.createElement("div", {className: "col-xs-6"}, 
-  					React.createElement("div", {className: "rounded-box"}, 
+  					React.createElement("div", null, 
   						React.createElement("input", {type: "password", placeholder: "Password", ref: "password"})
   					), 				
-  					React.createElement("button", {onClick: this.handleUserSignInFormSubmit, className: "important-button btn btn-success"}, "Sign-in")
+  					React.createElement("button", {onClick: this.handleUserSignInFormSubmit, className: "btn btn-success btn-lg"}, "Sign-in")
   				)
 
   			)
   		), 
   		React.createElement("div", {className: "col-xs-12"}, 
   			React.createElement("h3", null, "Don't have an account?"), 
-  			React.createElement("button", {onClick: this.handleRegisterButtonClickEvent, className: "important-button btn btn-success"}, "Register"), 
+  			React.createElement("button", {onClick: this.handleRegisterButtonClickEvent, className: "btn btn-success btn-lg"}, "Register"), 
   			React.createElement("br", null), React.createElement("br", null)
   		)
   	)
@@ -41587,7 +41600,7 @@ var SignInPage = React.createClass({displayName: "SignInPage",
         	React.createElement(NavBar, null), 
         	React.createElement("div", {className: "container"}, 
         		React.createElement("div", {className: "row"}, 
-              React.createElement("div", {className: "rounded-box"}, 
+              React.createElement("div", null, 
                 React.createElement("h2", null, " You must sign-in to view your orders")
               )
 	        	), 	
@@ -41596,7 +41609,7 @@ var SignInPage = React.createClass({displayName: "SignInPage",
 	        	), 
             React.createElement("div", {className: "row"}, 
               React.createElement("h3", null, "Alternatively you can proceed to build your own tree as a guest!"), 
-              React.createElement("button", {onClick: this.handleBuildTreeAsGuestButtonClickEvent, className: "btn important-button btn-success"}, "Build tree")
+              React.createElement("button", {onClick: this.handleBuildTreeAsGuestButtonClickEvent, className: "btn btn-success btn-lg"}, "Build tree")
             ), 
             this.state.isRegisterFormVisible ? React.createElement(RegisterForm, null) : null
       		)
@@ -41773,7 +41786,7 @@ var HeightCategoryBox = React.createClass({displayName: "HeightCategoryBox",
 
   render: function () {
     return (
-	React.createElement("div", {className: "rounded-box"}, 
+	React.createElement("div", null, 
 		React.createElement("div", {className: "col-xs-4"}, 
 			React.createElement("div", {className: TreeInformationStore.getCurrentHeight() === "SMALL" ? "rounded-box highlight" : "rounded-box no-highlight"}, 
 				React.createElement("h4", null, 
@@ -41827,25 +41840,25 @@ var LargeTreeIcon = React.createClass({displayName: "LargeTreeIcon",
   render: function () {
   	if (this.props.treeView === "NORWEGIAN_SPRUCE") {
 	    return (
-		React.createElement("div", {className: "rounded-box"}, 
+		React.createElement("div", null, 
 			React.createElement("img", {src: "../../images/tree-photos/norwegian-spruce.jpg", className: "tree-icon-image-large"})
 		)
 		);
   	} else if (this.props.treeView === "NORDMANN_FIR") {
 	    return (
-		React.createElement("div", {className: "rounded-box"}, 
+		React.createElement("div", null, 
 			React.createElement("img", {src: "http://www.cawstonchristmastrees.co.uk/media/catalog/product/cache/1/image/a064d5fcd2c1dc59bbfcc0d0b1e10b16/7/f/7ft_premier_nordmann_fir.jpg", className: "tree-icon-image-large"})
 		)
 	    );	
   	} else if (this.props.treeView === "FRASER_FIR") {
 	    return (
-		React.createElement("div", {className: "rounded-box"}, 
+		React.createElement("div", null, 
 			React.createElement("img", {src: "http://www.balsamhill.co.uk/v/vspfiles/photos/FRA-T-UK-2.jpg", className: "tree-icon-image-large"})
 		)
 	    );	
   	} else if (this.props.treeView === "ARTIFICIAL") {
 	    return (
-		React.createElement("div", {className: "rounded-box"}, 
+		React.createElement("div", null, 
 			React.createElement("img", {src: "https://26jvuybq3aw22hpt11xno70y-wpengine.netdna-ssl.com/assets/Memphis-Spruce-Christmas-Tree1.jpg", className: "tree-icon-image-large"})
 		)
 	    );	
@@ -41885,7 +41898,7 @@ var SliderBox = React.createClass({displayName: "SliderBox",
 
   render: function () {
     return (
-	React.createElement("div", {className: "rounded-box"}, 
+	React.createElement("div", null, 
     React.createElement(Rcslider, {onChange: this.handleSliderEvent, min: 3, max: 12, step: 0.5, defaultValue: 7}), 
   	React.createElement("label", null, "Height: ", React.createElement("p", null, TreeInformationStore.getCurrentHeightValue() + "ft")), React.createElement("br", null), 
   	React.createElement("label", null, "Est. Max Width: ", React.createElement("p", null, TreeInformationStore.getCurrentWidthValue() + "ft"))
@@ -41904,25 +41917,25 @@ var TreeDescription = React.createClass({displayName: "TreeDescription",
   render: function () {
   	if (TreeInformationStore.getCurrentTreeView() === "NORWEGIAN_SPRUCE") {
 	    return (
-		React.createElement("div", {className: "rounded-box"}, 
+		React.createElement("div", null, 
 			React.createElement("p", null, "The Norwegian Spruce is the traditional Christmas tree which favoured by many homes throughout the UK and Europe. The Norwegian Spruce can be found naturally in Northern and Central Europe. The tree features pointed mid-green colour needles with long cylindrical brown cones which hang down. Many people enjoy its scent once its indoors during December.")
 		)
 		);
 	} else if (TreeInformationStore.getCurrentTreeView() === "NORDMANN_FIR") {
         return (
-        React.createElement("div", {className: "rounded-box"}, 	
+        React.createElement("div", null, 	
 			React.createElement("p", null, "An excellent needle retaining species with soft glossy dark green needles. Nordman Fir is probably the most popular Christmas tree in this country, one of the reasons being that it has a lovely symmetrical shape with strong branches.")
 		)
 		);
 	} else if (TreeInformationStore.getCurrentTreeView() === "FRASER_FIR") {
         return (
-        React.createElement("div", {className: "rounded-box"}, 
+        React.createElement("div", null, 
 			React.createElement("p", null, "The Fraser fir branches turn slightly upward. They have good form and needle-retention. They are dark blue-green in colour, and have excellent shipping characteristics. Fraser firs are known for their wonderful Christmassy scent.")
 		)
 		);
 	} else if (TreeInformationStore.getCurrentTreeView() === "ARTIFICIAL") {
         return (
-        React.createElement("div", {className: "rounded-box"}, 	
+        React.createElement("div", null, 	
 			React.createElement("p", null, "One of the biggest advantages of using artificial trees is the cost savings. Artificial trees are also very convenient. It’s always that “perfect shape”, and you don’t have to worry about haggling with the Christmas tree lot salesman to get a good deal. The trees don’t need any watering and won’t scatter mounds of messy needles all over the floor.")
 		)
     	);
@@ -41940,7 +41953,7 @@ var TreeIcon = React.createClass({displayName: "TreeIcon",
   render: function () {
     return (
 	React.createElement("div", {className: "col-xs-3"}, 
-		React.createElement("div", {onClick: this.props.handleClick, id: "tree-icon", className: "rounded-box " + this.props.className}, 
+		React.createElement("div", {onClick: this.props.handleClick, id: "tree-icon", className: this.props.className}, 
 			React.createElement("div", null, 
 				React.createElement("span", {id: "tree-name", className: "tree-name"}, this.props.label)
 			), 
@@ -42018,7 +42031,7 @@ var TreeDescription = require('./TreeDescription.jsx');
 var TreeInfo = React.createClass({displayName: "TreeInfo",
   render: function () {
     return (
-	React.createElement("div", {className: "rounded-box"}, 
+	React.createElement("div", null, 
 		React.createElement("div", {className: "col-xs-4"}, 
 			React.createElement("h4", null, "Tree Details"), 
 			React.createElement(FactList, null)
@@ -42075,26 +42088,30 @@ var TreePage = React.createClass({displayName: "TreePage",
     	React.createElement("div", {className: "container-fluid grey-background"}, 
         	React.createElement(NavBar, null), 
         	React.createElement("div", {className: "container"}, 
-        		React.createElement("img", {src: "../images/current-step-image-1.png"}), 
-        		React.createElement("div", {className: "row"}, 
-	        		React.createElement(Header1, {label: "Choose tree type"})
-	        	), 
-        		React.createElement("div", {className: "row"}, 
-	        		React.createElement(LargeTreeIcon, {treeView: this.state.treeView})
-	        	), 	
-				React.createElement(TreeIcons, null), 
-	        	React.createElement("div", {className: "row"}, 
-					React.createElement(TreeInfo, null)		
-	        	), 
+            React.createElement("img", {src: "../images/current-step-image-1.png"}), 
+            React.createElement("div", {className: "row"}, 
+              React.createElement(Header1, {label: "Choose tree type"})
+            ), 
+            React.createElement("div", {className: "rounded-box"}, 
+          		React.createElement("div", {className: "row"}, 
+  	        		React.createElement(LargeTreeIcon, {treeView: this.state.treeView})
+  	        	), 	
+  				    React.createElement(TreeIcons, null), 
+  	        	React.createElement("div", {className: "row"}, 
+  					   React.createElement(TreeInfo, null)		
+  	        	)
+            ), 
 	        	React.createElement(Header1, {label: "Choose tree height"}), 
-	        	React.createElement("div", {className: "row"}, 
-	        		React.createElement("div", {className: "col-xs-6"}, 
-	        			React.createElement(SliderBox, null)
-	        		), 
-	        		React.createElement("div", {className: "col-xs-6"}, 
-	        			React.createElement(HeightCategoryBox, null)
-	        		)	
-	        	), 
+            React.createElement("div", {className: "rounded-box"}, 
+  	        	React.createElement("div", {className: "row"}, 
+  	        		React.createElement("div", {className: "col-xs-6"}, 
+  	        			React.createElement(SliderBox, null)
+  	        		), 
+  	        		React.createElement("div", {className: "col-xs-6"}, 
+  	        			React.createElement(HeightCategoryBox, null)
+  	        		)	
+  	        	)
+            ), 
 	        	React.createElement("div", {className: "row"}, 
 	        		React.createElement("div", {className: "col-xs-3"}), 
 	        		React.createElement(PriceTotal, null), 

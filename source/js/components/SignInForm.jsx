@@ -137,30 +137,30 @@ var SignInForm = React.createClass({
   		</div> : null}
   		<h4>Sign-in form</h4>
   		<div className="col-xs-8 col-xs-offset-2">
-  			<div className="rounded-box">
+  			<div>
   				<div className="col-xs-6">
-  					<div className="rounded-box">
+  					<div>
   						<input type="text" placeholder="Email" ref="email" />
   					</div>
   					<br />
   				    {this.state.failMessage ?
-  					<div className="rounded-box">
+  					<div>
   						<span className="red">{this.state.failMessage}</span>
   					</div>
   				    :null }
   				</div>
   				<div className="col-xs-6">
-  					<div className="rounded-box">
+  					<div>
   						<input type="password" placeholder="Password" ref="password" />
   					</div>				
-  					<button onClick={this.handleUserSignInFormSubmit} className="important-button btn btn-success">Sign-in</button>
+  					<button onClick={this.handleUserSignInFormSubmit} className="btn btn-success btn-lg">Sign-in</button>
   				</div>
 
   			</div>
   		</div>
   		<div className="col-xs-12">
   			<h3>Don't have an account?</h3>
-  			<button onClick={this.handleRegisterButtonClickEvent} className="important-button btn btn-success">Register</button>
+  			<button onClick={this.handleRegisterButtonClickEvent} className="btn btn-success btn-lg">Register</button>
   			<br /><br />
   		</div> 
   	</div>

@@ -25,9 +25,6 @@ var CollectionLocationDetails = React.createClass({
   render: function () {
     return (
    	<div className="col-xs-6">
-		<div className="rounded-box">
-			<h2>Choose collection point</h2>
-		</div>
 		<div onClick={this.handlePrimaryAddressClickEvent} className={CurrentDeliveryUserDetailsStore.getCurrentSelectedCollectionAddress() === "PRIMARY_COLLECTION_ADDRESS" ? "rounded-box highlight" : "rounded-box"}>
 			<div className="col-xs-4">
 				40 Abbey Road<br/>Bush Hill Park<br/>Enfield

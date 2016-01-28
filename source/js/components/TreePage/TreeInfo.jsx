@@ -5,7 +5,7 @@ var TreeDescription = require('./TreeDescription.jsx');
 var TreeInfo = React.createClass({
   render: function () {
     return (
-	<div className="rounded-box">
+	<div>
 		<div className="col-xs-4">
 			<h4>Tree Details</h4>
 			<FactList />
