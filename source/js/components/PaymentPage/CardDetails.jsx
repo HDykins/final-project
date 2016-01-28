@@ -13,25 +13,19 @@ var CardDetails = React.createClass({
   render: function () {
     return (
     <div>	
-	    <div className="col-xs-6 col-xs-offset-3">	
-			<div className="rounded-box">
+	    <div className="col-xs-8 col-xs-offset-2">	
+			<div>
 				<div className="rounded-box input-div">
 					<input type="text" placeholder="Name (as shown on card)" />
 				</div>
 				<div className="rounded-box input-div">
-					<div className="dropdown">
-			            <button className="btn btn-default dropdown-toggle" type="button" id="dropdown-card-type" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-			              <span className="white-text">Card Type</span>
-			              <span className="caret"></span>
-			            </button>
-			            <ul className="dropdown-menu" aria-labelledby="dropdown-card-type">
-			              <li>Visa</li>
-			              <li>Visa Debit</li>
-			              <li>American Express</li>
-			              <li>Maestro</li>
-			              <li>Mastercard</li>
-			            </ul>
-			        </div>
+					<select name="cards" className="form-control btn small-button dropdown-toggle" data-width="fit">
+			              <option>Visa</option>
+			              <option>Visa Debit</option>
+			              <option>American Express</option>
+			              <option>Maestro</option>
+			              <option>Mastercard</option>
+					</select>
 				</div>
 				<div className="rounded-box input-div">
 					<input type="text" placeholder="Card Number" />

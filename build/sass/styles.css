@@ -423,10 +423,11 @@ h3, h4, p, .btn {
   width: 100%; }
 
 .input-div {
+  border-radius: 20px;
   overflow: initial;
-  width: 80%;
-  margin-left: 10%;
-  margin-right: 10%;
+  width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
   font-size: 1.4vw; }
 
 .white-text, .btn-success, .important-button, .danger-button {
@@ -461,10 +462,21 @@ h3, h4, p, .btn {
 
 .btn-option {
   background-color: #e6e6e6;
-  box-shadow: #a0a0a0 2px 2px; }
+  box-shadow: #a0a0a0 2px 2px;
+  color: #464646; }
 
 .btn-success {
-  box-shadow: #a0c8a0 2px 2px; }
+  box-shadow: #a0c8a0 2px 2px;
+  background: #78e164;
+  /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(#78e164, #5ab446);
+  /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(#78e164, #5ab446);
+  /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(#78e164, #5ab446);
+  /* For Firefox 3.6 to 15 */
+  background: linear-gradient(#78e164, #5ab446);
+  /* Standard syntax */ }
 
 .btn-lg {
   padding: 15px 30px; }
@@ -561,8 +573,8 @@ input[type=checkbox] {
   margin: 6px; }
 
 input[type=text] {
-  width: 22vw;
-  height: 5vw; }
+  width: 90%;
+  height: 100px; }
 
 .postcode-input {
   width: 26vw;
@@ -621,8 +633,8 @@ input[type=text] {
   left: 16.66%; }
 
 .order-cancellation-prompt {
-  position: absolute;
-  top: 50%;
+  position: fixed;
+  top: 12vw;
   left: 25%; }
 
 .social-icon {
@@ -638,17 +650,13 @@ input[type=text] {
   margin-bottom: 1vw; }
 
 .danger-button {
-  width: 90%;
-  height: 6vw;
-  min-height: 60px;
-  font-size: 2vw;
   background: red;
   /* For browsers that do not support gradients */
-  background: -webkit-linear-gradient(red, black);
+  background: -webkit-linear-gradient(red, #8c3c3c);
   /* For Safari 5.1 to 6.0 */
-  background: -o-linear-gradient(#78e164, #5ab446);
+  background: -o-linear-gradient(red, #8c3c3c);
   /* For Opera 11.1 to 12.0 */
-  background: -moz-linear-gradient(#78e164, #5ab446);
+  background: -moz-linear-gradient(red, #8c3c3c);
   /* For Firefox 3.6 to 15 */
   background: linear-gradient(red, #8c3c3c);
   /* Standard syntax */

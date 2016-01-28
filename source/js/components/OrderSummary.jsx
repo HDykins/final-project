@@ -35,7 +35,7 @@ var OrderSummary = React.createClass({
 		return (
 			<div className="row">
 				<div className="col-xs-6">	
-					<div className="rounded-box">
+					<div>
 						<div className="col-xs-6">
 							<h3>Rundown of costs</h3>
 							<h4>Tree: {this.props.order.tree}<span className="price">{" +£" + this.props.order.treePrice}</span></h4>
@@ -58,11 +58,11 @@ var OrderSummary = React.createClass({
 					</div>
 				</div>
 				<div className="col-xs-6">
-					<div className="rounded-box">
+					<div>
 						<h2>Final and total Price:</h2>
 						<span className="price total-price">{"£" + this.props.order.totalPrice}</span>
 					</div>
-					<div className="rounded-box">
+					<div>
 						<h2>Estimated delivery date:</h2>
 						<span className="delivery-date">{moment().date(this.props.order.deliveryDay).format('Do')} {moment().month(this.props.order.deliveryMonth).format('MMMM')}</span>
 					</div>
@@ -73,7 +73,7 @@ var OrderSummary = React.createClass({
 		return (
 			<div className="row">
 				<div className="col-xs-6">	
-					<div className="rounded-box">
+					<div>
 						<div className="col-xs-6">
 							<h3>Rundown of costs</h3>
 							<h4>Tree: {TreeInformationStore.getCurrentTreeView()}<span className="price">{" +£" + TreeInformationStore.getCurrentPrice()}</span></h4>
@@ -96,11 +96,11 @@ var OrderSummary = React.createClass({
 					</div>
 				</div>
 				<div className="col-xs-6">
-					<div className="rounded-box">
+					<div>
 						<h2>Final and total Price:</h2>
 						<span className="price total-price">{"£" + TotalPriceStore.getCurrentOverallPrice()}</span>
 					</div>
-					<div className="rounded-box">
+					<div>
 						<h2>Estimated delivery date:</h2>
 						<span className="delivery-date">{moment().date(CurrentDeliveryUserDetailsStore.getCurrentDaySelection()).format('Do')} {moment().month(CurrentDeliveryUserDetailsStore.getCurrentMonthSelection()).format('MMMM')}</span>
 					</div>

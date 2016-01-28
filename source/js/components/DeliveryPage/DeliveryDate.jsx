@@ -56,19 +56,19 @@ var DeliveryDate = React.createClass({
 		<div className="col-xs-8">
 			<div className="row">
    				<div className="no-padding col-xs-4">
-					<select onChange={this.handleDaySelectionChange} name="ok" className="form-control btn small-button dropdown-toggle" data-width="fit" ref="day">
+					<select onChange={this.handleDaySelectionChange} name="days" className="form-control btn small-button dropdown-toggle" data-width="fit" ref="day">
 						<option value="">Day</option>
 			            {this.addDayListItems()}
 				    </select>
 		        </div>
 		        <div className="no-padding col-xs-4">
-					<select onChange={this.handleMonthSelectionChange} name="ok" className="form-control btn small-button dropdown-toggle" data-width="fit" ref="month">
+					<select onChange={this.handleMonthSelectionChange} name="months" className="form-control btn small-button dropdown-toggle" data-width="fit" ref="month">
 						<option value="">Month</option>
 						{this.addMonthListItems()}
 					</select>
 		        </div>
 		        <div className="no-padding col-xs-4">
-					<select onChange={this.handleYearSelectionChange} name="ok" className="form-control btn small-button dropdown-toggle" data-width="fit" ref="year">
+					<select onChange={this.handleYearSelectionChange} name="years" className="form-control btn small-button dropdown-toggle" data-width="fit" ref="year">
 						<option value="">Year</option>
 			            <option>2016</option>   
 			        </select>
@@ -78,7 +78,7 @@ var DeliveryDate = React.createClass({
 		<div className="col-xs-4">
 			<div className="row">
 			<div className="no-padding col-xs-12">
-	             <select onChange={this.handleTimeSelectionChange} name="ok" className="form-control btn small-button dropdown-toggle" data-width="fit" ref="time">
+	             <select onChange={this.handleTimeSelectionChange} name="times" className="form-control btn small-button dropdown-toggle" data-width="fit" ref="time">
 					<option value="">Time</option>
 	            	<option>Morning ( 8-12:30 )</option>
 	            	<option>Afternoon ( 12:30-5 )</option>

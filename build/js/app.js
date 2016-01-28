@@ -40102,19 +40102,19 @@ var DeliveryDate = React.createClass({displayName: "DeliveryDate",
 		React.createElement("div", {className: "col-xs-8"}, 
 			React.createElement("div", {className: "row"}, 
    				React.createElement("div", {className: "no-padding col-xs-4"}, 
-					React.createElement("select", {onChange: this.handleDaySelectionChange, name: "ok", className: "form-control btn small-button dropdown-toggle", "data-width": "fit", ref: "day"}, 
+					React.createElement("select", {onChange: this.handleDaySelectionChange, name: "days", className: "form-control btn small-button dropdown-toggle", "data-width": "fit", ref: "day"}, 
 						React.createElement("option", {value: ""}, "Day"), 
 			            this.addDayListItems()
 				    )
 		        ), 
 		        React.createElement("div", {className: "no-padding col-xs-4"}, 
-					React.createElement("select", {onChange: this.handleMonthSelectionChange, name: "ok", className: "form-control btn small-button dropdown-toggle", "data-width": "fit", ref: "month"}, 
+					React.createElement("select", {onChange: this.handleMonthSelectionChange, name: "months", className: "form-control btn small-button dropdown-toggle", "data-width": "fit", ref: "month"}, 
 						React.createElement("option", {value: ""}, "Month"), 
 						this.addMonthListItems()
 					)
 		        ), 
 		        React.createElement("div", {className: "no-padding col-xs-4"}, 
-					React.createElement("select", {onChange: this.handleYearSelectionChange, name: "ok", className: "form-control btn small-button dropdown-toggle", "data-width": "fit", ref: "year"}, 
+					React.createElement("select", {onChange: this.handleYearSelectionChange, name: "years", className: "form-control btn small-button dropdown-toggle", "data-width": "fit", ref: "year"}, 
 						React.createElement("option", {value: ""}, "Year"), 
 			            React.createElement("option", null, "2016")
 			        )
@@ -40124,7 +40124,7 @@ var DeliveryDate = React.createClass({displayName: "DeliveryDate",
 		React.createElement("div", {className: "col-xs-4"}, 
 			React.createElement("div", {className: "row"}, 
 			React.createElement("div", {className: "no-padding col-xs-12"}, 
-	             React.createElement("select", {onChange: this.handleTimeSelectionChange, name: "ok", className: "form-control btn small-button dropdown-toggle", "data-width": "fit", ref: "time"}, 
+	             React.createElement("select", {onChange: this.handleTimeSelectionChange, name: "times", className: "form-control btn small-button dropdown-toggle", "data-width": "fit", ref: "time"}, 
 					React.createElement("option", {value: ""}, "Time"), 
 	            	React.createElement("option", null, "Morning ( 8-12:30 )"), 
 	            	React.createElement("option", null, "Afternoon ( 12:30-5 )")
@@ -40685,7 +40685,7 @@ var OrderSummary = React.createClass({displayName: "OrderSummary",
 		return (
 			React.createElement("div", {className: "row"}, 
 				React.createElement("div", {className: "col-xs-6"}, 	
-					React.createElement("div", {className: "rounded-box"}, 
+					React.createElement("div", null, 
 						React.createElement("div", {className: "col-xs-6"}, 
 							React.createElement("h3", null, "Rundown of costs"), 
 							React.createElement("h4", null, "Tree: ", this.props.order.tree, React.createElement("span", {className: "price"}, " +£" + this.props.order.treePrice)), 
@@ -40708,11 +40708,11 @@ var OrderSummary = React.createClass({displayName: "OrderSummary",
 					)
 				), 
 				React.createElement("div", {className: "col-xs-6"}, 
-					React.createElement("div", {className: "rounded-box"}, 
+					React.createElement("div", null, 
 						React.createElement("h2", null, "Final and total Price:"), 
 						React.createElement("span", {className: "price total-price"}, "£" + this.props.order.totalPrice)
 					), 
-					React.createElement("div", {className: "rounded-box"}, 
+					React.createElement("div", null, 
 						React.createElement("h2", null, "Estimated delivery date:"), 
 						React.createElement("span", {className: "delivery-date"}, moment().date(this.props.order.deliveryDay).format('Do'), " ", moment().month(this.props.order.deliveryMonth).format('MMMM'))
 					)
@@ -40723,7 +40723,7 @@ var OrderSummary = React.createClass({displayName: "OrderSummary",
 		return (
 			React.createElement("div", {className: "row"}, 
 				React.createElement("div", {className: "col-xs-6"}, 	
-					React.createElement("div", {className: "rounded-box"}, 
+					React.createElement("div", null, 
 						React.createElement("div", {className: "col-xs-6"}, 
 							React.createElement("h3", null, "Rundown of costs"), 
 							React.createElement("h4", null, "Tree: ", TreeInformationStore.getCurrentTreeView(), React.createElement("span", {className: "price"}, " +£" + TreeInformationStore.getCurrentPrice())), 
@@ -40746,11 +40746,11 @@ var OrderSummary = React.createClass({displayName: "OrderSummary",
 					)
 				), 
 				React.createElement("div", {className: "col-xs-6"}, 
-					React.createElement("div", {className: "rounded-box"}, 
+					React.createElement("div", null, 
 						React.createElement("h2", null, "Final and total Price:"), 
 						React.createElement("span", {className: "price total-price"}, "£" + TotalPriceStore.getCurrentOverallPrice())
 					), 
-					React.createElement("div", {className: "rounded-box"}, 
+					React.createElement("div", null, 
 						React.createElement("h2", null, "Estimated delivery date:"), 
 						React.createElement("span", {className: "delivery-date"}, moment().date(CurrentDeliveryUserDetailsStore.getCurrentDaySelection()).format('Do'), " ", moment().month(CurrentDeliveryUserDetailsStore.getCurrentMonthSelection()).format('MMMM'))
 					)
@@ -40809,7 +40809,7 @@ var OrderCancellationConfirmation = React.createClass({displayName: "OrderCancel
 					React.createElement("h3", null, "Are you sure you wish to cancel this order?")
 				), 
 				React.createElement("button", {onClick: this.handleYesButtonClickEvent, className: "btn danger-button"}, "Yes!"), 
-				React.createElement("button", {onClick: this.handleXButtonClickEvent, className: "btn important-button"}, "No!")
+				React.createElement("button", {onClick: this.handleXButtonClickEvent, className: "btn btn-success btn-lg"}, "No!")
 			)
 		)
 	)	
@@ -40857,24 +40857,23 @@ var OrderOptionsButtons = React.createClass({displayName: "OrderOptionsButtons",
     return (
     React.createElement("div", {className: "row order-options-row"}, 	
 		React.createElement("div", {className: "col-xs-3"}, 
-			React.createElement("div", {className: "rounded-box order-options"}, 
-				React.createElement("span", null, "Date Ordered: "), 
-				React.createElement("span", {className: "red"}, this.props.order.userChoices.orderDate)
+			React.createElement("div", null, 
+				React.createElement("p", {className: "red"}, "Date Ordered: ", this.props.order.userChoices.orderDate)
 			)
 		), 
 		React.createElement("div", {className: "col-xs-3"}, 
-			React.createElement("button", {onClick: this.handleCancelOrderButtonClickEvent, type: "button", className: "btn danger-button order-options"}, 
+			React.createElement("button", {onClick: this.handleCancelOrderButtonClickEvent, type: "button", className: "btn danger-button btn-large"}, 
 				"Cancel Order"
 			)
 		), 
 		React.createElement("div", {className: "col-xs-3"}, 
-			React.createElement("div", {className: "rounded-box order-options"}, 
+			React.createElement("div", null, 
 				React.createElement("p", null, "You can order another tree using these order details!")
 			)
 		), 
 		React.createElement("div", {className: "col-xs-3"}, 
-			React.createElement("button", {onClick: this.handleOrderAgainButtonClickEvent, type: "button", className: "btn order-options"}, 
-				React.createElement("span", {className: "white-text"}, "Order again")
+			React.createElement("a", {role: "button", href: "#top", onClick: this.handleOrderAgainButtonClickEvent, type: "button", className: "btn btn-option"}, 
+				"Order again"
 			)
 		)
 	)	
@@ -40992,25 +40991,19 @@ var CardDetails = React.createClass({displayName: "CardDetails",
   render: function () {
     return (
     React.createElement("div", null, 	
-	    React.createElement("div", {className: "col-xs-6 col-xs-offset-3"}, 	
-			React.createElement("div", {className: "rounded-box"}, 
+	    React.createElement("div", {className: "col-xs-8 col-xs-offset-2"}, 	
+			React.createElement("div", null, 
 				React.createElement("div", {className: "rounded-box input-div"}, 
 					React.createElement("input", {type: "text", placeholder: "Name (as shown on card)"})
 				), 
 				React.createElement("div", {className: "rounded-box input-div"}, 
-					React.createElement("div", {className: "dropdown"}, 
-			            React.createElement("button", {className: "btn btn-default dropdown-toggle", type: "button", id: "dropdown-card-type", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "true"}, 
-			              React.createElement("span", {className: "white-text"}, "Card Type"), 
-			              React.createElement("span", {className: "caret"})
-			            ), 
-			            React.createElement("ul", {className: "dropdown-menu", "aria-labelledby": "dropdown-card-type"}, 
-			              React.createElement("li", null, "Visa"), 
-			              React.createElement("li", null, "Visa Debit"), 
-			              React.createElement("li", null, "American Express"), 
-			              React.createElement("li", null, "Maestro"), 
-			              React.createElement("li", null, "Mastercard")
-			            )
-			        )
+					React.createElement("select", {name: "cards", className: "form-control btn small-button dropdown-toggle", "data-width": "fit"}, 
+			              React.createElement("option", null, "Visa"), 
+			              React.createElement("option", null, "Visa Debit"), 
+			              React.createElement("option", null, "American Express"), 
+			              React.createElement("option", null, "Maestro"), 
+			              React.createElement("option", null, "Mastercard")
+					)
 				), 
 				React.createElement("div", {className: "rounded-box input-div"}, 
 					React.createElement("input", {type: "text", placeholder: "Card Number"})
@@ -41439,6 +41432,11 @@ var SignInForm = React.createClass({displayName: "SignInForm",
     SignInFormActionCreators.setShowRegisterForm();
   },
 
+  handleReviewOrdersButton: function () {
+    SignInFormActionCreators.sendOrdersToStore();
+    SignInFormActionCreators.changeToOrdersPage();
+  },
+
   handleUserSignInFormSubmit: function () {
 
     if (StateStore.getCurrentPage() === "THANKS_PAGE") {
@@ -41548,7 +41546,7 @@ var SignInForm = React.createClass({displayName: "SignInForm",
       React.createElement("div", {className: "rounded-box", id: "sign-in-form"}, React.createElement("p", null, this.state.successMessage), 
         React.createElement(LogOutButton, null), 
         React.createElement("p", null, "Your order comfirmation has been sent to your provided email address"), 
-        React.createElement("button", {className: "btn btn-success btn-lg"}, "Review my orders")
+        React.createElement("a", {onClick: this.handleReviewOrdersButton, href: "#top", role: "button", className: "btn btn-success btn-lg"}, "Review my orders")
       )
     );
   }
@@ -41639,12 +41637,13 @@ module.exports = SocialMedia;
 
 },{"react":222}],269:[function(require,module,exports){
 var React = require('react');
+var OrdersStore = require('../../stores/OrdersStore.js');
 
 var ThanksMessage = React.createClass({displayName: "ThanksMessage",
   render: function () {
     return (
 	React.createElement("div", {className: "rounded-box"}, 
-		React.createElement("h2", null, "Thank you for your purchase! Your unique order ID is ", React.createElement("strong", null, "123 456 789")), 
+		React.createElement("h2", null, "Thank you for your purchase! Your unique order ID is ", React.createElement("strong", null, OrdersStore.getCurrentOrderId())), 
 		React.createElement("p", null, "If you have any enquiries regarding our products or your current order please get in contact with our support team:"), 
 		React.createElement("h3", null, "Email: hjdykins@hotmail.com"), 
 		React.createElement("h3", null, "Phone: 07542284533")
@@ -41655,7 +41654,7 @@ var ThanksMessage = React.createClass({displayName: "ThanksMessage",
 
 module.exports = ThanksMessage;
 
-},{"react":222}],270:[function(require,module,exports){
+},{"../../stores/OrdersStore.js":285,"react":222}],270:[function(require,module,exports){
 var React = require('react');
 var NavBar = require('../NavBar.jsx');
 var PopUpStore = require('../../stores/PopUpStore.js');

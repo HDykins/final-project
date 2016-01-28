@@ -61,6 +61,11 @@ var SignInForm = React.createClass({
     SignInFormActionCreators.setShowRegisterForm();
   },
 
+  handleReviewOrdersButton: function () {
+    SignInFormActionCreators.sendOrdersToStore();
+    SignInFormActionCreators.changeToOrdersPage();
+  },
+
   handleUserSignInFormSubmit: function () {
 
     if (StateStore.getCurrentPage() === "THANKS_PAGE") {
@@ -170,7 +175,7 @@ var SignInForm = React.createClass({
       <div className="rounded-box" id="sign-in-form"><p>{this.state.successMessage}</p>
         <LogOutButton />
         <p>Your order comfirmation has been sent to your provided email address</p>
-        <button className="btn btn-success btn-lg">Review my orders</button>
+        <a onClick={this.handleReviewOrdersButton} href="#top" role="button" className="btn btn-success btn-lg">Review my orders</a>
       </div>
     );
   }

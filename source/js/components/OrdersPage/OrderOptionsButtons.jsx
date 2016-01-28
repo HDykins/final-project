@@ -32,25 +32,24 @@ var OrderOptionsButtons = React.createClass({
     return (
     <div className="row order-options-row">	
 		<div className="col-xs-3">
-			<div className="rounded-box order-options">
-				<span>Date Ordered:&nbsp;</span>
-				<span className="red">{this.props.order.userChoices.orderDate}</span>
+			<div>
+				<p className="red">Date Ordered: {this.props.order.userChoices.orderDate}</p>
 			</div>
 		</div>
 		<div className="col-xs-3">
-			<button onClick={this.handleCancelOrderButtonClickEvent} type="button" className="btn danger-button order-options">
+			<button onClick={this.handleCancelOrderButtonClickEvent} type="button" className="btn danger-button btn-large">
 				Cancel Order
 			</button>
 		</div>
 		<div className="col-xs-3">
-			<div className="rounded-box order-options">
+			<div>
 				<p>You can order another tree using these order details!</p>
 			</div>
 		</div>
 		<div className="col-xs-3">
-			<button onClick={this.handleOrderAgainButtonClickEvent} type="button" className="btn order-options">
-				<span className="white-text">Order again</span>
-			</button>
+			<a role="button" href="#top" onClick={this.handleOrderAgainButtonClickEvent} type="button" className="btn btn-option">
+				Order again
+			</a>
 		</div>
 	</div>	
     );

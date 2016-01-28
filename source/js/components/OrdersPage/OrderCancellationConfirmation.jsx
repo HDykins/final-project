@@ -41,7 +41,7 @@ var OrderCancellationConfirmation = React.createClass({
 					<h3>Are you sure you wish to cancel this order?</h3>
 				</div>
 				<button onClick={this.handleYesButtonClickEvent} className="btn danger-button">Yes!</button>
-				<button onClick={this.handleXButtonClickEvent} className="btn important-button">No!</button>
+				<button onClick={this.handleXButtonClickEvent} className="btn btn-success btn-lg">No!</button>
 			</div>
 		</div>
 	</div>	

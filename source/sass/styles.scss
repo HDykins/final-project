@@ -261,10 +261,11 @@ h3, h4, p, .btn {
 }
 
 .input-div {
+  border-radius: 20px;
 	overflow: initial;
-	width: 80%;
-	margin-left: 10%;
-	margin-right: 10%;
+	width: 90%;
+	margin-left: 5%;
+	margin-right: 5%;
 	font-size: 1.4vw;
 }
 
@@ -318,11 +319,17 @@ h3, h4, p, .btn {
   @extend .border;
   background-color: $off-white;
   box-shadow: rgb(160,160,160) 2px 2px;
+  color: $off-black;
   }
 
 .btn-success {
     @extend .white-text;
     box-shadow: rgb(160,200,160) 2px 2px;
+    background: $lime-green; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient($lime-green, $lime-green-darker); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient($lime-green, $lime-green-darker); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient($lime-green, $lime-green-darker); /* For Firefox 3.6 to 15 */
+    background: linear-gradient($lime-green, $lime-green-darker); /* Standard syntax */
 }
 
 .btn-lg {
@@ -443,8 +450,8 @@ input[type=checkbox] {
 }
 
 input[type=text] {
-	width: 22vw;
-	height: 5vw;
+	width: 90%;
+	height: 100px;
 }
 
 .postcode-input {
@@ -514,8 +521,8 @@ input[type=text] {
 }
 
 .order-cancellation-prompt {
-	position: absolute;
-	top: 50%;
+	position: fixed;
+	top: 12vw;
 	left: 25%;
 }
 
@@ -535,14 +542,10 @@ input[type=text] {
 }
 
 .danger-button {
-	width: 90%;
-	height: 6vw;
-    min-height: 60px;
-	font-size: 2vw;
 	background: red; /* For browsers that do not support gradients */
-    background: -webkit-linear-gradient(red, black); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient($lime-green, $lime-green-darker); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient($lime-green, $lime-green-darker); /* For Firefox 3.6 to 15 */
+    background: -webkit-linear-gradient(red, rgb(140,60,60)); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(red, rgb(140,60,60)); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(red, rgb(140,60,60)); /* For Firefox 3.6 to 15 */
     background: linear-gradient(red, rgb(140,60,60)); /* Standard syntax */
     @extend .white-text;
     overflow: hidden;
