@@ -1,4 +1,10 @@
-# final-project
+# Final project - Christmas tree ordering website
+
+As the final project for my course at The IronYard, I chose to create a user-friendly stateful xmas tree order website. This is because during brainstorming we identified an area where there was some inconvenience - decoration of christmas trees. Some people don't like or can't or don't have time to decorate their trees, and so there might be a market for a website that allows people to delegate that responsibility to a decoration service. Creating a website for the ordering process also ticked all the boxes regarding techincal requirements for the project; React, Flux, Node, Mongo, various wrappers like Browserify, Express, Mongoose, jQuery, IE9 compatible, own restful API, user authentication and using external APIs.
+
+CHOSEN IDEA - Christmas tree ordering website
+
+Users can order a christmas tree via a simple traditional shopping site process. Users have many options to customize their order; choose tree type, height, decorations, delivery/collection options, services, delivery date and payment options. The user has a running total of pricing throughout the process and is able to review the order details before and after payment. The features were dictated by the user stories and the website to have a clean, simple and intuitive user interface. Also comes with a backend that allows the user to register, sign-in, use order details for future orders and cancel orders.
 
 1st idea - Tip/lifehack website
 
