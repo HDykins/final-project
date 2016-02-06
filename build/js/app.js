@@ -39635,6 +39635,7 @@ var DecorationsCostBox = require('./DecorationsCostBox.jsx');
 var BackButton = require('../BackButton.jsx');
 var PriceTotal = require('../PriceTotal.jsx');
 var ContinueButton = require('../ContinueButton.jsx');
+var Footer = require('../Footer.jsx');
 var DecorationsPageActionCreators = require('../../actions/DecorationsPageActionCreators.js');
 
 var decorationsSourceImages = {
@@ -39769,7 +39770,8 @@ var DecorationsPage = React.createClass({displayName: "DecorationsPage",
 	        		React.createElement(PriceTotal, null), 
 	        		React.createElement(ContinueButton, {label: "Continue to delivery page"})
 	        	)
-      		)
+      		), 
+          React.createElement(Footer, null)
       	)
     );
   }
@@ -39777,7 +39779,7 @@ var DecorationsPage = React.createClass({displayName: "DecorationsPage",
 
 module.exports = DecorationsPage;
 
-},{"../../actions/DecorationsPageActionCreators.js":223,"../../stores/CurrentDecorationsUserDetailsStore.js":283,"../../stores/TotalPriceStore.js":288,"../BackButton.jsx":233,"../ContinueButton.jsx":234,"../Header1.jsx":252,"../NavBar.jsx":256,"../PriceTotal.jsx":264,"./DecorationsCostBox.jsx":235,"./DecorationsList.jsx":236,"./PreviewImage.jsx":240,"react":222}],240:[function(require,module,exports){
+},{"../../actions/DecorationsPageActionCreators.js":223,"../../stores/CurrentDecorationsUserDetailsStore.js":283,"../../stores/TotalPriceStore.js":288,"../BackButton.jsx":233,"../ContinueButton.jsx":234,"../Footer.jsx":251,"../Header1.jsx":252,"../NavBar.jsx":256,"../PriceTotal.jsx":264,"./DecorationsCostBox.jsx":235,"./DecorationsList.jsx":236,"./PreviewImage.jsx":240,"react":222}],240:[function(require,module,exports){
 var React = require('react');
 
 var PreviewImage = React.createClass({displayName: "PreviewImage",
@@ -40273,6 +40275,7 @@ var DeliveryInfo = require('./DeliveryInfo.jsx')
 var BackButton = require('../BackButton.jsx');
 var PriceTotal = require('../PriceTotal.jsx');
 var ContinueButton = require('../ContinueButton.jsx');
+var Footer = require('../Footer.jsx');
 var DeliveryPageActionCreators = require('../../actions/DeliveryPageActionCreators.js');
 
 var DeliveryPage = React.createClass({displayName: "DeliveryPage",
@@ -40372,7 +40375,8 @@ var DeliveryPage = React.createClass({displayName: "DeliveryPage",
 	        		React.createElement(PriceTotal, null), 
 	        		React.createElement(ContinueButton, {label: "Continue to payment"})
 	        	)
-      		)
+      		), 
+          React.createElement(Footer, null)
       	)
     );
   }
@@ -40380,7 +40384,7 @@ var DeliveryPage = React.createClass({displayName: "DeliveryPage",
 
 module.exports = DeliveryPage;
 
-},{"../../actions/DeliveryPageActionCreators.js":224,"../../stores/CurrentDeliveryUserDetailsStore.js":284,"../../stores/StateStore.js":287,"../BackButton.jsx":233,"../ContinueButton.jsx":234,"../Header1.jsx":252,"../NavBar.jsx":256,"../PriceTotal.jsx":264,"./CollectOrDeliver.jsx":241,"./CollectionLocationDetails.jsx":242,"./CollectionMap.jsx":243,"./DeliveryAddress.jsx":244,"./DeliveryDate.jsx":245,"./DeliveryInfo.jsx":247,"./PostCode.jsx":250,"react":222}],250:[function(require,module,exports){
+},{"../../actions/DeliveryPageActionCreators.js":224,"../../stores/CurrentDeliveryUserDetailsStore.js":284,"../../stores/StateStore.js":287,"../BackButton.jsx":233,"../ContinueButton.jsx":234,"../Footer.jsx":251,"../Header1.jsx":252,"../NavBar.jsx":256,"../PriceTotal.jsx":264,"./CollectOrDeliver.jsx":241,"./CollectionLocationDetails.jsx":242,"./CollectionMap.jsx":243,"./DeliveryAddress.jsx":244,"./DeliveryDate.jsx":245,"./DeliveryInfo.jsx":247,"./PostCode.jsx":250,"react":222}],250:[function(require,module,exports){
 var React = require('react');
 var DeliveryPageActionCreators = require('../../actions/DeliveryPageActionCreators.js');
 var CurrentDeliveryUserDetailsStore = require('../../stores/CurrentDeliveryUserDetailsStore.js');
@@ -40420,10 +40424,16 @@ var Footer = React.createClass({displayName: "Footer",
     return (
     	React.createElement("div", {className: "row transparent"}, 
     		React.createElement("div", {className: "col-xs-8"}, 
-    			"LOOOLOLOLOLOO"
+    			React.createElement("h4", null, "Check out my Github and LinkedIn profiles:"), 
+                React.createElement("p", null, "Githhub: https://github.com/HDykins"), 
+                React.createElement("p", null, "LinkedIn: https://www.linkedin.com/in/harry-dykins-4712b073")
     		), 
     		React.createElement("div", {className: "col-xs-4"}, 
-    			"LOOOLOLOLOLOO"
+    			React.createElement("h4", null, "We're on:"), 
+                React.createElement("i", {className: "fa fa-twitter fa-4x"}), 
+                React.createElement("i", {className: "fa fa-facebook-official fa-4x"}), 
+                React.createElement("i", {className: "fa fa-google-plus-square fa-4x"}), 
+                React.createElement("i", {className: "fa fa-linkedin-square fa-4x"})
     		)
     	)
     );
@@ -40895,6 +40905,7 @@ var Header1 = require('../Header1.jsx');
 var OrderSummary = require('../OrderSummary.jsx');
 var OrderOptionsButtons = require('./OrderOptionsButtons.jsx');
 var OrderCancellationConfirmation = require('./OrderCancellationConfirmation.jsx');
+var Footer = require('../Footer.jsx');
 var OrdersPageActionCreators = require('../../actions/OrdersPageActionCreators.js');
 
 
@@ -40967,7 +40978,8 @@ var OrdersPage = React.createClass({displayName: "OrdersPage",
             )), 
             
           this.state.isCancellationFormVisible ? React.createElement(OrderCancellationConfirmation, {orderId: selectedOrderId}) : null
-    		)
+    		), 
+        React.createElement(Footer, null)
       )
     );
   }
@@ -40975,7 +40987,7 @@ var OrdersPage = React.createClass({displayName: "OrdersPage",
 
 module.exports = OrdersPage;
 
-},{"../../actions/OrdersPageActionCreators.js":227,"../../stores/OrdersStore.js":285,"../../stores/PopUpStore.js":286,"../Header1.jsx":252,"../NavBar.jsx":256,"../OrderSummary.jsx":257,"./OrderCancellationConfirmation.jsx":258,"./OrderOptionsButtons.jsx":259,"react":222}],261:[function(require,module,exports){
+},{"../../actions/OrdersPageActionCreators.js":227,"../../stores/OrdersStore.js":285,"../../stores/PopUpStore.js":286,"../Footer.jsx":251,"../Header1.jsx":252,"../NavBar.jsx":256,"../OrderSummary.jsx":257,"./OrderCancellationConfirmation.jsx":258,"./OrderOptionsButtons.jsx":259,"react":222}],261:[function(require,module,exports){
 var React = require('react');
 var PaymentPageActionCreators = require('../../actions/PaymentPageActionCreators.js');
 
@@ -41046,6 +41058,7 @@ var TermsConditions = require('./TermsConditions.jsx')
 var OrdersStore = require('../../stores/OrdersStore.js');
 var AuthenticationService = require('../../services/authentication.js');
 var StateStore = require('../../stores/StateStore.js');
+var Footer = require('../Footer.jsx');
 var UserSignInDetailsStore = require('../../stores/UserSignInDetailsStore.js');
 var PaymentPageActionCreators = require('../../actions/PaymentPageActionCreators.js');
 
@@ -41117,7 +41130,8 @@ var PaymentPage = React.createClass({displayName: "PaymentPage",
     	        		React.createElement(ContinueButton, {confirmOrder: this.handleOrderConfirmButtonClickEvent, label: "Confirm order details"})
     	        	), 
     	        	this.state.isTermsConditionsFormVisible ? React.createElement(TermsConditions, null) : null
-          		)
+          		), 
+              React.createElement(Footer, null)
           	)
         );
       }
@@ -41126,7 +41140,7 @@ var PaymentPage = React.createClass({displayName: "PaymentPage",
 module.exports = PaymentPage;
 
 
-},{"../../actions/PaymentPageActionCreators.js":228,"../../services/authentication.js":282,"../../stores/OrdersStore.js":285,"../../stores/PopUpStore.js":286,"../../stores/StateStore.js":287,"../../stores/UserSignInDetailsStore.js":290,"../BackButton.jsx":233,"../ContinueButton.jsx":234,"../Header1.jsx":252,"../NavBar.jsx":256,"../OrderSummary.jsx":257,"../PriceTotal.jsx":264,"./CardDetails.jsx":261,"./TermsConditions.jsx":263,"react":222}],263:[function(require,module,exports){
+},{"../../actions/PaymentPageActionCreators.js":228,"../../services/authentication.js":282,"../../stores/OrdersStore.js":285,"../../stores/PopUpStore.js":286,"../../stores/StateStore.js":287,"../../stores/UserSignInDetailsStore.js":290,"../BackButton.jsx":233,"../ContinueButton.jsx":234,"../Footer.jsx":251,"../Header1.jsx":252,"../NavBar.jsx":256,"../OrderSummary.jsx":257,"../PriceTotal.jsx":264,"./CardDetails.jsx":261,"./TermsConditions.jsx":263,"react":222}],263:[function(require,module,exports){
 var React = require('react');
 var PaymentPageActionCreators = require('../../actions/PaymentPageActionCreators.js');
 
@@ -41561,6 +41575,7 @@ var NavBar = require('../NavBar.jsx');
 var PopUpStore = require('../../stores/PopUpStore.js');
 var SignInForm = require('../SignInForm.jsx');
 var RegisterForm = require('../RegisterForm.jsx');
+var Footer = require('../Footer.jsx');
 var SignInPageActionCreators = require('../../actions/SignInPageActionCreators.js');
 
 var SignInPage = React.createClass({displayName: "SignInPage",
@@ -41610,7 +41625,8 @@ var SignInPage = React.createClass({displayName: "SignInPage",
               React.createElement("button", {onClick: this.handleBuildTreeAsGuestButtonClickEvent, className: "btn btn-success btn-lg"}, "Build tree")
             ), 
             this.state.isRegisterFormVisible ? React.createElement(RegisterForm, null) : null
-      		)
+      		), 
+          React.createElement(Footer, null)
       	)
     );
   }
@@ -41618,7 +41634,7 @@ var SignInPage = React.createClass({displayName: "SignInPage",
 
 module.exports = SignInPage;
 
-},{"../../actions/SignInPageActionCreators.js":230,"../../stores/PopUpStore.js":286,"../NavBar.jsx":256,"../RegisterForm.jsx":265,"../SignInForm.jsx":266,"react":222}],268:[function(require,module,exports){
+},{"../../actions/SignInPageActionCreators.js":230,"../../stores/PopUpStore.js":286,"../Footer.jsx":251,"../NavBar.jsx":256,"../RegisterForm.jsx":265,"../SignInForm.jsx":266,"react":222}],268:[function(require,module,exports){
 var React = require('react');
 
 var SocialMedia = React.createClass({displayName: "SocialMedia",
@@ -41663,6 +41679,7 @@ var SignInForm = require('../SignInForm.jsx');
 var Header1 = require('../Header1.jsx');
 var SocialMedia = require('./SocialMedia.jsx');
 var RegisterForm = require('../RegisterForm.jsx');
+var Footer = require('../Footer.jsx');
 
 var ThanksPage = React.createClass({displayName: "ThanksPage",
 
@@ -41704,7 +41721,8 @@ var ThanksPage = React.createClass({displayName: "ThanksPage",
             React.createElement("div", {className: "row"}, 
               this.state.isRegisterFormVisible ? React.createElement(RegisterForm, null) : null
             )
-      		)
+      		), 
+          React.createElement(Footer, null)
       	)
     );
   }
@@ -41712,7 +41730,7 @@ var ThanksPage = React.createClass({displayName: "ThanksPage",
 
 module.exports = ThanksPage;
 
-},{"../../stores/PopUpStore.js":286,"../Header1.jsx":252,"../NavBar.jsx":256,"../RegisterForm.jsx":265,"../SignInForm.jsx":266,"./SocialMedia.jsx":268,"./ThanksMessage.jsx":269,"react":222}],271:[function(require,module,exports){
+},{"../../stores/PopUpStore.js":286,"../Footer.jsx":251,"../Header1.jsx":252,"../NavBar.jsx":256,"../RegisterForm.jsx":265,"../SignInForm.jsx":266,"./SocialMedia.jsx":268,"./ThanksMessage.jsx":269,"react":222}],271:[function(require,module,exports){
 var React = require('react');
 var TreeInformationStore = require('../../stores/TreeInformationStore.js');
 
@@ -42057,6 +42075,7 @@ var SliderBox = require('./SliderBox.jsx');
 var HeightCategoryBox = require('./HeightCategoryBox.jsx');
 var PriceTotal = require('../PriceTotal.jsx');
 var ContinueButton = require('../ContinueButton.jsx');
+var Footer = require('../Footer.jsx');
 
 var TreePage = React.createClass({displayName: "TreePage",
 
@@ -42116,7 +42135,8 @@ var TreePage = React.createClass({displayName: "TreePage",
 	        		React.createElement(PriceTotal, null), 
 	        		React.createElement(ContinueButton, {label: "Continue to decorations page"})
 	        	)
-      		)
+      		), 
+          React.createElement(Footer, null)
       	)
     );
   }
@@ -42124,7 +42144,7 @@ var TreePage = React.createClass({displayName: "TreePage",
 
 module.exports = TreePage;
 
-},{"../../stores/TreeInformationStore.js":289,"../ContinueButton.jsx":234,"../Header1.jsx":252,"../NavBar.jsx":256,"../PriceTotal.jsx":264,"./HeightCategoryBox.jsx":272,"./LargeTreeIcon.jsx":273,"./SliderBox.jsx":274,"./TreeIcons.jsx":277,"./TreeInfo.jsx":278,"react":222}],280:[function(require,module,exports){
+},{"../../stores/TreeInformationStore.js":289,"../ContinueButton.jsx":234,"../Footer.jsx":251,"../Header1.jsx":252,"../NavBar.jsx":256,"../PriceTotal.jsx":264,"./HeightCategoryBox.jsx":272,"./LargeTreeIcon.jsx":273,"./SliderBox.jsx":274,"./TreeIcons.jsx":277,"./TreeInfo.jsx":278,"react":222}],280:[function(require,module,exports){
 var Dispatcher = require('flux').Dispatcher;
 
 module.exports = new Dispatcher();

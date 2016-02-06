@@ -9,6 +9,7 @@ var DecorationsCostBox = require('./DecorationsCostBox.jsx');
 var BackButton = require('../BackButton.jsx');
 var PriceTotal = require('../PriceTotal.jsx');
 var ContinueButton = require('../ContinueButton.jsx');
+var Footer = require('../Footer.jsx');
 var DecorationsPageActionCreators = require('../../actions/DecorationsPageActionCreators.js');
 
 var decorationsSourceImages = {
@@ -144,6 +145,7 @@ var DecorationsPage = React.createClass({
 	        		<ContinueButton label="Continue to delivery page" />
 	        	</div>
       		</div>
+          <Footer />
       	</div>
     );
   }

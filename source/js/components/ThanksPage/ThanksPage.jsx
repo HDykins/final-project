@@ -6,6 +6,7 @@ var SignInForm = require('../SignInForm.jsx');
 var Header1 = require('../Header1.jsx');
 var SocialMedia = require('./SocialMedia.jsx');
 var RegisterForm = require('../RegisterForm.jsx');
+var Footer = require('../Footer.jsx');
 
 var ThanksPage = React.createClass({
 
@@ -48,6 +49,7 @@ var ThanksPage = React.createClass({
               {this.state.isRegisterFormVisible ? <RegisterForm /> : null}
             </div>
       		</div>
+          <Footer />
       	</div>
     );
   }

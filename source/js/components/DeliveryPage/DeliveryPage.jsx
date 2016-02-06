@@ -13,6 +13,7 @@ var DeliveryInfo = require('./DeliveryInfo.jsx')
 var BackButton = require('../BackButton.jsx');
 var PriceTotal = require('../PriceTotal.jsx');
 var ContinueButton = require('../ContinueButton.jsx');
+var Footer = require('../Footer.jsx');
 var DeliveryPageActionCreators = require('../../actions/DeliveryPageActionCreators.js');
 
 var DeliveryPage = React.createClass({
@@ -113,6 +114,7 @@ var DeliveryPage = React.createClass({
 	        		<ContinueButton label="Continue to payment" />
 	        	</div>
       		</div>
+          <Footer />
       	</div>
     );
   }

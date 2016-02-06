@@ -3,6 +3,7 @@ var NavBar = require('../NavBar.jsx');
 var PopUpStore = require('../../stores/PopUpStore.js');
 var SignInForm = require('../SignInForm.jsx');
 var RegisterForm = require('../RegisterForm.jsx');
+var Footer = require('../Footer.jsx');
 var SignInPageActionCreators = require('../../actions/SignInPageActionCreators.js');
 
 var SignInPage = React.createClass({
@@ -53,6 +54,7 @@ var SignInPage = React.createClass({
             </div>
             {this.state.isRegisterFormVisible ? <RegisterForm /> : null}
       		</div>
+          <Footer />
       	</div>
     );
   }

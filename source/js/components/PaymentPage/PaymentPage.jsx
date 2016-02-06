@@ -11,6 +11,7 @@ var TermsConditions = require('./TermsConditions.jsx')
 var OrdersStore = require('../../stores/OrdersStore.js');
 var AuthenticationService = require('../../services/authentication.js');
 var StateStore = require('../../stores/StateStore.js');
+var Footer = require('../Footer.jsx');
 var UserSignInDetailsStore = require('../../stores/UserSignInDetailsStore.js');
 var PaymentPageActionCreators = require('../../actions/PaymentPageActionCreators.js');
 
@@ -83,6 +84,7 @@ var PaymentPage = React.createClass({
     	        	</div>
     	        	{this.state.isTermsConditionsFormVisible ? <TermsConditions /> : null}
           		</div>
+              <Footer />
           	</div>
         );
       }

@@ -9,6 +9,7 @@ var SliderBox = require('./SliderBox.jsx');
 var HeightCategoryBox = require('./HeightCategoryBox.jsx');
 var PriceTotal = require('../PriceTotal.jsx');
 var ContinueButton = require('../ContinueButton.jsx');
+var Footer = require('../Footer.jsx');
 
 var TreePage = React.createClass({
 
@@ -69,6 +70,7 @@ var TreePage = React.createClass({
 	        		<ContinueButton label="Continue to decorations page" />
 	        	</div>
       		</div>
+          <Footer />
       	</div>
     );
   }

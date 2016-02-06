@@ -6,6 +6,7 @@ var Header1 = require('../Header1.jsx');
 var OrderSummary = require('../OrderSummary.jsx');
 var OrderOptionsButtons = require('./OrderOptionsButtons.jsx');
 var OrderCancellationConfirmation = require('./OrderCancellationConfirmation.jsx');
+var Footer = require('../Footer.jsx');
 var OrdersPageActionCreators = require('../../actions/OrdersPageActionCreators.js');
 
 
@@ -79,6 +80,7 @@ var OrdersPage = React.createClass({
             }
           {this.state.isCancellationFormVisible ? <OrderCancellationConfirmation orderId={selectedOrderId} /> : null}
     		</div>
+        <Footer />
       </div>
     );
   }
