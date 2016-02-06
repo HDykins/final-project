@@ -1,5 +1,9 @@
 # final-project
 
+CHOSEN IDEA - Christmas tree ordering website
+
+Users can order a christmas tree via a simple traditional shopping site process. Users have many options to customize their order; choose tree type, height, decorations, delivery/collection options, services, delivery date and payment options. The user has a running total of pricing throughout the process and is able to review the order details before and after payment. The features were dictated by the user stories and the website to have a clean, simple and intuitive user interface. Also comes with a backend that allows the user to register, sign-in, use order details for future orders and cancel orders.
+
 1st idea - Tip/lifehack website
 
 Users can search for tips/lifehacks on a specific subject. They can do this with the search bar or by using categories browser. The tips are taken from a database and users can add their own tips to this database with a nice tip creation page that can take user text input as the main input, with the ability to supply additional media types if required.
