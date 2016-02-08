@@ -130,7 +130,7 @@ var DecorationsPage = React.createClass({
     	<div className="container-fluid grey-background">
         	<NavBar />
         	<div className="container">
-        		<img src="../images/current-step-image-2.png" />
+        		<img src="../build/images/current-step-image-2.png" />
         		<Header1 label="Choose tree decorations"/>
         		<div className="row">
 	        		<DecorationsList handleHoverOnDecoration={this.isHovering} handleUnHoverOnDecoration={this.isNotHovering} />
