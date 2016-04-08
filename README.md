@@ -2,9 +2,33 @@
 
 As the final project for my course at The IronYard, I chose to create a user-friendly stateful xmas tree order website. This is because during brainstorming we identified an area where there was some inconvenience - decoration of christmas trees. Some people don't like or can't or don't have time to decorate their trees, and so there might be a market for a website that allows people to delegate that responsibility to a decoration service. Creating a website for the ordering process also ticked all the boxes regarding techincal requirements for the project; React, Flux, Node, Mongo, various wrappers like Browserify, Express, Mongoose, jQuery, IE9 compatible, own restful API, user authentication and using external APIs.
 
-CHOSEN IDEA - Christmas tree ordering website
+### CHOSEN IDEA - Christmas tree ordering website
 
 Users can order a christmas tree via a simple traditional shopping site process. Users have many options to customize their order; choose tree type, height, decorations, delivery/collection options, services, delivery date and payment options. The user has a running total of pricing throughout the process and is able to review the order details before and after payment. The features were dictated by the user stories and the website to have a clean, simple and intuitive user interface. Also comes with a backend that allows the user to register, sign-in, use order details for future orders and cancel orders.
+
+### Steps to setup
+
+- Install node.js and mongo.db.
+https://nodejs.org/en/download/
+https://www.mongodb.org/downloads#production
+
+- Install http-server using node from npm
+https://www.npmjs.com/package/httpserver
+
+- Download the backend repo for the website from
+https://github.com/HDykins/final-project-backend/
+
+- Navigate to the front-end and back-end repos main folder (**final-project** and **final-project-backend**) and type *sudo npm install* in terminal to install the included node packages for each repo
+
+- Navigate to **final-project/build** and start the http server by typing *sudo http-server -p 8181*
+
+- In a seperate tab navigate to your mongodb **bin** folder ([mongo install location]/bin) and type *sudo ./mongod* in terminal
+
+- In another seperate tab navigate to **final-project-backend** and type *sudo npm start* to start the backend server
+ 
+- Finally, connect to the address http://localhost:8181/ in the browser and use the website
+
+#### Previous ideas for project
 
 1st idea - Tip/lifehack website
 
