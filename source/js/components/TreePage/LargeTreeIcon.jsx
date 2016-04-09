@@ -5,13 +5,13 @@ var LargeTreeIcon = React.createClass({
   	if (this.props.treeView === "NORWEGIAN_SPRUCE") {
 	    return (
 		<div>
-			<img src="../build/images/tree-photos/norwegian-spruce.jpg" className="tree-icon-image-large" />
+			<img src="../../images/tree-photos/norwegian-spruce.jpg" className="tree-icon-image-large" />
 		</div>
 		);
   	} else if (this.props.treeView === "NORDMANN_FIR") {
 	    return (
 		<div>
-			<img src="http://www.cawstonchristmastrees.co.uk/media/catalog/product/cache/1/image/a064d5fcd2c1dc59bbfcc0d0b1e10b16/7/f/7ft_premier_nordmann_fir.jpg" className="tree-icon-image-large" />
+			<img src="http://www.keelechristmastreefarm.co.uk/img/nordmann-fir.jpg" className="tree-icon-image-large" />
 		</div>
 	    );	
   	} else if (this.props.treeView === "FRASER_FIR") {

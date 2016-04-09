@@ -40,7 +40,7 @@ var TreePage = React.createClass({
     	<div className="container-fluid grey-background">
         	<NavBar />
         	<div className="container">
-            <img src="../build/images/current-step-image-1.png" />
+            <img src="../images/current-step-image-1.png" />
             <div className="row">
               <Header1 label="Choose tree type" />
             </div>
