@@ -1,0 +1,577 @@
+@import 'index';
+
+$off-black: rgb(70,70,70);
+$lime-green: rgb(120,225,100);
+$lime-green-darker: rgb(90,180,70);
+$grey-background: rgb(220,220,220);
+$light-blue : rgba(161,219,255,0.8);
+$almost-white-blue : rgba(230,240,255,0.8);
+$off-white: rgb(230,230,230);
+
+@media (max-width: 800px) {
+  .col-xs-8 {
+  width: 83.33%;
+  }
+  .col-xs-6 {
+  width: 100%;
+  }
+  .col-xs-4 {
+  width: 100%;
+  }  
+  .col-xs-3 {
+  width: 33.33%;
+  }
+  .col-xs-offset-2 {
+  margin-left: 8.33%;
+  }
+  .col-xs-offset-3 {
+  margin-left: 0;
+  }
+  .col-xs-offset-6 {
+  margin-left: 33.33%;
+  }  
+  div .order-cancellation-prompt {
+  left: 0;
+  }
+  h1 {
+  font-size: 4vw;
+  }
+  h2 {
+  font-size: 3.4vw;
+  }
+  h3 {
+  font-size: 3vw;
+  }
+  h4 {
+  font-size: 2.3vw;
+  }
+  span, p, li {
+  font-size: 15px;
+  }
+  .btn.start-button {
+  text-shadow:
+  -1px -1px 0 white,  
+   1px -1px 0 white,
+  -1px 1px 0 white,
+   1px 1px 0 white;
+  }
+  .btn.navbar-btn {
+  font-size: 2.5vw;
+  }
+  img.tree-icon-image {
+  height: 30vw;	
+  }
+  #tree-price, div strong, .price.big-price, span.decorations-cost-box, em.decorations-cost-box, .btn.important-button, .btn.danger-button {
+  font-size: 20px;
+  }
+  #tree-name {
+  font-size: 19px;
+  }
+  img.arrow-button {
+  width: 20px;
+  }
+  span.decorations-list-category-text {
+  font-size: 15px;	
+  }
+  a input[type=checkbox] {
+  zoom: 2;
+  margin: 6px;
+  }
+  .rounded-box.visible.dropdown-date {
+  min-height: 165px;
+  height: 23vw;	
+  }  
+  .rounded-box.visible.dropdown-time {
+  min-height: 72px;
+  height: 9.5vw;
+  }
+  div input[type=text] {
+  width: 80%;
+  height: 50px;
+  font-size: 20px;
+  }
+  .col-xs-3.col-xs-offset-3.terms-conditions-message {
+  margin-left: 16.66%;
+  }
+  .btn.important-button {
+  font-size: 20px;
+  }
+}  
+
+@media (max-width: 600px) {
+  .col-xs-8 {
+  width: 100%;
+  }
+  .col-xs-6 {
+  width: 100%;
+  }  
+  .col-xs-4 {
+  width: 100%;
+  } 
+  .col-xs-3 {
+  width: 50%;
+  }
+  .col-xs-offset-2 {
+  margin-left: 0;
+  }
+  .col-xs-offset-3 {
+  margin-left: 0;
+  }  
+  .col-xs-offset-6 {
+  margin-left: 0;
+  }
+  div .order-cancellation-prompt {
+  left: 0%;
+  }
+  h1 {
+  font-size: 25px;
+  }
+  h2 {
+  font-size: 20px;
+  }
+  h3 {
+  font-size: 16px;
+  }
+  h4 {
+  font-size: 14px;
+  }
+  span, p, li {
+  font-size: 12px;
+  }  
+  .btn.start-button {
+  font-size: 20px;
+  }
+  .btn.navbar-btn {
+  font-size: 15px;
+  }
+  img.tree-icon-image {
+  height: 44vw;	
+  }
+  span.decorations-list-category-text {
+  font-size: 12px;	
+  } 
+  a input[type=checkbox] {
+  zoom: 1.6;
+  margin: 6px;
+  }
+  .rounded-box.visible.dropdown-date {
+  min-height: 155px;
+  height: 28vw;	
+  }
+  .rounded-box.visible.dropdown-time {
+  min-height: 65px;
+  height: 12vw;	
+  }
+  div input[type=text] {
+  width: 80%;
+  height: 50px;
+  font-size: 13px;
+  }
+  .col-xs-3.col-xs-offset-3.terms-conditions-message {
+  margin-left: 16.66%;
+  width: 33.33%;
+  }
+  #sign-in-form div input[type=text]  {
+  width: 80%;
+  font-size: 15px;
+  } 
+}
+
+.row {
+	margin-top: 2vh;
+	margin-bottom: 2vh;
+}
+
+.border {
+	border: solid $off-black 1px;
+	border-radius: 5px;
+}
+
+.rounded-box {
+  border: solid $off-black 1px;
+  border-radius: 20px;
+	min-height: 100px;
+	margin-top: 1vw;
+	margin-bottom: 1vw;
+	padding: 1vw;
+	overflow: hidden;
+	background-color: white;
+}
+* {
+	text-align: center;
+	color: $off-black;
+	vertical-align: middle;
+}
+
+ul {
+    list-style-position: inside;
+}
+
+em {
+	text-shadow: 
+	-1px -1px 0 white,
+	1px -1px 0 $off-black,
+	-1px 1px 0 white,
+	1px 1px 0 white;
+}
+
+strong {
+	@extend em;
+	font-size: 2vw;
+}
+
+hr {
+  color: $off-black;
+  border: $off-black 1px solid;
+}
+
+p, ul{
+  font-size: 18px;
+}
+
+textarea {
+  width: 90%;
+  resize: none;
+}
+
+.start-button {
+	width: 40vw;
+	height: 10vw;
+	min-height: 60px;
+	font-size: 3vw;
+	border-radius: 5vw;
+}
+
+h1, h2 {
+	margin-top: 1.5vw;
+	margin-bottom: 1.5vw;
+	margin-left: 1.5vw;
+	margin-right: 1.5vw;
+}
+
+h3, h4, p, .btn {
+	margin-top: 1vw;
+	margin-bottom: 1vw;
+	margin-left: 1vw;
+	margin-right: 1vw;
+}
+
+.dropdown-menu {
+	width: 100%;
+}
+
+.input-div {
+  border-radius: 20px;
+	overflow: initial;
+	width: 90%;
+	margin-left: 5%;
+	margin-right: 5%;
+	font-size: 1.4vw;
+}
+
+.white-text {
+	color: white;
+	text-shadow:
+	-1px -1px 0 $off-black,  
+    1px -1px 0 $off-black,
+    -1px 1px 0 $off-black,
+    1px 1px 0 $off-black;
+}
+
+.white {
+  color: white;
+}
+
+.price {
+	color: green;
+}
+
+.right {
+	float: right;
+}
+
+.visible {
+	overflow: initial;
+}
+
+.dropdown-date, .dropdown-time {
+	height: 6.2vw;
+	min-height: 75px;
+}
+
+.registration-input {
+	margin-top: 2vh;
+	margin-bottom: 2vh;
+	height: 10vh;
+	width: 20vw;
+}
+
+.transparent {
+	border-radius: 1%;
+	background-color: rgba(180,180,180,0.5);
+}
+
+.btn {
+  @extend .border;
+}
+
+.btn-option {
+  @extend .border;
+  background-color: $off-white;
+  box-shadow: rgb(160,160,160) 2px 2px;
+  color: $off-black;
+  }
+
+.btn-success {
+    @extend .white-text;
+    box-shadow: rgb(160,200,160) 2px 2px;
+    background: $lime-green; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient($lime-green, $lime-green-darker); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient($lime-green, $lime-green-darker); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient($lime-green, $lime-green-darker); /* For Firefox 3.6 to 15 */
+    background: linear-gradient($lime-green, $lime-green-darker); /* Standard syntax */
+}
+
+.btn-lg {
+  padding: 15px 30px;
+}
+
+.btn-sm {
+  @extend .border;
+  padding: 5px;
+  }
+
+.navbar-btn {
+	width: 25vw;
+	height: 30px;
+  line-height: 30px;
+    font-size: 15px;
+    color: $off-black;
+}
+
+.left {
+	float: left;
+}
+
+.center {
+	float: center;
+  line-height: 47px;
+}
+
+.absolute-left {
+  position: absolute;
+  left: 0;
+}
+
+.tree-icon-image {
+	height: 24vw;
+	width: 100%;
+	@extend .border;
+}
+
+.tree-icon-image-large {
+	width: 40vw;
+	height: 50vw;
+	@extend .border;
+}
+
+.highlight {
+	background-color: rgba(161,219,255,0.8);
+  border: double $off-black 3px;
+  border-radius: 20px;
+
+    background: $lime-green; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient($light-blue, $almost-white-blue); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient($light-blue, $almost-white-blue); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient($light-blue, $almost-white-blue); /* For Firefox 3.6 to 15 */
+    background: linear-gradient($light-blue, $almost-white-blue); /* Standard syntax */
+}
+
+.tree-name {
+	@extend em;
+	font-size: 1.7vw;
+}
+
+.tree-price {
+	font-size: 2vw;
+}
+
+.big-price {
+	font-size: 2vw;
+}
+
+.delivery-date {
+	font-size: 3vw;
+}
+
+.decorations-cost-box {
+	font-size: 2vw;
+}
+
+.btn-progress {
+  padding: 20px 5px;
+	width: 100%;
+  height:110px;
+  margin: 15px 0;
+}
+
+.arrow-button {
+  color: white;
+}
+
+.button-decorations-list{
+	width: 90%;
+	min-height: 36px;
+	height: 4.2vw;
+	margin-bottom: 1vh;
+}
+
+.decorations-list-category-text {
+	font-size: 1.8vw;
+}
+
+.photo-far, .photo-tree {
+	@extend .border;
+	width: 45%;
+	height: 90%;
+	margin-left: 2.5%;
+	margin-right: 2.5%;
+}
+
+.photo-close {
+	@extend .border;
+	width: 90%;
+	margin-top: 2.5%;
+}
+
+input[type=checkbox] {
+    zoom: 2.5;
+    margin: 6px;
+}
+
+input[type=text] {
+	width: 90%;
+	height: 100px;
+}
+
+.postcode-input {
+	width: 26vw;
+	height: 8vw;
+	min-width: 220px;
+}
+
+.no-padding.col-xs-4 {
+	padding: 0;
+}
+
+.small-button {
+	width: 80%;
+	margin-left: 10%;
+	margin-right: 10%;
+}
+
+.important-button {
+	width: 20vw;
+	min-width: 150px;
+	height: 8vw;
+	min-height: 60px;
+	font-size: 2vw;
+	background: $lime-green; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient($lime-green, $lime-green-darker); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient($lime-green, $lime-green-darker); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient($lime-green, $lime-green-darker); /* For Firefox 3.6 to 15 */
+    background: linear-gradient($lime-green, $lime-green-darker); /* Standard syntax */
+    @extend .white-text;
+    overflow: hidden;
+}
+
+.important-button {
+}
+
+.x-button {
+	position: absolute;
+	top: 10px;
+	right: 15px;
+}
+
+.terms-conditions {
+	position: fixed;
+	top: 25%;
+	left: 16.66%;
+}
+
+.terms-conditions-message {
+	width: 33%;
+	margin-left: 16.66%;
+}
+
+.accept-message {
+    width: 33%;
+}
+
+.total-price {
+	@extend em;
+	font-size: 3vw;
+}
+
+.register-form {
+	position: absolute;
+	top: 10%;
+	left: 16.66%;
+}
+
+.order-cancellation-prompt {
+	position: fixed;
+	top: 12vw;
+	left: 25%;
+}
+
+.social-icon {
+	width: 10vw;
+}
+
+.red {
+	color: red;
+}
+
+.map-div {
+  height: 35vw;
+  max-height: 320px;
+  margin-top: 1vw;
+  margin-bottom: 1vw;
+}
+
+.danger-button {
+	background: red; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(red, rgb(140,60,60)); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(red, rgb(140,60,60)); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(red, rgb(140,60,60)); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(red, rgb(140,60,60)); /* Standard syntax */
+    @extend .white-text;
+    overflow: hidden;
+}
+
+#sign-in-form input[type=text], #sign-in-form input[type=password]  {
+	width: 80%;
+	font-size: 2.5vw;
+  height: 90px;
+}
+
+.order-options {
+  width: 100%;
+  height: 8vw;
+  min-height: 80px;
+  margin: 0;
+}
+
+.order-options-row {
+  margin: 0;
+}
+
+.order-row {
+  margin: 0;
+}
+
+.required-field {
+  border: solid red 3px;
+}
