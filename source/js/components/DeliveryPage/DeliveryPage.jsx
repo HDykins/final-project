@@ -53,7 +53,7 @@ var DeliveryPage = React.createClass({
     	<div className="container-fluid grey-background">
         	<NavBar />
         	<div className="container">
-        		<img src="../images/current-step-image-3.png" />
+        		<img src="./build/images/current-step-image-3.png" />
         		<Header1 label="Collect or Deliver?" />
         		<div className="row">
         			<CollectOrDeliver deliveryChoice={this.state.deliveryButtonChosen} collectionChoice={this.state.collectionButtonChosen} />
