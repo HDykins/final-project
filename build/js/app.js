@@ -39756,7 +39756,7 @@ var DecorationsPage = React.createClass({displayName: "DecorationsPage",
     	React.createElement("div", {className: "container-fluid grey-background"}, 
         	React.createElement(NavBar, null), 
         	React.createElement("div", {className: "container"}, 
-        		React.createElement("img", {src: "../images/current-step-image-2.png"}), 
+        		React.createElement("img", {src: "./build/images/current-step-image-2.png"}), 
         		React.createElement(Header1, {label: "Choose tree decorations"}), 
         		React.createElement("div", {className: "row"}, 
 	        		React.createElement(DecorationsList, {handleHoverOnDecoration: this.isHovering, handleUnHoverOnDecoration: this.isNotHovering}), 
@@ -39788,9 +39788,9 @@ var PreviewImage = React.createClass({displayName: "PreviewImage",
     return (
    	React.createElement("div", {className: "col-xs-6"}, 
 		React.createElement("div", null, 
-			this.props.decoration === null ? React.createElement("img", {className: "photo-far", src: "../../images/tree-photos/norwegian-spruce.jpg"}) : React.createElement("img", {className: "photo-far", src: "../../images/tree-photos/" + this.props.decoration.far + ".jpg"}), 
-			this.props.decoration === null ? React.createElement("img", {className: "photo-tree", src: "../../images/tree-photos/norwegian-spruce.jpg"}) : React.createElement("img", {className: "photo-tree", src: "../../images/tree-photos/" + this.props.decoration.tree + ".jpg"}), 
-			this.props.decoration === null ? React.createElement("img", {className: "photo-close", src: "../../images/landing-page-background.jpg"}) : React.createElement("img", {className: "photo-close", src: "../../images/tree-photos/" + this.props.decoration.close + ".jpg"})
+			this.props.decoration === null ? React.createElement("img", {className: "photo-far", src: "./build/images/tree-photos/norwegian-spruce.jpg"}) : React.createElement("img", {className: "photo-far", src: "./build/images/tree-photos/" + this.props.decoration.far + ".jpg"}), 
+			this.props.decoration === null ? React.createElement("img", {className: "photo-tree", src: "./build/images/tree-photos/norwegian-spruce.jpg"}) : React.createElement("img", {className: "photo-tree", src: "./build/images/tree-photos/" + this.props.decoration.tree + ".jpg"}), 
+			this.props.decoration === null ? React.createElement("img", {className: "photo-close", src: "./build/images/landing-page-background.jpg"}) : React.createElement("img", {className: "photo-close", src: "./build/images/tree-photos/" + this.props.decoration.close + ".jpg"})
 		)
 	)
     );
@@ -40315,7 +40315,7 @@ var DeliveryPage = React.createClass({displayName: "DeliveryPage",
     	React.createElement("div", {className: "container-fluid grey-background"}, 
         	React.createElement(NavBar, null), 
         	React.createElement("div", {className: "container"}, 
-        		React.createElement("img", {src: "../images/current-step-image-3.png"}), 
+        		React.createElement("img", {src: "./build/images/current-step-image-3.png"}), 
         		React.createElement(Header1, {label: "Collect or Deliver?"}), 
         		React.createElement("div", {className: "row"}, 
         			React.createElement(CollectOrDeliver, {deliveryChoice: this.state.deliveryButtonChosen, collectionChoice: this.state.collectionButtonChosen})
@@ -41114,7 +41114,7 @@ var PaymentPage = React.createClass({displayName: "PaymentPage",
         	React.createElement("div", {className: "container-fluid grey-background"}, 
             	React.createElement(NavBar, null), 
             	React.createElement("div", {className: "container"}, 
-            		React.createElement("img", {src: "../images/current-step-image-4.png"}), 
+            		React.createElement("img", {src: "./build/images/current-step-image-4.png"}), 
             		React.createElement(Header1, {label: "Order Summary"}), 
             		React.createElement("div", {className: "row"}, 
                         React.createElement("div", {className: "rounded-box"}, 
@@ -41858,7 +41858,7 @@ var LargeTreeIcon = React.createClass({displayName: "LargeTreeIcon",
   	if (this.props.treeView === "NORWEGIAN_SPRUCE") {
 	    return (
 		React.createElement("div", null, 
-			React.createElement("img", {src: "../../images/tree-photos/norwegian-spruce.jpg", className: "tree-icon-image-large"})
+			React.createElement("img", {src: "./build/images/tree-photos/norwegian-spruce.jpg", className: "tree-icon-image-large"})
 		)
 		);
   	} else if (this.props.treeView === "NORDMANN_FIR") {
@@ -42027,7 +42027,7 @@ var TreeIcons = React.createClass({displayName: "TreeIcons",
   render: function () {
     return (
 	React.createElement("div", {className: "row"}, 
-		React.createElement(TreeIcon, {handleClick: this.changeToNorwegianView, label: "Norwegian Spruce", price: "£20-40", image: "../../images/tree-photos/norwegian-spruce.jpg", className: TreeInformationStore.getCurrentTreeView() === "NORWEGIAN_SPRUCE" ? "highlight" : null}), 
+		React.createElement(TreeIcon, {handleClick: this.changeToNorwegianView, label: "Norwegian Spruce", price: "£20-40", image: "./build/images/tree-photos/norwegian-spruce.jpg", className: TreeInformationStore.getCurrentTreeView() === "NORWEGIAN_SPRUCE" ? "highlight" : null}), 
 		React.createElement(TreeIcon, {handleClick: this.changeToNordmannView, label: "Nordmann Fir", price: "£28-48", image: "http://www.keelechristmastreefarm.co.uk/img/nordmann-fir.jpg", className: TreeInformationStore.getCurrentTreeView() === "NORDMANN_FIR" ? "highlight" : null}), 
 		React.createElement(TreeIcon, {handleClick: this.changeToFraserView, label: "Fraser Fir", price: "£35-55", image: "http://www.balsamhill.co.uk/v/vspfiles/photos/FRA-T-UK-2.jpg", className: TreeInformationStore.getCurrentTreeView() === "FRASER_FIR" ? "highlight" : null}), 
 		React.createElement(TreeIcon, {handleClick: this.changeToArtificialView, label: "Artificial", price: "£12-70", image: "https://26jvuybq3aw22hpt11xno70y-wpengine.netdna-ssl.com/assets/Memphis-Spruce-Christmas-Tree1.jpg", className: TreeInformationStore.getCurrentTreeView() === "ARTIFICIAL" ? "highlight" : null})
@@ -42106,7 +42106,7 @@ var TreePage = React.createClass({displayName: "TreePage",
     	React.createElement("div", {className: "container-fluid grey-background"}, 
         	React.createElement(NavBar, null), 
         	React.createElement("div", {className: "container"}, 
-            React.createElement("img", {src: "../images/current-step-image-1.png"}), 
+            React.createElement("img", {src: "./build/images/current-step-image-1.png"}), 
             React.createElement("div", {className: "row"}, 
               React.createElement(Header1, {label: "Choose tree type"})
             ), 
