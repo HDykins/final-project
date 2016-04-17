@@ -48,7 +48,7 @@ gulp.task('transfer-photos', function () {
 gulp.task('minifyHtml', function() {
   return gulp.src('./source/*.html')
         .pipe(htmlMinifier({collapseWhitespace: true}))
-        .pipe(gulp.dest('./build'))
+        .pipe(gulp.dest('.'))
 });
 
 gulp.task('watch', function() {
